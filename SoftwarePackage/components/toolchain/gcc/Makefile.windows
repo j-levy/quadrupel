@@ -1,4 +1,0 @@
-GNU_INSTALL_ROOT := ../arm-gcc
-GNU_VERSION := 5.4.0
-GNU_PREFIX := arm-none-eabi
-
