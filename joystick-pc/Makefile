@@ -1,9 +1,15 @@
 
-PRGM=joytest
-FILE=js_sdl.c
+EXEC=js_sdl
+LDFLAGS= -I/usr/include/SDL2 -D_REENTRANT -L/usr/lib64 -lSDL2 -Wl,--no-undefined -lm -ldl -lm -ldl -lpthread -lpthread -lrt
+
 
 all: compile
-	./$(PRGM)
+	./$(EXEC)
 
-compile: $(FILE)
-	gcc -o $(PRGM) $(FILE) `sdl2-config --cflags --libs`
+compile: $(EXEC)
+	gcc -o $(EXEC) $(EXEC).c $(LDFLAGS)
+
+clean: $(EXEC)
+	rm -rf *.o $(EXEC)
+
+	

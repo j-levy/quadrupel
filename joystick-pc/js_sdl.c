@@ -2,38 +2,30 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define LINUX
 
-#ifdef LINUX
-    #include "SDL.h"
+#ifdef linux
+    #include <SDL.h>
+#endif
+#ifdef _WIN32
+    // ADD WINDOWS INCLUDES FOR SDL2 HERE
 #endif
 
 SDL_Window *draw_window(SDL_Surface *screen){
 	SDL_Window *window;                    // Declare a pointer
-
-    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK);              // Initialize SDL
-
     // Create an application window with the following settings:
         window = SDL_CreateWindow(
         "An SDL2 window",                  // window title
         SDL_WINDOWPOS_UNDEFINED,           // initial x position
         SDL_WINDOWPOS_UNDEFINED,           // initial y position
-        640,                               // width, in pixels
-        480,                               // height, in pixels
+        800,                               // width, in pixels
+        600,                               // height, in pixels
         SDL_WINDOW_OPENGL                  // flags - see below
     );
     // Check that the window was successfully created
     if (window == NULL) {
         // In the case that the window could not be made...
         printf("Could not create window: %s\n", SDL_GetError());
-        return (SDL_Window*) NULL;
-    }
-
-    // Check that the window was successfully created
-    if (window == NULL) {
-        // In the case that the window could not be made...
-        printf("Could not create window: %s\n", SDL_GetError());
-        return (SDL_Window*) NULL;
+        exit(EXIT_FAILURE);
     }
 
     // The window is open: could enter program loop here (see SDL_PollEvent())
@@ -42,50 +34,49 @@ SDL_Window *draw_window(SDL_Surface *screen){
 	return window;
 }
 
-int destroy_window(SDL_Window *window){
-	// Close and destroy the window
-    SDL_DestroyWindow(window);
-
-    // Clean up
-    SDL_Quit();
-}
-
 int main (int argc, char **argv)
 {
+    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK);              // Initialize SDL
 
 	SDL_Surface *screen=NULL;
     SDL_Rect elem_gauge;
 	SDL_Window *win = draw_window(screen);
 
-    printf("%i joysticks were found.\n\n", SDL_NumJoysticks() );
+    printf("%i joystick(s) were found.\n\n", SDL_NumJoysticks() );
+    if (SDL_NumJoysticks() < 1)
+        exit(EXIT_FAILURE);
 
     SDL_Joystick *joystick;
 
     SDL_JoystickEventState(SDL_ENABLE);
     joystick = SDL_JoystickOpen(0);
 
-
     SDL_Event event;
     /* Other initializtion code goes here */   
 
     /* Start main game loop here */
-    while(1)
+    char isContinuing = 1;
+    while(isContinuing)
     {
         while(SDL_PollEvent(&event))
         {  
             switch(event.type)
             {  
-                case SDL_KEYDOWN:
-                /* handle keyboard stuff here */	
-
-
+                case SDL_QUIT:
+                isContinuing = 0;
                 break;
 
-                case SDL_QUIT:
-                /* Set whatever flags are necessary to */
-                /* end the main game loop here */
-                destroy_window(win);
-                return 0;
+                case SDL_KEYDOWN:
+                /* handle keyboard stuff here */	
+                switch (event.key.keysym.sym) {
+
+                    case SDLK_ESCAPE: /* Appui sur la touche Echap, on arrête le programme */
+                    isContinuing = 0;
+                    break;
+
+                    default:
+                    printf("Key pressed: %c\n", event.key.keysym.sym);
+                }
                 break;
 
                 case SDL_JOYAXISMOTION:  /* Handle Joystick Motion */
@@ -94,10 +85,18 @@ int main (int argc, char **argv)
 
                 case SDL_JOYBUTTONDOWN:
                 case SDL_JOYBUTTONUP:
-                printf("Button number %d, button state %d:\n",event.jbutton.button, event.type - SDL_JOYBUTTONDOWN);
+                printf("Button number %d, button state %d:\n",event.jbutton.button, SDL_JOYBUTTONUP - event.type);
+                break;
+
+                default:
+                printf("Some non-implemented event occured. Type: %d\n", event.type);
                 break;
             }
         }
     }
+    SDL_JoystickClose(joystick);
+    SDL_DestroyWindow(win);
+    // Clean up
+    SDL_Quit();
     return 0;
 }
