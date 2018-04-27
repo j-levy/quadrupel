@@ -17,8 +17,8 @@ SDL_Window *draw_window(SDL_Surface *screen){
         "An SDL2 window",                  // window title
         SDL_WINDOWPOS_UNDEFINED,           // initial x position
         SDL_WINDOWPOS_UNDEFINED,           // initial y position
-        800,                               // width, in pixels
-        600,                               // height, in pixels
+        300,                               // width, in pixels
+        200,                               // height, in pixels
         SDL_WINDOW_OPENGL                  // flags - see below
     );
     // Check that the window was successfully created
@@ -56,6 +56,7 @@ int main (int argc, char **argv)
 
     /* Start main game loop here */
     char isContinuing = 1;
+    int counter = 0;
     while(isContinuing)
     {
         while(SDL_PollEvent(&event))
@@ -67,6 +68,7 @@ int main (int argc, char **argv)
                 break;
 
                 case SDL_KEYDOWN:
+                case SDL_KEYUP:
                 /* handle keyboard stuff here */	
                 switch (event.key.keysym.sym) {
 
@@ -75,7 +77,8 @@ int main (int argc, char **argv)
                     break;
 
                     default:
-                    printf("Key pressed: %c\n", event.key.keysym.sym);
+                    printf("Key pressed: %c, status:%d, repeated:%d\n", event.key.keysym.sym, event.key.state, event.key.repeat);
+
                 }
                 break;
 
@@ -89,7 +92,7 @@ int main (int argc, char **argv)
                 break;
 
                 default:
-                printf("Some non-implemented event occured. Type: %d\n", event.type);
+                //printf("Some non-implemented event occured. Type: %d\n", event.type);
                 break;
             }
         }
