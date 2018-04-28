@@ -2,13 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include <SDL.h>
 
-#ifdef linux
-    #include <SDL.h>
-#endif
-#ifdef _WIN32
-    // ADD WINDOWS INCLUDES FOR SDL2 HERE
-#endif
 
 SDL_Window *draw_window(SDL_Surface *screen){
 	SDL_Window *window;                    // Declare a pointer
