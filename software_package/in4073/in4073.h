@@ -21,7 +21,7 @@
 #include "app_util_platform.h"
 #include <math.h>
 
-#define RED		22
+#define RED		    22
 #define YELLOW		24
 #define GREEN		28
 #define BLUE		30
@@ -106,5 +106,17 @@ queue ble_tx_queue;
 volatile bool radio_active;
 void ble_init(void);
 void ble_send(void);
+
+
+// Mode
+uint8_t mode;
+
+// Packet Parser [Jonathan LEVY]
+void process_packet(uint8_t c);
+
+void process_mode(uint8_t mode);
+void process_key(uint8_t c);
+void process_joystick(uint8_t id, int16_t value);
+
 
 #endif // IN4073_H__

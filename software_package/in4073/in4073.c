@@ -16,9 +16,33 @@
 #include "in4073.h"
 
 /*------------------------------------------------------------------
- * process_key -- process command keys
+ * process_THING -- process command keys, mode change, or joystick
+ * Jonathan Lévy
+ * April 2018
  *------------------------------------------------------------------
  */
+void process_mode(uint8_t m) 
+{
+	if (m <= 8)
+	{
+		mode = m;
+		printf("\n====================================\n\t\tMode changed to %d\n====================================\n", m);
+	}
+		
+}
+void process_joystick(uint8_t id, int16_t value)
+{
+	printf("\n====================================\n\t\tProcessing id: %d, value: %d\n====================================\n", id, value);
+
+	if (id < 4) // it's a stick value or a Roll/Pitch/Yaw/Directoin
+	{
+		// do stuff here
+	} else if (id < 9) // it's a button (4 available)
+	{
+		// do stuff here
+	}
+}
+
 void process_key(uint8_t c)
 {
 	switch (c)
@@ -77,24 +101,32 @@ int main(void)
 
 	uint32_t counter = 0;
 	demo_done = false;
+	mode = 0;
 
 	while (!demo_done)
 	{
-		if (rx_queue.count) process_key( dequeue(&rx_queue) );
+		if (rx_queue.count) 
+			process_packet( dequeue(&rx_queue) );
 
 		if (check_timer_flag()) 
 		{
-			if (counter++%20 == 0) nrf_gpio_pin_toggle(BLUE);
+			if (counter++%20 == 0) 
+				nrf_gpio_pin_toggle(BLUE);
 
 			adc_request_sample();
 			read_baro();
 
+
 			printf("%10ld | ", get_time_us());
 			printf("%3d %3d %3d %3d | ",ae[0],ae[1],ae[2],ae[3]);
+			/*
 			printf("%6d %6d %6d | ", phi, theta, psi);
 			printf("%6d %6d %6d | ", sp, sq, sr);
 			printf("%4d | %4ld | %6ld \n", bat_volt, temperature, pressure);
+			*/
 
+			printf("%d | ", mode);
+			printf("\n");
 			clear_timer_flag();
 		}
 
