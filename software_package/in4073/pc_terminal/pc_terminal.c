@@ -213,6 +213,81 @@ int 	rs232_putchar(char c)
 }
 
 
+/*------------------------------------------------------------
+ * Method to create packet as per the protocol to be sent over serial 
+ *
+ * Author - Niket Agrawal
+ *
+ * (Full protocol details to be updated here)
+ * Start bit - 0x01 (1 byte)
+ * Packet type - Mode packet:0, Joystick packet:1, trimming packet:2  (1 byte)
+ * 
+ * Returns pointer to newly created packet
+ *------------------------------------------------------------
+ */
+char *create_packet(short value, int index_state, int size, int type)
+{
+	char packet[size];
+	packet[0] = 1;   //start bit
+	packet[1] = type;   // type of packet
+
+	switch(type)
+	{
+		case 0: packet[2] = value;         //type zero detected -> mode data from keyboard received
+		break;
+
+		case 1: packet[2] = index_state;  // type 1 detected -> data from joystick -> this byte holds the stick/button index
+										  // two bytes needed to hold the stick value(16 bit signed) or button state(0/1)
+
+
+				/* redundant code since stick value and button state both are stored in 2 bytes, keep for now
+				swich(index_state)
+				{
+					case 0: 
+					case 1:
+					case 2:
+					case 3: packet[3] = (value & 0xff00) >> 8;
+							packet[4] = value & 0x00ff;
+					case 4:
+					case 5:
+					case 6:
+
+				}*/
+
+				packet[3] = (value & 0xff00) >> 8;
+				packet[4] = value & 0x00ff;
+				packet[5] = ((packet[0] ^ packet[1] ^ packet[2] ^ packet[3] ^ packet[4]) & 0xff00) >> 8; //CRC
+		break; 
+
+		case 2: packet[2] = value;   //type 2 detected -> static offset received from keyboard
+		break;
+
+		default: printf("Invalid input\n");
+		break;
+	}
+	char *return_packet = (char *)malloc(size);
+	memcpy(return_packet, packet, size);
+	return return_packet;
+}
+
+/*------------------------------------------------------------
+ * Method to send the created packet over serial 
+ *
+ * Author - Niket Agrawal
+ *
+ * Check if dependency on 'size' info can be removed.
+ *------------------------------------------------------------
+ */
+void send_packet(char *packet, int size)
+{
+	int i = 0;
+	while((rs232_putchar(*packet) == 1) && (i < size))
+	{
+		packet++;
+		i++;
+	}
+}
+
 /*----------------------------------------------------------------
  * main -- execute terminal
  *----------------------------------------------------------------
@@ -220,6 +295,8 @@ int 	rs232_putchar(char c)
 int main(int argc, char **argv)
 {
 	char	c;
+	int packet_size;
+	int packet_type;
 
 	term_puts("\nTerminal program - Embedded Real-Time Systems\n");
 
@@ -276,7 +353,18 @@ int main(int argc, char **argv)
 
                     default:
                     printf("Key pressed: %c, status:%d, repeated:%d\n", event.key.keysym.sym, event.key.state, event.key.repeat);
-					rs232_putchar(event.key.keysym.sym);
+                    packet_size = 4;
+                    //Handling of repeated key press action pending
+                    if((event.key.keysym.sym >= 48) && (event.key.keysym.sym <= 56 ))
+                    {
+                    	packet_type = 0;     //mode packet
+                    }
+                    else
+                    {
+                    	packet_type = 2;    //trimming data, offset 
+                    }
+                    char *packet = create_packet(event.key.keysym.sym, packet_size, packet_type, event.key.state);
+                    send_packet(packet, packet_size);
 					break;
                 }
                 break;
@@ -284,11 +372,23 @@ int main(int argc, char **argv)
                 
                 case SDL_JOYAXISMOTION:  /* Handle Joystick Motion */
                 printf("Axis number %d, value %d\n",event.jaxis.axis, event.jaxis.value);
+                packet_size = 6;
+                packet_type = 1;  //data from joystick
+                char *packet = create_packet(event.jaxis.value, packet_size, packet_type, event.jaxis.axis);
+                send_packet(packet, packet_size);
                 break;
 
                 case SDL_JOYBUTTONDOWN:
                 case SDL_JOYBUTTONUP:                
-                printf("Button number %d, button state %d:\n",event.jbutton.button, SDL_JOYBUTTONUP - event.type);
+                printf("Button number %d, button state %d:\n",event.jbutton.button, event.jbutton.state);
+                packet_size = 4;
+                packet_type = 1;  //data from joystick
+                if(event.jbutton.state)
+                {
+                	char *packet = create_packet(event.jbutton.button, packet_size, packet_type, event.jbutton.state);
+                	send_packet(packet, packet_size);
+                }
+
                 break;
 
                 default:
