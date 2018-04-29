@@ -20,14 +20,18 @@ uint8_t CRC_pass() {
     CRC = 0;
     
     return isValid;
-    //return 1; // Test just to see if the parsing is correct. no CRC validation.
 }
 
 
 void process_packet(uint8_t c) {
     
+    printf("\n====================================\n\t\tRead : %x, index : %d\n====================================\n", c, index);
+
+    /*
+    // Packet beginning detection. Disabled at the moment to see what happens when pressing different key strokes.
     if (index == 0 && c != 0xff)
         return ;
+    */
 
     packet[index] = c;
     CRC = CRC ^ c;
@@ -50,7 +54,6 @@ void process_packet(uint8_t c) {
         if (CRC_pass())
             process_joystick(packet[2], value);
     }
-    printf("\n====================================\n\t\tRead : %x, index : %d\n====================================\n", c, index);
 
     index = (index >= 5) ? 0 : index + 1; // in any case, don't go over 5.
 }
