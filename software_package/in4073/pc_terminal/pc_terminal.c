@@ -228,44 +228,37 @@ int 	rs232_putchar(char c)
 char *create_packet(short value, int index_state, int size, int type)
 {
 	char packet[size];
-	packet[0] = 1;   //start bit
+	packet[0] = 1;   //start byte
 	packet[1] = type;   // type of packet
-
+	printf("type in create_packet function is %d\n", type);
 	switch(type)
 	{
-		case 0: packet[2] = value;         //type zero detected -> mode data from keyboard received
+		case 0: 
+				printf("mode data from keyboard\n");
+				packet[2] = value;         //type zero detected -> mode data from keyboard received
 		break;
 
-		case 1: packet[2] = index_state;  // type 1 detected -> data from joystick -> this byte holds the stick/button index
+		case 1: 
+				printf("joystick data detected\n");
+				packet[2] = index_state;  // type 1 detected -> data from joystick -> this byte holds the stick/button index
 										  // two bytes needed to hold the stick value(16 bit signed) or button state(0/1)
 
-
-				/* redundant code since stick value and button state both are stored in 2 bytes, keep for now
-				swich(index_state)
-				{
-					case 0: 
-					case 1:
-					case 2:
-					case 3: packet[3] = (value & 0xff00) >> 8;
-							packet[4] = value & 0x00ff;
-					case 4:
-					case 5:
-					case 6:
-
-				}*/
-
-				packet[3] = (value & 0xff00) >> 8;
+				packet[3] = (value & 0xff00) >> 8; //storing MSB first
 				packet[4] = value & 0x00ff;
-				packet[5] = ((packet[0] ^ packet[1] ^ packet[2] ^ packet[3] ^ packet[4]) & 0xff00) >> 8; //CRC
+				packet[5] = packet[0] ^ packet[1] ^ packet[2] ^ packet[3] ^ packet[4]; //CRC
 		break; 
 
-		case 2: packet[2] = value;   //type 2 detected -> static offset received from keyboard
+		case 2: 
+				printf("trimming data detected\n");
+				packet[2] = value;   //type 2 detected -> static offset received from keyboard
 		break;
 
-		default: printf("Invalid input\n");
+		default:
+			printf("default type is %d\n", type); 
+			printf("Invalid input\n");
 		break;
 	}
-	char *return_packet = (char *)malloc(size);
+	char *return_packet = (char *)malloc(size * sizeof(char));
 	memcpy(return_packet, packet, size);
 	return return_packet;
 }
@@ -286,6 +279,7 @@ void send_packet(char *packet, int size)
 		packet++;
 		i++;
 	}
+	printf("packet sent\n");
 }
 
 /*----------------------------------------------------------------
@@ -354,18 +348,23 @@ int main(int argc, char **argv)
                     default:
                     printf("Key pressed: %c, status:%d, repeated:%d\n", event.key.keysym.sym, event.key.state, event.key.repeat);
                     packet_size = 4;
-                    //Handling of repeated key press action pending
-                    if((event.key.keysym.sym >= 48) && (event.key.keysym.sym <= 56 ))
+                    
+                    if(((event.key.keysym.sym >= 48) && (event.key.keysym.sym <= 56 )) && (event.key.state == 1))
                     {
-                    	packet_type = 0;     //mode packet
+                    	printf("entered value from keyboard is between 0 and 8, assignning packet type as 0\n");
+                    	packet_type = 0;     //mode packet 
+                    	char *packet = create_packet(event.key.keysym.sym, event.key.state, packet_size, packet_type);
+                    	send_packet(packet, packet_size);
+                    	break;
                     }
-                    else
+                    else if(((event.key.keysym.sym >= 97) && (event.key.keysym.sym <= 122 )) && (event.key.state == 1))
                     {
-                    	packet_type = 2;    //trimming data, offset 
-                    }
-                    char *packet = create_packet(event.key.keysym.sym, packet_size, packet_type, event.key.state);
-                    send_packet(packet, packet_size);
-					break;
+                    	printf("received static trimming data from keyboard, assigning packet_type as 2\n");
+                    	packet_type = 2;    //trimming data, offset
+                    	char *packet = create_packet(event.key.keysym.sym, event.key.state, packet_size, packet_type);
+                    	send_packet(packet, packet_size); 
+                    	break;
+                    }	
                 }
                 break;
 				
@@ -374,7 +373,9 @@ int main(int argc, char **argv)
                 printf("Axis number %d, value %d\n",event.jaxis.axis, event.jaxis.value);
                 packet_size = 6;
                 packet_type = 1;  //data from joystick
-                char *packet = create_packet(event.jaxis.value, packet_size, packet_type, event.jaxis.axis);
+                char *packet = create_packet(event.jaxis.value, event.jaxis.axis, packet_size, packet_type);
+                //check if timer has expired except the first time
+                //if(!first_packet && (time_elapsed == 20))
                 send_packet(packet, packet_size);
                 break;
 
@@ -385,7 +386,9 @@ int main(int argc, char **argv)
                 packet_type = 1;  //data from joystick
                 if(event.jbutton.state)
                 {
-                	char *packet = create_packet(event.jbutton.button, packet_size, packet_type, event.jbutton.state);
+                	char *packet = create_packet(event.jbutton.button, event.jbutton.state, packet_size, packet_type);
+                	//check if timer has expired except the first time
+                	//if(!first_packet && (time_elapsed == 20))
                 	send_packet(packet, packet_size);
                 }
 
