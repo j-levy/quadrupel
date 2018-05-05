@@ -39,7 +39,7 @@ void send_ack(){
 
 void process_packet(uint8_t c) {
     
-    printf("\n====================================\n\t\tRead : %x, index : %d\n====================================\n", c, index);
+    // printf("\n====================================\n\t\tRead : %x, index : %d\n====================================\n", c, index);
 
     // Packet beginning detection.
     if (index == 0 && c != 0xff)
