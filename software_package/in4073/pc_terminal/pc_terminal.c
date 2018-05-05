@@ -7,23 +7,87 @@
  *------------------------------------------------------------
  */
 
+#include <ctype.h>
+#include <fcntl.h>
+#include <assert.h>
+#include <time.h>
+
 #include <stdio.h>
+#include <stdlib.h>
 #include <termios.h>
 #include <unistd.h>
 #include <string.h>
 #include <inttypes.h>
+#include <errno.h>
+#include <signal.h>
+
+
 #include "packet_constants.h"
+#include "joystick.h"
 
 #include <SDL.h>
 
 
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <SDL.h>
 
 uint8_t packet[SIZEOFPACKET] = {0};   		//Initializing packet to send
 unsigned short packet_id = 0;
+
+
+/* useful values for joystick*/
+int 		fd;
+struct js_event js;
+
+
+JoystickData *JoystickData_create() {
+	JoystickData *jsdata = malloc(sizeof(JoystickData));
+	for (int i = 0; i < NBRAXES; i++)
+		(jsdata->axis)[i] = 0;
+	for (int i = 0; i < NBRBUTTONS; i++)
+		(jsdata->button)[i] = 0;
+	return jsdata;
+}
+
+void JoystickData_destroy(JoystickData *jsdata)
+{
+	free(jsdata);
+}
+
+void js_init()
+{
+	if ((fd = open(JS_DEV, O_RDONLY)) < 0) {
+		perror("jstest");
+		exit(1);
+	}
+	fcntl(fd, F_SETFL, O_NONBLOCK);
+}
+
+void js_getJoystickValue (JoystickData *jsdat)
+{
+		/* check up on JS
+		 */
+		while (read(fd, &js, sizeof(struct js_event)) == 
+		       			sizeof(struct js_event))  {
+
+			/* register data
+			 */
+			// fprintf(stderr,".");
+			switch(js.type & ~JS_EVENT_INIT) {
+				case JS_EVENT_BUTTON:
+					jsdat->button[js.number] = js.value;
+					break;
+				case JS_EVENT_AXIS:
+					jsdat->axis[js.number] = js.value;
+					break;
+			}
+		}
+		
+		if (errno != EAGAIN) {
+			perror("\njs: error reading (EAGAIN)");
+			exit (1);
+		}
+		
+
+}
 
 
 SDL_Window *draw_window(SDL_Surface *screen){
@@ -112,13 +176,6 @@ int	term_getchar()
  * 115,200 baud
  *------------------------------------------------------------
  */
-#include <termios.h>
-#include <ctype.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <assert.h>
-#include <time.h>
 
 int serial_device = 0;
 int fd_RS232;
@@ -216,7 +273,7 @@ int 	rs232_putchar(char c)
 /*------------------------------------------------------------
  * Method to send the created packet over serial 
  *
- * Author - Niket Agrawal
+ * Author - Niket Agrawal, Jonathan Lévy
  *
  * Check if dependency on 'size' info can be removed.
  *------------------------------------------------------------
@@ -229,6 +286,7 @@ void send_packet(void* param)
 	packet[PACKETID + 1] = LSBYTE(packet_id);
 	packet_id++;
 	uint8_t crc = 0;
+
 	for(int i = 0; i < SIZEOFPACKET; i++)
 	{
 		crc = crc ^ packet[i];
@@ -240,8 +298,7 @@ void send_packet(void* param)
 		i++;
 	}
 
-
-	// reset all packet to zero.
+	// display, and reset all packet to zero (why use 2 loops when 1 is enough ?)
 	fprintf(stderr, "packet sent : ");
 	for (int j = 0; j < SIZEOFPACKET; j++)
 	{
@@ -249,27 +306,6 @@ void send_packet(void* param)
 		packet[j] = 0;
 	}
 	fprintf(stderr, "\n");
-}
-
-Uint32 callback_send_packet(Uint32 interval, void *param)
-{
-    SDL_Event event;
-    SDL_UserEvent userevent;
-
-    /* In this example, our callback pushes a function
-    into the queue, and causes our callback to be called again at the
-    same interval: */
-
-    userevent.type = SDL_USEREVENT;
-    userevent.code = 0;
-    userevent.data1 = &send_packet;
-    userevent.data2 = param;
-
-    event.type = SDL_USEREVENT;
-    event.user = userevent;
-
-    SDL_PushEvent(&event);
-    return(interval);
 }
 
 void (*p) (void*);
@@ -300,125 +336,63 @@ int main(int argc, char **argv)
 	/* send & receive
 	 */
 
-	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_TIMER);              // Initialize SDL
-
-	SDL_Surface *screen=NULL;
-	SDL_Window *win = draw_window(screen);
-
-    fprintf(stderr, "%i joystick(s) were found.\n\n", SDL_NumJoysticks() );
-    if (SDL_NumJoysticks() < 1)
-        exit(EXIT_FAILURE);
-
-
-    SDL_TimerID my_timer_id = SDL_AddTimer(DELAYSENDPACKET, callback_send_packet, NULL);
-    if (my_timer_id == 0)
-    {
-    	SDL_GetError();
-    	exit (EXIT_FAILURE);
-    }
-
-
-    SDL_JoystickEventState(SDL_ENABLE);
-	SDL_Joystick *joystick;
-    joystick = SDL_JoystickOpen(0);
-
-	SDL_Event event;
 	char isContinuing = 1;
 
+	js_init();
+	JoystickData *jsdat = JoystickData_create();
+
+	struct timespec tp;
+	clock_gettime(CLOCK_REALTIME, &tp);
+	
+	long tic = tp.tv_nsec;
+	time_t tic_s = tp.tv_sec;
 
 	while (isContinuing)
 	{
-		packet[PACKETID] = MSBYTE(packet_id); 	//packet ID
-		packet[PACKETID + 1] = LSBYTE(packet_id);
 
-		// poll axes values
-		short axisvalue = 0;
-		for (int i = 0; i < 4; i++)
+
+		// poll axes with raw-OS method
+		js_getJoystickValue(jsdat);
+		for (int j = 0; j < NBRAXES; j++)
 		{
-			axisvalue = SDL_JoystickGetAxis(joystick, i);  //To keep sending packets at the stick extremes 
-			packet[AXISTHROTTLE + 2*i] = MSBYTE(axisvalue);
-			packet[AXISTHROTTLE + 2*i +1] = LSBYTE(axisvalue);
-
+			packet[AXISTHROTTLE + 2*j] = MSBYTE( jsdat->axis[j] );
+			packet[AXISTHROTTLE + 2*j + 1] = LSBYTE( jsdat->axis[j] );
 		}
-
+		for (int j = 0; j < NBRBUTTONS; j++)
+		{
+			packet[JOYBUTTON] |= 1 << (jsdat->button[j] == 1 ? j : 10); // 10 for not storing anything.
+		}
+		
 		if ((c = term_getchar_nb()) != -1)
-			packet[KEY] = c;
-		
-		// poll for keyboard or buttons event
-		if(SDL_PollEvent(&event))
-        {  
-            switch(event.type)
-            {  
-                case SDL_QUIT:
+		{
+			if (c == 27) // escape key
 				isContinuing = 0;
-                break;
-                
-                /*
-                case SDL_KEYDOWN:
-                case SDL_KEYUP:
-                // handle keyboard stuff here 	
-                switch (event.key.keysym.sym) {
 
-                    case SDLK_ESCAPE: 
-					isContinuing = 0;
-                    break;
-
-                    default:
-                    //printf("Key pressed: %c, status:%d, repeated:%d\n", event.key.keysym.sym, event.key.state, event.key.repeat);
-                    
-                    if(((event.key.keysym.sym >= '0') && (event.key.keysym.sym <= '8' )) && (event.key.state == 1))
-                
-                    {
-                    	//printf("========Mode input from keyboard detected=========\n");
-                    	packet[KEY] = event.key.keysym.sym;
-                    	break;
-                    }
-                    else if((((event.key.keysym.sym >= 'a') && (event.key.keysym.sym <= 'z' )) && (event.key.state == 1))  
-                    	&& !((packet[KEY] >= '0') && (packet[KEY] <= '8')))
-                    {
-                    	//printf("=======Trimming data input from keyboard detected=========\n");
-                    	packet[KEY] = event.key.keysym.sym;
-                    	break;
-                    }
-                }
-                break;
-				
-				
-                case SDL_JOYBUTTONDOWN:
-                case SDL_JOYBUTTONUP:                
-                {
-                if(event.jbutton.state)
-                	packet[JOYBUTTON] |= (1 << event.jbutton.button);		
-                }
-                break;
-				*/
-
-                case SDL_USEREVENT:
-					p = event.user.data1;
-            		p(event.user.data2);
-                break;
-
-                default:
-                //printf("Some non-implemented event occured. Type: %d\n", event.type);
-                break;
-            }
-        }
+			packet[KEY] = c;
+		}
 		
-		      
+
 		if ((c = rs232_getchar_nb()) != -1)
 			term_putchar(c);
+		
+		clock_gettime(CLOCK_REALTIME, &tp);
+		fprintf(stderr, "clk=%ld,%ld\n",tp.tv_sec, tp.tv_nsec);
+		if (tp.tv_nsec - tic >= DELAY_PACKET_NS || tp.tv_sec - tic_s > 0)
+		{
+			tic = tp.tv_nsec;
+			tic_s = tp.tv_sec;
+			send_packet(NULL);
+		}
+		
        
         
 	}
-
+	
+	JoystickData_destroy(jsdat);
 	term_exitio();
 	rs232_close();
 	term_puts("\n<exit>\n");
 
-	SDL_JoystickClose(joystick);
-    SDL_DestroyWindow(win);
-    // Clean up
-    SDL_Quit();
 
 	return 0;
 }
