@@ -16,46 +16,74 @@
 #include "in4073.h"
 
 /*------------------------------------------------------------------
- * process_key -- process command keys
+ * process_{joystick, key} -- process command keys, mode change, or joystick
+ * Jonathan Lévy
+ * April 2018
  *------------------------------------------------------------------
  */
-void process_key(uint8_t c)
+void process_joystick_axis(uint8_t *val)
 {
-	switch (c)
+	for (int i = 0; i < 4; i++)
 	{
-		case 'q':
-			ae[0] += 10;
-			break;
-		case 'a':
-			ae[0] -= 10;
-			if (ae[0] < 0) ae[0] = 0;
-			break;
-		case 'w':
-			ae[1] += 10;
-			break;
-		case 's':
-			ae[1] -= 10;
-			if (ae[1] < 0) ae[1] = 0;
-			break;
-		case 'e':
-			ae[2] += 10;
-			break;
-		case 'd':
-			ae[2] -= 10;
-			if (ae[2] < 0) ae[2] = 0;
-			break;
-		case 'r':
-			ae[3] += 10;
-			break;
-		case 'f':
-			ae[3] -= 10;
-			if (ae[3] < 0) ae[3] = 0;
-			break;
-		case 27:
-			demo_done = true;
-			break;
-		default:
-			nrf_gpio_pin_toggle(RED);
+		uint16_t stickvalue = TOSHORT(*(val + 2*i), *(val + 2*i + 1));
+		printf("\n=============== STICK %d HAS VALUE %d ==============\n", i, stickvalue);
+	}
+}
+
+void process_joystick_button(uint8_t *val)
+{
+	for (int i = 0; i < 8; i++)
+	{
+		if ((*val & (1<<i)) >> i) // (if button #i has been pressed)
+		{
+			printf("\n=============== BUTTON %d PRESSED ==============\n", i);
+		}
+	}
+}
+
+void process_key(uint8_t *val)
+{
+	if (*val >= '0' && *val <= '8')
+	{
+		mode = *val;
+		printf("\n====================================\n\t\tMode changed to %d\n====================================\n", *val);
+	} else {
+		switch (*val)
+		{
+			case 'q':
+				ae[0] += 10;
+				break;
+			case 'a':
+				ae[0] -= 10;
+				if (ae[0] < 0) ae[0] = 0;
+				break;
+			case 'w':
+				ae[1] += 10;
+				break;
+			case 's':
+				ae[1] -= 10;
+				if (ae[1] < 0) ae[1] = 0;
+				break;
+			case 'e':
+				ae[2] += 10;
+				break;
+			case 'd':
+				ae[2] -= 10;
+				if (ae[2] < 0) ae[2] = 0;
+				break;
+			case 'r':
+				ae[3] += 10;
+				break;
+			case 'f':
+				ae[3] -= 10;
+				if (ae[3] < 0) ae[3] = 0;
+				break;
+			case 27:
+				demo_done = true;
+				break;
+			default:
+				nrf_gpio_pin_toggle(RED);
+		}
 	}
 }
 
@@ -77,24 +105,32 @@ int main(void)
 
 	uint32_t counter = 0;
 	demo_done = false;
+	mode = 0;
 
 	while (!demo_done)
 	{
-		if (rx_queue.count) process_key( dequeue(&rx_queue) );
+		if (rx_queue.count) 
+			process_packet( dequeue(&rx_queue) );
 
 		if (check_timer_flag()) 
 		{
-			if (counter++%20 == 0) nrf_gpio_pin_toggle(BLUE);
+			if (counter++%20 == 0) 
+				nrf_gpio_pin_toggle(BLUE);
 
 			adc_request_sample();
 			read_baro();
 
+
 			printf("%10ld | ", get_time_us());
 			printf("%3d %3d %3d %3d | ",ae[0],ae[1],ae[2],ae[3]);
+			/*
 			printf("%6d %6d %6d | ", phi, theta, psi);
 			printf("%6d %6d %6d | ", sp, sq, sr);
 			printf("%4d | %4ld | %6ld \n", bat_volt, temperature, pressure);
+			*/
 
+			printf("%d | ", mode);
+			printf("\n");
 			clear_timer_flag();
 		}
 
