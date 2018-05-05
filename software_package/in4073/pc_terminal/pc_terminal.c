@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <inttypes.h>
+#include "packet_constants.h"
 
 #include <SDL.h>
 
@@ -21,7 +22,7 @@
 #include <stdio.h>
 #include <SDL.h>
 
-
+char packet[SIZEOFPACKET] = {0};   		//Initializing packet to send to the drone over serial 
 
 SDL_Window *draw_window(SDL_Surface *screen){
 	SDL_Window *window;                    // Declare a pointer
@@ -46,9 +47,6 @@ SDL_Window *draw_window(SDL_Surface *screen){
     //SDL_Delay(3000);  // Pause execution for 3000 milliseconds, for example
 	return window;
 }
-
-
-
 
 
 
@@ -224,13 +222,27 @@ int 	rs232_putchar(char c)
  * 
  * Returns pointer to newly created packet
  *------------------------------------------------------------
- */
-char *create_packet(short value, int index_state, int size, int type)
+ 
+char *create_packet(int keyboard_char, int joy_button_index, int joy_stick_index, int joy_stick_value)
 {
-	char packet[size];
-	packet[0] = 1;   //start byte
+	char packet[14];
+	packet[0] = 1;   	//start byte
+
+	packet[1] = (packet_id & 0xff00) >> 8; 	//packet ID
+	packet[2] = value & 0x00ff;
+
+	packet[3] = keyboard_char;
+	packet[4] = joy_button_index;
+
+	 
+	packet[5] = (joy_stick_value & 0xff00) >> 8;
+	packet[6] = joy_stick_value & 0x00ff;
+	
+	
 	packet[1] = type;   // type of packet
 	printf("type in create_packet function is %d\n", type);
+
+	
 	switch(type)
 	{
 		case 0: 
@@ -240,9 +252,10 @@ char *create_packet(short value, int index_state, int size, int type)
 
 		case 1: 
 				printf("joystick data detected\n");
-				packet[2] = index_state;  // type 1 detected -> data from joystick -> this byte holds the stick/button index
-										  // two bytes needed to hold the stick value(16 bit signed) or button state(0/1)
-
+				packet[2] = index_state;  // type 1 detected -> data from joystick -> 
+										  //this byte holds the stick/button index
+										  // two bytes needed to hold the stick 
+										  //value(16 bit signed) or button state(0/1)
 				packet[3] = (value & 0xff00) >> 8; //storing MSB first
 				packet[4] = value & 0x00ff;
 				packet[5] = packet[0] ^ packet[1] ^ packet[2] ^ packet[3] ^ packet[4]; //CRC
@@ -253,15 +266,26 @@ char *create_packet(short value, int index_state, int size, int type)
 				packet[2] = value;   //type 2 detected -> static offset received from keyboard
 		break;
 
-		default:
-			printf("default type is %d\n", type); 
-			printf("Invalid input\n");
+		default: 
+				printf("Invalid input\n");
 		break;
 	}
-	char *return_packet = (char *)malloc(size * sizeof(char));
-	memcpy(return_packet, packet, size);
+	
+
+	char *return_packet = (char *)malloc(14 * sizeof(char));
+	memcpy(return_packet, packet, 14);
+	
+	if(packet_id < 65535)
+	{
+		packet_id++;		
+	}
+	else
+	{
+		packet_id = 1;
+	}
 	return return_packet;
 }
+*/
 
 /*------------------------------------------------------------
  * Method to send the created packet over serial 
@@ -271,16 +295,42 @@ char *create_packet(short value, int index_state, int size, int type)
  * Check if dependency on 'size' info can be removed.
  *------------------------------------------------------------
  */
-void send_packet(char *packet, int size)
+void send_packet(void* param)
 {
 	int i = 0;
-	while((rs232_putchar(*packet) == 1) && (i < size))
+	while((rs232_putchar(packet[i]) == 1) && (i < SIZEOFPACKET))
 	{
-		packet++;
 		i++;
 	}
+
 	printf("packet sent\n");
+
+	memset(packet, 0, sizeof(packet));	
 }
+
+Uint32 callback_send_packet(Uint32 interval, void *param)
+{
+    SDL_Event event;
+    SDL_UserEvent userevent;
+
+    /* In this example, our callback pushes a function
+    into the queue, and causes our callback to be called again at the
+    same interval: */
+
+    userevent.type = SDL_USEREVENT;
+    userevent.code = 0;
+    userevent.data1 = &send_packet;
+    userevent.data2 = param;
+
+    event.type = SDL_USEREVENT;
+    event.user = userevent;
+
+    SDL_PushEvent(&event);
+    return(interval);
+}
+
+void (*p) (void*);
+
 
 /*----------------------------------------------------------------
  * main -- execute terminal
@@ -288,10 +338,11 @@ void send_packet(char *packet, int size)
  */
 int main(int argc, char **argv)
 {
-	char	c;
-	int packet_size;
-	int packet_type;
-
+	unsigned short packet_id = 1;
+	
+	char crc = 0;
+	packet[START] = 0xff;
+	
 	term_puts("\nTerminal program - Embedded Real-Time Systems\n");
 
 	term_initio();
@@ -308,7 +359,7 @@ int main(int argc, char **argv)
 	/* send & receive
 	 */
 
-	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK);              // Initialize SDL
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_TIMER);              // Initialize SDL
 
 	SDL_Surface *screen=NULL;
 	SDL_Window *win = draw_window(screen);
@@ -317,7 +368,14 @@ int main(int argc, char **argv)
     if (SDL_NumJoysticks() < 1)
         exit(EXIT_FAILURE);
 
-    
+
+    SDL_TimerID my_timer_id = SDL_AddTimer(DELAYSENDPACKET, callback_send_packet, NULL);
+    if (my_timer_id == 0)
+    {
+    	SDL_GetError();
+    	exit (EXIT_FAILURE);
+    }
+
 
     SDL_JoystickEventState(SDL_ENABLE);
 	SDL_Joystick *joystick;
@@ -325,8 +383,27 @@ int main(int argc, char **argv)
 
 	SDL_Event event;
 	char isContinuing = 1;
+
+
 	while (isContinuing)
 	{
+		
+		
+
+		packet[PACKETID] = MSBYTE(packet_id); 	//packet ID
+		packet[PACKETID + 1] = LSBYTE(packet_id);
+
+		// poll axes values
+		short axisvalue = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			axisvalue = SDL_JoystickGetAxis(joystick, i);  //To keep sending packets at the stick extremes 
+			packet[AXISTHROTTLE + 2*i] = MSBYTE(axisvalue);
+			packet[AXISTHROTTLE + 2*i +1] = LSBYTE(axisvalue);
+
+		}
+
+		// poll for keyboard or buttons event
 		if(SDL_PollEvent(&event))
         {  
             switch(event.type)
@@ -347,51 +424,76 @@ int main(int argc, char **argv)
 
                     default:
                     printf("Key pressed: %c, status:%d, repeated:%d\n", event.key.keysym.sym, event.key.state, event.key.repeat);
-                    packet_size = 4;
                     
-                    if(((event.key.keysym.sym >= 48) && (event.key.keysym.sym <= 56 )) && (event.key.state == 1))
+                    if(((event.key.keysym.sym >= '0') && (event.key.keysym.sym <= '8' )) && (event.key.state == 1))
+                
                     {
-                    	printf("entered value from keyboard is between 0 and 8, assignning packet type as 0\n");
-                    	packet_type = 0;     //mode packet 
-                    	char *packet = create_packet(event.key.keysym.sym, event.key.state, packet_size, packet_type);
-                    	send_packet(packet, packet_size);
+                    	printf("========Mode input from keyboard detected=========\n");
+                    	packet[KEY] = event.key.keysym.sym;
                     	break;
                     }
-                    else if(((event.key.keysym.sym >= 97) && (event.key.keysym.sym <= 122 )) && (event.key.state == 1))
+                    else if((((event.key.keysym.sym >= 'a') && (event.key.keysym.sym <= 'z' )) && (event.key.state == 1))  
+                    	&& !((packet[KEY] >= '0') && (packet[KEY] <= '8')))
                     {
-                    	printf("received static trimming data from keyboard, assigning packet_type as 2\n");
-                    	packet_type = 2;    //trimming data, offset
-                    	char *packet = create_packet(event.key.keysym.sym, event.key.state, packet_size, packet_type);
-                    	send_packet(packet, packet_size); 
+                    	printf("=======Trimming data input from keyboard detected=========\n");
+                    	packet[KEY] = event.key.keysym.sym;
                     	break;
-                    }	
+                    }
                 }
                 break;
 				
-                
-                case SDL_JOYAXISMOTION:  /* Handle Joystick Motion */
+				/*
+                case SDL_JOYAXISMOTION:  // Handle Joystick Motion /
                 printf("Axis number %d, value %d\n",event.jaxis.axis, event.jaxis.value);
-                packet_size = 6;
-                packet_type = 1;  //data from joystick
-                char *packet = create_packet(event.jaxis.value, event.jaxis.axis, packet_size, packet_type);
-                //check if timer has expired except the first time
-                //if(!first_packet && (time_elapsed == 20))
-                send_packet(packet, packet_size);
+                if(!event.jaxis.value)
+                {
+                	switch(event.jaxis.axis)
+                	{
+                		case '0':
+                		printf("Axis zero detected\n");
+                		packet[AXISTHROTTLE + event.jaxis.axis]	= (joy_stick_value & 0xff00) >> 8;
+                		packet[AXISTHROTTLE + event.jaxis.axis +1]	= (joy_stick_value & 0x00ff);
+                		break;
+
+                		case '1':
+                		printf("Axis 1 detected\n");
+                		packet[AXISROLL + event.jaxis.axis]	= (joy_stick_value & 0xff00) >> 8;
+                		packet[AXISROLL + event.jaxis.axis +1]	= (joy_stick_value & 0x00ff);
+                		break;
+
+                		case '2':
+                		printf("Axis 2 detected\n");
+                		packet[AXISPITCH + event.jaxis.axis]	= (joy_stick_value & 0xff00) >> 8;
+                		packet[AXISPITCH + event.jaxis.axis +1]	= (joy_stick_value & 0x00ff);
+                		break;
+
+                		case '3':
+                		printf("Axis 3 detected\n");
+                		packet[AXISYAW + event.jaxis.axis]	= (joy_stick_value & 0xff00) >> 8;
+                		packet[AXISYAW + event.jaxis.axis +1]	= (joy_stick_value & 0x00ff);
+                		break;
+
+                		default:
+                		printf("Invalid stick axis detected\n");
+                	}
+                	
+                }
                 break;
+                */
 
                 case SDL_JOYBUTTONDOWN:
                 case SDL_JOYBUTTONUP:                
                 printf("Button number %d, button state %d:\n",event.jbutton.button, event.jbutton.state);
-                packet_size = 4;
-                packet_type = 1;  //data from joystick
                 if(event.jbutton.state)
                 {
-                	char *packet = create_packet(event.jbutton.button, event.jbutton.state, packet_size, packet_type);
-                	//check if timer has expired except the first time
-                	//if(!first_packet && (time_elapsed == 20))
-                	send_packet(packet, packet_size);
+                	packet[JOYBUTTON] |= 0xff & (1 << event.jbutton.button);		
                 }
+                break;
 
+
+                case SDL_USEREVENT:
+					p = event.user.data1;
+            		p(event.user.data2);
                 break;
 
                 default:
@@ -400,12 +502,26 @@ int main(int argc, char **argv)
             }
         }
 		
+
+/*
 		if ((c = term_getchar_nb()) != -1)
 			rs232_putchar(c);
 
 		if ((c = rs232_getchar_nb()) != -1)
 			term_putchar(c);
-		
+*/		
+        crc = packet[0] ^ packet[1];
+
+        for(int i = 2; i < 13; i++)
+        {
+        	crc = crc ^ packet[i];
+        }
+        packet[CRC] = crc;        
+
+        
+
+       
+        
 	}
 
 	term_exitio();
