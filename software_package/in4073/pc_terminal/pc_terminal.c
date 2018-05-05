@@ -22,7 +22,9 @@
 #include <stdio.h>
 #include <SDL.h>
 
-char packet[SIZEOFPACKET] = {0};   		//Initializing packet to send to the drone over serial 
+uint8_t packet[SIZEOFPACKET] = {0};   		//Initializing packet to send
+unsigned short packet_id = 0;
+
 
 SDL_Window *draw_window(SDL_Surface *screen){
 	SDL_Window *window;                    // Declare a pointer
@@ -127,7 +129,7 @@ void rs232_open(void)
   	int 		result;
   	struct termios	tty;
 
-       	fd_RS232 = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY);  // Hardcode your serial port here, or request it as an argument at runtime
+	fd_RS232 = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY);  // Hardcode your serial port here, or request it as an argument at runtime
 
 	assert(fd_RS232>=0);
 
@@ -212,82 +214,6 @@ int 	rs232_putchar(char c)
 
 
 /*------------------------------------------------------------
- * Method to create packet as per the protocol to be sent over serial 
- *
- * Author - Niket Agrawal
- *
- * (Full protocol details to be updated here)
- * Start bit - 0x01 (1 byte)
- * Packet type - Mode packet:0, Joystick packet:1, trimming packet:2  (1 byte)
- * 
- * Returns pointer to newly created packet
- *------------------------------------------------------------
- 
-char *create_packet(int keyboard_char, int joy_button_index, int joy_stick_index, int joy_stick_value)
-{
-	char packet[14];
-	packet[0] = 1;   	//start byte
-
-	packet[1] = (packet_id & 0xff00) >> 8; 	//packet ID
-	packet[2] = value & 0x00ff;
-
-	packet[3] = keyboard_char;
-	packet[4] = joy_button_index;
-
-	 
-	packet[5] = (joy_stick_value & 0xff00) >> 8;
-	packet[6] = joy_stick_value & 0x00ff;
-	
-	
-	packet[1] = type;   // type of packet
-	printf("type in create_packet function is %d\n", type);
-
-	
-	switch(type)
-	{
-		case 0: 
-				printf("mode data from keyboard\n");
-				packet[2] = value;         //type zero detected -> mode data from keyboard received
-		break;
-
-		case 1: 
-				printf("joystick data detected\n");
-				packet[2] = index_state;  // type 1 detected -> data from joystick -> 
-										  //this byte holds the stick/button index
-										  // two bytes needed to hold the stick 
-										  //value(16 bit signed) or button state(0/1)
-				packet[3] = (value & 0xff00) >> 8; //storing MSB first
-				packet[4] = value & 0x00ff;
-				packet[5] = packet[0] ^ packet[1] ^ packet[2] ^ packet[3] ^ packet[4]; //CRC
-		break; 
-
-		case 2: 
-				printf("trimming data detected\n");
-				packet[2] = value;   //type 2 detected -> static offset received from keyboard
-		break;
-
-		default: 
-				printf("Invalid input\n");
-		break;
-	}
-	
-
-	char *return_packet = (char *)malloc(14 * sizeof(char));
-	memcpy(return_packet, packet, 14);
-	
-	if(packet_id < 65535)
-	{
-		packet_id++;		
-	}
-	else
-	{
-		packet_id = 1;
-	}
-	return return_packet;
-}
-*/
-
-/*------------------------------------------------------------
  * Method to send the created packet over serial 
  *
  * Author - Niket Agrawal
@@ -295,17 +221,34 @@ char *create_packet(int keyboard_char, int joy_button_index, int joy_stick_index
  * Check if dependency on 'size' info can be removed.
  *------------------------------------------------------------
  */
+
 void send_packet(void* param)
 {
+	packet[START] = 0xff;
+	packet[PACKETID] = MSBYTE(packet_id);
+	packet[PACKETID + 1] = LSBYTE(packet_id);
+	packet_id++;
+	uint8_t crc = 0;
+	for(int i = 0; i < SIZEOFPACKET; i++)
+	{
+		crc = crc ^ packet[i];
+	}
+	packet[CRC] = crc;   
 	int i = 0;
 	while((rs232_putchar(packet[i]) == 1) && (i < SIZEOFPACKET))
 	{
 		i++;
 	}
 
-	printf("packet sent\n");
 
-	memset(packet, 0, sizeof(packet));	
+	// reset all packet to zero.
+	fprintf(stderr, "packet sent : ");
+	for (int j = 0; j < SIZEOFPACKET; j++)
+	{
+		fprintf(stderr, "%X ", packet[j]);
+		packet[j] = 0;
+	}
+	fprintf(stderr, "\n");
 }
 
 Uint32 callback_send_packet(Uint32 interval, void *param)
@@ -338,10 +281,8 @@ void (*p) (void*);
  */
 int main(int argc, char **argv)
 {
-	unsigned short packet_id = 1;
 	
-	char crc = 0;
-	packet[START] = 0xff;
+	char c;
 	
 	term_puts("\nTerminal program - Embedded Real-Time Systems\n");
 
@@ -364,7 +305,7 @@ int main(int argc, char **argv)
 	SDL_Surface *screen=NULL;
 	SDL_Window *win = draw_window(screen);
 
-    printf("%i joystick(s) were found.\n\n", SDL_NumJoysticks() );
+    fprintf(stderr, "%i joystick(s) were found.\n\n", SDL_NumJoysticks() );
     if (SDL_NumJoysticks() < 1)
         exit(EXIT_FAILURE);
 
@@ -387,9 +328,6 @@ int main(int argc, char **argv)
 
 	while (isContinuing)
 	{
-		
-		
-
 		packet[PACKETID] = MSBYTE(packet_id); 	//packet ID
 		packet[PACKETID + 1] = LSBYTE(packet_id);
 
@@ -403,6 +341,9 @@ int main(int argc, char **argv)
 
 		}
 
+		if ((c = term_getchar_nb()) != -1)
+			packet[KEY] = c;
+		
 		// poll for keyboard or buttons event
 		if(SDL_PollEvent(&event))
         {  
@@ -412,7 +353,7 @@ int main(int argc, char **argv)
 				isContinuing = 0;
                 break;
                 
-                
+                /*
                 case SDL_KEYDOWN:
                 case SDL_KEYUP:
                 // handle keyboard stuff here 	
@@ -423,73 +364,34 @@ int main(int argc, char **argv)
                     break;
 
                     default:
-                    printf("Key pressed: %c, status:%d, repeated:%d\n", event.key.keysym.sym, event.key.state, event.key.repeat);
+                    //printf("Key pressed: %c, status:%d, repeated:%d\n", event.key.keysym.sym, event.key.state, event.key.repeat);
                     
                     if(((event.key.keysym.sym >= '0') && (event.key.keysym.sym <= '8' )) && (event.key.state == 1))
                 
                     {
-                    	printf("========Mode input from keyboard detected=========\n");
+                    	//printf("========Mode input from keyboard detected=========\n");
                     	packet[KEY] = event.key.keysym.sym;
                     	break;
                     }
                     else if((((event.key.keysym.sym >= 'a') && (event.key.keysym.sym <= 'z' )) && (event.key.state == 1))  
                     	&& !((packet[KEY] >= '0') && (packet[KEY] <= '8')))
                     {
-                    	printf("=======Trimming data input from keyboard detected=========\n");
+                    	//printf("=======Trimming data input from keyboard detected=========\n");
                     	packet[KEY] = event.key.keysym.sym;
                     	break;
                     }
                 }
                 break;
 				
-				/*
-                case SDL_JOYAXISMOTION:  // Handle Joystick Motion /
-                printf("Axis number %d, value %d\n",event.jaxis.axis, event.jaxis.value);
-                if(!event.jaxis.value)
-                {
-                	switch(event.jaxis.axis)
-                	{
-                		case '0':
-                		printf("Axis zero detected\n");
-                		packet[AXISTHROTTLE + event.jaxis.axis]	= (joy_stick_value & 0xff00) >> 8;
-                		packet[AXISTHROTTLE + event.jaxis.axis +1]	= (joy_stick_value & 0x00ff);
-                		break;
-
-                		case '1':
-                		printf("Axis 1 detected\n");
-                		packet[AXISROLL + event.jaxis.axis]	= (joy_stick_value & 0xff00) >> 8;
-                		packet[AXISROLL + event.jaxis.axis +1]	= (joy_stick_value & 0x00ff);
-                		break;
-
-                		case '2':
-                		printf("Axis 2 detected\n");
-                		packet[AXISPITCH + event.jaxis.axis]	= (joy_stick_value & 0xff00) >> 8;
-                		packet[AXISPITCH + event.jaxis.axis +1]	= (joy_stick_value & 0x00ff);
-                		break;
-
-                		case '3':
-                		printf("Axis 3 detected\n");
-                		packet[AXISYAW + event.jaxis.axis]	= (joy_stick_value & 0xff00) >> 8;
-                		packet[AXISYAW + event.jaxis.axis +1]	= (joy_stick_value & 0x00ff);
-                		break;
-
-                		default:
-                		printf("Invalid stick axis detected\n");
-                	}
-                	
-                }
-                break;
-                */
-
+				
                 case SDL_JOYBUTTONDOWN:
                 case SDL_JOYBUTTONUP:                
-                printf("Button number %d, button state %d:\n",event.jbutton.button, event.jbutton.state);
-                if(event.jbutton.state)
                 {
-                	packet[JOYBUTTON] |= 0xff & (1 << event.jbutton.button);		
+                if(event.jbutton.state)
+                	packet[JOYBUTTON] |= (1 << event.jbutton.button);		
                 }
                 break;
-
+				*/
 
                 case SDL_USEREVENT:
 					p = event.user.data1;
@@ -502,24 +404,9 @@ int main(int argc, char **argv)
             }
         }
 		
-
-/*
-		if ((c = term_getchar_nb()) != -1)
-			rs232_putchar(c);
-
+		      
 		if ((c = rs232_getchar_nb()) != -1)
 			term_putchar(c);
-*/		
-        crc = packet[0] ^ packet[1];
-
-        for(int i = 2; i < 13; i++)
-        {
-        	crc = crc ^ packet[i];
-        }
-        packet[CRC] = crc;        
-
-        
-
        
         
 	}
