@@ -6,7 +6,7 @@
 #define AXISTHROTTLE 5
 #define AXISROLL 7
 #define AXISPITCH 9
-#define AXISYAX 11
+#define AXISYAW 11
 #define CRC 13
 
 #define MSBYTE(x) ((uint8_t) ((x & 0xff00) >> 8))
