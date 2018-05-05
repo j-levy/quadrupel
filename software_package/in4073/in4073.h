@@ -21,7 +21,11 @@
 #include "app_util_platform.h"
 #include <math.h>
 
-#define RED		22
+
+// offsets to access the bytes in the packet easily.
+#include "packet_constants.h"
+
+#define RED		    22
 #define YELLOW		24
 #define GREEN		28
 #define BLUE		30
@@ -106,5 +110,19 @@ queue ble_tx_queue;
 volatile bool radio_active;
 void ble_init(void);
 void ble_send(void);
+
+
+// Mode
+uint8_t mode;
+
+// Packet Parser [Jonathan LEVY]
+void process_packet(uint8_t c);
+
+void process_key(uint8_t *val);
+void process_joystick_axis(uint8_t *val);
+void process_joystick_button(uint8_t *val);
+
+void send_ack();
+
 
 #endif // IN4073_H__
