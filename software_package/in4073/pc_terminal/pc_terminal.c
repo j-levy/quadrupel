@@ -28,6 +28,9 @@
 #include <SDL.h>
 
 
+#define DEBUG
+//#define DEBUGCLK
+
 
 uint8_t packet[SIZEOFPACKET] = {0};   		//Initializing packet to send
 unsigned short packet_id = 0;
@@ -88,32 +91,6 @@ void js_getJoystickValue (JoystickData *jsdat)
 		
 
 }
-
-
-SDL_Window *draw_window(SDL_Surface *screen){
-	SDL_Window *window;                    // Declare a pointer
-    // Create an application window with the following settings:
-        window = SDL_CreateWindow(
-        "An SDL2 window",                  // window title
-        SDL_WINDOWPOS_UNDEFINED,           // initial x position
-        SDL_WINDOWPOS_UNDEFINED,           // initial y position
-        300,                               // width, in pixels
-        200,                               // height, in pixels
-        SDL_WINDOW_OPENGL                  // flags - see below
-    );
-    // Check that the window was successfully created
-    if (window == NULL) {
-        // In the case that the window could not be made...
-        printf("Could not create window: %s\n", SDL_GetError());
-        exit(EXIT_FAILURE);
-    }
-
-    // The window is open: could enter program loop here (see SDL_PollEvent())
-
-    //SDL_Delay(3000);  // Pause execution for 3000 milliseconds, for example
-	return window;
-}
-
 
 
 /*------------------------------------------------------------
@@ -298,14 +275,20 @@ void send_packet(void* param)
 		i++;
 	}
 
-	// display, and reset all packet to zero (why use 2 loops when 1 is enough ?)
-	fprintf(stderr, "packet sent : ");
+	#ifdef DEBUG
+		// display
+		fprintf(stderr, "packet sent : ");
+		for (int j = 0; j < SIZEOFPACKET; j++)
+		{
+			fprintf(stderr, "%X ", packet[j]);
+		}
+		fprintf(stderr, "\n");
+	#endif
+
 	for (int j = 0; j < SIZEOFPACKET; j++)
 	{
-		fprintf(stderr, "%X ", packet[j]);
 		packet[j] = 0;
 	}
-	fprintf(stderr, "\n");
 }
 
 void (*p) (void*);
@@ -349,7 +332,7 @@ int main(int argc, char **argv)
 
 	while (isContinuing)
 	{
-
+		// Response time is a bit variable. Latency can be percieved still.
 
 		// poll axes with raw-OS method
 		js_getJoystickValue(jsdat);
@@ -360,7 +343,7 @@ int main(int argc, char **argv)
 		}
 		for (int j = 0; j < NBRBUTTONS; j++)
 		{
-			packet[JOYBUTTON] |= 1 << (jsdat->button[j] == 1 ? j : 10); // 10 for not storing anything.
+			packet[JOYBUTTON] |= (jsdat->button[j] == 1) << j; // 10 for not storing anything.
 		}
 		
 		if ((c = term_getchar_nb()) != -1)
@@ -376,7 +359,11 @@ int main(int argc, char **argv)
 			term_putchar(c);
 		
 		clock_gettime(CLOCK_REALTIME, &tp);
+		
+		#ifdef DEBUGCLK
 		fprintf(stderr, "clk=%ld,%ld\n",tp.tv_sec, tp.tv_nsec);
+		#endif
+		
 		if (tp.tv_nsec - tic >= DELAY_PACKET_NS || tp.tv_sec - tic_s > 0)
 		{
 			tic = tp.tv_nsec;
@@ -384,10 +371,8 @@ int main(int argc, char **argv)
 			send_packet(NULL);
 		}
 		
-       
-        
 	}
-	
+
 	JoystickData_destroy(jsdat);
 	term_exitio();
 	rs232_close();
