@@ -15,6 +15,8 @@
 
 #include "in4073.h"
 
+#define DEBUG	
+
 /*------------------------------------------------------------------
  * process_{joystick, key} -- process command keys, mode change, or joystick
  * Jonathan Lévy

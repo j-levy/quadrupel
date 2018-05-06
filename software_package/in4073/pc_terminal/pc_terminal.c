@@ -18,7 +18,7 @@
 
 
 uint8_t packet[SIZEOFPACKET] = {0};   		//Initializing packet to send
-unsigned short packet_id = 0;
+unsigned short packet_id = 1; // start late to see the bug #7
 
 
 /* useful values for joystick*/

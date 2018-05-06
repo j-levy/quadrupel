@@ -10,26 +10,13 @@
 
 #include "in4073.h"
 
-// #define DEBUG
+#define DEBUG
 
 static uint8_t packet[SIZEOFPACKET] = {0};
 static uint8_t index = 0;
 static uint8_t crc = 0;
 static uint16_t last_OK_packet = 0;
 
-
-// the index indicates the first FREE slot in the packet array.
-// We can fill the array using it.
-uint8_t CRC_pass() {
-    
-    uint8_t isValid = ~crc;
-
-    // empty UART if there's more stuff inside !
-    while (rx_queue.count) 
-			dequeue(&rx_queue);
-    
-    return isValid;
-}
 
 void send_ack(){
     last_OK_packet = (MSBYTE(packet[PACKETID])) + LSBYTE(packet[PACKETID]) ; // not using TOSHORT because I'm not sure using macros of macros would work. Preprocessing is a bit hairy.
@@ -40,13 +27,16 @@ void send_ack(){
 
 
 void process_packet(uint8_t c) {
-    
-    // printf("\n====================================\n\t\tRead : %x, index : %d\n====================================\n", c, index);
-
     // Packet beginning detection.
+
+
     if (index == 0 && c != 0xff)
+    {
         return ;
-    
+    }
+        
+
+
     if (index < SIZEOFPACKET)
     {
         packet[index] = c;
@@ -56,32 +46,42 @@ void process_packet(uint8_t c) {
 
     if (index == SIZEOFPACKET) // we got a full packet, and it passes the CRC test! 
     {
-        crc = 0;
-        index = 0;
-
-        #ifdef DEBUG
-            // display
-            printf("packet got  : ");
+        printf("packet got~~~ : ");
             for (int j = 0; j < SIZEOFPACKET; j++)
             {
                 printf("%X ", packet[j]);
             }
-            printf("\n");
+        printf(" ~ crc = %X",crc); 
+
+        if (crc == 0) {
+            #ifdef DEBUG
+
+            // passing. Fine. Don't care.            
+            #endif
+            #ifndef DEBUG 
+            // passing by pointer is simpler and faster.
+            process_key(packet + KEY);
+
+            process_joystick_axis(packet + AXISTHROTTLE); // throttle is the first value.
+
+            process_joystick_button(packet + JOYBUTTON);
+            #endif
+
+        }  else if (crc != 0) {
+        #ifdef DEBUG
+            // not passing. Pin-pon-error-blink-red
+            printf(" - crc fail.");
+            nrf_gpio_pin_toggle(RED);
+
         #endif
-        
-        // passing by pointer is simpler and faster.
-        process_key(packet + KEY);
-
-        process_joystick_axis(packet + AXISTHROTTLE); // throttle is the first value.
-
-        process_joystick_button(packet + JOYBUTTON);
-        
-        /// send_ack();
-
-        // clean packet
-        for (int i = 0; i < SIZEOFPACKET; i++)
-            packet[i] = 0;
-    }  
+    }
+            printf("\n");
+            crc = 0;
+            index = 0;
+            for (int i = 0; i < SIZEOFPACKET; i++)
+                packet[i] = 0;
+    }
+    
 
     
 }
