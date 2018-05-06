@@ -23,7 +23,7 @@
 
 
 // offsets to access the bytes in the packet easily.
-#include "packet_constants.h"
+#include "./pc_terminal/packet_constants.h"
 
 #define RED		    22
 #define YELLOW		24

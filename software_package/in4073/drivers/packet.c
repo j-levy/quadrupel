@@ -10,6 +10,8 @@
 
 #include "in4073.h"
 
+#define DEBUG
+
 static uint8_t packet[SIZEOFPACKET] = {0};
 static uint8_t index = 0;
 static uint8_t crc = 0;
@@ -30,7 +32,7 @@ uint8_t CRC_pass() {
 }
 
 void send_ack(){
-    last_OK_packet = (MSBYTE(packet[PACKETID]) << 8) + LSBYTE(packet[PACKETID]) ; // not using TOSHORT because I'm not sure using macros of macros would work. Preprocessing is a bit hairy.
+    last_OK_packet = (MSBYTE(packet[PACKETID])) + LSBYTE(packet[PACKETID]) ; // not using TOSHORT because I'm not sure using macros of macros would work. Preprocessing is a bit hairy.
     
     uint8_t ack_CRC = 0xff ^ MSBYTE(packet[PACKETID]) ^ LSBYTE(packet[PACKETID]);
     printf("%c%c%c%c", 0xff, MSBYTE(last_OK_packet), LSBYTE(last_OK_packet), ack_CRC);
@@ -53,17 +55,28 @@ void process_packet(uint8_t c) {
     if (index == SIZEOFPACKET-1 && CRC_pass()) // we got a full packet, and it passes the CRC test! 
     {
 
+        #ifdef DEBUG
+            // display
+            printf("packet got  : ");
+            for (int j = 0; j < SIZEOFPACKET; j++)
+            {
+                printf("%X ", packet[j]);
+            }
+            printf("\n");
+        #endif
+        /*
         // passing by pointer is simpler and faster.
         process_key(packet + KEY);
 
         process_joystick_axis(packet + AXISTHROTTLE); // throttle is the first value.
 
         process_joystick_button(packet + JOYBUTTON);
+        */
 
         // sending the acknowledgement is part of managing packet, so it's an local function.
         // It can use the static variables, hence no need for argument.
-        send_ack();
+        // send_ack();
     }  
 
-    index = (index >= SIZEOFPACKET-1) ? 0 : index + 1; // in any case, don't go over SIZEOFPACKET.
+    index = (index+1)%SIZEOFPACKET; // in any case, don't go over SIZEOFPACKET.
 }

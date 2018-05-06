@@ -23,9 +23,11 @@
  */
 void process_joystick_axis(uint8_t *val)
 {
+	printf("\n============== Stick values:");	
 	for (int i = 0; i < 4; i++)
 	{
-		//uint16_t stickvalue = TOSHORT(*(val + 2*i), *(val + 2*i + 1));
+		int16_t stickvalue = (((int16_t) *(val + 2*i)) << 8) + ((int16_t) *(val + 2*i + 1));
+		printf("%d, ",stickvalue);
 	}
 }
 
@@ -34,8 +36,8 @@ void process_joystick_button(uint8_t *val)
 	for (int i = 0; i < 8; i++)
 	{
 		if ((*val & (1<<i)) >> i) // (if button #i has been pressed)
-		{
-			//printf("\n=============== BUTTON %d PRESSED ==============\n", i);
+		{	
+			printf("\n=============== BUTTON %d PRESSED ==============\n", i);
 		}
 	}
 }
@@ -45,7 +47,7 @@ void process_key(uint8_t *val)
 	if (*val >= '0' && *val <= '8')
 	{
 		mode = *val;
-		// printf("\n====================================\n\t\tMode changed to %d\n====================================\n", *val);
+		printf("=============\n\t\tMode changed to %d\n", *val);
 	} else {
 		switch (*val)
 		{
@@ -133,7 +135,6 @@ int main(void)
 			printf("\n");
 
 			*/
-			printf("."); // show that the device is alive.
 			clear_timer_flag();
 		}
 
