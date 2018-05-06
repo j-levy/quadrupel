@@ -139,9 +139,9 @@ struct joystickData {
 
 typedef struct joystickData JoystickData;
 
-
-void js_init();
-void js_getJoystickValue (JoystickData *jsdat);
+		
+void js_init(int *fd);
+void js_getJoystickValue(int *fd, struct js_event *js, JoystickData *jsdat);
 JoystickData *JoystickData_create();
 void JoystickData_destroy(JoystickData *jsdata);
 
