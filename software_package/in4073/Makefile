@@ -215,7 +215,7 @@ echosize:
 	$(NO_ECHO)$(SIZE) $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).out
 	-@echo ''
 
-clean:
+clean: pc-mrproper
 	$(RM) $(BUILD_DIRECTORIES)
 
 cleanobj:
@@ -223,6 +223,9 @@ cleanobj:
 
 upload: default
 	dfu_serial/./serial_dfu.py  _build/in4073.bin
+
+pc-mrproper:
+	cd pc_terminal/; make mrproper; cd ..
 
 pc: 
 	cd pc_terminal/; make
