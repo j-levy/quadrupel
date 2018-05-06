@@ -13,8 +13,8 @@
 #include "packet_constants.h"
 #include "joystick.h"
 
-#define DEBUG
-//#define DEBUGCLK
+// #define DEBUG
+// #define DEBUGCLK
 
 
 uint8_t packet[SIZEOFPACKET] = {0};   		//Initializing packet to send

@@ -23,12 +23,15 @@
  */
 void process_joystick_axis(uint8_t *val)
 {
+	
 	printf("\n============== Stick values:");	
 	for (int i = 0; i < 4; i++)
 	{
 		int16_t stickvalue = (((int16_t) *(val + 2*i)) << 8) + ((int16_t) *(val + 2*i + 1));
 		printf("%d, ",stickvalue);
+		
 	}
+	
 }
 
 void process_joystick_button(uint8_t *val)
@@ -37,7 +40,7 @@ void process_joystick_button(uint8_t *val)
 	{
 		if ((*val & (1<<i)) >> i) // (if button #i has been pressed)
 		{	
-			printf("\n=============== BUTTON %d PRESSED ==============\n", i);
+			printf("\n=============== Button %d pressed", i);
 		}
 	}
 }
@@ -47,7 +50,7 @@ void process_key(uint8_t *val)
 	if (*val >= '0' && *val <= '8')
 	{
 		mode = *val;
-		printf("=============\n\t\tMode changed to %d\n", *val);
+		printf("\n============= Mode changed to %d", *val);
 	} else {
 		switch (*val)
 		{
@@ -110,8 +113,10 @@ int main(void)
 
 	while (!demo_done)
 	{
-		if (rx_queue.count) 
+		if (rx_queue.count)
+		{
 			process_packet( dequeue(&rx_queue) );
+		}
 
 		if (check_timer_flag()) 
 		{
@@ -121,20 +126,21 @@ int main(void)
 			adc_request_sample();
 			read_baro();
 
-			/*
-
-			printf("%10ld | ", get_time_us());
-			printf("%3d %3d %3d %3d | ",ae[0],ae[1],ae[2],ae[3]);
 			
-			printf("%6d %6d %6d | ", phi, theta, psi);
-			printf("%6d %6d %6d | ", sp, sq, sr);
-			printf("%4d | %4ld | %6ld \n", bat_volt, temperature, pressure);
+			#ifndef DEBUG
+				printf("%10ld | ", get_time_us());
+				printf("%3d %3d %3d %3d | ",ae[0],ae[1],ae[2],ae[3]);
+				
+				printf("%6d %6d %6d | ", phi, theta, psi);
+				printf("%6d %6d %6d | ", sp, sq, sr);
+				printf("%4d | %4ld | %6ld \n", bat_volt, temperature, pressure);
+				
+
+				printf("%d | ", mode);
+				printf("\n");
+			#endif
+
 			
-
-			printf("%d | ", mode);
-			printf("\n");
-
-			*/
 			clear_timer_flag();
 		}
 

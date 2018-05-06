@@ -10,7 +10,7 @@
 
 #include "in4073.h"
 
-#define DEBUG
+// #define DEBUG
 
 static uint8_t packet[SIZEOFPACKET] = {0};
 static uint8_t index = 0;
@@ -21,9 +21,9 @@ static uint16_t last_OK_packet = 0;
 // the index indicates the first FREE slot in the packet array.
 // We can fill the array using it.
 uint8_t CRC_pass() {
-    index = 0;
+    
     uint8_t isValid = ~crc;
-    crc = 0;
+
     // empty UART if there's more stuff inside !
     while (rx_queue.count) 
 			dequeue(&rx_queue);
@@ -47,13 +47,17 @@ void process_packet(uint8_t c) {
     if (index == 0 && c != 0xff)
         return ;
     
-
-    packet[index] = c;
-    crc = crc ^ c;
-
-
-    if (index == SIZEOFPACKET-1 && CRC_pass()) // we got a full packet, and it passes the CRC test! 
+    if (index < SIZEOFPACKET)
     {
+        packet[index] = c;
+        crc = crc ^ c;
+        index = (index+1); // in any case, don't go over SIZEOFPACKET.
+    }
+
+    if (index == SIZEOFPACKET) // we got a full packet, and it passes the CRC test! 
+    {
+        crc = 0;
+        index = 0;
 
         #ifdef DEBUG
             // display
@@ -64,19 +68,20 @@ void process_packet(uint8_t c) {
             }
             printf("\n");
         #endif
-        /*
+        
         // passing by pointer is simpler and faster.
         process_key(packet + KEY);
 
         process_joystick_axis(packet + AXISTHROTTLE); // throttle is the first value.
 
         process_joystick_button(packet + JOYBUTTON);
-        */
+        
+        /// send_ack();
 
-        // sending the acknowledgement is part of managing packet, so it's an local function.
-        // It can use the static variables, hence no need for argument.
-        // send_ack();
+        // clean packet
+        for (int i = 0; i < SIZEOFPACKET; i++)
+            packet[i] = 0;
     }  
 
-    index = (index+1)%SIZEOFPACKET; // in any case, don't go over SIZEOFPACKET.
+    
 }
