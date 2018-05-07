@@ -8,7 +8,7 @@
  */
 
 #include "pc_terminal.h"
-
+#include <string.h>
 
 #include "packet_constants.h"
 #include "joystick.h"
@@ -18,8 +18,15 @@
 
 
 uint8_t packet[SIZEOFPACKET] = {0};   		//Initializing packet to send
+uint8_t previous_packet[SIZEOFPACKET] = {0};
+uint8_t packet_rx[SIZEOFPACKET] = {0};  //packet received from Drone (an ACK packet for the moment)
 unsigned short packet_id = 1; // start late to see the bug #7
-
+unsigned short rx_packet_id = 1;
+static uint8_t rx_index = 0;  	//for prasing the received packets
+static uint8_t first_packet = 1;   //flag to indicate the first packet sent from PC to drone
+								   //ACK will be checked before sending any packet to drone 
+								   //except the very first packet
+static uint8_t crc_rx = 0;
 
 /* useful values for joystick*/
 int 		fd;
@@ -182,6 +189,79 @@ int 	rs232_putchar(char c)
 
 
 /*------------------------------------------------------------
+ * Method to process the received ACK packet from Drone 
+ *
+ * Author - Niket Agrawal
+ *
+ * Compares the received packet ID with the ID of the 
+ * last sent packet.
+ * Return value: '1' if packet ID matches the ID of the last sent packet
+ *				 '0' otherwise
+ *------------------------------------------------------------
+ */
+uint8_t process_rxpacket()
+{
+	char c = 0;
+	uint8_t success = 0;
+
+	while(((c = rs232_getchar_nb()) != -1))
+	{
+		if (rx_index == 0 && c != 0xff)
+    	{
+    		printf("Start byte erroneous\n");
+        	return 0;
+    	}
+    	if (rx_index < SIZEOFACKPACKET)
+    	{
+        	packet_rx[rx_index] = c;  //to print the received packet contents 
+        	crc_rx = crc_rx ^ c;
+        	rx_index = rx_index + 1; 
+    	}
+    	if (rx_index == SIZEOFACKPACKET) // we got a full packet, and it passes the CRC test! 
+    	{
+    		#ifdef DEBUG
+        		printf("packet got~~~ : ");
+            	for (int j = 0; j < SIZEOFACKPACKET; j++)
+            	{
+                	printf("%X ", packet_rx[j]);
+            	}
+        		printf(" ~ crc = %X",crc_rx); 
+        	#endif
+
+    		if (crc_rx == 0)  //CRC check passed
+    		{
+    			//compare the packet ID in the ACK packet with 
+    			//the packet ID of the last sent packet
+    			rx_packet_id = (MSBYTE(packet_rx[rx_index-2])) + LSBYTE(packet_rx[rx_index-2]);
+
+    			if((rx_packet_id - packet_id) == 1) // since packet_id was post
+    												//incremented in send_packet method
+    			{
+    				//ACK received successfully for the last packet sent
+    				success = 1;
+    				return ACK;
+    			}
+    			else
+    			{
+    				printf("Received Packet ID doesn't match the last sent packet\n");
+    				return NACK;
+    			}
+    		}
+    		else
+    		{
+    			printf("CRC check failed for the ACK packet\n");
+    			return NACK;
+    		}
+    	}
+	}
+	if(success)
+		return ACK;
+	else
+		return NACK; 
+}
+
+
+/*------------------------------------------------------------
  * Method to send the created packet over serial 
  *
  * Author - Niket Agrawal, Jonathan Lévy
@@ -192,39 +272,62 @@ int 	rs232_putchar(char c)
 
 void send_packet(void* param)
 {
-	packet[START] = 0xff;
-	packet[PACKETID] = MSBYTE(packet_id);
-	packet[PACKETID + 1] = LSBYTE(packet_id);
-	packet_id++;
-	uint8_t crc = 0;
-
-	for(int i = 0; i < SIZEOFPACKET; i++)
+	// Check ACK for the last sent packet 
+	// Skip if this is the 1st packet to be sent to drone
+	if(!first_packet || (process_rxpacket() == 1))
 	{
-		crc = crc ^ packet[i];
-	}
-	packet[CRC] = crc;   
-	int i = 0;
-	while((rs232_putchar(packet[i]) == 1) && (i < SIZEOFPACKET))
-	{
-		i++;
-	}
+		//send new packet as usual
+		packet[START] = 0xff;
+		packet[PACKETID] = MSBYTE(packet_id);
+		packet[PACKETID + 1] = LSBYTE(packet_id);
+		packet_id++;
+		uint8_t crc = 0;
 
-	#ifdef DEBUG
-		// display
-		fprintf(stderr, "packet sent : ");
+		for(int i = 0; i < SIZEOFPACKET; i++)
+		{
+			crc = crc ^ packet[i];
+		}
+		packet[CRC] = crc;   
+		int i = 0;
+		while((rs232_putchar(packet[i]) == 1) && (i < SIZEOFPACKET))
+		{
+			i++;
+		}
+
+		// Store this packet before sending
+		memcpy(previous_packet, packet, SIZEOFPACKET);
+
+		#ifdef DEBUG
+			// display
+			fprintf(stderr, "packet sent : ");
+			for (int j = 0; j < SIZEOFPACKET; j++)
+			{
+				fprintf(stderr, "%X ", packet[j]);
+			}
+			fprintf(stderr, "\n");
+		#endif
+
+		//reset packet	
 		for (int j = 0; j < SIZEOFPACKET; j++)
 		{
-			fprintf(stderr, "%X ", packet[j]);
+			packet[j] = 0;
 		}
-		fprintf(stderr, "\n");
-	#endif
 
-	for (int j = 0; j < SIZEOFPACKET; j++)
+		first_packet = 0;    // reset the flag after the very 
+							// first packet is sent to enable calling
+							// process_packet method evrytime from now on
+							// to verify ACk
+	}
+	else
 	{
-		packet[j] = 0;
+		int k = 0;
+		//send previous packet again
+		while((rs232_putchar(previous_packet[k]) == 1) && (k < SIZEOFPACKET))
+		{
+			k++;
+		} 
 	}
 }
-
 
 
 /*----------------------------------------------------------------
@@ -298,9 +401,10 @@ int main(int argc, char **argv)
 			packet[KEY] = c;
 		}
 		
-
+		
 		if ((c = rs232_getchar_nb()) != -1)
 			term_putchar(c);
+
 		
 		clock_gettime(CLOCK_REALTIME, &tp);
 		

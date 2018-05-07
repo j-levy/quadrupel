@@ -1,4 +1,5 @@
 #define SIZEOFPACKET 14
+#define SIZEOFACKPACKET 4
 
 #define START 0
 #define PACKETID 1
@@ -9,6 +10,9 @@
 #define AXISPITCH 9
 #define AXISYAW 11
 #define CRC 13
+
+#define ACK 1
+#define NACK 0
 
 #define DELAY_PACKET_NS 15000000
 
