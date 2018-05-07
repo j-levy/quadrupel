@@ -16,10 +16,10 @@ void JoystickData_destroy(JoystickData *jsdata)
 	free(jsdata);
 }
 
-void js_init(int *fd)
+void js_init(int *fd, char *path_to_joystick)
 {
-	if ((*fd = open(JS_DEV, O_RDONLY)) < 0) {
-		perror("jstest");
+	if ((*fd = open(path_to_joystick, O_RDONLY)) < 0) {
+		perror("jserroropen");
 		exit(1);
 	}
 	fcntl(*fd, F_SETFL, O_NONBLOCK);

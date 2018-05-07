@@ -31,6 +31,9 @@ mrproper: clean
 run: all
 	$(EXEC)
 
+run-js1: all
+	$(EXEC) /dev/input/js1
+
 run-logger: all
 	$(EXEC) >> $(LOGFILE) 2>&1
 

@@ -233,7 +233,16 @@ void send_packet(void* param)
  */
 int main(int argc, char **argv)
 {
-	
+	char path_to_joystick[64];
+	if (argc == 1) {
+		strcpy(path_to_joystick, "/dev/input/js0");
+	} else if (argc == 2) {
+		strcpy(path_to_joystick, argv[1]);
+	} else {
+		fprintf(stderr, "too many arguments. 0 argument = default path (js0), 1 argument = path to joystick");
+		return 1;
+	}
+	fprintf(stderr, "using %s\n", path_to_joystick);
 	char c;
 	
 	term_puts("\nTerminal program - Embedded Real-Time Systems\n");
@@ -254,7 +263,9 @@ int main(int argc, char **argv)
 
 	char isContinuing = 1;
 
-	js_init(&fd);
+	getchar();
+
+	js_init(&fd, path_to_joystick);
 	JoystickData *jsdat = JoystickData_create();
 
 	struct timespec tp;
