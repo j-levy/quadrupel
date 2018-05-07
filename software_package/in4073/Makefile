@@ -236,4 +236,7 @@ pc-run:
 upload-run: default pc
 	dfu_serial/./serial_dfu.py  _build/in4073.bin
 	cd pc_terminal/; make run
-upr: upload-run
+
+logger: default pc
+	dfu_serial/./serial_dfu.py  _build/in4073.bin
+	cd pc_terminal/; make run-logger

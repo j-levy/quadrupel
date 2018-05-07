@@ -34,8 +34,6 @@ void process_packet(uint8_t c) {
     {
         return ;
     }
-        
-
 
     if (index < SIZEOFPACKET)
     {
@@ -46,17 +44,19 @@ void process_packet(uint8_t c) {
 
     if (index == SIZEOFPACKET) // we got a full packet, and it passes the CRC test! 
     {
+        #ifdef DEBUG
         printf("packet got~~~ : ");
             for (int j = 0; j < SIZEOFPACKET; j++)
             {
                 printf("%X ", packet[j]);
             }
         printf(" ~ crc = %X",crc); 
+        #endif
 
         if (crc == 0) {
             #ifdef DEBUG
 
-            // passing. Fine. Don't care.            
+            // passing. Fine. Don't care.          
             #endif
             #ifndef DEBUG 
             // passing by pointer is simpler and faster.

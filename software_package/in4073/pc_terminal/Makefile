@@ -7,6 +7,8 @@ LDFLAGS=
 EXEC = ./pc-terminal
 SRC= $(wildcard *.c)
 OBJ= $(SRC:.c=.o)
+LOGFILE = `date +%F_%Hh%M`.log
+
 
 
 all: $(EXEC)
@@ -28,5 +30,8 @@ mrproper: clean
 
 run: all
 	$(EXEC)
+
+run-logger: all
+	$(EXEC) >> $(LOGFILE) 2>&1
 
 	
