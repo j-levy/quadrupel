@@ -145,13 +145,13 @@ void 	rs232_close(void)
   	assert (result==0);
 }
 
-
-int	rs232_getchar_nb()
+// modified to distinguish error code and character read.
+// The character read is passed as pointer and modified that way.
+int	rs232_getchar_nb(uint8_t *c)
 {
 	int 		result;
-	unsigned char 	c;
 
-	result = read(fd_RS232, &c, 1);
+	result = read(fd_RS232, c, 1);
 
 	if (result == 0)
 		return -1;
@@ -160,20 +160,23 @@ int	rs232_getchar_nb()
 	{
 		assert(result == 1);
 		
-		return (int) c;
+		return 1;
 	}
 }
 
 
-int 	rs232_getchar()
+/* This function is not used, and is shit anyways. Needs to be re-written with the new parameter to 
+	pass. Who would need that anyways.*/
+/*
+uint8_t 	rs232_getchar()
 {
 	int 	c;
 
-	while ((c = rs232_getchar_nb()) == -1)
+	while ((rs232_getchar_nb(&c)) == -1)
 		;
 	return c;
 }
-
+*/
 
 int 	rs232_putchar(char c)
 {
@@ -202,7 +205,7 @@ int 	rs232_putchar(char c)
 void process_rx(uint8_t c)
 {
 		//fprintf(stderr, "read: %X", c);
-		if (rx_index == 0 && c != 0xf0)
+		if (rx_index == 0 && c != _STARTBYTE)
     	{
         	return ;
     	}
@@ -229,7 +232,10 @@ void process_rx(uint8_t c)
     		{
     			//compare the packet ID in the ACK packet with 
     			//the packet ID of the last sent packet
-    			rx_packet_id = (MSBYTE(packet_rx[PACKETID])<<8) + LSBYTE(packet_rx[PACKETID+1]); /// They're the same offset as the big packet
+    			rx_packet_id = ((uint16_t) packet_rx[PACKETID])*256 + packet_rx[PACKETID+1]; /// They're the same offset as the big packet
+				#ifdef DEBUGACK
+				fprintf(stderr, "rx_packet_id = %d\n", rx_packet_id);
+				#endif
 				// the rx_packet_id is updated, and the send_packet will be able to read it.
 
 
@@ -261,7 +267,7 @@ void send_packet(void* param)
 	if(packet_id == rx_packet_id+1)
 	{
 		//send new packet as usual
-		packet[START] = 0xff;
+		packet[START] = _STARTBYTE;
 		packet[PACKETID] = MSBYTE(packet_id);
 		packet[PACKETID + 1] = LSBYTE(packet_id);
 		packet_id++;
@@ -303,6 +309,7 @@ void send_packet(void* param)
 		int k = 0;
 		//send previous packet again
 		
+		
 		while((rs232_putchar(previous_packet[k]) == 1) && (k < SIZEOFPACKET))
 		{
 			k++;
@@ -316,6 +323,11 @@ void send_packet(void* param)
 			}
 			fprintf(stderr, "\n");
 		#endif
+				//reset packet	
+		for (int j = 0; j < SIZEOFPACKET; j++)
+		{
+			packet[j] = 0;
+		}
 		
 	}
 }
@@ -337,7 +349,8 @@ int main(int argc, char **argv)
 		return 1;
 	}
 	fprintf(stderr, "using %s\n", path_to_joystick);
-	char c;
+	uint8_t c;
+	int d;
 	
 	term_puts("\nTerminal program - Embedded Real-Time Systems\n");
 
@@ -349,7 +362,7 @@ int main(int argc, char **argv)
 	/* discard any incoming text
 	 */
 	/*
-	while ((c = rs232_getchar_nb()) != -1)
+	while ((rs232_getchar_nb(&c) != -1)
 		fputc(c,stderr);
 	*/
 	/* send & receive
@@ -367,6 +380,12 @@ int main(int argc, char **argv)
 	long tic = tp.tv_nsec;
 	time_t tic_s = tp.tv_sec;
 
+	while (tp.tv_sec - tic_s < 3)
+	{
+		clock_gettime(CLOCK_REALTIME, &tp);
+	}
+		
+
 	while (isContinuing)
 	{
 		// Response time is a bit variable. Latency can be percieved still.
@@ -383,16 +402,16 @@ int main(int argc, char **argv)
 			packet[JOYBUTTON] |= (jsdat->button[j] == 1) << j; // 10 for not storing anything.
 		}
 		
-		if ((c = term_getchar_nb()) != -1)
+		if ((d = term_getchar_nb()) != -1)
 		{
-			if (c == 27) // escape key
+			if (d == 27) // escape key
 				isContinuing = 0;
 
-			packet[KEY] = c;
+			packet[KEY] = d;
 		}
 		
 		#ifdef DEBUGACK
-		if ((c = rs232_getchar_nb()) != -1)
+		if ((rs232_getchar_nb(&c)) != -1)
 		{
 			process_rx((uint8_t) c);
 			term_putchar(c);
@@ -400,8 +419,11 @@ int main(int argc, char **argv)
 		#endif
 
 		#ifndef DEBUGACK
-		if ((c = rs232_getchar_nb()) != -1)
+		if ((rs232_getchar_nb(&c)) != -1)
+		{
 			process_rx(c);
+		}
+
 		#endif
 
 		

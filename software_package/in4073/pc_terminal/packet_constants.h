@@ -11,6 +11,8 @@
 #define AXISYAW 11
 #define CRC 13
 
+#define _STARTBYTE 0x42
+
 #define DELAY_PACKET_NS 200000000
 
 #define MSBYTE(x) ((uint8_t) ((x & 0xff00) >> 8))

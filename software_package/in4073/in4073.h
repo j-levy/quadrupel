@@ -122,7 +122,6 @@ void process_key(uint8_t *val);
 void process_joystick_axis(uint8_t *val);
 void process_joystick_button(uint8_t *val);
 
-void send_ack();
-
+void send_ack(uint8_t a, uint8_t b);
 
 #endif // IN4073_H__

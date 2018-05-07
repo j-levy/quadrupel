@@ -10,31 +10,34 @@
 
 #include "in4073.h"
 
-//#define DEBUG
-//#define DEBUGACK
+#define DEBUG
+#define DEBUGACK
 
 static uint8_t packet[SIZEOFPACKET] = {0};
 static uint8_t index = 0;
 static uint8_t crc = 0;
+static uint8_t last_OK[2] = {0,0};
 
-void send_ack(){
+void send_ack(uint8_t a, uint8_t b){
     
     /* WARNING : the pc_terminal reads the characters as int. SIGNED INT.
         Plus, the code -1 (which is, BAD LUCK, corresponding to 0xFF) means no character received.
         This is why I changed the start bit to 0xF0.
     */
-    uint8_t ack_CRC = 0xf0 ^ packet[PACKETID] ^ packet[PACKETID+1];
+    last_OK[0] = a;
+    last_OK[1] = b;
+    uint8_t ack_CRC = _STARTBYTE ^ a ^ b;
     #ifdef DEBUGACK
-    printf("%x %x %x %x", 0xff, packet[PACKETID], packet[PACKETID+1], ack_CRC);
-    uart_put(0xff);
+    printf("%x %x %x %x", _STARTBYTE, packet[PACKETID], packet[PACKETID+1], ack_CRC);
+    uart_put(_STARTBYTE);
     uart_put(packet[PACKETID]);
     uart_put(packet[PACKETID+1]);
     uart_put(ack_CRC);
     #endif
     #ifndef DEBUGACK
-    uart_put(0xF0);
-    uart_put(packet[PACKETID]);
-    uart_put(packet[PACKETID+1]);
+    uart_put(_STARTBYTE);
+    uart_put(a);
+    uart_put(b);
     uart_put(ack_CRC);
     #endif
     
@@ -45,7 +48,7 @@ void process_packet(uint8_t c) {
     // Packet beginning detection.
 
 
-    if (index == 0 && c != 0xff)
+    if (index == 0 && c != _STARTBYTE)
     {
         return ;
     }
@@ -70,12 +73,12 @@ void process_packet(uint8_t c) {
 
         if (crc == 0) {
             #ifdef DEBUG
-            send_ack();
+            send_ack(packet[PACKETID], packet[PACKETID+1]);
 
             // passing. Fine. Don't care.          
             #endif
             #ifndef DEBUG 
-            send_ack();
+            send_ack(packet[PACKETID], packet[PACKETID+1]);
             // passing by pointer is simpler and faster.
             /*
             process_key(packet + KEY);
@@ -87,8 +90,9 @@ void process_packet(uint8_t c) {
             #endif
 
         }  else if (crc != 0) {
+            send_ack(last_OK[0], last_OK[1]);
         #ifdef DEBUG
-
+            
             // not passing. Pin-pon-error-blink-red
                 printf(" - crc fail.");
             nrf_gpio_pin_toggle(RED);
