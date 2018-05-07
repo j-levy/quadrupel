@@ -19,12 +19,20 @@ static uint8_t crc = 0;
 
 void send_ack(){
     
-    uint8_t ack_CRC = 0xff ^ packet[PACKETID] ^ packet[PACKETID+1];
+    /* WARNING : the pc_terminal reads the characters as int. SIGNED INT.
+        Plus, the code -1 (which is, BAD LUCK, corresponding to 0xFF) means no character received.
+        This is why I changed the start bit to 0xF0.
+    */
+    uint8_t ack_CRC = 0xf0 ^ packet[PACKETID] ^ packet[PACKETID+1];
     #ifdef DEBUGACK
     printf("%x %x %x %x", 0xff, packet[PACKETID], packet[PACKETID+1], ack_CRC);
+    uart_put(0xff);
+    uart_put(packet[PACKETID]);
+    uart_put(packet[PACKETID+1]);
+    uart_put(ack_CRC);
     #endif
     #ifndef DEBUGACK
-    uart_put(0xff);
+    uart_put(0xF0);
     uart_put(packet[PACKETID]);
     uart_put(packet[PACKETID+1]);
     uart_put(ack_CRC);
@@ -87,7 +95,8 @@ void process_packet(uint8_t c) {
 
         #endif
     }
-            printf("\n");
+            // printf("\n");
+
             crc = 0;
             index = 0;
             for (int i = 0; i < SIZEOFPACKET; i++)

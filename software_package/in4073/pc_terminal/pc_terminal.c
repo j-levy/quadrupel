@@ -8,25 +8,24 @@
  */
 
 #include "pc_terminal.h"
-#include <string.h>
 
 #include "packet_constants.h"
 #include "joystick.h"
 
-// #define DEBUG
+ #define DEBUG
+ #define DEBUGACK
 // #define DEBUGCLK
 
 
 uint8_t packet[SIZEOFPACKET] = {0};   		//Initializing packet to send
 uint8_t previous_packet[SIZEOFPACKET] = {0};
-uint8_t packet_rx[SIZEOFPACKET] = {0};  //packet received from Drone (an ACK packet for the moment)
 unsigned short packet_id = 1; // start late to see the bug #7
-unsigned short rx_packet_id = 1;
+
+uint8_t packet_rx[SIZEOFACKPACKET] = {0};  //packet received from Drone (an ACK packet for the moment)
 static uint8_t rx_index = 0;  	//for prasing the received packets
-static uint8_t first_packet = 1;   //flag to indicate the first packet sent from PC to drone
-								   //ACK will be checked before sending any packet to drone 
-								   //except the very first packet
-static uint8_t crc_rx = 0;
+static uint8_t rx_crc = 0; // not really needed but we can stay consistent with the board...
+unsigned short rx_packet_id = 0;
+
 
 /* useful values for joystick*/
 int 		fd;
@@ -160,6 +159,7 @@ int	rs232_getchar_nb()
 	else
 	{
 		assert(result == 1);
+		
 		return (int) c;
 	}
 }
@@ -199,65 +199,49 @@ int 	rs232_putchar(char c)
  *				 '0' otherwise
  *------------------------------------------------------------
  */
-uint8_t process_rxpacket()
+void process_rx(uint8_t c)
 {
-	char c = 0;
-	uint8_t success = 0;
-
-	while(((c = rs232_getchar_nb()) != -1))
-	{
-		if (rx_index == 0 && c != 0xff)
+		//fprintf(stderr, "read: %X", c);
+		if (rx_index == 0 && c != 0xf0)
     	{
-    		printf("Start byte erroneous\n");
-        	return 0;
+        	return ;
     	}
+
     	if (rx_index < SIZEOFACKPACKET)
     	{
         	packet_rx[rx_index] = c;  //to print the received packet contents 
-        	crc_rx = crc_rx ^ c;
+        	rx_crc = rx_crc ^ c;
         	rx_index = rx_index + 1; 
     	}
-    	if (rx_index == SIZEOFACKPACKET) // we got a full packet, and it passes the CRC test! 
-    	{
-    		#ifdef DEBUG
-        		printf("packet got~~~ : ");
+
+    	if (rx_index == SIZEOFACKPACKET) // whole packet received
+    	{		
+    		#ifdef DEBUGACK
+        		fprintf(stderr, "packet got~~~ : ");
             	for (int j = 0; j < SIZEOFACKPACKET; j++)
             	{
-                	printf("%X ", packet_rx[j]);
+                	fprintf(stderr, "%X ", packet_rx[j]);
             	}
-        		printf(" ~ crc = %X",crc_rx); 
+        		fprintf(stderr, " ~ crc = %X\n",rx_crc); 
         	#endif
 
-    		if (crc_rx == 0)  //CRC check passed
+    		if (rx_crc == 0)  //CRC check passed
     		{
     			//compare the packet ID in the ACK packet with 
     			//the packet ID of the last sent packet
-    			rx_packet_id = (MSBYTE(packet_rx[rx_index-2])) + LSBYTE(packet_rx[rx_index-2]);
+    			rx_packet_id = (MSBYTE(packet_rx[PACKETID])<<8) + LSBYTE(packet_rx[PACKETID+1]); /// They're the same offset as the big packet
+				// the rx_packet_id is updated, and the send_packet will be able to read it.
 
-    			if((rx_packet_id - packet_id) == 1) // since packet_id was post
-    												//incremented in send_packet method
-    			{
-    				//ACK received successfully for the last packet sent
-    				success = 1;
-    				return ACK;
-    			}
-    			else
-    			{
-    				printf("Received Packet ID doesn't match the last sent packet\n");
-    				return NACK;
-    			}
+
     		}
     		else
     		{
-    			printf("CRC check failed for the ACK packet\n");
-    			return NACK;
+    			fprintf(stderr, "CRC check failed for the ACK packet\n");
     		}
+			rx_index = 0;
+			rx_crc = 0;
     	}
-	}
-	if(success)
-		return ACK;
-	else
-		return NACK; 
+	
 }
 
 
@@ -272,9 +256,9 @@ uint8_t process_rxpacket()
 
 void send_packet(void* param)
 {
-	// Check ACK for the last sent packet 
-	// Skip if this is the 1st packet to be sent to drone
-	if(!first_packet || (process_rxpacket() == 1))
+	// Check ACK for the last sent packet
+
+	if(packet_id == rx_packet_id+1)
 	{
 		//send new packet as usual
 		packet[START] = 0xff;
@@ -294,7 +278,7 @@ void send_packet(void* param)
 			i++;
 		}
 
-		// Store this packet before sending
+		// Store this packet
 		memcpy(previous_packet, packet, SIZEOFPACKET);
 
 		#ifdef DEBUG
@@ -312,20 +296,27 @@ void send_packet(void* param)
 		{
 			packet[j] = 0;
 		}
-
-		first_packet = 0;    // reset the flag after the very 
-							// first packet is sent to enable calling
-							// process_packet method evrytime from now on
-							// to verify ACk
 	}
 	else
 	{
+		
 		int k = 0;
 		//send previous packet again
+		
 		while((rs232_putchar(previous_packet[k]) == 1) && (k < SIZEOFPACKET))
 		{
 			k++;
 		} 
+		#ifdef DEBUG
+			// display
+			fprintf(stderr, "packet sent : ");
+			for (int j = 0; j < SIZEOFPACKET; j++)
+			{
+				fprintf(stderr, "%X ", previous_packet[j]);
+			}
+			fprintf(stderr, "\n");
+		#endif
+		
 	}
 }
 
@@ -366,7 +357,6 @@ int main(int argc, char **argv)
 
 	char isContinuing = 1;
 
-	getchar();
 
 	js_init(&fd, path_to_joystick);
 	JoystickData *jsdat = JoystickData_create();
@@ -401,9 +391,18 @@ int main(int argc, char **argv)
 			packet[KEY] = c;
 		}
 		
-		
+		#ifdef DEBUGACK
 		if ((c = rs232_getchar_nb()) != -1)
+		{
+			process_rx((uint8_t) c);
 			term_putchar(c);
+		}
+		#endif
+
+		#ifndef DEBUGACK
+		if ((c = rs232_getchar_nb()) != -1)
+			process_rx(c);
+		#endif
 
 		
 		clock_gettime(CLOCK_REALTIME, &tp);
