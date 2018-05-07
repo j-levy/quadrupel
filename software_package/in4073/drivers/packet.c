@@ -10,19 +10,26 @@
 
 #include "in4073.h"
 
-#define DEBUG
+//#define DEBUG
+//#define DEBUGACK
 
 static uint8_t packet[SIZEOFPACKET] = {0};
 static uint8_t index = 0;
 static uint8_t crc = 0;
-static uint16_t last_OK_packet = 0;
-
 
 void send_ack(){
-    last_OK_packet = (MSBYTE(packet[PACKETID])) + LSBYTE(packet[PACKETID]) ; // not using TOSHORT because I'm not sure using macros of macros would work. Preprocessing is a bit hairy.
     
-    uint8_t ack_CRC = 0xff ^ MSBYTE(packet[PACKETID]) ^ LSBYTE(packet[PACKETID]);
-    printf("%c%c%c%c", 0xff, MSBYTE(last_OK_packet), LSBYTE(last_OK_packet), ack_CRC);
+    uint8_t ack_CRC = 0xff ^ packet[PACKETID] ^ packet[PACKETID+1];
+    #ifdef DEBUGACK
+    printf("%x %x %x %x", 0xff, packet[PACKETID], packet[PACKETID+1], ack_CRC);
+    #endif
+    #ifndef DEBUGACK
+    uart_put(0xff);
+    uart_put(packet[PACKETID]);
+    uart_put(packet[PACKETID+1]);
+    uart_put(ack_CRC);
+    #endif
+    
 }
 
 
@@ -55,22 +62,27 @@ void process_packet(uint8_t c) {
 
         if (crc == 0) {
             #ifdef DEBUG
+            send_ack();
 
             // passing. Fine. Don't care.          
             #endif
             #ifndef DEBUG 
+            send_ack();
             // passing by pointer is simpler and faster.
+            /*
             process_key(packet + KEY);
 
             process_joystick_axis(packet + AXISTHROTTLE); // throttle is the first value.
 
             process_joystick_button(packet + JOYBUTTON);
+            */
             #endif
 
         }  else if (crc != 0) {
         #ifdef DEBUG
+
             // not passing. Pin-pon-error-blink-red
-            printf(" - crc fail.");
+                printf(" - crc fail.");
             nrf_gpio_pin_toggle(RED);
 
         #endif
