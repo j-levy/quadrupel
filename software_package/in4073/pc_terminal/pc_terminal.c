@@ -12,20 +12,17 @@
 #include "packet_constants.h"
 #include "joystick.h"
 
-// #define DEBUG
+ #define DEBUG
 // #define DEBUGACK
 // #define DEBUGCLK
 
 
-uint8_t packet[SIZEOFPACKET] = {0};   		//Initializing packet to send
-uint8_t previous_packet[SIZEOFPACKET] = {0};
-unsigned short packet_id = 1; // start late to see the bug #7
+uint8_t control_packet[CONTROL_PACKET_SIZE] = {0};   		//Initializing packet to send
 
-uint8_t packet_rx[SIZEOFACKPACKET] = {0};  //packet received from Drone (an ACK packet for the moment)
-static uint8_t rx_index = 0;  	//for prasing the received packets
-static uint8_t rx_crc = 0; // not really needed but we can stay consistent with the board...
-unsigned short rx_packet_id = 0;
+uint8_t telemetry_packet[TELEMETRY_PACKET_SIZE] = {0};  //packet received from Drone
 
+// static uint8_t rx_index = 0;  	//for prasing the received packets
+// static uint8_t rx_crc = 0; // not really needed but we can stay consistent with the board...
 
 /* useful values for joystick*/
 int 		fd;
@@ -198,10 +195,9 @@ int 	rs232_putchar(char c)
  *
  * Compares the received packet ID with the ID of the 
  * last sent packet.
- * Return value: '1' if packet ID matches the ID of the last sent packet
- *				 '0' otherwise
+ * 
  *------------------------------------------------------------
- */
+ 
 void process_rx(uint8_t c)
 {
 		//fprintf(stderr, "read: %X", c);
@@ -249,87 +245,53 @@ void process_rx(uint8_t c)
     	}
 	
 }
+*/
+
 
 
 /*------------------------------------------------------------
  * Method to send the created packet over serial 
  *
- * Author - Niket Agrawal, Jonathan Lévy
+ * Author - Niket Agrawal
  *
- * Check if dependency on 'size' info can be removed.
  *------------------------------------------------------------
  */
 
-void send_packet(void* param)
+void send_packet()
 {
-	// Check ACK for the last sent packet
+	control_packet[START] = _STARTBYTE;
 
-	if(packet_id == rx_packet_id+1)
+	uint8_t crc = 0;
+
+	for(int i = 0; i < CONTROL_PACKET_SIZE; i++)
 	{
-		//send new packet as usual
-		packet[START] = _STARTBYTE;
-		packet[PACKETID] = MSBYTE(packet_id);
-		packet[PACKETID + 1] = LSBYTE(packet_id);
-		packet_id++;
-		uint8_t crc = 0;
-
-		for(int i = 0; i < SIZEOFPACKET; i++)
-		{
-			crc = crc ^ packet[i];
-		}
-		packet[CRC] = crc;   
-		int i = 0;
-		while((rs232_putchar(packet[i]) == 1) && (i < SIZEOFPACKET))
-		{
-			i++;
-		}
-
-		// Store this packet
-		memcpy(previous_packet, packet, SIZEOFPACKET);
-
-		#ifdef DEBUG
-			// display
-			fprintf(stderr, "packet sent : ");
-			for (int j = 0; j < SIZEOFPACKET; j++)
-			{
-				fprintf(stderr, "%X ", packet[j]);
-			}
-			fprintf(stderr, "\n");
-		#endif
-
-		//reset packet	
-		for (int j = 0; j < SIZEOFPACKET; j++)
-		{
-			packet[j] = 0;
-		}
+		crc = crc ^ control_packet[i];
 	}
-	else
+	control_packet[CRC] = crc;   
+	int i = 0;
+
+	while((rs232_putchar(control_packet[i]) == 1) && (i < CONTROL_PACKET_SIZE))
 	{
-		
-		int k = 0;
-		//send previous packet again
-		
-		
-		while((rs232_putchar(previous_packet[k]) == 1) && (k < SIZEOFPACKET))
-		{
-			k++;
-		} 
-		#ifdef DEBUG
-			// display
-			fprintf(stderr, "packet sent : ");
-			for (int j = 0; j < SIZEOFPACKET; j++)
-			{
-				fprintf(stderr, "%X ", previous_packet[j]);
-			}
-			fprintf(stderr, "\n");
-		#endif
-				//reset packet	
-		for (int j = 0; j < SIZEOFPACKET; j++)
-		{
-			packet[j] = 0;
-		}
-		
+		i++;
 	}
+
+	#ifdef DEBUG
+		// display the packet that is sent
+		fprintf(stderr, "control packet sent : ");
+		for (int j = 0; j < CONTROL_PACKET_SIZE; j++)
+		{
+			fprintf(stderr, "%X ", control_packet[j]);
+		}
+		fprintf(stderr, "\n");
+	#endif
+
+	//reset packet	
+	for (int j = 0; j < CONTROL_PACKET_SIZE; j++)
+	{
+		if(j != MODE)  //Retain the previous mode info
+			control_packet[j] = 0;	
+	}
+	
 }
 
 
@@ -341,7 +303,7 @@ int main(int argc, char **argv)
 {
 	char path_to_joystick[64];
 	if (argc == 1) {
-		strcpy(path_to_joystick, "/dev/input/js0");
+		strcpy(path_to_joystick, "/dev/input/js1");
 	} else if (argc == 2) {
 		strcpy(path_to_joystick, argv[1]);
 	} else {
@@ -394,28 +356,30 @@ int main(int argc, char **argv)
 		js_getJoystickValue(&fd, &js, jsdat);
 		for (int j = 0; j < NBRAXES; j++)
 		{
-			packet[AXISTHROTTLE + 2*j] = MSBYTE( jsdat->axis[j] );
-			packet[AXISTHROTTLE + 2*j + 1] = LSBYTE( jsdat->axis[j] );
+			control_packet[AXISTHROTTLE + 2*j] = MSBYTE( jsdat->axis[j] );
+			control_packet[AXISTHROTTLE + 2*j + 1] = LSBYTE( jsdat->axis[j] );
 		}
 		for (int j = 0; j < NBRBUTTONS; j++)
 		{
-			packet[JOYBUTTON] |= (jsdat->button[j] == 1) << j; // 10 for not storing anything.
+			control_packet[JOYBUTTON] |= (jsdat->button[j] == 1) << j; // 10 for not storing anything.
 		}
 		
 		if ((d = term_getchar_nb()) != -1)
 		{
 			if (d == 27) // escape key
 				isContinuing = 0;
-
-			packet[KEY] = d;
+			else if ((d >= 48) && (d <= 56))
+				control_packet[MODE] = d;
+			else 
+				control_packet[KEY] = d;
 		}
 		
 
-		if ((rs232_getchar_nb(&c)) != -1)
-		{
-			term_putchar(c);
-			process_rx(c);
-		}
+		 //if ((rs232_getchar_nb(&c)) != -1)
+		 //{
+		 	//term_putchar(c);
+		// 	process_rx(c);
+		 //}
 
 		
 		clock_gettime(CLOCK_REALTIME, &tp);
@@ -424,20 +388,19 @@ int main(int argc, char **argv)
 		fprintf(stderr, "clk=%ld,%ld\n",tp.tv_sec, tp.tv_nsec);
 		#endif
 		
+		//
 		if (tp.tv_nsec - tic >= DELAY_PACKET_NS || tp.tv_sec - tic_s > 0)
 		{
 			tic = tp.tv_nsec;
 			tic_s = tp.tv_sec;
-			send_packet(NULL);
+			send_packet();
 		}
-		
 	}
 
 	JoystickData_destroy(jsdat);
 	term_exitio();
 	rs232_close();
 	term_puts("\n<exit>\n");
-
 
 	return 0;
 }

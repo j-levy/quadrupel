@@ -15,7 +15,7 @@
 
 #include "in4073.h"
 
- #define DEBUG	
+ //#define DEBUG	
 
 uint8_t buttons = 0;
 int16_t axis[4] = {4};
@@ -26,6 +26,7 @@ int16_t axis[4] = {4};
  * April 2018
  *------------------------------------------------------------------
  */
+
 void process_joystick_axis(uint8_t *val)
 {
 	for (int i = 0; i < 4; i++)
@@ -40,13 +41,18 @@ void process_joystick_button(uint8_t *val)
 	buttons = *val;
 }
 
+
+
+
 void process_key(uint8_t *val)
 {
+	
 	if (*val >= '0' && *val <= '8')
 	{
 		mode = *val;
 
 	} else {
+		
 		switch (*val)
 		{
 			case 'q':
@@ -88,6 +94,9 @@ void process_key(uint8_t *val)
 	}
 }
 
+
+
+
 /*------------------------------------------------------------------
  * main -- everything you need is here :)
  *------------------------------------------------------------------
@@ -112,7 +121,7 @@ int main(void)
 	{
 		if (rx_queue.count)
 		{
-			process_packet( dequeue(&rx_queue) );
+			//process_packet( dequeue(&rx_queue) );
 		}
 
 		if (check_timer_flag()) 
@@ -132,9 +141,9 @@ int main(void)
 				printf("%6d %6d %6d | ", sp, sq, sr);
 				printf("%4d | %4ld | %6ld \n", bat_volt, temperature, pressure);
 				*/
-				printf("%d %d %d %d |", axis[0], axis[1], axis[2], axis[3] );
+				//printf("%d %d %d %d |", axis[0], axis[1], axis[2], axis[3] );
 
-				printf("%d |", buttons);
+				//printf("%d |", buttons);
  
 				printf("%d | ", mode);
 				printf("\n");

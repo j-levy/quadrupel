@@ -40,6 +40,7 @@ void js_getJoystickValue(int *fd, struct js_event *js, JoystickData *jsdat)
 					jsdat->button[js->number] = js->value;
 					break;
 				case JS_EVENT_AXIS:
+					fprintf(stderr, "reading joystick\n");
 					jsdat->axis[js->number] = js->value;
 					break;
 			}
