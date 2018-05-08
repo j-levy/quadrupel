@@ -38,7 +38,7 @@ int16_t motor[4],ae[4];
 void run_filters_and_control();
 
 // Timers
-#define TIMER_PERIOD	50 //50ms=20Hz (MAX 23bit, 4.6h)
+#define TIMER_PERIOD	10 //50ms=20Hz (MAX 23bit, 4.6h)
 void timers_init(void);
 uint32_t get_time_us(void);
 bool check_timer_flag(void);
@@ -66,6 +66,8 @@ queue tx_queue;
 uint32_t last_correct_checksum_time;
 void uart_init(void);
 void uart_put(uint8_t);
+void uart_put4(uint8_t byte0, uint8_t byte1, uint8_t byte2, uint8_t byte3 );
+
 
 // TWI
 #define TWI_SCL	4
@@ -122,6 +124,6 @@ void process_key(uint8_t *val);
 void process_joystick_axis(uint8_t *val);
 void process_joystick_button(uint8_t *val);
 
-void send_ack(uint8_t a, uint8_t b);
+void send_ack();;
 
 #endif // IN4073_H__

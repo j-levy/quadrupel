@@ -12,8 +12,8 @@
 #include "packet_constants.h"
 #include "joystick.h"
 
- #define DEBUG
- #define DEBUGACK
+// #define DEBUG
+// #define DEBUGACK
 // #define DEBUGCLK
 
 
@@ -233,9 +233,9 @@ void process_rx(uint8_t c)
     			//compare the packet ID in the ACK packet with 
     			//the packet ID of the last sent packet
     			rx_packet_id = ((uint16_t) packet_rx[PACKETID])*256 + packet_rx[PACKETID+1]; /// They're the same offset as the big packet
-				#ifdef DEBUGACK
+
 				fprintf(stderr, "rx_packet_id = %d\n", rx_packet_id);
-				#endif
+
 				// the rx_packet_id is updated, and the send_packet will be able to read it.
 
 
@@ -410,21 +410,12 @@ int main(int argc, char **argv)
 			packet[KEY] = d;
 		}
 		
-		#ifdef DEBUGACK
-		if ((rs232_getchar_nb(&c)) != -1)
-		{
-			process_rx((uint8_t) c);
-			term_putchar(c);
-		}
-		#endif
 
-		#ifndef DEBUGACK
 		if ((rs232_getchar_nb(&c)) != -1)
 		{
+			term_putchar(c);
 			process_rx(c);
 		}
-
-		#endif
 
 		
 		clock_gettime(CLOCK_REALTIME, &tp);

@@ -15,7 +15,10 @@
 
 #include "in4073.h"
 
-#define DEBUG	
+ #define DEBUG	
+
+uint8_t buttons = 0;
+int16_t axis[4] = {4};
 
 /*------------------------------------------------------------------
  * process_{joystick, key} -- process command keys, mode change, or joystick
@@ -25,26 +28,16 @@
  */
 void process_joystick_axis(uint8_t *val)
 {
-	
-	printf("\n============== Stick values:");	
 	for (int i = 0; i < 4; i++)
 	{
 		int16_t stickvalue = (((int16_t) *(val + 2*i)) << 8) + ((int16_t) *(val + 2*i + 1));
-		printf("%d, ",stickvalue);
-		
+		axis[i] = stickvalue;
 	}
-	
 }
 
 void process_joystick_button(uint8_t *val)
 {
-	for (int i = 0; i < 8; i++)
-	{
-		if ((*val & (1<<i)) >> i) // (if button #i has been pressed)
-		{	
-			printf("\n=============== Button %d pressed", i);
-		}
-	}
+	buttons = *val;
 }
 
 void process_key(uint8_t *val)
@@ -52,7 +45,7 @@ void process_key(uint8_t *val)
 	if (*val >= '0' && *val <= '8')
 	{
 		mode = *val;
-		printf("\n============= Mode changed to %d", *val);
+
 	} else {
 		switch (*val)
 		{
@@ -87,6 +80,8 @@ void process_key(uint8_t *val)
 			case 27:
 				demo_done = true;
 				break;
+			case 0:
+			break;
 			default:
 				nrf_gpio_pin_toggle(RED);
 		}
@@ -129,15 +124,18 @@ int main(void)
 			read_baro();
 
 			
-			#ifndef DEBUG
+			#ifdef DEBUG
 				printf("%10ld | ", get_time_us());
 				printf("%3d %3d %3d %3d | ",ae[0],ae[1],ae[2],ae[3]);
-				
+				/*
 				printf("%6d %6d %6d | ", phi, theta, psi);
 				printf("%6d %6d %6d | ", sp, sq, sr);
 				printf("%4d | %4ld | %6ld \n", bat_volt, temperature, pressure);
-				
+				*/
+				printf("%d %d %d %d |", axis[0], axis[1], axis[2], axis[3] );
 
+				printf("%d |", buttons);
+ 
 				printf("%d | ", mode);
 				printf("\n");
 			#endif
