@@ -237,6 +237,10 @@ upload-run: default pc
 	dfu_serial/./serial_dfu.py  _build/in4073.bin
 	cd pc_terminal/; make run
 
+upload-run-js1: default pc
+	dfu_serial/./serial_dfu.py  _build/in4073.bin
+	cd pc_terminal/; make run-js1
+
 logger: default pc
 	dfu_serial/./serial_dfu.py  _build/in4073.bin
 	cd pc_terminal/; make run-logger

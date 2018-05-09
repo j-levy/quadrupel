@@ -303,7 +303,7 @@ int main(int argc, char **argv)
 {
 	char path_to_joystick[64];
 	if (argc == 1) {
-		strcpy(path_to_joystick, "/dev/input/js1");
+		strcpy(path_to_joystick, "/dev/input/js0");
 	} else if (argc == 2) {
 		strcpy(path_to_joystick, argv[1]);
 	} else {
@@ -375,11 +375,11 @@ int main(int argc, char **argv)
 		}
 		
 
-		 //if ((rs232_getchar_nb(&c)) != -1)
-		 //{
-		 	//term_putchar(c);
+		 if ((rs232_getchar_nb(&c)) != -1)
+		 {
+		 	term_putchar(c);
 		// 	process_rx(c);
-		 //}
+		 }
 
 		
 		clock_gettime(CLOCK_REALTIME, &tp);
