@@ -12,7 +12,7 @@
 #include "packet_constants.h"
 #include "joystick.h"
 
- #define DEBUG
+// #define DEBUG
 // #define DEBUGACK
 // #define DEBUGCLK
 
@@ -277,7 +277,7 @@ void send_packet()
 
 	#ifdef DEBUG
 		// display the packet that is sent
-		fprintf(stderr, "control packet sent : ");
+		//fprintf(stderr, "control packet sent : ");
 		for (int j = 0; j < CONTROL_PACKET_SIZE; j++)
 		{
 			fprintf(stderr, "%X ", control_packet[j]);
@@ -375,11 +375,11 @@ int main(int argc, char **argv)
 		}
 		
 
-		//  if ((rs232_getchar_nb(&c)) != -1)
-		//  {
-		//  	term_putchar(c);
-		//   	process_rx(c);
-		//  }
+		 if ((rs232_getchar_nb(&c)) != -1)
+		 {
+		 	term_putchar(c);
+		  	//process_rx(c);
+		 }
 
 		
 		clock_gettime(CLOCK_REALTIME, &tp);

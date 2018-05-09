@@ -15,7 +15,7 @@
 
 #include "in4073.h"
 
- //#define DEBUG	
+//#define DEBUG	
 
 uint8_t buttons = 0;
 int16_t axis[4] = {4};
@@ -121,7 +121,7 @@ int main(void)
 	{
 		if (rx_queue.count)
 		{
-			//process_packet( dequeue(&rx_queue) );
+			process_packet( dequeue(&rx_queue) );
 		}
 
 		if (check_timer_flag()) 
@@ -136,11 +136,11 @@ int main(void)
 			#ifdef DEBUG
 				printf("%10ld | ", get_time_us());
 				printf("%3d %3d %3d %3d | ",ae[0],ae[1],ae[2],ae[3]);
-				/*
+				
 				printf("%6d %6d %6d | ", phi, theta, psi);
 				printf("%6d %6d %6d | ", sp, sq, sr);
 				printf("%4d | %4ld | %6ld \n", bat_volt, temperature, pressure);
-				*/
+				
 				//printf("%d %d %d %d |", axis[0], axis[1], axis[2], axis[3] );
 
 				//printf("%d |", buttons);

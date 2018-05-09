@@ -10,13 +10,13 @@
 
 #include "in4073.h"
 
-// #define DEBUG
-// //#define DEBUGACK
+#define DEBUG
+//#define DEBUGACK
 
-// static uint8_t packet[CONTROL_PACKET_SIZE] = {0};
-// static uint8_t index = 0;
-// static uint8_t crc = 0;
-// static uint8_t last_OK[2] = {0,0};
+static uint8_t packet[CONTROL_PACKET_SIZE] = {0};
+static uint8_t index = 0;
+static uint8_t crc = 0;
+//static uint8_t last_OK[2] = {0,0};
 
 // void send_ack(){
     
@@ -35,82 +35,87 @@
 //     uart_put4(_STARTBYTE, last_OK[0], last_OK[1], ack_CRC );
 
     
-//     //#endif
-// }
+    //#endif
+//}
 
 
-// void process_packet(uint8_t c) {
-//     // Packet beginning detection.
 
-//     if (index == 0 && c != _STARTBYTE)
-//     {
-//         printf("no startbyte\n");
-//         return ;
-//     }
+/*
+ * process incoming packets
+ * Revised: 9th May 2018 - Tuan Anh Nguyen
+*/
 
-//     if (index < CONTROL_PACKET_SIZE)
-//     {
-//         printf(" parsing\n");
-//         packet[index] = c;
-//         crc = crc ^ c;
-//         index = (index+1); // in any case, don't go over SIZEOFPACKET.
-//     }
+void process_packet(uint8_t c) {
+    // Packet beginning detection.
 
-//     if (index == CONTROL_PACKET_SIZE) // we got a full packet, and it passes the CRC test! 
-//     {
-//         #ifdef DEBUG
-//         printf("packet got~~~ : ");
-//             for (int j = 0; j < CONTROL_PACKET_SIZE; j++)
-//             {
-//                 printf("%X ", packet[j]);
-//             }
-//         printf(" ~ crc = %X",crc); 
-//         #endif
+    //printf("Character read: %X \n", c);
+    if (index == 0 && c != _STARTBYTE)
+    {
+        return ;
+    }
 
-//         if (crc == 0) {
-//             // last_OK[0] = packet[PACKETID];
-//             // last_OK[1] = packet[PACKETID+1];
-//             // #ifdef DEBUG
+    if (index < CONTROL_PACKET_SIZE)
+    {
+        packet[index] = c;
+        crc = crc ^ c;
+        index = (index+1); // in any case, don't go over SIZEOFPACKET.    
+    }
 
-//             // send_ack(packet[PACKETID], packet[PACKETID+1]);
+    if (index == CONTROL_PACKET_SIZE) // we got a full packet, and it passes the CRC test! 
+    {
+        #ifdef DEBUG
+        printf("packet received~~~ : ");
+            for (int j = 0; j < CONTROL_PACKET_SIZE; j++)
+            {
+                printf("%X ", packet[j]);
+            }
+        printf(" ~ crc = %X \n",crc); 
+        #endif
 
-//             // #endif
-//             #ifndef DEBUG 
+        if (crc == 0) {
+            // last_OK[0] = packet[PACKETID];
+            // last_OK[1] = packet[PACKETID+1];
+            // #ifdef DEBUG
 
-//             // send_ack(packet[PACKETID], packet[PACKETID+1]);
+            // send_ack(packet[PACKETID], packet[PACKETID+1]);
 
-//             process_key(packet + KEY);
+            // #endif
+            #ifndef DEBUG 
 
-//             process_joystick_axis(packet + AXISTHROTTLE); // throttle is the first value.
+            // send_ack(packet[PACKETID], packet[PACKETID+1]);
 
-//             process_joystick_button(packet + JOYBUTTON);
+            process_key(packet + KEY);
 
-//             #endif
+            process_joystick_axis(packet + AXISTHROTTLE); // throttle is the first value.
 
-//         }  else if (crc != 0) {
-//             printf("CRC fail\n");
-//             crc = 0 ^ packet[START];
-//             for (int i = 0; i < CONTROL_PACKET_SIZE-1; i++){
-//                 packet[i]= packet[i+1];
-//                 crc = crc ^ packet[i+1];
-//             }
-//             index--;
-//         #ifdef DEBUG
+            process_joystick_button(packet + JOYBUTTON);
+
+            #endif
+
+        }  else if (crc != 0) {                             //If a decode error is detected
+            crc = 0 ^ packet[0];                            //discard the start byte and begin decoding from the following byte
+            for (int i = 0; i <CONTROL_PACKET_SIZE-1; i++){ //could be better to start decoding from the next start byte instead
+                packet[i]= packet[i+1];
+                crc = crc ^ packet[i+1];
+                printf("%X",packet[i]);
+            }
+            index--;
+        #ifdef DEBUG
             
-//             // not passing. Pin-pon-error-blink-red
-//             // printf(" - crc fail.");
-//             nrf_gpio_pin_toggle(RED);
+            // not passing. Pin-pon-error-blink-red
+            printf(" - crc fail.");
+            nrf_gpio_pin_toggle(RED);
 
-//         #endif
-//     }
-//             // printf("\n");
+        #endif
+    }
+            // printf("\n");
 
-//             crc = 0;
-//             index = 0;
-//             for (int i = 0; i < CONTROL_PACKET_SIZE; i++)
-//                 packet[i] = 0;
-//     }
+            crc = 0;
+            index = 0;
+            for (int i = 0; i < CONTROL_PACKET_SIZE; i++)
+                packet[i] = 0;
+    }
     
 
     
-// }
+}
