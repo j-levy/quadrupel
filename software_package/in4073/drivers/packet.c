@@ -16,6 +16,10 @@
 static uint8_t packet[CONTROL_PACKET_SIZE] = {0};
 static uint8_t index = 0;
 static uint8_t crc = 0;
+//static uint8_t count = 0;
+static uint8_t packet_length = CONTROL_PACKET_SIZE; //indicates packet length to parse including the offset if any
+                                                    //initialized with 13 (no offset)
+                                                    //Offset comes from the previous cycle of partially parsed packet
 //static uint8_t last_OK[2] = {0,0};
 
 // void send_ack(){
@@ -48,28 +52,34 @@ static uint8_t crc = 0;
 void process_packet(uint8_t c) {
     // Packet beginning detection.
 
+    uint8_t l = 0;
     //printf("Character read: %X \n", c);
     if (index == 0 && c != _STARTBYTE)
     {
         return ;
     }
 
-    if (index < CONTROL_PACKET_SIZE)
+    if (index < packet_length)
     {
         packet[index] = c;
+        // if((index == 7) && (count == 150)) {
+        //     crc = 9;
+        //  }
+        // else
         crc = crc ^ c;
+
         index = (index+1); // in any case, don't go over SIZEOFPACKET.    
     }
 
-    if (index == CONTROL_PACKET_SIZE) // we got a full packet, and it passes the CRC test! 
+    if (index == packet_length) // we got a full packet, and it passes the CRC test! 
     {
         #ifdef DEBUG
-        printf("packet received~~~ : ");
+            printf("packet received~~~ : ");
             for (int j = 0; j < CONTROL_PACKET_SIZE; j++)
             {
                 printf("%X ", packet[j]);
             }
-        printf(" ~ crc = %X \n",crc); 
+            printf(" ~ crc = %X \n",crc); 
         #endif
 
         if (crc == 0) {
@@ -80,6 +90,7 @@ void process_packet(uint8_t c) {
             // send_ack(packet[PACKETID], packet[PACKETID+1]);
 
             // #endif
+            l = CONTROL_PACKET_SIZE;
             #ifndef DEBUG 
 
             // send_ack(packet[PACKETID], packet[PACKETID+1]);
@@ -92,30 +103,41 @@ void process_packet(uint8_t c) {
 
             #endif
 
-        }  else if (crc != 0) {                             //If a decode error is detected
-            crc = 0 ^ packet[0];                            //discard the start byte and begin decoding from the following byte
-            for (int i = 0; i <CONTROL_PACKET_SIZE-1; i++){ //could be better to start decoding from the next start byte instead
-                packet[i]= packet[i+1];
-                crc = crc ^ packet[i+1];
-                printf("%X",packet[i]);
-            }
-            index--;
-        #ifdef DEBUG
-            
+        }  
+        else if (crc != 0)
+        {
+            #ifdef DEBUG
             // not passing. Pin-pon-error-blink-red
             printf(" - crc fail.");
             nrf_gpio_pin_toggle(RED);
+            #endif
 
-        #endif
-    }
-            // printf("\n");
-
-            crc = 0;
-            index = 0;
-            for (int i = 0; i < CONTROL_PACKET_SIZE; i++)
-                packet[i] = 0;
-    }
+            crc = 0;  //recompute crc
+            l = 1;  // starting from the next byte after previous start byte
+            while(packet[l] != _STARTBYTE)  //find the index of next startbyte starting 
+            {                               //from the byte after the previous start byte
+                l++;
+            }      //'l' could be < or = 13 , if l=13, 
+                   //we continue as usual with the new arriving byte                        
+            
+            if(l < packet_length)
+            {
+                //Compute crc from this new start byte till the last byte in our current array       
+                for(int i = l; i < packet_length; i++)
+                {
+                    crc = crc ^ packet[i];
+                }
+                packet_length = l + CONTROL_PACKET_SIZE;  //reset packet length for full packet traversal
+            }
+            
+        } 
     
+        index = CONTROL_PACKET_SIZE - l;
+        for(int i = 0; i < l; i++)  //discard/reset unwanted part of packet
+        {
+            packet[i] = 0;
+        }
 
-    
+    }
+        //count++;
 }
