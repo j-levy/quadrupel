@@ -3,9 +3,17 @@
  *
  *  Author: Niket Agrawal, Jonathan Levy
  * 
+ * CRC is computed byte by byte and CRC check is done at the end of each packet (13 bytes) as before. 
+ * The idea is to NOT discard the whole packet upon CRC decoding failure, as we may have picked a wrong start byte 
+ * and assumed that a new packet has started. If we throw the packet, we may loose the correct start byte which could 
+ * be somewhere within the packet.
+ * if a CRC check failure is detected, the next start byte is found starting from the previous start byte.
+ * If a start byte (0xFF) is detected within the current packet, this means we re-use a chunk of this packet. 
+ * New packet starts from this new start byte. All the bytes before this are discarded
+ * CRC is computed for the left over bytes first (from new start byte to end of packet). 
+ * Rest half of the packet is formed by new bytes arriving to process packet method and CRC is computed in usual manner.
  *
- *
- *  April 2018
+ *  May 2018
  *------------------------------------------------------------------
  */
 
