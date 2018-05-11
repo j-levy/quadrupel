@@ -1,8 +1,9 @@
 /*------------------------------------------------------------------
  *  packet.c -- a packet parser, byte by byte.
  *
- *  J.Lévy
- *  Embedded Software Lab - student
+ *  Author: Niket Agrawal, Jonathan Levy
+ * 
+ *
  *
  *  April 2018
  *------------------------------------------------------------------
@@ -12,14 +13,16 @@
 
 #define DEBUG
 //#define DEBUGACK
+//#define DEBUGCRC      //Enable CRC decoding test here
 
 static uint8_t packet[CONTROL_PACKET_SIZE] = {0};
 static uint8_t index = 0;
 static uint8_t crc = 0;
-//static uint8_t count = 0;
-static uint8_t packet_length = CONTROL_PACKET_SIZE; //indicates packet length to parse including the offset if any
-                                                    //initialized with 13 (no offset)
-                                                    //Offset comes from the previous cycle of partially parsed packet
+#ifdef DEBUGCRC
+static int count = 0;
+#endif
+static uint8_t l = 0;  //variable used to determine new startbyte
+
 //static uint8_t last_OK[2] = {0,0};
 
 // void send_ack(){
@@ -43,35 +46,32 @@ static uint8_t packet_length = CONTROL_PACKET_SIZE; //indicates packet length to
 //}
 
 
-
-/*
- * process incoming packets
- * Revised: 9th May 2018 - Tuan Anh Nguyen
-*/
-
 void process_packet(uint8_t c) {
     // Packet beginning detection.
 
-    uint8_t l = 0;
+    
     //printf("Character read: %X \n", c);
     if (index == 0 && c != _STARTBYTE)
     {
         return ;
     }
 
-    if (index < packet_length)
+    if (index < CONTROL_PACKET_SIZE)
     {
         packet[index] = c;
-        // if((index == 7) && (count == 150)) {
-        //     crc = 9;
-        //  }
-        // else
+        #ifdef DEBUGCRC
+        //Corrupt CRC for random byte to simulate error scenario
+        if((count == 750) || (count == 150) || (count == 1300)) {
+            crc = 9;
+         }
+        else
+        #endif
         crc = crc ^ c;
 
         index = (index+1); // in any case, don't go over SIZEOFPACKET.    
     }
 
-    if (index == packet_length) // we got a full packet, and it passes the CRC test! 
+    if (index == CONTROL_PACKET_SIZE) //reached the end of a packet 
     {
         #ifdef DEBUG
             printf("packet received~~~ : ");
@@ -90,7 +90,7 @@ void process_packet(uint8_t c) {
             // send_ack(packet[PACKETID], packet[PACKETID+1]);
 
             // #endif
-            l = CONTROL_PACKET_SIZE;
+            //l = CONTROL_PACKET_SIZE;
             #ifndef DEBUG 
 
             // send_ack(packet[PACKETID], packet[PACKETID+1]);
@@ -112,32 +112,59 @@ void process_packet(uint8_t c) {
             nrf_gpio_pin_toggle(RED);
             #endif
 
-            crc = 0;  //recompute crc
-            l = 1;  // starting from the next byte after previous start byte
+            crc = 0;  //reset crc as it will be recomputed
+            l = l + 1;  // begin from the next byte after the previous start byte
             while(packet[l] != _STARTBYTE)  //find the index of next startbyte starting 
             {                               //from the byte after the previous start byte
+                //printf("iteration\n");
                 l++;
-            }      //'l' could be < or = 13 , if l=13, 
-                   //we continue as usual with the new arriving byte                        
-            
-            if(l < packet_length)
+            }      
+
+            #ifdef DEBUGCRC                        
+            printf("Next start byte found at %d\n", l);
+            #endif
+
+            if(l < CONTROL_PACKET_SIZE)
             {
-                //Compute crc from this new start byte till the last byte in our current array       
-                for(int i = l; i < packet_length; i++)
+                #ifdef DEBUGCRC
+                printf("l is less than packet length\n");
+                #endif
+                //Compute crc from this new start byte till the last byte in our current array
+                index = 0;    //index is zero for new start byte, new packet starts from here   
+                for(int i = l; i < CONTROL_PACKET_SIZE; i++)
                 {
+                    packet[i-l] = packet[i];  //overwrite previous bytes
                     crc = crc ^ packet[i];
+                    index = index + 1;
                 }
-                packet_length = l + CONTROL_PACKET_SIZE;  //reset packet length for full packet traversal
+                //packet_length = l + CONTROL_PACKET_SIZE;  //reset packet length for full packet traversal
+                //printf("New packet length is %d\n", packet_length);
+            }
+
+            else //no other start byte found in the current packet
+                 //reset index to zero and clear packet 
+            {
+                index = 0;
+                for(int i = 0; i < CONTROL_PACKET_SIZE; i++)
+                {
+                    packet[i] = 0;
+                }
             }
             
         } 
-    
-        index = CONTROL_PACKET_SIZE - l;
-        for(int i = 0; i < l; i++)  //discard/reset unwanted part of packet
+        
+    }
+
+    // reset index to zero and clear packet if index reached the end of packet
+    if(index == CONTROL_PACKET_SIZE)
+    {
+        index = 0;
+        for(int i = 0; i < l; i++)  
         {
             packet[i] = 0;
         }
-
     }
-        //count++;
+    #ifdef DEBUGCRC
+    count++; 
+    #endif
 }

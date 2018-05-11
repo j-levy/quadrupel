@@ -47,8 +47,8 @@
 #define JS_EVENT_INIT		0x80	/* initial state of device */
 
 struct js_event {
-	__u32 time;	/* event timestamp in milliseconds */
-	__s16 value;	/* value */
+	__u32 time ;	/* event timestamp in milliseconds */
+	__s16 value ;	/* value */
 	__u8 type;	/* event type */
 	__u8 number;	/* axis/button number */
 };
@@ -133,14 +133,14 @@ struct JS_DATA_SAVE_TYPE {
 
 
 struct joystickData {
-	u_int16_t	axis[NBRAXES];
-	u_int8_t 	button[NBRBUTTONS];
+	u_int16_t	axis[NBRAXES] ;
+	u_int8_t 	button[NBRBUTTONS] ;
 };
 
 typedef struct joystickData JoystickData;
 
 		
-void js_init(int *fd, char *path_to_joystick);
+void js_init(int *fd, char *path_to_joystick, struct js_event *js);
 void js_getJoystickValue(int *fd, struct js_event *js, JoystickData *jsdat);
 JoystickData *JoystickData_create();
 void JoystickData_destroy(JoystickData *jsdata);
