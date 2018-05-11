@@ -124,6 +124,7 @@ void process_packet(uint8_t c) {
             printf("Next start byte found at %d\n", l);
             #endif
 
+            //if next start byte was found within the current packet
             if(l < CONTROL_PACKET_SIZE)
             {
                 #ifdef DEBUGCRC
@@ -137,8 +138,10 @@ void process_packet(uint8_t c) {
                     crc = crc ^ packet[i];
                     index = index + 1;
                 }
-                //packet_length = l + CONTROL_PACKET_SIZE;  //reset packet length for full packet traversal
-                //printf("New packet length is %d\n", packet_length);
+                //CRC computation done for the 1st half of the packet, new bytes arriving
+                //to prpcess_packet method will form the 2nd half of this packet and CRC 
+                //computation will continue from (index < size) check in line 59
+                
             }
 
             else //no other start byte found in the current packet
@@ -155,7 +158,9 @@ void process_packet(uint8_t c) {
         
     }
 
-    // reset index to zero and clear packet if index reached the end of packet
+    // reset index to zero and clear packet if index reached the end of packet,
+    // this is required for case when there is no CRC error and a full packet is
+    // parsed and decoded correctly
     if(index == CONTROL_PACKET_SIZE)
     {
         index = 0;
