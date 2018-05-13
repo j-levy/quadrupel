@@ -38,7 +38,8 @@ int16_t motor[4],ae[4];
 void run_filters_and_control();
 
 // Timers
-#define TIMER_PERIOD	20 //50ms=20Hz (MAX 23bit, 4.6h)
+#define TIMER_PERIOD	100 //old-> 50ms=20Hz (MAX 23bit, 4.6h)
+							//current: set to 10Hz as per requirement
 void timers_init(void);
 uint32_t get_time_us(void);
 bool check_timer_flag(void);
@@ -124,6 +125,8 @@ void process_key(uint8_t *val);
 void process_joystick_axis(uint8_t *val);
 void process_joystick_button(uint8_t *val);
 
-void send_ack();;
+void send_ack();
+
+void send_telemetry_packet();
 
 #endif // IN4073_H__
