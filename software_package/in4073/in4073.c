@@ -17,7 +17,7 @@
 
 //#define DEBUG	
 
-#define RX_TIMEOUT 500000 	//currently set to 100msec
+#define RX_TIMEOUT 100000 	//currently set to 100msec
 uint8_t buttons = 0;
 int16_t axis[4] = {4};
 uint32_t timeout = 0;
@@ -120,7 +120,7 @@ int main(void)
 
 	while (!demo_done)
 	{
-		if(timeout && ((get_time_us() - timeout) > 100000))
+		if(timeout && ((get_time_us() - timeout) > RX_TIMEOUT))
 		{
 			printf("comm link failure\n");
 			comm_link_failure = 1;
