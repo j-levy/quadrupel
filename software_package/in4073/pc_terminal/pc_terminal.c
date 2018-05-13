@@ -8,6 +8,7 @@
  */
 
 #include "pc_terminal.h"
+#include <unistd.h>
 
 #include "packet_constants.h"
 #include "joystick.h"
@@ -15,14 +16,14 @@
 // #define DEBUG
 // #define DEBUGACK
 // #define DEBUGCLK
-
+//#define DEBUG_TIMEOUT
 
 uint8_t control_packet[CONTROL_PACKET_SIZE] = {0};   		//Initializing packet to send
 
-uint8_t telemetry_packet[TELEMETRY_PACKET_SIZE] = {0};  //packet received from Drone
-
-// static uint8_t rx_index = 0;  	//for prasing the received packets
-// static uint8_t rx_crc = 0; // not really needed but we can stay consistent with the board...
+uint8_t telemetry_packet[TELEMETRY_PACKET_SIZE] = {0};      //packet received from Drone
+#ifdef DEBUG_TIMEOUT
+uint32_t counter = 0;
+#endif
 
 /* useful values for joystick*/
 int 		fd;
@@ -392,13 +393,20 @@ int main(int argc, char **argv)
 		fprintf(stderr, "clk=%ld,%ld\n",tp.tv_sec, tp.tv_nsec);
 		#endif
 		
-		
+		#ifdef DEBUG_TIMEOUT
+		if(counter < 2000)
+		#endif
 		if (tp.tv_nsec - tic >= DELAY_PACKET_NS || tp.tv_sec - tic_s > 0)
 		{
 			tic = tp.tv_nsec;
 			tic_s = tp.tv_sec;
 			send_packet();
 		}
+
+		#ifdef DEBUG_TIMEOUT
+		counter++;
+		#endif
+
 	}
 
 	JoystickData_destroy(jsdat);

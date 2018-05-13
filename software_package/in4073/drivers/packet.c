@@ -56,7 +56,6 @@ static uint8_t l = 0;  //variable used to determine new startbyte
 
 void process_packet(uint8_t c) {
     // Packet beginning detection.
-
     
     //printf("Character read: %X \n", c);
     if (index == 0 && c != _STARTBYTE)
@@ -69,7 +68,7 @@ void process_packet(uint8_t c) {
         packet[index] = c;
         #ifdef DEBUGCRC
         //Corrupt CRC for random byte to simulate error scenario
-        if((count == 750) || (count == 150) || (count == 1300)) {
+        if((count == 450) || (count == 150) || (count == 750) || (count == 1000)) {
             crc = 9;
          }
         else

@@ -17,8 +17,11 @@
 
 //#define DEBUG	
 
+#define RX_TIMEOUT 500000 	//currently set to 100msec
 uint8_t buttons = 0;
 int16_t axis[4] = {4};
+uint32_t timeout = 0;
+uint8_t comm_link_failure = 0;
 
 /*------------------------------------------------------------------
  * process_{joystick, key} -- process command keys, mode change, or joystick
@@ -40,8 +43,6 @@ void process_joystick_button(uint8_t *val)
 {
 	buttons = *val;
 }
-
-
 
 
 void process_key(uint8_t *val)
@@ -119,8 +120,14 @@ int main(void)
 
 	while (!demo_done)
 	{
+		if(timeout && ((get_time_us() - timeout) > 100000))
+		{
+			printf("comm link failure\n");
+			comm_link_failure = 1;
+		}
 		if (rx_queue.count)
 		{
+			timeout = get_time_us();
 			process_packet( dequeue(&rx_queue) );
 		}
 
