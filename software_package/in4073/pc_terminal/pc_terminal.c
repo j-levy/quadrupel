@@ -294,6 +294,24 @@ void send_packet()
 	
 }
 
+/*-----------------------------------------------------------------
+* Function to read arrow key inputs
+* Source: https://ubuntuforums.org/showthread.php?t=2276177
+*------------------------------------------------------------------
+*/
+int getch()
+{
+ int ch;
+ struct termios oldt;
+ struct termios newt;
+ tcgetattr(STDIN_FILENO, &oldt); /*store old settings */
+ newt = oldt; /* copy old settings to new settings */
+ newt.c_lflag &= ~(ICANON | ECHO); /* make one change to old settings in new settings */
+ tcsetattr(STDIN_FILENO, TCSANOW, &newt); /*apply the new settings immediatly */
+ ch = getchar(); /* standard getchar call */
+ tcsetattr(STDIN_FILENO, TCSANOW, &oldt); /*reapply the old settings */
+ return ch; /*return received char */
+}
 
 /*----------------------------------------------------------------
  * main -- execute terminal
@@ -313,6 +331,9 @@ int main(int argc, char **argv)
 	fprintf(stderr, "using %s\n", path_to_joystick);
 	uint8_t c;
 	int d;
+	uint32_t ch;
+	int y ;
+	int z ;
 	
 	term_puts("\nTerminal program - Embedded Real-Time Systems\n");
 
@@ -368,8 +389,40 @@ int main(int argc, char **argv)
 		
 		if ((d = term_getchar_nb()) != -1)
 		{
-			if (d == 27) // escape key
+			if (d == 27) //escape key
+			{
+				y = getch();
+  				z = getch();
+  				printf("Key code y is %d\n", y);
+  				printf("Key code z is %d\n", z);
+				if (d == 27 && y == 91)
+ 				{
+  					switch (z)
+  					{
+   					case 65:
+   					printf("up arrow key pressed\n");
+					control_packet[KEY] = 42;
+   					break;
+
+   					case 66:
+   					printf("down arrow key pressed\n");
+					control_packet[KEY] = 43;
+   					break;
+
+   					case 67:
+   					printf("right arrow key pressed\n");
+					control_packet[KEY] = 44;
+   					break;
+
+   					case 68:
+   					printf("left arrow key pressed\n");
+					control_packet[KEY] = 45;
+   					break;
+  					}
+ 				}
+				else 
 				isContinuing = 0;
+			}
 			else if ((d >= 48) && (d <= 56))
 				control_packet[MODE] = d;
 				//control_packet[MODE] = 0xFF;
@@ -377,21 +430,18 @@ int main(int argc, char **argv)
 				control_packet[KEY] = d;
 				//control_packet[KEY] = 0xFF;
 		}
-		
 
-		 if ((rs232_getchar_nb(&c)) != -1)
-		 {
-		 	term_putchar(c);
+		if ((rs232_getchar_nb(&c)) != -1)
+		{
+			term_putchar(c);
 		  	//process_rx(c);
-		 }
+		}
 
-		
 		clock_gettime(CLOCK_REALTIME, &tp);
 		
 		#ifdef DEBUGCLK
 		fprintf(stderr, "clk=%ld,%ld\n",tp.tv_sec, tp.tv_nsec);
 		#endif
-		
 		
 		if (tp.tv_nsec - tic >= DELAY_PACKET_NS || tp.tv_sec - tic_s > 0)
 		{
