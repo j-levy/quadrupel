@@ -9,3 +9,8 @@
 #define MODE_4_YAWCTRL 4
 #define MODE_5_FULLCTRL 5
 #define MODE_6_RAW 6
+
+
+void mode_0_safe_RUN(void);
+void mode_1_panic_RUN(void);
+void mode_2_manual_RUN(void);
