@@ -21,8 +21,8 @@
 //#define DEBUG	
 
 uint8_t buttons = 0;
-int16_t axis[4] = {4};
-uint8_t telemetry_packet[TELEMETRY_PACKET_SIZE] = {0}; 
+int16_t axis[4] = {0};
+uint8_t keyboard_key = 0; 
 
 /*------------------------------------------------------------------
  * process_{joystick, key} -- process command keys, mode change, or joystick
@@ -45,61 +45,10 @@ void process_joystick_button(uint8_t *val)
 	buttons = *val;
 }
 
-
-
-
-void process_key(uint8_t *val)
+void store_key(uint8_t *val)
 {
-	
-	if (*val >= '0' && *val <= '8')
-	{
-		mode = *val;
-
-	} else {
-		
-		switch (*val)
-		{
-			case 'q':
-				ae[0] += 10;
-				break;
-			case 'a':
-				ae[0] -= 10;
-				if (ae[0] < 0) ae[0] = 0;
-				break;
-			case 'w':
-				ae[1] += 10;
-				break;
-			case 's':
-				ae[1] -= 10;
-				if (ae[1] < 0) ae[1] = 0;
-				break;
-			case 'e':
-				ae[2] += 10;
-				break;
-			case 'd':
-				ae[2] -= 10;
-				if (ae[2] < 0) ae[2] = 0;
-				break;
-			case 'r':
-				ae[3] += 10;
-				break;
-			case 'f':
-				ae[3] -= 10;
-				if (ae[3] < 0) ae[3] = 0;
-				break;
-			case 27:
-				demo_done = true;
-				break;
-			case 0:
-			break;
-			default:
-				nrf_gpio_pin_toggle(RED);
-		}
-	}
+	keyboard_key = *val;
 }
-
-
-
 
 /*------------------------------------------------------------------
  * main -- everything you need is here :)

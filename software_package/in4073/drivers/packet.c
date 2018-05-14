@@ -20,12 +20,10 @@
 #include "in4073.h"
 
 //#define DEBUGCONTROLRX
-#define DEBUGTELEMETRYTX
 //#define DEBUGCRC      //Enable CRC decoding test here
 //#define DEBUGPROCESSINPUT
 
 static uint8_t packet[CONTROL_PACKET_SIZE] = {0};
-extern uint8_t telemetry_packet[TELEMETRY_PACKET_SIZE];
 static uint8_t index = 0;
 static uint8_t crc = 0;
 #ifdef DEBUGCRC
@@ -187,14 +185,14 @@ void process_packet(uint8_t c) {
 
 
 /*------------------------------------------------------------
- * Method to process the received ACK packet from Drone 
+ *  
  *
  * Author - Niket Agrawal
  *
  * Sends the telemetry data to the PC at 10Hz
  * 
  *------------------------------------------------------------
- */
+ *
 void send_telemetry_packet()
 {
     telemetry_packet[START] = _STARTBYTE;
@@ -235,4 +233,4 @@ void send_telemetry_packet()
 		telemetry_packet[j] = 0;	
 	}
 
-}
+}*/
