@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "random": "c",
+        "bitset": "c",
+        "future": "c"
+    },
+    "C_Cpp.dimInactiveRegions": true
+}

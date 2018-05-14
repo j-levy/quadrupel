@@ -6,3 +6,4 @@
 software_package/in4073/_build/
 
 *.pyc
+*.o
