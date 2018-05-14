@@ -124,6 +124,10 @@ void store_key(uint8_t *val);
 void store_joystick_axis(uint8_t *val);
 void store_joystick_button(uint8_t *val);
 
-void send_ack();;
+void send_ack();
+
+
+// mode functions
+bool switch_mode( uint8_t newmode );
 
 #endif // IN4073_H__

@@ -67,6 +67,10 @@ $(abspath ../components/ble/common/ble_conn_params.c) \
 $(abspath ../components/ble/ble_services/ble_nus/ble_nus.c) \
 $(abspath ../components/ble/common/ble_srv_common.c) \
 $(abspath ../components/softdevice/common/softdevice_handler/softdevice_handler.c) \
+$(abspath ./modes/switch_mode.c) \
+$(abspath ./modes/mode0.c) \
+$(abspath ./modes/mode1.c) \
+$(abspath ./modes/mode2.c) \
 
 #assembly files common to all targets
 ASM_SOURCE_FILES  = $(abspath ../components/toolchain/gcc/gcc_startup_nrf51.s)
