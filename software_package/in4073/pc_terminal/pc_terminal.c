@@ -333,7 +333,7 @@ int main(int argc, char **argv)
 	char isContinuing = 1;
 
 
-	js_init(&fd, path_to_joystick);
+	js_init(&fd, path_to_joystick, &js);
 	JoystickData *jsdat = JoystickData_create();
 
 	struct timespec tp;
@@ -358,6 +358,8 @@ int main(int argc, char **argv)
 		{
 			control_packet[AXISTHROTTLE + 2*j] = MSBYTE( jsdat->axis[j] );
 			control_packet[AXISTHROTTLE + 2*j + 1] = LSBYTE( jsdat->axis[j] );
+			//control_packet[AXISTHROTTLE + 2*j] = 0xFF;
+			//control_packet[AXISTHROTTLE + 2*j + 1] = 0xFF;
 		}
 		for (int j = 0; j < NBRBUTTONS; j++)
 		{
@@ -370,8 +372,10 @@ int main(int argc, char **argv)
 				isContinuing = 0;
 			else if ((d >= 48) && (d <= 56))
 				control_packet[MODE] = d;
+				//control_packet[MODE] = 0xFF;
 			else 
 				control_packet[KEY] = d;
+				//control_packet[KEY] = 0xFF;
 		}
 		
 
@@ -388,7 +392,7 @@ int main(int argc, char **argv)
 		fprintf(stderr, "clk=%ld,%ld\n",tp.tv_sec, tp.tv_nsec);
 		#endif
 		
-		//
+		
 		if (tp.tv_nsec - tic >= DELAY_PACKET_NS || tp.tv_sec - tic_s > 0)
 		{
 			tic = tp.tv_nsec;
