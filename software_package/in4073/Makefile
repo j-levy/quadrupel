@@ -36,6 +36,7 @@ SIZE            := '$(GNU_INSTALL_ROOT)/bin/$(GNU_PREFIX)-size'
 remduplicates = $(strip $(if $1,$(firstword $1) $(call remduplicates,$(filter-out $(firstword $1),$1))))
 
 #source common to all targets
+## LINE 54 ADDED [Jonathan LEVY]
 C_SOURCE_FILES += \
 $(abspath ../components/toolchain/system_nrf51.c) \
 $(abspath ../components/drivers_nrf/delay/nrf_delay.c) \
@@ -50,6 +51,7 @@ $(abspath ./drivers/adc.c) \
 $(abspath ./drivers/baro.c) \
 $(abspath ./drivers/ble.c) \
 $(abspath ./drivers/spi_flash.c) \
+$(abspath ./drivers/packet.c) \
 $(abspath ./invensense/inv_mpu.c) \
 $(abspath ./invensense/inv_mpu_dmp_motion_driver.c) \
 $(abspath ./invensense/ml.c) \
@@ -213,7 +215,7 @@ echosize:
 	$(NO_ECHO)$(SIZE) $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).out
 	-@echo ''
 
-clean:
+clean: pc-mrproper
 	$(RM) $(BUILD_DIRECTORIES)
 
 cleanobj:
@@ -221,6 +223,9 @@ cleanobj:
 
 upload: default
 	dfu_serial/./serial_dfu.py  _build/in4073.bin
+
+pc-mrproper:
+	cd pc_terminal/; make mrproper; cd ..
 
 pc: 
 	cd pc_terminal/; make
@@ -231,3 +236,11 @@ pc-run:
 upload-run: default pc
 	dfu_serial/./serial_dfu.py  _build/in4073.bin
 	cd pc_terminal/; make run
+
+upload-run-js1: default pc
+	dfu_serial/./serial_dfu.py  _build/in4073.bin
+	cd pc_terminal/; make run-js1
+
+logger: default pc
+	dfu_serial/./serial_dfu.py  _build/in4073.bin
+	cd pc_terminal/; make run-logger

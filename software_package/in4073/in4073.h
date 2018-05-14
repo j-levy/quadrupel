@@ -21,7 +21,11 @@
 #include "app_util_platform.h"
 #include <math.h>
 
-#define RED		22
+
+// offsets to access the bytes in the packet easily.
+#include "./pc_terminal/packet_constants.h"
+
+#define RED		    22
 #define YELLOW		24
 #define GREEN		28
 #define BLUE		30
@@ -34,7 +38,7 @@ int16_t motor[4],ae[4];
 void run_filters_and_control();
 
 // Timers
-#define TIMER_PERIOD	50 //50ms=20Hz (MAX 23bit, 4.6h)
+#define TIMER_PERIOD	20 //50ms=20Hz (MAX 23bit, 4.6h)
 void timers_init(void);
 uint32_t get_time_us(void);
 bool check_timer_flag(void);
@@ -62,6 +66,8 @@ queue tx_queue;
 uint32_t last_correct_checksum_time;
 void uart_init(void);
 void uart_put(uint8_t);
+void uart_put4(uint8_t byte0, uint8_t byte1, uint8_t byte2, uint8_t byte3 );
+
 
 // TWI
 #define TWI_SCL	4
@@ -106,5 +112,18 @@ queue ble_tx_queue;
 volatile bool radio_active;
 void ble_init(void);
 void ble_send(void);
+
+
+// Mode
+uint8_t mode;
+
+// Packet Parser [Jonathan LEVY]
+void process_packet(uint8_t c);
+
+void store_key(uint8_t *val);
+void store_joystick_axis(uint8_t *val);
+void store_joystick_button(uint8_t *val);
+
+void send_ack();;
 
 #endif // IN4073_H__

@@ -7,11 +7,28 @@
  *------------------------------------------------------------
  */
 
-#include <stdio.h>
-#include <termios.h>
-#include <unistd.h>
-#include <string.h>
-#include <inttypes.h>
+#include "pc_terminal.h"
+
+#include "packet_constants.h"
+#include "joystick.h"
+
+// #define DEBUG
+// #define DEBUGACK
+// #define DEBUGCLK
+
+
+uint8_t control_packet[CONTROL_PACKET_SIZE] = {0};   		//Initializing packet to send
+
+uint8_t telemetry_packet[TELEMETRY_PACKET_SIZE] = {0};  //packet received from Drone
+
+// static uint8_t rx_index = 0;  	//for prasing the received packets
+// static uint8_t rx_crc = 0; // not really needed but we can stay consistent with the board...
+
+/* useful values for joystick*/
+int 		fd;
+struct js_event js;
+
+
 
 /*------------------------------------------------------------
  * console I/O
@@ -73,13 +90,6 @@ int	term_getchar()
  * 115,200 baud
  *------------------------------------------------------------
  */
-#include <termios.h>
-#include <ctype.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <assert.h>
-#include <time.h>
 
 int serial_device = 0;
 int fd_RS232;
@@ -90,7 +100,7 @@ void rs232_open(void)
   	int 		result;
   	struct termios	tty;
 
-       	fd_RS232 = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY);  // Hardcode your serial port here, or request it as an argument at runtime
+	fd_RS232 = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY);  // Hardcode your serial port here, or request it as an argument at runtime
 
 	assert(fd_RS232>=0);
 
@@ -132,13 +142,13 @@ void 	rs232_close(void)
   	assert (result==0);
 }
 
-
-int	rs232_getchar_nb()
+// modified to distinguish error code and character read.
+// The character read is passed as pointer and modified that way.
+int	rs232_getchar_nb(uint8_t *c)
 {
 	int 		result;
-	unsigned char 	c;
 
-	result = read(fd_RS232, &c, 1);
+	result = read(fd_RS232, c, 1);
 
 	if (result == 0)
 		return -1;
@@ -146,20 +156,24 @@ int	rs232_getchar_nb()
 	else
 	{
 		assert(result == 1);
-		return (int) c;
+		
+		return 1;
 	}
 }
 
 
-int 	rs232_getchar()
+/* This function is not used, and is shit anyways. Needs to be re-written with the new parameter to 
+	pass. Who would need that anyways.*/
+/*
+uint8_t 	rs232_getchar()
 {
 	int 	c;
 
-	while ((c = rs232_getchar_nb()) == -1)
+	while ((rs232_getchar_nb(&c)) == -1)
 		;
 	return c;
 }
-
+*/
 
 int 	rs232_putchar(char c)
 {
@@ -174,14 +188,132 @@ int 	rs232_putchar(char c)
 }
 
 
+/*------------------------------------------------------------
+ * Method to process the received ACK packet from Drone 
+ *
+ * Author - Niket Agrawal
+ *
+ * Compares the received packet ID with the ID of the 
+ * last sent packet.
+ * 
+ *------------------------------------------------------------
+ 
+void process_rx(uint8_t c)
+{
+		//fprintf(stderr, "read: %X", c);
+		if (rx_index == 0 && c != _STARTBYTE)
+    	{
+        	return ;
+    	}
+
+    	if (rx_index < SIZEOFACKPACKET)
+    	{
+        	packet_rx[rx_index] = c;  //to print the received packet contents 
+        	rx_crc = rx_crc ^ c;
+        	rx_index = rx_index + 1; 
+    	}
+
+    	if (rx_index == SIZEOFACKPACKET) // whole packet received
+    	{		
+    		#ifdef DEBUGACK
+        		fprintf(stderr, "packet got~~~ : ");
+            	for (int j = 0; j < SIZEOFACKPACKET; j++)
+            	{
+                	fprintf(stderr, "%X ", packet_rx[j]);
+            	}
+        		fprintf(stderr, " ~ crc = %X\n",rx_crc); 
+        	#endif
+
+    		if (rx_crc == 0)  //CRC check passed
+    		{
+    			//compare the packet ID in the ACK packet with 
+    			//the packet ID of the last sent packet
+    			rx_packet_id = ((uint16_t) packet_rx[PACKETID])*256 + packet_rx[PACKETID+1]; /// They're the same offset as the big packet
+
+				fprintf(stderr, "rx_packet_id = %d\n", rx_packet_id);
+
+				// the rx_packet_id is updated, and the send_packet will be able to read it.
+
+
+    		}
+    		else
+    		{
+    			fprintf(stderr, "CRC check failed for the ACK packet\n");
+    		}
+			rx_index = 0;
+			rx_crc = 0;
+    	}
+	
+}
+*/
+
+
+
+/*------------------------------------------------------------
+ * Method to send the created packet over serial 
+ *
+ * Author - Niket Agrawal
+ *
+ *------------------------------------------------------------
+ */
+
+void send_packet()
+{
+	control_packet[START] = _STARTBYTE;
+
+	uint8_t crc = 0;
+
+	for(int i = 0; i < CONTROL_PACKET_SIZE; i++)
+	{
+		crc = crc ^ control_packet[i];
+	}
+	control_packet[CRC] = crc;   
+	int i = 0;
+
+	while((rs232_putchar(control_packet[i]) == 1) && (i < CONTROL_PACKET_SIZE))
+	{
+		i++;
+	}
+
+	#ifdef DEBUG
+		// display the packet that is sent
+		//fprintf(stderr, "control packet sent : ");
+		for (int j = 0; j < CONTROL_PACKET_SIZE; j++)
+		{
+			fprintf(stderr, "%X ", control_packet[j]);
+		}
+		fprintf(stderr, "\n");
+	#endif
+
+	//reset packet	
+	for (int j = 0; j < CONTROL_PACKET_SIZE; j++)
+	{
+		if(j != MODE)  //Retain the previous mode info
+			control_packet[j] = 0;	
+	}
+	
+}
+
+
 /*----------------------------------------------------------------
  * main -- execute terminal
  *----------------------------------------------------------------
  */
 int main(int argc, char **argv)
 {
-	char	c;
-
+	char path_to_joystick[64];
+	if (argc == 1) {
+		strcpy(path_to_joystick, "/dev/input/js0");
+	} else if (argc == 2) {
+		strcpy(path_to_joystick, argv[1]);
+	} else {
+		fprintf(stderr, "too many arguments. 0 argument = default path (js0), 1 argument = path to joystick");
+		return 1;
+	}
+	fprintf(stderr, "using %s\n", path_to_joystick);
+	uint8_t c;
+	int d;
+	
 	term_puts("\nTerminal program - Embedded Real-Time Systems\n");
 
 	term_initio();
@@ -191,21 +323,85 @@ int main(int argc, char **argv)
 
 	/* discard any incoming text
 	 */
-	while ((c = rs232_getchar_nb()) != -1)
+	/*
+	while ((rs232_getchar_nb(&c) != -1)
 		fputc(c,stderr);
-
+	*/
 	/* send & receive
 	 */
-	for (;;)
+
+	char isContinuing = 1;
+
+
+	js_init(&fd, path_to_joystick, &js);
+	JoystickData *jsdat = JoystickData_create();
+
+	struct timespec tp;
+	clock_gettime(CLOCK_REALTIME, &tp);
+	
+	long tic = tp.tv_nsec;
+	time_t tic_s = tp.tv_sec;
+
+	while (tp.tv_sec - tic_s < 3)
 	{
-		if ((c = term_getchar_nb()) != -1)
-			rs232_putchar(c);
+		clock_gettime(CLOCK_REALTIME, &tp);
+	}
+		
 
-		if ((c = rs232_getchar_nb()) != -1)
-			term_putchar(c);
+	while (isContinuing)
+	{
+		// Response time is a bit variable. Latency can be percieved still.
 
+		// poll axes with raw-OS method
+		js_getJoystickValue(&fd, &js, jsdat);
+		for (int j = 0; j < NBRAXES; j++)
+		{
+			control_packet[AXISTHROTTLE + 2*j] = MSBYTE( jsdat->axis[j] );
+			control_packet[AXISTHROTTLE + 2*j + 1] = LSBYTE( jsdat->axis[j] );
+			//control_packet[AXISTHROTTLE + 2*j] = 0xFF;
+			//control_packet[AXISTHROTTLE + 2*j + 1] = 0xFF;
+		}
+		for (int j = 0; j < NBRBUTTONS; j++)
+		{
+			control_packet[JOYBUTTON] |= (jsdat->button[j] == 1) << j; // 10 for not storing anything.
+		}
+		
+		if ((d = term_getchar_nb()) != -1)
+		{
+			if (d == 27) // escape key
+				isContinuing = 0;
+			else if ((d >= 48) && (d <= 56))
+				control_packet[MODE] = d;
+				//control_packet[MODE] = 0xFF;
+			else 
+				control_packet[KEY] = d;
+				//control_packet[KEY] = 0xFF;
+		}
+		
+
+		 if ((rs232_getchar_nb(&c)) != -1)
+		 {
+		 	term_putchar(c);
+		  	//process_rx(c);
+		 }
+
+		
+		clock_gettime(CLOCK_REALTIME, &tp);
+		
+		#ifdef DEBUGCLK
+		fprintf(stderr, "clk=%ld,%ld\n",tp.tv_sec, tp.tv_nsec);
+		#endif
+		
+		
+		if (tp.tv_nsec - tic >= DELAY_PACKET_NS || tp.tv_sec - tic_s > 0)
+		{
+			tic = tp.tv_nsec;
+			tic_s = tp.tv_sec;
+			send_packet();
+		}
 	}
 
+	JoystickData_destroy(jsdat);
 	term_exitio();
 	rs232_close();
 	term_puts("\n<exit>\n");
