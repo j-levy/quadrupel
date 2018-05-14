@@ -86,7 +86,7 @@ void process_packet(uint8_t c) {
             {
                 printf("%X ", packet[j]);
             }
-            printf(" ~ crc = %X \n",crc); 
+            printf(" ~ crc = %X ",crc); 
         #endif
 
         if (crc == 0) {
