@@ -14,16 +14,16 @@ bool switch_mode( uint8_t newmode )
 {
     switch(mode)
     {
-        case MODESAFE:
-        if (MOTORS_OFF && (newmode == MODECALIB || newmode == MODEMANUAL))
+        case MODE_0_SAFE:
+        if (MOTORS_OFF && (newmode == MODE_3_CALIB || newmode == MODE_2_MANUAL))
             mode = newmode;
         break:
-        case MODEPANIC;
-        if (MOTORS_OFF && (newmode == MODESAFE))
+        case MODE_1_PANIC;
+        if (MOTORS_OFF && (newmode == MODE_0_SAFE))
             mode = newmode;
         break;
-        case MODEMANUAL:
-        if ((newmode == MODESAFE) || (newmode == MODEPANIC) )
+        case MODE_2_MANUAL:
+        if ((newmode == MODE_0_SAFE) || (newmode == MODE_1_PANIC) )
             mode = newmode;
         break;
 
@@ -31,7 +31,11 @@ bool switch_mode( uint8_t newmode )
         
         default:
         printf("unknown mode\n");
+        mode = MODE_1_PANIC; // if some weird shit happens, better be safe than sorry.
         break;
+
+
+
     }
 
     return true;
