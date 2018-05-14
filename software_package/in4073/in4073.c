@@ -20,7 +20,7 @@
 #define RX_TIMEOUT 40000 	//currently set to 100msec
 uint8_t buttons = 0;
 int16_t axis[4] = {4};
-uint32_t timeout = 0;
+
 uint8_t comm_link_failure = 0;
 
 /*------------------------------------------------------------------
@@ -118,13 +118,13 @@ int main(void)
 	demo_done = false;
 	mode = 0;
 	uint32_t delta_time = 0;
+	uint32_t timeout = 0;
 
 	while (!demo_done)
 	{
 		delta_time = get_time_us() - timeout;
-		//printf("%10ld\n", delta_time);
 		//if(timeout && ((get_time_us() - timeout) > RX_TIMEOUT))
-		if(timeout && (delta_time > RX_TIMEOUT))
+		if(timeout && (delta_time > RX_TIMEOUT) && (delta_time > 0))
 		{
 			//delta_time = get_time_us() - timeout;
 			printf("%10ld %10ld %10ld \n", get_time_us(), timeout, delta_time);
@@ -136,6 +136,7 @@ int main(void)
 			timeout = get_time_us();
 			//printf("%10ld\n", get_time_us());
 			process_packet( dequeue(&rx_queue) );
+			//timeout = get_time_us();
 		}
 
 		if (check_timer_flag()) 
