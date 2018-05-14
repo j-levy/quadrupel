@@ -14,3 +14,11 @@
 void mode_0_safe_RUN(void);
 void mode_1_panic_RUN(void);
 void mode_2_manual_RUN(void);
+
+void mode_0_safe_QUIT(void);
+void mode_1_panic_QUIT(void);
+void mode_2_manual_QUIT(void);
+
+void mode_0_safe_INIT(void);
+void mode_1_panic_INIT(void);
+void mode_2_manual_INIT(void);
