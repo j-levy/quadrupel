@@ -7,3 +7,5 @@ software_package/in4073/_build/
 
 *.pyc
 *.o
+
+software_package/in4073/pc_terminal/pc-terminal
