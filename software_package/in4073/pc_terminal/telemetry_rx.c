@@ -22,6 +22,14 @@ static uint8_t crc = 0;
 static int count = 0;
 #endif
 static uint8_t l = 0;  //variable used to determine new startbyte
+uint16_t motor1 = 0;
+uint16_t motor2 = 0;
+uint16_t motor3 = 0;
+uint16_t motor4 = 0;
+int16_t phi, theta, psi;
+int16_t sp, sq, sr = 0;
+int32_t pressure = 0;
+uint16_t bat_volt;
 
 void process_telemetry(uint8_t c)
 {
@@ -58,7 +66,28 @@ void process_telemetry(uint8_t c)
 
         if (crc == 0) 
 		{
+            motor1 = (packet_rx[ROTOR1]<<8)|packet_rx[ROTOR1+1];
+            motor2 = (packet_rx[ROTOR2]<<8)|packet_rx[ROTOR2+1];
+            motor3 = (packet_rx[ROTOR3]<<8)|packet_rx[ROTOR3+1];
+            motor4 = (packet_rx[ROTOR4]<<8)|packet_rx[ROTOR4+1];
+
+            phi = (packet_rx[PHI]<<8)|packet_rx[PHI+1];
+            theta = (packet_rx[THETA]<<8)|packet_rx[THETA+1];
+            psi = (packet_rx[PSI]<<8)|packet_rx[PSI+1];
+
+            sp = (packet_rx[SP]<<8)|packet_rx[SP+1];
+            sq = (packet_rx[SQ]<<8)|packet_rx[SQ+1];
+            sr = (packet_rx[SR]<<8)|packet_rx[SR+1];
+
+            bat_volt = (packet_rx[BAT_VOLT]<<8)|packet_rx[BAT_VOLT];
+            pressure = (packet_rx[PRESSURE]<<24)|(packet_rx[PRESSURE + 1]<<16)|(packet_rx[PRESSURE + 2]<<8)|packet_rx[PRESSURE+3];
+            
             //do something, which i can't remember right now
+            printf("|%3d %3d %3d %3d|", motor1,motor2,motor3,motor4);
+            printf("|%6d %6d %6d|",phi,theta,psi);
+            printf("|%6d %6d %6d|",sp,sq,sr);
+            printf("|%4d|",bat_volt);
+            printf("|%6ld| \n", pressure);
         }  
         else if (crc != 0)
         {
