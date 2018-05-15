@@ -5,10 +5,15 @@
 #define KEY 1
 #define MODE 2
 #define JOYBUTTON 3
-#define AXISTHROTTLE 4
-#define AXISROLL 6
-#define AXISPITCH 8
-#define AXISYAW 10
+// #define AXISTHROTTLE 4
+// #define AXISROLL 6
+// #define AXISPITCH 8
+// #define AXISYAW 10
+#define AXISROLL 4
+#define AXISPITCH 6
+#define AXISYAW 8
+#define AXISTHROTTLE 10
+
 #define CRC 12
 
 #define _STARTBYTE 0xFF

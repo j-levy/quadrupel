@@ -499,8 +499,8 @@ int main(int argc, char **argv)
 		js_getJoystickValue(&fd, &js, jsdat);
 		for (int j = 0; j < NBRAXES; j++)
 		{
-			control_packet[AXISTHROTTLE + 2*j] = MSBYTE( jsdat->axis[j] );
-			control_packet[AXISTHROTTLE + 2*j + 1] = LSBYTE( jsdat->axis[j] );
+			control_packet[AXISROLL + 2*j] = MSBYTE( jsdat->axis[j] );
+			control_packet[AXISROLL + 2*j + 1] = LSBYTE( jsdat->axis[j] );
 			//control_packet[AXISTHROTTLE + 2*j] = 0xFF;
 			//control_packet[AXISTHROTTLE + 2*j + 1] = 0xFF;
 		}
@@ -524,7 +524,7 @@ int main(int argc, char **argv)
 
 		 if ((rs232_getchar_nb(&c)) != -1)
 		 {
-		 	term_putchar(c);
+		 	//term_putchar(c);
 		  	process_telemetry(c);
 		 }
 

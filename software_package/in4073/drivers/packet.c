@@ -19,7 +19,7 @@
 
 #include "in4073.h"
 
-//#define DEBUGCONTROLRX
+//#define DEBUG
 //#define DEBUGCRC      //Enable CRC decoding test here
 //#define DEBUGPROCESSINPUT
 
@@ -81,8 +81,8 @@ void process_packet(uint8_t c) {
 
     if (index == CONTROL_PACKET_SIZE) //reached the end of a packet 
     {
-        #ifdef DEBUGCONTROLRX
-            printf("packet received~~~ : ");
+        #ifdef DEBUG
+            printf("control packet received~~~ : ");
             for (int j = 0; j < CONTROL_PACKET_SIZE; j++)
             {
                 printf("%X ", packet[j]);
@@ -146,9 +146,10 @@ void process_packet(uint8_t c) {
                     crc = crc ^ packet[i];
                     index = index + 1;
                 }
+                l = 0; //reset l to index 0 again
                 //CRC computation done for the 1st half of the packet, new bytes arriving
                 //to prpcess_packet method will form the 2nd half of this packet and CRC 
-                //computation will continue from (index < size) check in line 59
+                //computation will continue from (index < size) check in line 67
                 
             }
 

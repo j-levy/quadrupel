@@ -23,6 +23,7 @@
 uint8_t buttons = 0;
 int16_t axis[4] = {0};
 uint8_t keyboard_key = 0; 
+uint8_t mode = 0;
 
 /*------------------------------------------------------------------
  * process_{joystick, key} -- process command keys, mode change, or joystick
@@ -49,6 +50,11 @@ void store_key(uint8_t *val)
 {
 	keyboard_key = *val;
 }
+void store_mode(uint8_t *val)
+{
+	mode = *val;
+}
+
 
 /*------------------------------------------------------------------
  * main -- everything you need is here :)

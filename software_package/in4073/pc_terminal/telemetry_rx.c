@@ -10,8 +10,9 @@
 #include "pc_terminal.h"
 #include "packet_constants.h"
 
+#define DEBUGCRC
+#define DEBUG
 //#define DEBUGCRC
-//#define DEBUG
 
 uint8_t packet_rx[TELEMETRY_PACKET_SIZE] = {0};  //char array of telemetry packet size
                                                  //to store a packet locally during processing
@@ -34,7 +35,7 @@ void process_telemetry(uint8_t c)
         packet_rx[index_parser] = c;
         #ifdef DEBUGCRC
         //Corrupt CRC for random byte to simulate error scenario
-        if((count == 750) || (count == 150) || (count == 1300)) {
+        if((count == 1000) || (count == 1500) || (count == 2200)) {
             crc = 9;
          }
         else
@@ -47,7 +48,7 @@ void process_telemetry(uint8_t c)
     if (index_parser == TELEMETRY_PACKET_SIZE) //reached the end of a packet 
     {
         #ifdef DEBUG
-            printf("packet received~~~ : ");
+            printf("telemetry packet received~~~ : ");
             for (int j = 0; j < TELEMETRY_PACKET_SIZE; j++)
             {
                 printf("%X ", packet_rx[j]);
@@ -64,7 +65,6 @@ void process_telemetry(uint8_t c)
             #ifdef DEBUG
             // not passing. Pin-pon-error-blink-red
             printf(" - crc fail.");
-            nrf_gpio_pin_toggle(RED);
             #endif
 
             crc = 0;  //reset crc as it will be recomputed
@@ -79,7 +79,7 @@ void process_telemetry(uint8_t c)
             printf("Next start byte found at %d\n", l);
             #endif
 
-            if(l < CONTROL_PACKET_SIZE)
+            if(l < TELEMETRY_PACKET_SIZE)
             {
                 #ifdef DEBUGCRC
                 printf("l is less than packet length\n");
@@ -92,6 +92,10 @@ void process_telemetry(uint8_t c)
                     crc = crc ^ packet_rx[i];
                     index_parser = index_parser + 1;
                 }
+                l = 0; //reset l to index 0 again
+                //CRC computation done for the 1st half of the packet, new bytes arriving
+                //to prpcess_packet method will form the 2nd half of this packet and CRC 
+                //computation will continue from (index < size) check in line 33
             }
 
             else //no other start byte found in the current packet
