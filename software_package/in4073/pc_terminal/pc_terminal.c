@@ -23,7 +23,7 @@
 // #define DEBUGCLK
 
 
-//uint8_t control_packet[CONTROL_PACKET_SIZE] = {0};   		//Initializing packet to send
+uint8_t control_packet[CONTROL_PACKET_SIZE] = {0};   		//Initializing packet to send
 
 //uint8_t packet_rx[TELEMETRY_PACKET_SIZE] = {0};  //packet received from Drone
 
@@ -524,7 +524,7 @@ int main(int argc, char **argv)
 
 		 if ((rs232_getchar_nb(&c)) != -1)
 		 {
-		 	term_putchar(c);
+		 	//term_putchar(c);
 		  	process_telemetry(c);
 		 }
 

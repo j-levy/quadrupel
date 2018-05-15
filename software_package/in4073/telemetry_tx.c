@@ -9,7 +9,7 @@
 
 #include "in4073.h"
 
-#define DEBUG
+//#define DEBUG
 
 void send_telemetry_packet()
 {
