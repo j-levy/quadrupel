@@ -23,7 +23,7 @@
 // #define DEBUGCLK
 
 
-uint8_t control_packet[CONTROL_PACKET_SIZE] = {0};   		//Initializing packet to send
+//uint8_t control_packet[CONTROL_PACKET_SIZE] = {0};   		//Initializing packet to send
 
 //uint8_t packet_rx[TELEMETRY_PACKET_SIZE] = {0};  //packet received from Drone
 
