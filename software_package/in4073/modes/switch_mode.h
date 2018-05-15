@@ -22,3 +22,10 @@ void mode_2_manual_QUIT(void);
 void mode_0_safe_INIT(void);
 void mode_1_panic_INIT(void);
 void mode_2_manual_INIT(void);
+
+char mode_0_safe_CANLEAVE(uint8_t target);
+char mode_0_safe_CANENTER(uint8_t source);
+char mode_1_panic_CANLEAVE(uint8_t target);
+char mode_1_panic_CANENTER(uint8_t source);
+char mode_2_manual_CANLEAVE(uint8_t target);
+char mode_2_manual_CANENTER(uint8_t source);

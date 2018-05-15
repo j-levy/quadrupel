@@ -2,6 +2,29 @@
 #include "switch_mode.h"
 #include "mode_2_manual.h"
 
+char mode_2_manual_CANLEAVE(uint8_t target)
+{
+    char lock = 0;
+    lock |= (target != MODE_1_PANIC);
+    lock |= (target != MODE_0_SAFE);
+    return (1-lock);
+}
+
+char mode_2_manual_CANENTER(uint8_t source)
+{
+    char lock = 0;
+    
+    lock |= (axis[ROLL] != 0);
+    lock |= (axis[PITCH] != 0);
+    lock |= (axis[YAW] != 0);
+    lock |= (((axis[LIFT]+32768)/2) != 0);
+    
+    lock |= buttons;
+    
+    return (1-lock);
+}
+
+
 void mode_2_manual_INIT()
 {
 

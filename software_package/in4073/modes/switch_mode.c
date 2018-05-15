@@ -24,12 +24,23 @@ void init_modes()
     mode_INIT[0] = mode_0_safe_QUIT;
     mode_INIT[1] = mode_1_panic_QUIT;
     mode_INIT[2] = mode_2_manual_QUIT;
+
+    /*TODO : add prototypes in header 
+    */
+
+    mode_CANENTER[0] = mode_0_safe_CANENTER;
+    mode_CANENTER[1] = mode_1_panic_CANENTER;
+    mode_CANENTER[2] = mode_2_manual_CANENTER;
+
+    mode_CANLEAVE[0] = mode_0_safe_CANLEAVE;
+    mode_CANLEAVE[1] = mode_1_panic_CANLEAVE;
+    mode_CANLEAVE[2] = mode_2_manual_CANLEAVE;
 }
 
 void switch_mode( uint8_t newmode )
 {
 
-
+    /*
     switch(mode)
     {
         case MODE_0_SAFE:
@@ -38,11 +49,7 @@ void switch_mode( uint8_t newmode )
             (*mode_QUIT[mode])();
             mode = newmode;
             (*mode_INIT[mode])();
-            /*
-            mode_0_safe_QUIT();
-            mode = newmode;
-            mode_2_manual_INIT();
-            */
+
         }
         break;
         case MODE_1_PANIC:
@@ -70,5 +77,15 @@ void switch_mode( uint8_t newmode )
         break;
 
     }
+    */
+   if (newmode >= 0 && newmode <= 2)
+   {
+       if ((*mode_CANLEAVE[mode])(newmode) && (*mode_CANENTER[newmode])(mode))
+       {
+            (*mode_QUIT[mode])();
+            mode = newmode;
+            (*mode_INIT[mode])();
+       }
+   }
 
 }

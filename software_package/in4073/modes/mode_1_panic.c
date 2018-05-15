@@ -6,13 +6,33 @@
  TODO: write the constants as #define
 */
 
-static uint32_t time = 0;
+char mode_1_panic_CANLEAVE(uint8_t target)
+{
+    // check if no input is provided from keyboard AND joystick
+    char lock = 0;
+    lock |= (axis[ROLL] != 0);
+    lock |= (axis[PITCH] != 0);
+    lock |= (axis[YAW] != 0);
+    lock |= ((axis[LIFT]/2+16384) != 0);
+
+    lock |= buttons;
+    lock |= (keyboard_key == 0);
+
+    lock |= (target != MODE_0_SAFE);
+    
+    // if one of these things is set to 1, res is set to 1.
+    return (1-lock);
+}
+
+char mode_1_panic_CANENTER(uint8_t source)
+{
+    return 1;
+}
 
 void mode_1_panic_INIT()
 {
-    time = get_time_us(); // initialize the current time
     for (int i = 0; i < 4; i++)
-        motor[i] = 350;
+        motor[i] = 100;
 }
 
 void mode_1_panic_QUIT()
@@ -23,7 +43,7 @@ void mode_1_panic_QUIT()
 
 void mode_1_panic_RUN()
 {    
-    if (get_time_us() - time > 3000000) // wait for 3s
+    if (motor[1] + motor[2] + motor[3] + motor[0] == 0)
     {
         switch_mode(MODE_0_SAFE);
     }

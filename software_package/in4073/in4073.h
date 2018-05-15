@@ -138,9 +138,12 @@ void init_modes();
 void switch_mode( uint8_t newmode );
 
 typedef void (*void_ptr_t)(void);
+typedef char (*char_ptr_t)(uint8_t);
 void_ptr_t mode_RUN[7];
 void_ptr_t mode_INIT[7];
 void_ptr_t mode_QUIT[7];
+char_ptr_t mode_CANLEAVE[7];
+char_ptr_t mode_CANENTER[7];
 
 
 #define ROLL 0
