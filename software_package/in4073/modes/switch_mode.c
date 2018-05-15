@@ -21,9 +21,9 @@ void init_modes()
     mode_QUIT[2] = mode_2_manual_QUIT;
 
 
-    mode_INIT[0] = mode_0_safe_QUIT;
-    mode_INIT[1] = mode_1_panic_QUIT;
-    mode_INIT[2] = mode_2_manual_QUIT;
+    mode_INIT[0] = mode_0_safe_INIT;
+    mode_INIT[1] = mode_1_panic_INIT;
+    mode_INIT[2] = mode_2_manual_INIT;
 
     /*TODO : add prototypes in header 
     */
@@ -40,51 +40,13 @@ void init_modes()
 void switch_mode( uint8_t newmode )
 {
 
-    /*
-    switch(mode)
-    {
-        case MODE_0_SAFE:
-        if (newmode == MODE_2_MANUAL)
-        {
-            (*mode_QUIT[mode])();
-            mode = newmode;
-            (*mode_INIT[mode])();
-
-        }
-        break;
-        case MODE_1_PANIC:
-        if (newmode == MODE_0_SAFE)
-        {
-            (*mode_QUIT[mode])();
-            mode = newmode;
-            (*mode_INIT[mode])();
-
-        }
-        break;
-        case MODE_2_MANUAL:
-        if ((newmode == MODE_0_SAFE) || (newmode == MODE_1_PANIC) )
-        {
-            (*mode_QUIT[mode])();
-            mode = newmode;
-            (*mode_INIT[mode])();
-
-        }
-        break;
-        
-        default:
-        printf("unknown mode\n");
-        mode = MODE_1_PANIC; // if some weird shit happens, better be safe than sorry.
-        break;
-
-    }
-    */
    if (newmode >= 0 && newmode <= 2)
    {
-       if ((*mode_CANLEAVE[mode])(newmode) && (*mode_CANENTER[newmode])(mode))
+       if (mode_CANLEAVE[mode](newmode) && mode_CANENTER[newmode](mode))
        {
-            (*mode_QUIT[mode])();
+            mode_QUIT[mode]();
             mode = newmode;
-            (*mode_INIT[mode])();
+            mode_INIT[mode]();
        }
    }
 

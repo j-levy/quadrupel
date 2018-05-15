@@ -5,23 +5,19 @@
 char mode_2_manual_CANLEAVE(uint8_t target)
 {
     char lock = 0;
-    lock |= (target != MODE_1_PANIC);
-    lock |= (target != MODE_0_SAFE);
-    return (1-lock);
+    lock = (target != MODE_1_PANIC) && (target != MODE_0_SAFE);
+    return (lock == 0);
 }
 
 char mode_2_manual_CANENTER(uint8_t source)
 {
     char lock = 0;
+
+    lock = (axis[ROLL] != 0) || (axis[PITCH] != 0) || (axis[YAW] != 0) || ((-(axis[LIFT] - 32767) / 2) != 0);
+
+    lock = lock || buttons;
     
-    lock |= (axis[ROLL] != 0);
-    lock |= (axis[PITCH] != 0);
-    lock |= (axis[YAW] != 0);
-    lock |= (((axis[LIFT]+32768)/2) != 0);
-    
-    lock |= buttons;
-    
-    return (1-lock);
+    return (lock == 0);
 }
 
 
