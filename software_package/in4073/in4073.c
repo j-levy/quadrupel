@@ -31,7 +31,7 @@ uint8_t keyboard_key = 0;
  *------------------------------------------------------------------
  */
 
-void process_joystick_axis(uint8_t *val)
+void store_joystick_axis(uint8_t *val)
 {
 	for (int i = 0; i < 4; i++)
 	{
@@ -40,7 +40,7 @@ void process_joystick_axis(uint8_t *val)
 	}
 }
 
-void process_joystick_button(uint8_t *val)
+void store_joystick_button(uint8_t *val)
 {
 	buttons = *val;
 }
