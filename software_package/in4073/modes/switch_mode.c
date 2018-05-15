@@ -1,10 +1,6 @@
 #include "in4073.h"
 #include "switch_mode.h"
 
-typedef void (*void_ptr_t)(void);
-void_ptr_t mode_RUN[7];
-void_ptr_t mode_INIT[7];
-void_ptr_t mode_QUIT[7];
 
 
 /*  
@@ -37,16 +33,28 @@ bool switch_mode( uint8_t newmode )
     switch(mode)
     {
         case MODE_0_SAFE:
-        if (MOTORS_OFF && (newmode == MODE_3_CALIB || newmode == MODE_2_MANUAL))
+        if (newmode == MODE_3_CALIB || newmode == MODE_2_MANUAL)
+        {
+            mode_QUIT[mode]();
             mode = newmode;
+            mode_INIT[mode]();
+        }
         break;
         case MODE_1_PANIC:
-        if (MOTORS_OFF && (newmode == MODE_0_SAFE))
+        if (newmode == MODE_0_SAFE)
+        {
+            mode_QUIT[mode]();
             mode = newmode;
+            mode_INIT[mode]();
+        }
         break;
         case MODE_2_MANUAL:
         if ((newmode == MODE_0_SAFE) || (newmode == MODE_1_PANIC) )
+        {
+            mode_QUIT[mode]();
             mode = newmode;
+            mode_INIT[mode]();
+        }
         break;
 
 

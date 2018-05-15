@@ -34,11 +34,16 @@
 bool demo_done;
 
 // Control
-int16_t motor[4],ae[4];
+int16_t motor[4],ae[4], offset[4];
+
+uint8_t buttons;
+uint8_t keyboard_key;
+int16_t axis[4];
+
 void run_filters_and_control();
 
 // Timers
-#define TIMER_PERIOD	20 //50ms=20Hz (MAX 23bit, 4.6h)
+#define TIMER_PERIOD	20 //20ms = 50 Hz. 50ms=20Hz (MAX 23bit, 4.6h)
 void timers_init(void);
 uint32_t get_time_us(void);
 bool check_timer_flag(void);
@@ -129,5 +134,17 @@ void send_ack();
 
 // mode functions
 bool switch_mode( uint8_t newmode );
+
+typedef void (*void_ptr_t)(void);
+void_ptr_t mode_RUN[7];
+void_ptr_t mode_INIT[7];
+void_ptr_t mode_QUIT[7];
+
+#define ROLL 0
+#define PITCH 1
+#define YAW 2
+#define LIFT 3
+
+void update_motors(void);
 
 #endif // IN4073_H__

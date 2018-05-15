@@ -17,9 +17,7 @@
 
 //#define DEBUG	
 
-uint8_t buttons = 0;
-uint8_t keyboard_key = 0;
-int16_t axis[4] = {0};
+
 
 /*------------------------------------------------------------------
  * process_{joystick, key} -- process command keys, mode change, or joystick
@@ -71,6 +69,12 @@ int main(void)
 	demo_done = false;
 	mode = 0;
 
+
+	buttons = 0;
+	keyboard_key = 0;
+	for (int i = 0; i < 4; i++)
+		axis[i] = 0;
+
 	while (!demo_done)
 	{
 		if (rx_queue.count)
@@ -111,6 +115,12 @@ int main(void)
 		{
 			get_dmp_data();
 			run_filters_and_control();
+		}
+
+
+		if (true)
+		{
+			mode_RUN[mode]();
 		}
 	}	
 
