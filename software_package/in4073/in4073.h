@@ -128,17 +128,20 @@ void process_packet(uint8_t c);
 void store_key(uint8_t *val);
 void store_joystick_axis(uint8_t *val);
 void store_joystick_button(uint8_t *val);
+void store_mode(uint8_t *val);
 
 void send_ack();
 
 
 // mode functions
-bool switch_mode( uint8_t newmode );
+void init_modes();
+void switch_mode( uint8_t newmode );
 
 typedef void (*void_ptr_t)(void);
 void_ptr_t mode_RUN[7];
 void_ptr_t mode_INIT[7];
 void_ptr_t mode_QUIT[7];
+
 
 #define ROLL 0
 #define PITCH 1

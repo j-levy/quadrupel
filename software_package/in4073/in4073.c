@@ -15,7 +15,7 @@
 
 #include "in4073.h"
 
-//#define DEBUG	
+#define DEBUG	
 
 
 
@@ -25,6 +25,8 @@
  * April 2018
  *------------------------------------------------------------------
  */
+
+uint8_t nextmode;
 
 void store_joystick_axis(uint8_t *val)
 {
@@ -46,6 +48,10 @@ void store_key(uint8_t *val)
 	keyboard_key = *val;
 }
 
+void store_mode(uint8_t *val)
+{
+	nextmode = *val - '0';
+}
 
 
 
@@ -65,13 +71,17 @@ int main(void)
 	spi_flash_init();
 	ble_init();
 
+	init_modes();
+
 	uint32_t counter = 0;
 	demo_done = false;
 	mode = 0;
+	nextmode = 0;
 
 
 	buttons = 0;
 	keyboard_key = 0;
+
 	for (int i = 0; i < 4; i++)
 		axis[i] = 0;
 
@@ -88,6 +98,7 @@ int main(void)
 				nrf_gpio_pin_toggle(BLUE);
 
 			adc_request_sample();
+
 			read_baro();
 
 			
@@ -97,7 +108,7 @@ int main(void)
 				
 				printf("%6d %6d %6d | ", phi, theta, psi);
 				printf("%6d %6d %6d | ", sp, sq, sr);
-				printf("%4d | %4ld | %6ld \n", bat_volt, temperature, pressure);
+				printf("%4d | %4ld | %6ld | ", bat_volt, temperature, pressure);
 				
 				//printf("%d %d %d %d |", axis[0], axis[1], axis[2], axis[3] );
 
@@ -118,10 +129,15 @@ int main(void)
 		}
 
 
-		if (true)
-		{
-			mode_RUN[mode]();
-		}
+		
+		if (nextmode != mode)
+			switch_mode(nextmode);
+		
+		
+		
+		mode_RUN[mode]();
+		
+
 	}	
 
 	printf("\n\t Goodbye \n\n");

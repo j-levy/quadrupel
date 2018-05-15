@@ -20,8 +20,10 @@ void mode_2_manual_RUN()
     
     js_roll = axis[ROLL] / JS_SENSITIVITY;
     js_pitch = axis[PITCH] / JS_SENSITIVITY;
-    js_yaw += (axis[YAW] / JS_SENSITIVITY) * DT;
-    js_lift = -(axis[LIFT] - 32767) / JS_SENSITIVITY;
+
+    // Yaw command is not cumulative in manual mode
+    js_yaw = (axis[YAW] / JS_SENSITIVITY) * DT;
+    js_lift = -(axis[LIFT] - 32767) / 2*JS_SENSITIVITY;
 
     a_roll = offset[ROLL] + js_roll;
     a_pitch = offset[PITCH] + js_pitch;
@@ -43,15 +45,12 @@ void mode_2_manual_RUN()
 
 	/* with ai = oi it follows
 	 */
-	ae[0] = sqrt(oo1);
-	ae[1] = sqrt(oo2);
-	ae[2] = sqrt(oo3);
-	ae[3] = sqrt(oo4);
+	ae[0] = sqrt(oo1)*SCALE;
+	ae[1] = sqrt(oo2)*SCALE;
+	ae[2] = sqrt(oo3)*SCALE;
+	ae[3] = sqrt(oo4)*SCALE;
 
-    for (int i = 0; i < 4; i++)
-    {
-        ae[i] = (ae[i] > 500) ? 500 : ae[i];
-    }
+
 
     update_motors();
 }

@@ -26,47 +26,49 @@ void init_modes()
     mode_INIT[2] = mode_2_manual_QUIT;
 }
 
-bool switch_mode( uint8_t newmode )
+void switch_mode( uint8_t newmode )
 {
 
 
     switch(mode)
     {
         case MODE_0_SAFE:
-        if (newmode == MODE_3_CALIB || newmode == MODE_2_MANUAL)
+        if (newmode == MODE_2_MANUAL)
         {
-            mode_QUIT[mode]();
+            (*mode_QUIT[mode])();
             mode = newmode;
-            mode_INIT[mode]();
+            (*mode_INIT[mode])();
+            /*
+            mode_0_safe_QUIT();
+            mode = newmode;
+            mode_2_manual_INIT();
+            */
         }
         break;
         case MODE_1_PANIC:
         if (newmode == MODE_0_SAFE)
         {
-            mode_QUIT[mode]();
+            (*mode_QUIT[mode])();
             mode = newmode;
-            mode_INIT[mode]();
+            (*mode_INIT[mode])();
+
         }
         break;
         case MODE_2_MANUAL:
         if ((newmode == MODE_0_SAFE) || (newmode == MODE_1_PANIC) )
         {
-            mode_QUIT[mode]();
+            (*mode_QUIT[mode])();
             mode = newmode;
-            mode_INIT[mode]();
+            (*mode_INIT[mode])();
+
         }
         break;
-
-
         
         default:
         printf("unknown mode\n");
         mode = MODE_1_PANIC; // if some weird shit happens, better be safe than sorry.
         break;
 
-
-
     }
 
-    return true;
 }

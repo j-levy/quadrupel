@@ -19,7 +19,7 @@
 
 #include "in4073.h"
 
-#define DEBUG
+//#define DEBUG
 //#define DEBUGACK
 //#define DEBUGCRC      //Enable CRC decoding test here
 
@@ -103,11 +103,13 @@ void process_packet(uint8_t c) {
 
             // send_ack(packet[PACKETID], packet[PACKETID+1]);
 
-            process_key(packet + KEY);
+            store_key(packet + KEY);
 
-            process_joystick_axis(packet + AXISTHROTTLE); // throttle is the first value.
+            store_joystick_axis(packet + AXISTHROTTLE); // throttle is the first value.
 
-            process_joystick_button(packet + JOYBUTTON);
+            store_joystick_button(packet + JOYBUTTON);
+
+            store_mode(packet + MODE);
 
             #endif
 
