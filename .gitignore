@@ -6,4 +6,7 @@
 software_package/in4073/_build/
 
 *.pyc
+
+software_package/in4073/pc_terminal/pc-terminal
+
 *.o
