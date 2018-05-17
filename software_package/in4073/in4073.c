@@ -17,7 +17,7 @@
 
 //#define DEBUG	
 
-#define RX_TIMEOUT 40000 	//currently set to 100msec
+#define RX_TIMEOUT 40000 	//currently set to 40msec
 uint8_t buttons = 0;
 int16_t axis[4] = {4};
 
@@ -112,7 +112,7 @@ int main(void)
 	imu_init(true, 100);	
 	baro_init();
 	spi_flash_init();
-	ble_init();
+	//ble_init();
 
 	uint32_t counter = 0;
 	demo_done = false;
@@ -134,7 +134,6 @@ int main(void)
 		if (rx_queue.count)
 		{
 			timeout = get_time_us();
-			//printf("%10ld\n", get_time_us());
 			process_packet( dequeue(&rx_queue) );
 			//timeout = get_time_us();
 		}
