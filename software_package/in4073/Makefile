@@ -41,6 +41,7 @@ C_SOURCE_FILES += \
 $(abspath ../components/toolchain/system_nrf51.c) \
 $(abspath ../components/drivers_nrf/delay/nrf_delay.c) \
 $(abspath ./in4073.c) \
+$(abspath ./telemetry_tx.c) \
 $(abspath ./control.c) \
 $(abspath ./drivers/gpio.c) \
 $(abspath ./drivers/timers.c) \

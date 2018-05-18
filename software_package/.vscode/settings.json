@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "random": "c",
+        "bitset": "c",
+        "future": "c",
+        "chrono": "c",
+        "algorithm": "c",
+        "packet_constants.h": "c"
+    },
+    "C_Cpp.dimInactiveRegions": true
+}
