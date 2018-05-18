@@ -21,7 +21,7 @@
 
 //#define DEBUG
 //#define DEBUGCRC      //Enable CRC decoding test here
-//#define DEBUGPROCESSINPUT
+#define ENABLE_STORE_DATA
 
 static uint8_t packet[CONTROL_PACKET_SIZE] = {0};
 static uint8_t index = 0;
@@ -99,15 +99,12 @@ void process_packet(uint8_t c) {
 
             // #endif
             //l = CONTROL_PACKET_SIZE;
-            #ifdef DEBUGPROCESSINPUT 
+            #ifdef ENABLE_STORE_DATA 
 
-            // send_ack(packet[PACKETID], packet[PACKETID+1]);
-
-            process_key(packet + KEY);
-
-            process_joystick_axis(packet + AXISTHROTTLE); // throttle is the first value.
-
-            process_joystick_button(packet + JOYBUTTON);
+            store_key(packet + KEY);
+            store_mode(packet + MODE);
+            store_joystick_axis(packet + AXISROLL); // roll is the first value.
+            store_joystick_button(packet + JOYBUTTON);
 
             #endif
 

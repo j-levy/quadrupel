@@ -94,19 +94,20 @@ int main(void)
 
 			
 			#ifdef DEBUG
-				printf("%10ld | ", get_time_us());
-				printf("%3d %3d %3d %3d | ",ae[0],ae[1],ae[2],ae[3]);
+				// printf("%10ld | ", get_time_us());
+				// printf("%3d %3d %3d %3d | ",ae[0],ae[1],ae[2],ae[3]);
 				
-				printf("%6d %6d %6d | ", phi, theta, psi);
-				printf("%6d %6d %6d | ", sp, sq, sr);
-				printf("%4d | %4ld | %6ld \n", bat_volt, temperature, pressure);
+				// printf("%6d %6d %6d | ", phi, theta, psi);
+				// printf("%6d %6d %6d | ", sp, sq, sr);
+				// printf("%4d | %4ld | %6ld \n", bat_volt, temperature, pressure);
 				
-				//printf("%d %d %d %d |", axis[0], axis[1], axis[2], axis[3] );
+				// printf("%d %d %d %d |", axis[0], axis[1], axis[2], axis[3] );
 
-				//printf("%d |", buttons);
- 
-				printf("%d | ", mode);
-				printf("\n");
+				// printf("%d |", buttons);
+
+				// printf("%d |", keyboard_key);
+				// printf("%d | ", mode);
+				// printf("\n");
 			#endif
 
 			//Filling rotor RPM data

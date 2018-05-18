@@ -87,7 +87,7 @@ void process_telemetry(uint8_t c)
             printf("|%6d %6d %6d|",phi,theta,psi);
             printf("|%6d %6d %6d|",sp,sq,sr);
             printf("|%4d|",bat_volt);
-            printf("|%6ld| \n", pressure);
+            printf("|%6d| \n", pressure);
         }  
         else if (crc != 0)
         {
