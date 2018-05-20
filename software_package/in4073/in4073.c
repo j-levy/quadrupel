@@ -21,8 +21,6 @@
 uint8_t buttons = 0;
 int16_t axis[4] = {4};
 
-uint8_t comm_link_failure = 0;
-
 /*------------------------------------------------------------------
  * process_{joystick, key} -- process command keys, mode change, or joystick
  * Jonathan Lévy
@@ -119,6 +117,7 @@ int main(void)
 	mode = 0;
 	uint32_t delta_time = 0;
 	uint32_t timeout = 0;
+	comm_link_failure = 0;
 
 	while (!demo_done)
 	{

@@ -117,6 +117,9 @@ void ble_send(void);
 // Mode
 uint8_t mode;
 
+//Link failure indicator
+uint8_t comm_link_failure;
+
 // Packet Parser [Jonathan LEVY]
 void process_packet(uint8_t c);
 
