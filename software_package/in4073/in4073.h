@@ -85,7 +85,11 @@ bool i2c_read(uint8_t slave_addr, uint8_t reg_addr, uint8_t length, uint8_t *dat
 int16_t phi, theta, psi;
 int16_t sp, sq, sr;
 int16_t sax, say, saz;
+// offsets to be read when calibrating, and to substract when piloting.
+int16_t sp_offset, sq_offset, sr_offset, sax_offset, say_offset, saz_offset;
+
 uint8_t sensor_fifo_count;
+bool is_DMP_on;
 void imu_init(bool dmp, uint16_t interrupt_frequency); // if dmp is true, the interrupt frequency is 100Hz - otherwise 32Hz-8kHz
 void get_dmp_data(void);
 void get_raw_sensor_data(void);
