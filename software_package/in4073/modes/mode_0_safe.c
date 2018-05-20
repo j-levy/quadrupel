@@ -1,6 +1,12 @@
 #include "in4073.h"
 #include "switch_mode.h"
 
+/*
+Safe-mode functions for the state machine.
+Jonathan Lévy
+*/
+
+
 char mode_0_safe_CANLEAVE(uint8_t target)
 {
     char lock = 0;
