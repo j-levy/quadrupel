@@ -50,6 +50,8 @@ void store_key(uint8_t *val)
 
 void store_mode(uint8_t *val)
 {
+	if (*val == 27)
+		nextmode = 1;
 	nextmode = *val - '0';
 }
 
