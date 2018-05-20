@@ -18,6 +18,8 @@
 
 #define _STARTBYTE 0xFF
 
+#define DELAY_PACKET_NS 20000000
+
 #define ROTOR1 1
 #define ROTOR2 3
 #define ROTOR3 5
@@ -35,8 +37,6 @@
 #define PRESSURE 27
 #define TIMESTAMP 31
 #define CRC_TELEMETRY 35
-
-#define DELAY_PACKET_NS 50000000
 
 #define MSBYTE(x) ((uint8_t) ((x & 0xff00) >> 8))
 
