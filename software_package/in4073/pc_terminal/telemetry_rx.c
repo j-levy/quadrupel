@@ -10,8 +10,7 @@
 #include "pc_terminal.h"
 #include "packet_constants.h"
 
-#define DEBUGCRC
-#define DEBUG
+//#define DEBUG
 //#define DEBUGCRC
 
 uint8_t packet_rx[TELEMETRY_PACKET_SIZE] = {0};  //char array of telemetry packet size
@@ -66,6 +65,7 @@ void process_telemetry(uint8_t c)
 
         if (crc == 0) 
 		{
+            // Dsiplay telemtry data on PC (Author: Tuan Anh Nguyen)
             motor1 = (packet_rx[ROTOR1]<<8)|packet_rx[ROTOR1+1];
             motor2 = (packet_rx[ROTOR2]<<8)|packet_rx[ROTOR2+1];
             motor3 = (packet_rx[ROTOR3]<<8)|packet_rx[ROTOR3+1];
@@ -82,12 +82,11 @@ void process_telemetry(uint8_t c)
             bat_volt = (packet_rx[BAT_VOLT]<<8)|packet_rx[BAT_VOLT];
             pressure = (packet_rx[PRESSURE]<<24)|(packet_rx[PRESSURE + 1]<<16)|(packet_rx[PRESSURE + 2]<<8)|packet_rx[PRESSURE+3];
             
-            //do something, which i can't remember right now
             printf("|%3d %3d %3d %3d|", motor1,motor2,motor3,motor4);
             printf("|%6d %6d %6d|",phi,theta,psi);
             printf("|%6d %6d %6d|",sp,sq,sr);
             printf("|%4d|",bat_volt);
-            printf("|%6d| \n", pressure);
+            printf("|%6d| \n", pressure);        
         }  
         else if (crc != 0)
         {

@@ -155,7 +155,7 @@ int main(void)
 			run_filters_and_control();
 		}
 
-		if ((get_time_us() - tx_timer) > 500000)
+		if ((get_time_us() - tx_timer) > TELEMETRY_TX_INTERVAL)
 		{
 			tx_timer = get_time_us();
 			send_telemetry_packet();

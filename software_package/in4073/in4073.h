@@ -118,6 +118,10 @@ void ble_send(void);
 // Mode
 uint8_t mode;
 
+//Telemetry data Tx rate [Niket Agrawal]
+// 100msec -> 10Hz
+#define TELEMETRY_TX_INTERVAL 100000 
+
 // Packet Parser [Jonathan LEVY]
 void process_packet(uint8_t c);
 
