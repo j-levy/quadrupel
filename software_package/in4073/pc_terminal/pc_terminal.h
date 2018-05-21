@@ -11,3 +11,9 @@
 #include <inttypes.h>
 #include <errno.h>
 #include <signal.h>
+#include "packet_constants.h"
+
+uint8_t control_packet[CONTROL_PACKET_SIZE]; //packet to be sent to drone over serial
+void process_telemetry(uint8_t c);
+void send_packet();
+int rs232_putchar(char c);

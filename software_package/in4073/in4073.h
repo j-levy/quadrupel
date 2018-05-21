@@ -38,7 +38,8 @@ int16_t motor[4],ae[4];
 void run_filters_and_control();
 
 // Timers
-#define TIMER_PERIOD	20 //50ms=20Hz (MAX 23bit, 4.6h)
+#define TIMER_PERIOD	50 //50ms=20Hz (MAX 23bit, 4.6h)
+
 void timers_init(void);
 uint32_t get_time_us(void);
 bool check_timer_flag(void);
@@ -117,13 +118,23 @@ void ble_send(void);
 // Mode
 uint8_t mode;
 
+//Telemetry data Tx rate [Niket Agrawal]
+// 100msec -> 10Hz
+#define TELEMETRY_TX_INTERVAL 100000 
+
 // Packet Parser [Jonathan LEVY]
 void process_packet(uint8_t c);
 
 void store_key(uint8_t *val);
 void store_joystick_axis(uint8_t *val);
 void store_joystick_button(uint8_t *val);
+void store_mode(uint8_t *val);
 
-void send_ack();;
+void send_ack();
+
+
+//Telemtry Tx [Niket Agrawal]
+uint8_t telemetry_packet[TELEMETRY_PACKET_SIZE];
+void send_telemetry_packet();
 
 #endif // IN4073_H__
