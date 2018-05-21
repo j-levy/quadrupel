@@ -12,7 +12,7 @@ char mode_4_yaw_CANLEAVE(uint8_t target)
     return (lock == 0);
 }
 
-char mode_2_yaw_CANENTER(uint8_t source)
+char mode_4_yaw_CANENTER(uint8_t source)
 {
     char lock = 0;
 
