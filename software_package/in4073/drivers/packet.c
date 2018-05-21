@@ -53,7 +53,6 @@ static uint8_t l = 0;  //variable used to determine new startbyte
     //#endif
 //}
 
-
 void process_packet(uint8_t c) {
     // Packet beginning detection.
 
@@ -179,7 +178,6 @@ void process_packet(uint8_t c) {
     count++; 
     #endif
 }
-
 
 
 /*------------------------------------------------------------

@@ -18,7 +18,7 @@
 
 #define _STARTBYTE 0xFF
 
-#define DELAY_PACKET_NS 20000000
+#define DELAY_PACKET_NS 50000000
 
 #define ROTOR1 1
 #define ROTOR2 3

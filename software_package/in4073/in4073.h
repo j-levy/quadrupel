@@ -38,8 +38,8 @@ int16_t motor[4],ae[4];
 void run_filters_and_control();
 
 // Timers
-#define TIMER_PERIOD	100 //old-> 50ms=20Hz (MAX 23bit, 4.6h)
-							//current: set to 10Hz as per requirement
+#define TIMER_PERIOD	50 
+
 void timers_init(void);
 uint32_t get_time_us(void);
 bool check_timer_flag(void);

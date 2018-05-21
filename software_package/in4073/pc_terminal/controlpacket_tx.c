@@ -11,6 +11,8 @@
 #include "pc_terminal.h"
 #include "packet_constants.h"
 
+//#define DEBUG
+
 void send_packet()
 {
 	control_packet[START] = _STARTBYTE;
@@ -31,7 +33,7 @@ void send_packet()
 
 	#ifdef DEBUG
 		// display the packet that is sent
-		//fprintf(stderr, "control packet sent : ");
+		fprintf(stderr, "control packet sent : ");
 		for (int j = 0; j < CONTROL_PACKET_SIZE; j++)
 		{
 			fprintf(stderr, "%X ", control_packet[j]);
