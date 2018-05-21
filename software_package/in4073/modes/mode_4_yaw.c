@@ -37,7 +37,9 @@ void mode_4_yaw_RUN(void)
 {
     int16_t oo1, oo2, oo3, oo4;
     int16_t js_roll, js_pitch, js_lift, js_yaw, a_roll, a_pitch, a_yaw, a_lift;
-    //int16_t sp_z, sp_phi, sp_theta, sp_u, sp_v, sp_q, sp_r;
+    //int16_t sax_state, say_state, saz_state;
+    int16_t sr_state;
+    int16_t a_roll_new, a_pitch_new, a_yaw_new, a_lift_new;
     //static int16_t js_yaw = 0;
     
     js_roll = axis[ROLL] / JS_SENSITIVITY;
@@ -46,14 +48,12 @@ void mode_4_yaw_RUN(void)
     js_lift = -(axis[LIFT] - 32767) / 2*JS_SENSITIVITY;
     //js_yaw = (axis[YAW] / JS_SENSITIVITY) * DT;
 
-    //read sensor data
-    sax_state = sax;
-    say_state = say;
-    saz_state = saz;
-    sp_state = sp;
-    sq_state = sq;
-    sr_state = sr;
 
+
+/*When implementing the control, the speed of the motor 
+should not be 0, so that we can have a stable state with 
+a speed??
+*/
     a_roll = offset[ROLL] + js_roll;
     a_pitch = offset[PITCH] + js_pitch;
     a_yaw = offset[YAW] + js_yaw;
@@ -64,11 +64,36 @@ void mode_4_yaw_RUN(void)
 	oo3 = (a_lift - 2 * a_pitch - a_yaw) / 4;
 	oo4 = (a_lift + 2 * a_roll + a_yaw) / 4;
 
+	/* with ai = oi it follows
+	 */
+	ae[0] = sqrt(oo1)*SCALE;
+	ae[1] = sqrt(oo2)*SCALE;
+	ae[2] = sqrt(oo3)*SCALE;
+	ae[3] = sqrt(oo4)*SCALE;
+
+	/* clip ooi as rotors only provide prositive thrust
+	 */
+    if (oo1 < 0) oo1 = 0;
+	if (oo2 < 0) oo2 = 0;
+	if (oo3 < 0) oo3 = 0;
+	if (oo4 < 0) oo4 = 0;
+    update_motors();
+
+    //read sensor data
+    
+    //sax_state = sax;
+    //say_state = say;
+    //saz_state = saz;
+    //sp_state = sp;
+    //sq_state = sq;
+    sr_state = sr;
+
     //implement P control
+
     a_yaw_new = 5 * (sr - sr_state);
-    a_lift_new = 
-    a_roll_new =
-    a_pitch_new =
+    a_lift_new = a_lift;
+    a_roll_new = a_roll;
+    a_pitch_new = a_pitch;
 
     oo1 = (a_lift_new + 2 * a_pitch_new - a_yaw_new) / 4;
 	oo2 = (a_lift_new - 2 * a_roll_new + a_yaw_new) / 4;
@@ -81,16 +106,12 @@ void mode_4_yaw_RUN(void)
 	if (oo2 < 0) oo2 = 0;
 	if (oo3 < 0) oo3 = 0;
 	if (oo4 < 0) oo4 = 0;
-
-
 	/* with ai = oi it follows
 	 */
 	ae[0] = sqrt(oo1)*SCALE;
 	ae[1] = sqrt(oo2)*SCALE;
 	ae[2] = sqrt(oo3)*SCALE;
 	ae[3] = sqrt(oo4)*SCALE;
-
-
 
     update_motors();
 }
