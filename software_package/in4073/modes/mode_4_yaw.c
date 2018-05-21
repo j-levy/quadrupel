@@ -31,17 +31,7 @@ void mode_4_yaw_QUIT()
 {
 // for now nothing to be done
 }
-/*
-case 3:
-			sp_z = qrstate->z_at_gnd - userstate->lift; 
-			sp_w = 10 * (sp_z - qrstate->z); 
-			a_lift = 20 * (sp_w - qrstate->w); 
-			a_lift = - a_lift; // pos lift -> neg z
-			a_roll = userstate->roll;
-			a_pitch = userstate->pitch;
-			sp_r = 5 * userstate->yaw; // setpoint is angular rate
-a_yaw = 5 * (sp_r - qrstate->r);
-*/
+
 void mode_4_yaw_RUN(void)
 
 {
@@ -80,9 +70,9 @@ void mode_4_yaw_RUN(void)
     a_roll_new =
     a_pitch_new =
 
-    oo1 = (a_lift_new + 2 * a_pitch_new - a_yaw) / 4;
-	oo2 = (a_lift_new - 2 * a_roll_new + a_yaw) / 4;
-	oo3 = (a_lift_new - 2 * a_pitch_new - a_yaw) / 4;
+    oo1 = (a_lift_new + 2 * a_pitch_new - a_yaw_new) / 4;
+	oo2 = (a_lift_new - 2 * a_roll_new + a_yaw_new) / 4;
+	oo3 = (a_lift_new - 2 * a_pitch_new - a_yaw_new) / 4;
 	oo4 = (a_lift_new + 2 * a_roll_new + a_yaw_new) / 4;
 
 	/* clip ooi as rotors only provide prositive thrust
