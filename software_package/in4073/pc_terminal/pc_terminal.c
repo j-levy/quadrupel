@@ -580,7 +580,7 @@ int main(int argc, char **argv)
 
 		 if ((rs232_getchar_nb(&c)) != -1)
 		 {
-		 	//term_putchar(c);
+		 	term_putchar(c);
 		  	process_telemetry(c);
 		 }
 
