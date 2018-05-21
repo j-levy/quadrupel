@@ -1,5 +1,5 @@
 /*
-YAW control function.
+MODE 4: yaw control function.
 Author:Yuhao Xuan
 */
 #include "in4073.h"
@@ -36,7 +36,7 @@ void mode_4_yaw_RUN(void)
 
 {
     int16_t oo1, oo2, oo3, oo4;
-    int16_t js_roll, js_pitch, js_lift, js_yaw, a_roll, a_pitch, a_yaw, a_lift;
+    int16_t js_roll, js_pitch, js_lift, js_yaw, a_roll, a_pitch, a_yaw, a_lift, r;
     //int16_t sax_state, say_state, saz_state;
     int16_t sr_state;
     int16_t a_roll_new, a_pitch_new, a_yaw_new, a_lift_new;
@@ -59,6 +59,9 @@ a speed??
     a_yaw = offset[YAW] + js_yaw;
     a_lift = offset[LIFT] + js_lift;
 
+    // yaw rate: r
+    r = a_yaw;
+
     oo1 = (a_lift + 2 * a_pitch - a_yaw) / 4;
 	oo2 = (a_lift - 2 * a_roll + a_yaw) / 4;
 	oo3 = (a_lift - 2 * a_pitch - a_yaw) / 4;
@@ -80,17 +83,13 @@ a speed??
     update_motors();
 
     //read sensor data
-    
-    //sax_state = sax;
-    //say_state = say;
-    //saz_state = saz;
-    //sp_state = sp;
-    //sq_state = sq;
     sr_state = sr;
 
-    //implement P control
+    /*Kalman Filtering could be implemented later.*/
 
-    a_yaw_new = 5 * (sr - sr_state);
+    //implement P control(a_lift_new, a_roll_new and a_pitch_new are left for full control)
+    while(sr_state != r){ 
+    a_yaw_new = 5 * (sr_state - r);
     a_lift_new = a_lift;
     a_roll_new = a_roll;
     a_pitch_new = a_pitch;
@@ -113,5 +112,6 @@ a speed??
 	ae[2] = sqrt(oo3)*SCALE;
 	ae[3] = sqrt(oo4)*SCALE;
 
-    update_motors();
+    update_motors();}
+   
 }
