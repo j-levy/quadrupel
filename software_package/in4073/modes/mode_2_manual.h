@@ -6,3 +6,5 @@
 #define BITSCALE 6
 
 #define MAX_SPEED 600
+
+#define MIN(a,b) (a < b ? a : b)

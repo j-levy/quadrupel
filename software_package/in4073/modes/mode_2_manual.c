@@ -54,10 +54,10 @@ void mode_2_manual_RUN()
 	oo3 = (a_lift - 2 * a_pitch - a_yaw);
 	oo4 = (a_lift + 2 * a_roll + a_yaw);
 
-    oo1 = (oo1 < (a_lift>>1) ? a_lift>>1 : oo1);
-    oo2 = (oo2 < (a_lift>>1) ? a_lift>>1 : oo2);
-    oo3 = (oo3 < (a_lift>>1) ? a_lift>>1 : oo3);
-    oo4 = (oo4 < (a_lift>>1) ? a_lift>>1 : oo4);
+    oo1 = (oo1 < 200 ? MIN(a_lift, 200) : oo1);
+    oo2 = (oo2 < 200? MIN(a_lift, 200) : oo2);
+    oo3 = (oo3 < 200 ? MIN(a_lift, 200) : oo3);
+    oo4 = (oo4 < 200? MIN(a_lift, 200) : oo4);
 
 	/* clip ooi as rotors only provide prositive thrust
 	 */
