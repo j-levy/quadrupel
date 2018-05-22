@@ -1,5 +1,5 @@
 #define CONTROL_PACKET_SIZE 13
-#define TELEMETRY_PACKET_SIZE 36
+#define TELEMETRY_PACKET_SIZE 17
 
 #define START 0
 #define KEY 1
@@ -25,18 +25,20 @@
 #define ROTOR3 5
 #define ROTOR4 7
 
-#define PHI 9
-#define THETA 11
-#define PSI 13
-#define SP 15
-#define SQ 17
-#define SR 19
+#define MODE_DRONE 9
 
-#define BAT_VOLT 21
-#define TEMPERATURE 23
-#define PRESSURE 27
-#define TIMESTAMP 31
-#define CRC_TELEMETRY 35
+// #define PHI 9
+// #define THETA 11
+// #define PSI 13
+// #define SP 15
+// #define SQ 17
+// #define SR 19
+
+#define BAT_VOLT 10
+// #define TEMPERATURE 23
+// #define PRESSURE 27
+#define TIMESTAMP 12
+#define CRC_TELEMETRY 16
 
 #define MSBYTE(x) ((uint8_t) ((x & 0xff00) >> 8))
 
