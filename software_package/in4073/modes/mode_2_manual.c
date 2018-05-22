@@ -37,37 +37,43 @@ void mode_2_manual_RUN()
     int16_t js_roll, js_pitch, js_lift, a_roll, a_pitch, a_yaw, a_lift;
     static int16_t js_yaw = 0;
     
-    js_roll = axis[ROLL] / JS_SENSITIVITY;
-    js_pitch = axis[PITCH] / JS_SENSITIVITY;
+    js_roll = axis[ROLL] >> BITSCALE;
+    js_pitch = axis[PITCH] >> BITSCALE;
 
     // Yaw command is not cumulative in manual mode
-    js_yaw = (axis[YAW] / JS_SENSITIVITY) * DT;
-    js_lift = -(axis[LIFT] - 32767) / 2*JS_SENSITIVITY;
+    js_yaw = ((axis[YAW]) * DT) >> BITSCALE;
+    js_lift = (-(axis[LIFT] - 32767) >> 1) >> BITSCALE;
 
     a_roll = offset[ROLL] + js_roll;
     a_pitch = offset[PITCH] + js_pitch;
     a_yaw = offset[YAW] + js_yaw;
     a_lift = offset[LIFT] + js_lift;
 
-    oo1 = (a_lift + 2 * a_pitch - a_yaw) / 4;
-	oo2 = (a_lift - 2 * a_roll + a_yaw) / 4;
-	oo3 = (a_lift - 2 * a_pitch - a_yaw) / 4;
-	oo4 = (a_lift + 2 * a_roll + a_yaw) / 4;
+    oo1 = (a_lift + 2 * (a_pitch - a_yaw));
+	oo2 = (a_lift - 2 * (a_roll + a_yaw));
+	oo3 = (a_lift - 2 * (a_pitch - a_yaw));
+	oo4 = (a_lift + 2 * (a_roll + a_yaw));
+
+    oo1 = (oo1 < (a_lift>>1) ? a_lift>>1 : oo1);
+    oo2 = (oo2 < (a_lift>>1) ? a_lift>>1 : oo2);
+    oo3 = (oo3 < (a_lift>>1) ? a_lift>>1 : oo3);
+    oo4 = (oo4 < (a_lift>>1) ? a_lift>>1 : oo4);
 
 	/* clip ooi as rotors only provide prositive thrust
 	 */
-	if (oo1 < 0) oo1 = 0;
-	if (oo2 < 0) oo2 = 0;
-	if (oo3 < 0) oo3 = 0;
-	if (oo4 < 0) oo4 = 0;
+	
 
+    if (oo1 > MAX_SPEED) oo1 = MAX_SPEED;
+	if (oo2 > MAX_SPEED) oo2 = MAX_SPEED;
+	if (oo3 > MAX_SPEED) oo3 = MAX_SPEED;
+	if (oo4 > MAX_SPEED) oo4 = MAX_SPEED;
 
 	/* with ai = oi it follows
 	 */
-	ae[0] = sqrt(oo1)*SCALE;
-	ae[1] = sqrt(oo2)*SCALE;
-	ae[2] = sqrt(oo3)*SCALE;
-	ae[3] = sqrt(oo4)*SCALE;
+	ae[0] = (oo1);
+	ae[1] = (oo2);
+	ae[2] = (oo3);
+	ae[3] = (oo4);
 
 
 
