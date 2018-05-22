@@ -4,16 +4,15 @@
 /* 
  TODO: write the constants as #define
 */
-static uint16_t counter;
 
 char mode_3_calib_CANLEAVE(uint8_t target)
 {
-
+    return 0;
 }
 
 char mode_3_calib_CANENTER(uint8_t source)
 {
-
+    return 0;
 }
 
 void mode_3_calib_INIT()
