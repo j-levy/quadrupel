@@ -52,7 +52,8 @@ void store_mode(uint8_t *val)
 {
 	if (*val == 27)
 		nextmode = 1;
-	nextmode = *val - '0';
+	else
+		nextmode = *val - '0';
 }
 
 
