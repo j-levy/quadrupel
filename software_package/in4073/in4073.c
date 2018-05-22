@@ -113,7 +113,7 @@ int main(void)
 
 			read_baro();
 
-			
+			/*
 			#ifdef DEBUG
 
 				printf("%10ld | ", get_time_us());
@@ -131,6 +131,7 @@ int main(void)
 				printf("\n");
 
 			#endif
+			*/
 
 			//Filling rotor RPM data
 			for (int j = 0; j < 4; j++)
