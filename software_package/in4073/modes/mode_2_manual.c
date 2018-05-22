@@ -49,10 +49,10 @@ void mode_2_manual_RUN()
     a_yaw = offset[YAW] + js_yaw;
     a_lift = offset[LIFT] + js_lift;
 
-    oo1 = (a_lift + 2 * (a_pitch - a_yaw));
-	oo2 = (a_lift - 2 * (a_roll + a_yaw));
-	oo3 = (a_lift - 2 * (a_pitch - a_yaw));
-	oo4 = (a_lift + 2 * (a_roll + a_yaw));
+    oo1 = (a_lift + 2 * a_pitch - a_yaw);
+	oo2 = (a_lift - 2 * a_roll + a_yaw);
+	oo3 = (a_lift - 2 * a_pitch - a_yaw);
+	oo4 = (a_lift + 2 * a_roll + a_yaw);
 
     oo1 = (oo1 < (a_lift>>1) ? a_lift>>1 : oo1);
     oo2 = (oo2 < (a_lift>>1) ? a_lift>>1 : oo2);
