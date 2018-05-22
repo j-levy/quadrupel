@@ -20,6 +20,7 @@
 #include "in4073.h"
 
 //#define DEBUG
+//#define DEBUGACK
 //#define DEBUGCRC      //Enable CRC decoding test here
 #define ENABLE_STORE_DATA
 

@@ -38,6 +38,14 @@ remduplicates = $(strip $(if $1,$(firstword $1) $(call remduplicates,$(filter-ou
 #source common to all targets
 ## LINE 54 ADDED [Jonathan LEVY]
 C_SOURCE_FILES += \
+$(abspath ./modes/switch_mode.c) \
+$(abspath ./modes/mode_0_safe.c) \
+$(abspath ./modes/mode_1_panic.c) \
+$(abspath ./modes/mode_2_manual.c) \
+$(abspath ./modes/mode_3_calib.c) \
+$(abspath ./modes/mode_4_yaw.c) \
+$(abspath ./modes/mode_5_full.c) \
+$(abspath ./modes/mode_6_raw.c) \
 $(abspath ../components/toolchain/system_nrf51.c) \
 $(abspath ../components/drivers_nrf/delay/nrf_delay.c) \
 $(abspath ./in4073.c) \
@@ -68,6 +76,8 @@ $(abspath ../components/ble/common/ble_conn_params.c) \
 $(abspath ../components/ble/ble_services/ble_nus/ble_nus.c) \
 $(abspath ../components/ble/common/ble_srv_common.c) \
 $(abspath ../components/softdevice/common/softdevice_handler/softdevice_handler.c) \
+
+
 
 #assembly files common to all targets
 ASM_SOURCE_FILES  = $(abspath ../components/toolchain/gcc/gcc_startup_nrf51.s)

@@ -34,7 +34,12 @@
 bool demo_done;
 
 // Control
-int16_t motor[4],ae[4];
+int16_t motor[4],ae[4], offset[4];
+
+uint8_t buttons;
+uint8_t keyboard_key;
+int16_t axis[4];
+
 void run_filters_and_control();
 
 // Timers
@@ -132,9 +137,30 @@ void store_mode(uint8_t *val);
 
 void send_ack();
 
+// mode functions
+void init_modes();
+void switch_mode( uint8_t newmode );
+
+typedef void (*void_ptr_t)(void);
+typedef char (*char_ptr_t)(uint8_t);
+void_ptr_t mode_RUN[7];
+void_ptr_t mode_INIT[7];
+void_ptr_t mode_QUIT[7];
+char_ptr_t mode_CANLEAVE[7];
+char_ptr_t mode_CANENTER[7];
+
+
+#define ROLL 0
+#define PITCH 1
+#define YAW 2
+#define LIFT 3
+
+void update_motors(void);
+
 
 //Telemtry Tx [Niket Agrawal]
 uint8_t telemetry_packet[TELEMETRY_PACKET_SIZE];
 void send_telemetry_packet();
+
 
 #endif // IN4073_H__
