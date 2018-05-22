@@ -10,6 +10,9 @@
  *  Embedded Software Lab
  *
  *  June 2016
+ * 
+ * Revised May 2018
+ * Author: Niket Agrawal
  *------------------------------------------------------------------
  */
 
@@ -17,6 +20,10 @@
 
 #define DEBUG	
 
+uint8_t buttons = 0;
+int16_t axis[4] = {0};
+uint8_t keyboard_key = 0; 
+uint8_t mode = 0;
 
 
 /*------------------------------------------------------------------
@@ -42,7 +49,6 @@ void store_joystick_button(uint8_t *val)
 	buttons = *val;
 }
 
-
 void store_key(uint8_t *val)
 {
 	keyboard_key = *val;
@@ -55,7 +61,6 @@ void store_mode(uint8_t *val)
 	else
 		nextmode = *val - '0';
 }
-
 
 
 /*------------------------------------------------------------------
@@ -79,6 +84,7 @@ int main(void)
 	uint32_t counter = 0;
 	demo_done = false;
 	mode = 0;
+
 	nextmode = 0;
 
 
@@ -87,6 +93,9 @@ int main(void)
 
 	for (int i = 0; i < 4; i++)
 		axis[i] = 0;
+
+	uint32_t tx_timer = 0;
+
 
 	while (!demo_done)
 	{
@@ -106,6 +115,7 @@ int main(void)
 
 			
 			#ifdef DEBUG
+
 				printf("%10ld | ", get_time_us());
 				printf("ae: %3d %3d %3d %3d | ",ae[0],ae[1],ae[2],ae[3]);
 				printf("motor: %3d %3d %3d %3d | ",motor[0],motor[1],motor[2],motor[3]);
@@ -119,8 +129,44 @@ int main(void)
  
 				printf("%d | ", mode);
 				printf("\n");
+
 			#endif
 
+			//Filling rotor RPM data
+			for (int j = 0; j < 4; j++)
+			{
+				telemetry_packet[ROTOR1 + 2*j] = MSBYTE( ae[j] );
+				telemetry_packet[ROTOR1 + 2*j + 1] = LSBYTE( ae[j] );
+			}	
+
+			//Attitude
+			telemetry_packet[PHI] = MSBYTE(phi);
+			telemetry_packet[PHI + 1] = LSBYTE(phi);
+			telemetry_packet[THETA] = MSBYTE(theta);
+			telemetry_packet[THETA + 1] = LSBYTE(theta);
+			telemetry_packet[PSI] = MSBYTE(psi);
+			telemetry_packet[PSI + 1] = LSBYTE(psi);
+
+			//Angular velocity
+			telemetry_packet[SP] = MSBYTE(sp);
+			telemetry_packet[SP + 1] = LSBYTE(sp);
+			telemetry_packet[SQ] = MSBYTE(sq);
+			telemetry_packet[SQ + 1] = LSBYTE(sq);
+			telemetry_packet[SR] = MSBYTE(sr);
+			telemetry_packet[SR + 1] = LSBYTE(sr);
+			
+			telemetry_packet[BAT_VOLT] = MSBYTE(bat_volt);
+			telemetry_packet[BAT_VOLT + 1] = MSBYTE(bat_volt);
+
+			telemetry_packet[TEMPERATURE] = MSBYTE_WORD(temperature);
+			telemetry_packet[TEMPERATURE + 1] = BYTE2_WORD(temperature);
+			telemetry_packet[TEMPERATURE + 2] = BYTE3_WORD(temperature);
+			telemetry_packet[TEMPERATURE + 3] = LSBYTE_WORD(temperature);
+
+			telemetry_packet[PRESSURE] = MSBYTE_WORD(pressure);
+			telemetry_packet[PRESSURE + 1] = BYTE2_WORD(pressure);
+			telemetry_packet[PRESSURE + 2] = BYTE3_WORD(pressure);
+			telemetry_packet[PRESSURE + 3] = LSBYTE_WORD(pressure);
 			
 			clear_timer_flag();
 		}
@@ -130,8 +176,6 @@ int main(void)
 			get_dmp_data();
 			run_filters_and_control();
 		}
-
-
 		
 		if (nextmode != mode)
 			switch_mode(nextmode);
@@ -140,7 +184,11 @@ int main(void)
 		
 		mode_RUN[mode]();
 		
-
+		if ((get_time_us() - tx_timer) > TELEMETRY_TX_INTERVAL)
+		{
+			tx_timer = get_time_us();
+			send_telemetry_packet();
+		}
 	}	
 
 	printf("\n\t Goodbye \n\n");
