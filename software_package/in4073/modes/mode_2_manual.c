@@ -37,8 +37,8 @@ void mode_2_manual_RUN()
     int16_t js_roll, js_pitch, js_lift, a_roll, a_pitch, a_yaw, a_lift;
     static int16_t js_yaw = 0;
     
-    js_roll = axis[ROLL] >> BITSCALE;
-    js_pitch = axis[PITCH] >> BITSCALE;
+    js_roll = axis[ROLL] >> (BITSCALE+2);
+    js_pitch = axis[PITCH] >> (BITSCALE+2);
 
     // Yaw command is not cumulative in manual mode
     js_yaw = ((axis[YAW]) * DT) >> BITSCALE;
