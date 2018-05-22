@@ -139,34 +139,37 @@ int main(void)
 				telemetry_packet[ROTOR1 + 2*j + 1] = LSBYTE( ae[j] );
 			}	
 
+			//Mode
+			telemetry_packet[MODE_DRONE] = mode;
+
 			//Attitude
-			telemetry_packet[PHI] = MSBYTE(phi);
-			telemetry_packet[PHI + 1] = LSBYTE(phi);
-			telemetry_packet[THETA] = MSBYTE(theta);
-			telemetry_packet[THETA + 1] = LSBYTE(theta);
-			telemetry_packet[PSI] = MSBYTE(psi);
-			telemetry_packet[PSI + 1] = LSBYTE(psi);
+			// telemetry_packet[PHI] = MSBYTE(phi);
+			// telemetry_packet[PHI + 1] = LSBYTE(phi);
+			// telemetry_packet[THETA] = MSBYTE(theta);
+			// telemetry_packet[THETA + 1] = LSBYTE(theta);
+			// telemetry_packet[PSI] = MSBYTE(psi);
+			// telemetry_packet[PSI + 1] = LSBYTE(psi);
 
 			//Angular velocity
-			telemetry_packet[SP] = MSBYTE(sp);
-			telemetry_packet[SP + 1] = LSBYTE(sp);
-			telemetry_packet[SQ] = MSBYTE(sq);
-			telemetry_packet[SQ + 1] = LSBYTE(sq);
-			telemetry_packet[SR] = MSBYTE(sr);
-			telemetry_packet[SR + 1] = LSBYTE(sr);
+			// telemetry_packet[SP] = MSBYTE(sp);
+			// telemetry_packet[SP + 1] = LSBYTE(sp);
+			// telemetry_packet[SQ] = MSBYTE(sq);
+			// telemetry_packet[SQ + 1] = LSBYTE(sq);
+			// telemetry_packet[SR] = MSBYTE(sr);
+			// telemetry_packet[SR + 1] = LSBYTE(sr);
 			
 			telemetry_packet[BAT_VOLT] = MSBYTE(bat_volt);
 			telemetry_packet[BAT_VOLT + 1] = MSBYTE(bat_volt);
 
-			telemetry_packet[TEMPERATURE] = MSBYTE_WORD(temperature);
-			telemetry_packet[TEMPERATURE + 1] = BYTE2_WORD(temperature);
-			telemetry_packet[TEMPERATURE + 2] = BYTE3_WORD(temperature);
-			telemetry_packet[TEMPERATURE + 3] = LSBYTE_WORD(temperature);
+			// telemetry_packet[TEMPERATURE] = MSBYTE_WORD(temperature);
+			// telemetry_packet[TEMPERATURE + 1] = BYTE2_WORD(temperature);
+			// telemetry_packet[TEMPERATURE + 2] = BYTE3_WORD(temperature);
+			// telemetry_packet[TEMPERATURE + 3] = LSBYTE_WORD(temperature);
 
-			telemetry_packet[PRESSURE] = MSBYTE_WORD(pressure);
-			telemetry_packet[PRESSURE + 1] = BYTE2_WORD(pressure);
-			telemetry_packet[PRESSURE + 2] = BYTE3_WORD(pressure);
-			telemetry_packet[PRESSURE + 3] = LSBYTE_WORD(pressure);
+			// telemetry_packet[PRESSURE] = MSBYTE_WORD(pressure);
+			// telemetry_packet[PRESSURE + 1] = BYTE2_WORD(pressure);
+			// telemetry_packet[PRESSURE + 2] = BYTE3_WORD(pressure);
+			// telemetry_packet[PRESSURE + 3] = LSBYTE_WORD(pressure);
 			
 			clear_timer_flag();
 		}
