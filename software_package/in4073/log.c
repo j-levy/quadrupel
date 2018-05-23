@@ -10,7 +10,8 @@
 #include "in4073.h"
 
 #define MAX_ITEM 3400
-
+#define LOG_TIME 0
+#define LOG_SENSOR 4
 
 //#define DEBUG
 
@@ -36,6 +37,43 @@ bool log_write_item() {
     for (int i = 0; i<TELEMETRY_PACKET_SIZE;i++){
         printf("%X ", telemetry_packet[i]);
     }
+    printf("\n");
+    #endif
+
+    bool write_status = flash_write_bytes(current_address, telemetry_packet, TELEMETRY_PACKET_SIZE);
+    if (write_status){
+        logsize++;
+        current_address += TELEMETRY_PACKET_SIZE;
+
+        #ifdef DEBUG
+        printf("Log successful.\n");
+        #endif
+        //reset packet	
+        for (int j = 0; j < TELEMETRY_PACKET_SIZE; j++)
+        {
+            telemetry_packet[j] = 0;	
+        }
+        return true;
+    } else {
+
+        #ifdef DEBUG
+        printf("Error writing to flash!");
+        #endif
+
+        //reset packet	
+        for (int j = 0; j < TELEMETRY_PACKET_SIZE; j++)
+        {
+            telemetry_packet[j] = 0;	
+        }
+        return false;
+    }
+}
+
+
+bool log_sensor(){
+    #ifdef DEBUG
+    printf("Data to be logged: ");
+    printf("||");
     printf("\n");
     #endif
 
