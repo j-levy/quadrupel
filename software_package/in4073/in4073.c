@@ -95,13 +95,34 @@ int main(void)
 		axis[i] = 0;
 
 	uint32_t tx_timer = 0;
-
+	uint32_t delta_time = 0;
+	uint32_t timeout = 0;
+	uint32_t count = 0;
+	//uint32_t a;
 
 	while (!demo_done)
 	{
+		delta_time = get_time_us() - timeout;
+
+		if(timeout && (delta_time > RX_TIMEOUT) && (delta_time > 0))
+		{
+			#ifdef DEBUG
+			printf("%10ld %10ld %10ld \n", get_time_us(), timeout, delta_time); 
+			printf("comm link failure\n");
+			comm_link_failure = 1; 
+			#endif			
+			//nextmode = 1; 		//enter panic mode 
+			nrf_gpio_pin_toggle(RED);
+		}
+
 		if (rx_queue.count)
 		{
+			timeout = get_time_us();
 			process_packet( dequeue(&rx_queue) );
+			if(count == 200)
+			{
+				for(int j=0; j<10000000; j++){}
+			}
 		}
 
 		if (check_timer_flag()) 
@@ -193,6 +214,7 @@ int main(void)
 			tx_timer = get_time_us();
 			send_telemetry_packet();
 		}
+		count++;
 	}	
 
 	printf("\n\t Goodbye \n\n");

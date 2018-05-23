@@ -539,30 +539,30 @@ int main(int argc, char **argv)
 			if (d == 27) //escape key
 			{
 				y = getchar();
-  				z = getchar();
-  				printf("Key code y is %d\n", y);
-  				printf("Key code z is %d\n", z);
+  				z = getchar(); 
+  				//printf("Key code y is %d\n", y);
+  				//printf("Key code z is %d\n", z);
 				if (d == 27 && y == 91)
  				{
   					switch (z)
   					{
-   					case 65:
-   					printf("up arrow key pressed\n");
+   					case 65:   
+   					//printf("up arrow key pressed\n");
 					control_packet[KEY] = 42;
    					break;
 
    					case 66:
-   					printf("down arrow key pressed\n");
+   					//printf("down arrow key pressed\n");
 					control_packet[KEY] = 44;
    					break;
 
    					case 67:
-   					printf("right arrow key pressed\n");
+   					//printf("right arrow key pressed\n");
 					control_packet[KEY] = 43;
    					break;
 
    					case 68:
-   					printf("left arrow key pressed\n");
+   					//printf("left arrow key pressed\n");
 					control_packet[KEY] = 45;
    					break;
   					}
