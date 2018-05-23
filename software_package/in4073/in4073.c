@@ -160,7 +160,7 @@ int main(void)
 			// telemetry_packet[SR + 1] = LSBYTE(sr);
 			
 			telemetry_packet[BAT_VOLT] = MSBYTE(bat_volt);
-			telemetry_packet[BAT_VOLT + 1] = MSBYTE(bat_volt);
+			telemetry_packet[BAT_VOLT + 1] = LSBYTE(bat_volt);
 
 			// telemetry_packet[TEMPERATURE] = MSBYTE_WORD(temperature);
 			// telemetry_packet[TEMPERATURE + 1] = BYTE2_WORD(temperature);
