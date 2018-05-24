@@ -567,8 +567,9 @@ int main(int argc, char **argv)
    					break;
   					}
  				}
-				else 
-				isContinuing = 0;
+				else
+				control_packet[MODE] = 27; 
+				//isContinuing = 0;
 			}
 			else if ((d >= 48) && (d <= 56))
 				control_packet[MODE] = d;

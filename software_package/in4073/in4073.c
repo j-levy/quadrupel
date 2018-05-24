@@ -24,6 +24,7 @@ uint8_t buttons = 0;
 int16_t axis[4] = {0};
 uint8_t keyboard_key = 0; 
 uint8_t mode = 0;
+uint8_t abort_mission = 0;
 
 
 /*------------------------------------------------------------------
@@ -57,7 +58,10 @@ void store_key(uint8_t *val)
 void store_mode(uint8_t *val)
 {
 	if (*val == 27)
+	{
+		abort_mission = 1;
 		nextmode = 1;
+	}
 	else
 		nextmode = *val - '0';
 }
@@ -103,6 +107,11 @@ int main(void)
 
 	while (!demo_done)
 	{
+		//Enter panic mode if battery is low
+		//and if not in safe or panic mode already
+		if((bat_volt < BATTERY_THRESHOLD) && (mode && (mode != 1)))
+			nextmode = 1;
+
 		#ifdef DEBUG
 		if(count == 500) //timeout failure scenario testcase 
 		{
@@ -121,8 +130,8 @@ int main(void)
 			nrf_gpio_pin_toggle(RED);
 			#endif
 
-			if(!mode && (mode != 1))	//check if already in safe or panic mode,
-										//otherwise, enter panic mode
+			if(mode && (mode != 1))		//Enter panic mode only if NOT 
+										//in safe or panic mode already
 			{
 				nextmode = 	1; 
 			}		
@@ -194,7 +203,7 @@ int main(void)
 			// telemetry_packet[SR + 1] = LSBYTE(sr);
 			
 			telemetry_packet[BAT_VOLT] = MSBYTE(bat_volt);
-			telemetry_packet[BAT_VOLT + 1] = MSBYTE(bat_volt);
+			telemetry_packet[BAT_VOLT + 1] = LSBYTE(bat_volt);
 
 			// telemetry_packet[TEMPERATURE] = MSBYTE_WORD(temperature);
 			// telemetry_packet[TEMPERATURE + 1] = BYTE2_WORD(temperature);
@@ -215,18 +224,28 @@ int main(void)
 			run_filters_and_control();
 		}
 		
+		
+
 		if (nextmode != mode)
 			switch_mode(nextmode);
-		
-		
-		
-		mode_RUN[mode]();
-		
+
 		if ((get_time_us() - tx_timer) > TELEMETRY_TX_INTERVAL)
 		{
 			tx_timer = get_time_us();
 			send_telemetry_packet();
 		}
+		
+		//For the sequence Esc -> panic > safe > abort
+		//if(!mode && abort_mission)
+			//demo_done = true;
+		//else
+			mode_RUN[mode]();
+		
+		// if ((get_time_us() - tx_timer) > TELEMETRY_TX_INTERVAL)
+		// {
+		// 	tx_timer = get_time_us();
+		// 	send_telemetry_packet();
+		// }
 	}	
 
 	printf("\n\t Goodbye \n\n");

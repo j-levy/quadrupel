@@ -38,5 +38,6 @@ void mode_0_safe_QUIT()
 
 void mode_0_safe_RUN()
 {
-    
+    if(abort_mission)
+        demo_done = true;
 }

@@ -80,7 +80,7 @@ void process_telemetry(uint8_t c)
             // sq = (packet_rx[SQ]<<8)|packet_rx[SQ+1];
             // sr = (packet_rx[SR]<<8)|packet_rx[SR+1];
 
-            bat_volt = (packet_rx[BAT_VOLT]<<8)|packet_rx[BAT_VOLT];
+            bat_volt = (packet_rx[BAT_VOLT]<<8)|packet_rx[BAT_VOLT+1];
             // pressure = (packet_rx[PRESSURE]<<24)|(packet_rx[PRESSURE + 1]<<16)|(packet_rx[PRESSURE + 2]<<8)|packet_rx[PRESSURE+3];
             timestamp = (packet_rx[TIMESTAMP]<<24)|(packet_rx[TIMESTAMP + 1]<<16)|(packet_rx[TIMESTAMP + 2]<<8)|packet_rx[TIMESTAMP+3];
 
