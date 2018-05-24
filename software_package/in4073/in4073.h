@@ -163,7 +163,7 @@ uint8_t telemetry_packet[TELEMETRY_PACKET_SIZE];
 void send_telemetry_packet();
 
 // Link failure detection by drone
-#define RX_TIMEOUT 120000    //currently set to 150msec
+#define RX_TIMEOUT 150000    //currently set to 150msec
 uint8_t comm_link_failure;
 
 #endif // IN4073_H__

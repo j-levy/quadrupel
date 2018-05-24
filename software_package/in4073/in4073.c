@@ -106,7 +106,7 @@ int main(void)
 		#ifdef DEBUG
 		if(count == 500) //timeout failure scenario testcase 
 		{
-			delta_time = 130000;
+			delta_time = 160000;
 		}
 		else
 		#endif
