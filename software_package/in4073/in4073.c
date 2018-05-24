@@ -18,7 +18,7 @@
 
 #include "in4073.h"
 
-#define DEBUG	
+//#define DEBUG	
 
 uint8_t buttons = 0;
 int16_t axis[4] = {0};
@@ -97,32 +97,45 @@ int main(void)
 	uint32_t tx_timer = 0;
 	uint32_t delta_time = 0;
 	uint32_t timeout = 0;
-	uint32_t count = 0;
-	//uint32_t a;
+	#ifdef DEBUG
+	uint32_t count = 0; // for timeout testing purpose
+	#endif
 
 	while (!demo_done)
 	{
-		delta_time = get_time_us() - timeout;
+		#ifdef DEBUG
+		if(count == 500) //timeout failure scenario testcase 
+		{
+			delta_time = 130000;
+		}
+		else
+		#endif
+			delta_time = get_time_us() - timeout;
 
 		if(timeout && (delta_time > RX_TIMEOUT) && (delta_time > 0))
 		{
 			#ifdef DEBUG
-			printf("%10ld %10ld %10ld \n", get_time_us(), timeout, delta_time); 
+			//printf("%10ld %10ld %10ld \n", get_time_us(), timeout, delta_time); 
 			printf("comm link failure\n");
 			comm_link_failure = 1; 
-			#endif			
-			//nextmode = 1; 		//enter panic mode 
 			nrf_gpio_pin_toggle(RED);
+			#endif
+
+			if(!mode && (mode != 1))	//check if already in safe or panic mode,
+										//otherwise, enter panic mode
+			{
+				nextmode = 	1; 
+			}		
+				
 		}
 
 		if (rx_queue.count)
 		{
+			#ifdef DEBUG
+			count++;
+			#endif
 			timeout = get_time_us();
 			process_packet( dequeue(&rx_queue) );
-			if(count == 200)
-			{
-				for(int j=0; j<10000000; j++){}
-			}
 		}
 
 		if (check_timer_flag()) 
@@ -214,7 +227,6 @@ int main(void)
 			tx_timer = get_time_us();
 			send_telemetry_packet();
 		}
-		count++;
 	}	
 
 	printf("\n\t Goodbye \n\n");
