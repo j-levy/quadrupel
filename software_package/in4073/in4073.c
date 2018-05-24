@@ -229,11 +229,6 @@ int main(void)
 		if (nextmode != mode)
 			switch_mode(nextmode);
 
-		if ((get_time_us() - tx_timer) > TELEMETRY_TX_INTERVAL)
-		{
-			tx_timer = get_time_us();
-			send_telemetry_packet();
-		}
 		
 		//For the sequence Esc -> panic > safe > abort
 		//if(!mode && abort_mission)
@@ -241,11 +236,11 @@ int main(void)
 		//else
 			mode_RUN[mode]();
 		
-		// if ((get_time_us() - tx_timer) > TELEMETRY_TX_INTERVAL)
-		// {
-		// 	tx_timer = get_time_us();
-		// 	send_telemetry_packet();
-		// }
+		if ((get_time_us() - tx_timer) > TELEMETRY_TX_INTERVAL)
+		{
+			tx_timer = get_time_us();
+			send_telemetry_packet();
+		}
 	}	
 
 	printf("\n\t Goodbye \n\n");
