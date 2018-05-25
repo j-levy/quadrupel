@@ -19,7 +19,7 @@
 #include "joystick.h"
 
 // #define DEBUG
-// #define DEBUGACK
+#define DEBUGTIMEOUT
 // #define DEBUGCLK
 
 
@@ -479,6 +479,9 @@ int main(int argc, char **argv)
 	int d;
 	int y ;
 	int z ;
+	#ifdef DEBUGTIMEOUT
+	uint32_t count = 0;
+	#endif
 	
 	term_puts("\nTerminal program - Embedded Real-Time Systems\n");
 
@@ -508,6 +511,8 @@ int main(int argc, char **argv)
 	long tic = tp.tv_nsec;
 	time_t tic_s = tp.tv_sec;
 
+	long tic_rx = tp.tv_nsec;
+
 	while (tp.tv_sec - tic_s < 3)
 	{
 		clock_gettime(CLOCK_REALTIME, &tp);
@@ -516,6 +521,13 @@ int main(int argc, char **argv)
 
 	while (isContinuing)
 	{
+		#ifdef DEBUGTIMEOUT
+		if(count == 2000) //timeout failure scenario testcase 
+		{
+			//printf("Timeout!!\n");
+			tic_rx = 100;
+		}
+		#endif
 		// Response time is a bit variable. Latency can be percieved still.
 
 		// poll axes with raw-OS method
@@ -581,7 +593,14 @@ int main(int argc, char **argv)
 
 		 if ((rs232_getchar_nb(&c)) != -1)
 		 {
-		 	//term_putchar(c);
+			 //printf("current time is %ld\n", tp.tv_nsec);
+			 if((tp.tv_nsec - tic_rx) > TELEMETRY_TIMEOUT_NS)
+			 {
+				 //printf("setting mode as 1\n");
+				 control_packet[MODE] = '1';
+				 tic_rx = tp.tv_nsec;
+			 }
+		 	//term_putchar(c); 
 		  	process_telemetry(c);
 		 }
 
@@ -597,6 +616,9 @@ int main(int argc, char **argv)
 			tic_s = tp.tv_sec;
 			send_packet();
 		}
+		#ifdef DEBUGTIMEOUT
+		count++;
+		#endif
 	}
 
 	JoystickData_destroy(jsdat);
