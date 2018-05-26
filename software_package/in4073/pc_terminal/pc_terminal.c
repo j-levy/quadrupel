@@ -596,9 +596,7 @@ int main(int argc, char **argv)
 			 //printf("current time is %ld\n", tp.tv_nsec);
 			 if(tic_rx && ((tp.tv_nsec - tic_rx) > TELEMETRY_TIMEOUT_NS))
 			 {
-				 #ifdef DEBUGTIMEOUT
 				 printf("timeout detected, sending mode as 1\n");
-				 #endif
 				 control_packet[MODE] = '1';
 				 tic_rx = tp.tv_nsec;
 			 }
