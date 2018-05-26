@@ -594,9 +594,11 @@ int main(int argc, char **argv)
 		 if ((rs232_getchar_nb(&c)) != -1)
 		 {
 			 //printf("current time is %ld\n", tp.tv_nsec);
-			 if((tp.tv_nsec - tic_rx) > TELEMETRY_TIMEOUT_NS)
+			 if(tic_rx && ((tp.tv_nsec - tic_rx) > TELEMETRY_TIMEOUT_NS))
 			 {
-				 //printf("setting mode as 1\n");
+				 #ifdef DEBUGTIMEOUT
+				 printf("timeout detected, sending mode as 1\n");
+				 #endif
 				 control_packet[MODE] = '1';
 				 tic_rx = tp.tv_nsec;
 			 }
