@@ -19,7 +19,7 @@
 #include "joystick.h"
 
 // #define DEBUG
-#define DEBUGTIMEOUT
+//#define DEBUGTIMEOUT
 // #define DEBUGCLK
 
 

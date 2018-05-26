@@ -53,6 +53,25 @@ void store_joystick_button(uint8_t *val)
 void store_key(uint8_t *val)
 {
 	keyboard_key = *val;
+	// switch(keyboard_key)
+	// {
+	// 	case 97: offset[LIFT] = offset[LIFT] + 10; //lift up
+	// 			 break;
+	// 	case 122: offset[LIFT] = offset[LIFT] - 10; //lift down
+	// 			 break;
+	// 	case 42: offset[PITCH] = offset[PITCH] - 10; //pitch down
+	// 			 break;
+	// 	case 43: offset[LIFT] = offset[ROLL] - 10; //roll down
+	// 			 break;
+	// 	case 44: offset[LIFT] = offset[PITCH] + 10; //pitch up
+	// 			 break;
+	// 	case 45: offset[PITCH] = offset[ROLL] + 10; //roll up
+	// 			 break;
+	// 	case 113: offset[YAW] = offset[YAW] - 10; //yaw down
+	// 			 break;
+	// 	case 119: offset[YAW] = offset[YAW] + 10; //yaw up
+	// 			 break; 
+	// }
 }
 
 void store_mode(uint8_t *val)
