@@ -517,108 +517,116 @@ int main(int argc, char **argv)
 	{
 		clock_gettime(CLOCK_REALTIME, &tp);
 	}
-		
 
-	while (isContinuing)
-	{
-		#ifdef DEBUGTIMEOUT
-		if(count == 2000) //timeout failure scenario testcase 
+	pid_t process_1 = fork();
+	if (process_1)
+	{	
+		while (isContinuing)
 		{
-			//printf("Timeout!!\n");
-			tic_rx = 100;
-		}
-		#endif
-		// Response time is a bit variable. Latency can be percieved still.
-
-		// poll axes with raw-OS method
-		js_getJoystickValue(&fd, &js, jsdat);
-		for (int j = 0; j < NBRAXES; j++)
-		{
-			control_packet[AXISROLL + 2*j] = MSBYTE( jsdat->axis[j] );
-			control_packet[AXISROLL + 2*j + 1] = LSBYTE( jsdat->axis[j] );
-			//control_packet[AXISTHROTTLE + 2*j] = 0xFF;
-			//control_packet[AXISTHROTTLE + 2*j + 1] = 0xFF;
-		}
-		for (int j = 0; j < NBRBUTTONS; j++)
-		{
-			control_packet[JOYBUTTON] |= (jsdat->button[j] == 1) << j; // 10 for not storing anything.
-		}
-		
-		if ((d = term_getchar_nb()) != -1)
-		{
-			// Logic to read arrow key presses
-			// Source: https://ubuntuforums.org/showthread.php?t=2276177
-			if (d == 27) //escape key
+			#ifdef DEBUGTIMEOUT
+			if(count == 2000) //timeout failure scenario testcase 
 			{
-				y = getchar();
-  				z = getchar(); 
-  				//printf("Key code y is %d\n", y);
-  				//printf("Key code z is %d\n", z);
-				if (d == 27 && y == 91)
- 				{
-  					switch (z)
-  					{
-   					case 65:   
-   					//printf("up arrow key pressed\n");
-					control_packet[KEY] = 42;
-   					break;
-
-   					case 66:
-   					//printf("down arrow key pressed\n");
-					control_packet[KEY] = 44;
-   					break;
-
-   					case 67:
-   					//printf("right arrow key pressed\n");
-					control_packet[KEY] = 43;
-   					break;
-
-   					case 68:
-   					//printf("left arrow key pressed\n");
-					control_packet[KEY] = 45;
-   					break;
-  					}
- 				}
-				else
-				control_packet[MODE] = 27; 
-				//isContinuing = 0;
+				//printf("Timeout!!\n");
+				tic_rx = 100;
 			}
-			else if ((d >= 48) && (d <= 56))
-				control_packet[MODE] = d;
-				//control_packet[MODE] = 0xFF;
-			else 
-				control_packet[KEY] = d;
-				//control_packet[KEY] = 0xFF;
+			#endif
+			// Response time is a bit variable. Latency can be percieved still.
+
+			// poll axes with raw-OS method
+			js_getJoystickValue(&fd, &js, jsdat);
+			for (int j = 0; j < NBRAXES; j++)
+			{
+				control_packet[AXISROLL + 2*j] = MSBYTE( jsdat->axis[j] );
+				control_packet[AXISROLL + 2*j + 1] = LSBYTE( jsdat->axis[j] );
+				//control_packet[AXISTHROTTLE + 2*j] = 0xFF;
+				//control_packet[AXISTHROTTLE + 2*j + 1] = 0xFF;
+			}
+			for (int j = 0; j < NBRBUTTONS; j++)
+			{
+				control_packet[JOYBUTTON] |= (jsdat->button[j] == 1) << j; // 10 for not storing anything.
+			}
+			
+			if ((d = term_getchar_nb()) != -1)
+			{
+				// Logic to read arrow key presses
+				// Source: https://ubuntuforums.org/showthread.php?t=2276177
+				if (d == 27) //escape key
+				{
+					y = getchar();
+					z = getchar(); 
+					//printf("Key code y is %d\n", y);
+					//printf("Key code z is %d\n", z);
+					if (d == 27 && y == 91)
+					{
+						switch (z)
+						{
+						case 65:   
+						//printf("up arrow key pressed\n");
+						control_packet[KEY] = 42;
+						break;
+
+						case 66:
+						//printf("down arrow key pressed\n");
+						control_packet[KEY] = 44;
+						break;
+
+						case 67:
+						//printf("right arrow key pressed\n");
+						control_packet[KEY] = 43;
+						break;
+
+						case 68:
+						//printf("left arrow key pressed\n");
+						control_packet[KEY] = 45;
+						break;
+						}
+					}
+					else
+					control_packet[MODE] = 27; 
+					//isContinuing = 0;
+				}
+				else if ((d >= 48) && (d <= 56))
+					control_packet[MODE] = d;
+					//control_packet[MODE] = 0xFF;
+				else 
+					control_packet[KEY] = d;
+					//control_packet[KEY] = 0xFF;
+			}
+
+			clock_gettime(CLOCK_REALTIME, &tp);
+			
+			#ifdef DEBUGCLK
+			fprintf(stderr, "clk=%ld,%ld\n",tp.tv_sec, tp.tv_nsec);
+			#endif
+			
+			if (tp.tv_nsec - tic >= DELAY_PACKET_NS || tp.tv_sec - tic_s > 0)
+			{
+				tic = tp.tv_nsec;
+				tic_s = tp.tv_sec;
+				send_packet();
+			}
+			#ifdef DEBUGTIMEOUT
+			count++;
+			#endif
 		}
-
-		 if ((rs232_getchar_nb(&c)) != -1)
-		 {
-			 //printf("current time is %ld\n", tp.tv_nsec);
-			 if(tic_rx && ((tp.tv_nsec - tic_rx) > TELEMETRY_TIMEOUT_NS))
-			 {
-				 printf("timeout detected, sending mode as 1\n");
-				 control_packet[MODE] = '1';
-				 tic_rx = tp.tv_nsec;
-			 }
-		 	//term_putchar(c); 
-		  	process_telemetry(c);
-		 }
-
-		clock_gettime(CLOCK_REALTIME, &tp);
-		
-		#ifdef DEBUGCLK
-		fprintf(stderr, "clk=%ld,%ld\n",tp.tv_sec, tp.tv_nsec);
-		#endif
-		
-		if (tp.tv_nsec - tic >= DELAY_PACKET_NS || tp.tv_sec - tic_s > 0)
+	}
+	else
+	{
+		while(1)
 		{
-			tic = tp.tv_nsec;
-			tic_s = tp.tv_sec;
-			send_packet();
+			if ((rs232_getchar_nb(&c)) != -1)
+		 	{
+				//printf("current time is %ld\n", tp.tv_nsec);
+				if(tic_rx && ((tp.tv_nsec - tic_rx) > TELEMETRY_TIMEOUT_NS))
+				{
+					printf("timeout detected, sending mode as 1\n");
+					control_packet[MODE] = '1';
+					tic_rx = tp.tv_nsec;
+				}
+		 		//term_putchar(c); 
+		  		process_telemetry(c);
+			}
 		}
-		#ifdef DEBUGTIMEOUT
-		count++;
-		#endif
 	}
 
 	JoystickData_destroy(jsdat);
