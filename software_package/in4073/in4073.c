@@ -19,7 +19,7 @@
 #include "in4073.h"
 
 //#define DEBUG
-#define BATTER_MONITORING	
+//#define BATTERY_MONITORING	
 
 uint8_t buttons = 0;
 int16_t axis[4] = {0};
