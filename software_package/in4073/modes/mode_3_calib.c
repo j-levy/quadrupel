@@ -37,6 +37,7 @@ char mode_3_calib_CANENTER(uint8_t source)
 void mode_3_calib_INIT()
 {
     // nothing in particular.
+    is_calibration_done = true;
 }
 
 void mode_3_calib_QUIT()
@@ -49,10 +50,7 @@ void mode_3_calib_RUN()
     // get values, store them as offsets. 
     // The board might move, so we do this repetively so that only the final value is registered.
 
-    if (is_DMP_on)
-        get_dmp_data();
-    else
-        get_raw_sensor_data();
+    // the sensor reading is already done in the main, actually.
     
     sax_offset = sax;
     say_offset = say;

@@ -2,4 +2,9 @@
 #define DT 1
 
 // scale factor for the motor speed.
-#define SCALE 4
+// used as bit shift (6 = divide by 64)
+#define BITSCALE 6
+
+#define MAX_SPEED 600
+
+#define MIN(a,b) (a < b ? a : b)
