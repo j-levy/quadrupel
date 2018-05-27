@@ -8,7 +8,7 @@ EXEC = ./pc-terminal
 SRC= $(wildcard *.c)
 OBJ= $(SRC:.c=.o)
 LOGFILE = `date +%F_%Hh%M`.log
-
+INCLUDES = pc_terminal.h
 
 
 all: $(EXEC)
@@ -17,7 +17,7 @@ $(EXEC): $(OBJ)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 
-%.o: %.c
+%.o: %.c $(INCLUDES)
 	$(CC) -o $@ -c $< $(CFLAGS) $(LDFLAGS)
 
 .PHONY: clean mrproper
