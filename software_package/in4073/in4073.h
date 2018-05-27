@@ -120,7 +120,7 @@ uint8_t mode;
 
 //Telemetry data Tx rate [Niket Agrawal]
 // 100msec -> 10Hz
-#define TELEMETRY_TX_INTERVAL 1000000 
+#define TELEMETRY_TX_INTERVAL 100000 
 
 // Packet Parser [Jonathan LEVY]
 void process_packet(uint8_t c);
@@ -140,6 +140,7 @@ void send_telemetry_packet();
 
 //Logging functionality [Tuan Anh Nguyen]
 bool log_init();
+bool log_sensor();
 bool log_write_item();
 void log_read_all();
 void log_read_last();
