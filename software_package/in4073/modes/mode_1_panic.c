@@ -10,9 +10,9 @@ char mode_1_panic_CANLEAVE(uint8_t target)
 {
     // check if no input is provided from keyboard AND joystick
     char lock = 0;
-    // lock = (axis[ROLL] != 0) || (axis[PITCH] != 0) || (axis[YAW] != 0) || ((-(axis[LIFT] - 32767) / 2) != 0);
+    lock = (axis[ROLL] != 0) || (axis[PITCH] != 0) || (axis[YAW] != 0) || ((-(axis[LIFT] - 32767) / 2) != 0);
 
-    // lock = lock || buttons;
+    lock = lock || buttons;
     lock = lock || (target != MODE_0_SAFE);
     
     // if one of these things is set to 1, res is set to 1.
