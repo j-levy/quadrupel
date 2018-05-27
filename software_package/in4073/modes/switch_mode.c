@@ -48,7 +48,7 @@ void init_modes()
 void switch_mode( uint8_t newmode )
 {
 
-   if (newmode >= 0 && newmode <= 2)
+   if (newmode >= 0 && newmode <= 4)
    {
        if (mode_CANLEAVE[mode](newmode) && mode_CANENTER[newmode](mode))
        {

@@ -167,4 +167,6 @@ uint8_t telemetry_packet[TELEMETRY_PACKET_SIZE];
 void send_telemetry_packet();
 
 
+uint8_t proportional_controller_yaw;
+
 #endif // IN4073_H__
