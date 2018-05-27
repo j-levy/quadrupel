@@ -31,7 +31,7 @@ char mode_4_yaw_CANENTER(uint8_t source)
 void mode_4_yaw_INIT()
 {
 // initialize the global variable for the controller.
-proportional_controller_yaw = 5;
+proportional_controller_yaw = 1;
 }
 
 void mode_4_yaw_QUIT()
@@ -58,10 +58,10 @@ void mode_4_yaw_RUN(void)
     //code freely inspired from the simulator.
     
     //read sensor data
-    get_dmp_data(); // reads variable "sr"
+    // get_dmp_data(); // reads variable "sr"
     
     int16_t setpoint_r = proportional_controller_yaw * js_yaw; // setpoint is angular rate
-    a_yaw = proportional_controller_yaw * (setpoint_r - __SR);
+    js_yaw = proportional_controller_yaw * (setpoint_r - __SR);
 
     /* ##################################################
     ################ END OF YAW CONTROL ################# 
@@ -70,7 +70,7 @@ void mode_4_yaw_RUN(void)
     // adding offsets
     a_roll = offset[ROLL] + js_roll;
     a_pitch = offset[PITCH] + js_pitch;
-    a_yaw = offset[YAW] + js_yaw;
+    a_yaw = (offset[YAW] + js_yaw) >> 2; // make the yaw rate smaller to the change, so that we can asee something.
     a_lift = offset[LIFT] + js_lift;
 
 
