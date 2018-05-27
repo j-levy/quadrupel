@@ -18,7 +18,7 @@
 
 #include "in4073.h"
 
-//#define DEBUG
+#define DEBUG
 //#define BATTERY_MONITORING	
 
 uint8_t buttons = 0;
@@ -135,7 +135,7 @@ int main(void)
 		#endif
 
 		#ifdef DEBUG
-		if(count == 500) //timeout failure scenario testcase 
+		if(count%5000 == 0) //timeout failure scenario testcase. happens multiple time this way.
 		{
 			delta_time = 160000;
 		}
