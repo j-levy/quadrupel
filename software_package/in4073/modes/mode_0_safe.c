@@ -14,7 +14,7 @@ char mode_0_safe_CANLEAVE(uint8_t target)
     lock = (axis[ROLL] != 0) || (axis[PITCH] != 0) || (axis[YAW] != 0) || ((-(axis[LIFT] - 32767) / 2) != 0);
 
     lock = lock || buttons;
-    lock = lock || (target != MODE_2_MANUAL);
+    lock = lock || ((target != MODE_2_MANUAL) && (target != MODE_3_CALIB) && ((target != MODE_4_YAWCTRL) || !is_calibration_done));
     
     return (lock == 0);
 }
