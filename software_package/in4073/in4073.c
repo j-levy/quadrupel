@@ -18,7 +18,8 @@
 
 #include "in4073.h"
 
-//#define DEBUG	
+//#define DEBUG
+#define BATTER_MONITORING	
 
 uint8_t buttons = 0;
 int16_t axis[4] = {0};
@@ -128,8 +129,10 @@ int main(void)
 	{
 		//Enter panic mode if battery is low
 		//and if not in safe or panic mode already
+		#ifdef BATTERY_MONITORING
 		if((bat_volt < BATTERY_THRESHOLD) && (mode && (mode != 1)))
 			nextmode = 1;
+		#endif
 
 		#ifdef DEBUG
 		if(count == 500) //timeout failure scenario testcase 
