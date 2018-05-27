@@ -125,4 +125,12 @@ struct JS_DATA_SAVE_TYPE {
 	struct JS_DATA_TYPE JS_CORR;
 };
 
+#define ROLL 0
+#define PITCH 1
+#define YAW 2
+#define LIFT 3
+#define DT 1
+#define JS_SENSITIVITY 1
+#define SCALE 6
+
 #endif /* _LINUX_JOYSTICK_H */
