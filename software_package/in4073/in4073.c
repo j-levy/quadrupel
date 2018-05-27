@@ -70,6 +70,7 @@ void store_mode(uint8_t *val)
 int main(void)
 {
 	is_DMP_on = true;
+	is_calibration_done = false;
 
 	uart_init();
 	gpio_init();

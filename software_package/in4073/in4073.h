@@ -168,5 +168,6 @@ void send_telemetry_packet();
 
 
 uint8_t proportional_controller_yaw;
+bool is_calibration_done;
 
 #endif // IN4073_H__
