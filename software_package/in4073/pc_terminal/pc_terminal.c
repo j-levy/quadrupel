@@ -464,6 +464,17 @@ char isContinuing;
 struct timespec tp;
 uint8_t is_sending_packet, is_timeout;
 
+// signal for quitting. Source: http://www.csl.mtu.edu/cs4411.ck/www/NOTES/signal/install.html
+void     INThandler(int);
+
+void  INThandler(int sig)
+{
+     signal(sig, SIG_IGN);
+     printf("Hitting CTRL+C. Attempt to quit normally.\n"
+            "Expect <exit>...\n");
+     isContinuing = 0;
+}
+
 void *entrythread_sender(void *param)
 {
 	while (isContinuing)
@@ -547,6 +558,7 @@ int main(int argc, char **argv)
 
 
 	isContinuing = 1;
+	signal(SIGINT, INThandler);
 
 	/* 
 	##################### CREATING THREADS #######################
