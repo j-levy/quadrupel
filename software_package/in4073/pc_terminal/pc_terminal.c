@@ -462,6 +462,7 @@ void process_telemetry(uint8_t c)
 // global variable, be read by both threads, but actually changed only by one thread (easier)
 char isContinuing;
 struct timespec tp;
+pthread_mutex_t clock_gettime_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 void *entrythread_read(void *param)
 {
@@ -470,6 +471,7 @@ void *entrythread_read(void *param)
 
 		while (isContinuing)
 		{
+			
 			#ifdef DEBUGTIMEOUT
 			if(count == 2000) //timeout failure scenario testcase 
 			{
@@ -478,19 +480,23 @@ void *entrythread_read(void *param)
 			}
 			count++;
 			#endif
+			
 
 			if ((rs232_getchar_nb(&c)) != -1)
 		 	{
 				//printf("current time is %ld\n", tp.tv_nsec);
-				if(tic_rx && ((tp.tv_nsec - tic_rx) > TELEMETRY_TIMEOUT_NS))
+				if (pthread_mutex_trylock(&clock_gettime_mutex) != EBUSY) 
 				{
-					printf("timeout detected, sending mode as 1\n");
-					control_packet[MODE] = '1';
-					tic_rx = tp.tv_nsec;
+					if(tic_rx && ((tp.tv_nsec - tic_rx) > TELEMETRY_TIMEOUT_NS))
+					{
+						printf("timeout detected, sending mode as 1\n");
+						control_packet[MODE] = '1';
+						tic_rx = tp.tv_nsec;
+					}
+					pthread_mutex_unlock(&clock_gettime_mutex);
 				}
-		 		//term_putchar(c); 
-		  		process_telemetry(c);
-
+					//term_putchar(c); 
+					process_telemetry(c);
 			}
 		}
 		return NULL;
@@ -512,7 +518,6 @@ int main(int argc, char **argv)
 		return 1;
 	}
 	fprintf(stderr, "using %s\n", path_to_joystick);
-	uint8_t c;
 	int d;
 	int y ;
 	int z ;
@@ -534,12 +539,6 @@ int main(int argc, char **argv)
 	
 	long tic = tp.tv_nsec;
 	time_t tic_s = tp.tv_sec;
-
-
-	while (tp.tv_sec - tic_s < 3)
-	{
-		clock_gettime(CLOCK_REALTIME, &tp);
-	}
   
 	isContinuing = 1;
 
@@ -623,8 +622,14 @@ int main(int argc, char **argv)
 				control_packet[KEY] = d;
 				//control_packet[KEY] = 0xFF;
 		}
-	
-		clock_gettime(CLOCK_REALTIME, &tp);
+
+		if (pthread_mutex_trylock(&clock_gettime_mutex) != EBUSY)
+		{
+			clock_gettime(CLOCK_REALTIME, &tp);
+			pthread_mutex_unlock(&clock_gettime_mutex);
+		}
+
+
 		
 		#ifdef DEBUGCLK
 		fprintf(stderr, "clk=%ld,%ld\n",tp.tv_sec, tp.tv_nsec);
