@@ -18,7 +18,7 @@
 
 #include "in4073.h"
 
-#define DEBUG
+#define DEBUG_TIMEOUT
 //#define BATTERY_MONITORING	
 
 uint8_t buttons = 0;
@@ -121,7 +121,7 @@ int main(void)
 	uint32_t tx_timer = 0;
 	uint32_t delta_time = 0;
 	uint32_t timeout = 0;
-	#ifdef DEBUG
+	#ifdef DEBUG_TIMEOUT
 	uint32_t count = 0; // for timeout testing purpose
 	#endif
 
@@ -134,7 +134,7 @@ int main(void)
 			nextmode = 1;
 		#endif
 
-		#ifdef DEBUG
+		#ifdef DEBUG_TIMEOUT
 		if(count%5000 == 0) //timeout failure scenario testcase. happens multiple time this way.
 		{
 			delta_time = 160000;
@@ -145,12 +145,10 @@ int main(void)
 
 		if(timeout && (delta_time > RX_TIMEOUT) && (delta_time > 0))
 		{
-			#ifdef DEBUG
 			//printf("%10ld %10ld %10ld \n", get_time_us(), timeout, delta_time); 
 			printf("comm link failure\n");
 			comm_link_failure = 1; 
 			nrf_gpio_pin_toggle(RED);
-			#endif
 
 			if(mode && (mode != 1))		//Enter panic mode only if NOT 
 										//in safe or panic mode already
@@ -162,7 +160,7 @@ int main(void)
 
 		if (rx_queue.count)
 		{
-			#ifdef DEBUG
+			#ifdef DEBUG_TIMEOUT
 			count++;
 			#endif
 			timeout = get_time_us();
@@ -252,10 +250,12 @@ int main(void)
 			switch_mode(nextmode);
 
 		
-		//For the sequence Esc -> panic > safe > abort
+		/*For the sequence Esc -> panic > safe > abort
 		//if(!mode && abort_mission)
 			//demo_done = true;
 		//else
+		// ADDENDUM: this part is in MODE_0_SAFE_RUN
+		*/
 			mode_RUN[mode]();
 		
 		if ((get_time_us() - tx_timer) > TELEMETRY_TX_INTERVAL)
