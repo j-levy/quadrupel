@@ -459,6 +459,43 @@ void process_telemetry(uint8_t c)
 */
 
 
+// global variable, be read by both threads, but actually changed only by one thread (easier)
+char isContinuing;
+struct timespec tp;
+
+void *entrythread_read(void *param)
+{
+		uint8_t c;
+		long tic_rx = tp.tv_nsec;
+
+		while (isContinuing)
+		{
+			#ifdef DEBUGTIMEOUT
+			if(count == 2000) //timeout failure scenario testcase 
+			{
+				//printf("Timeout!!\n");
+				tic_rx = 100;
+			}
+			count++;
+			#endif
+
+			if ((rs232_getchar_nb(&c)) != -1)
+		 	{
+				//printf("current time is %ld\n", tp.tv_nsec);
+				if(tic_rx && ((tp.tv_nsec - tic_rx) > TELEMETRY_TIMEOUT_NS))
+				{
+					printf("timeout detected, sending mode as 1\n");
+					control_packet[MODE] = '1';
+					tic_rx = tp.tv_nsec;
+				}
+		 		//term_putchar(c); 
+		  		process_telemetry(c);
+
+			}
+		}
+		return NULL;
+}
+
 /*----------------------------------------------------------------
  * main -- execute terminal
  *----------------------------------------------------------------
@@ -490,147 +527,116 @@ int main(int argc, char **argv)
 
 	term_puts("Type ^C to exit\n");
 
-	/* discard any incoming text
-	 */
-	/*
-	while ((rs232_getchar_nb(&c) != -1)
-		fputc(c,stderr);
-	*/
-	/* send & receive
-	 */
-
-	char isContinuing = 1;
-
-
 	js_init(&fd, path_to_joystick, &js);
 	JoystickData *jsdat = JoystickData_create();
 
-	struct timespec tp;
 	clock_gettime(CLOCK_REALTIME, &tp);
 	
 	long tic = tp.tv_nsec;
 	time_t tic_s = tp.tv_sec;
 
-	long tic_rx = tp.tv_nsec;
 
 	while (tp.tv_sec - tic_s < 3)
 	{
 		clock_gettime(CLOCK_REALTIME, &tp);
 	}
   
-	pid_t process_1 = fork();
-	if (process_1)
-	{	
-		while (isContinuing)
-		{
-			#ifdef DEBUGTIMEOUT
-			if(count == 2000) //timeout failure scenario testcase 
-			{
-				//printf("Timeout!!\n");
-				tic_rx = 100;
-			}
-			#endif
-			// Response time is a bit variable. Latency can be percieved still.
+	isContinuing = 1;
 
-			// poll axes with raw-OS method
-			js_getJoystickValue(&fd, &js, jsdat);
-			for (int j = 0; j < NBRAXES; j++)
-			{
-				control_packet[AXISROLL + 2*j] = MSBYTE( jsdat->axis[j] );
-				control_packet[AXISROLL + 2*j + 1] = LSBYTE( jsdat->axis[j] );
-				//control_packet[AXISTHROTTLE + 2*j] = 0xFF;
-				//control_packet[AXISTHROTTLE + 2*j + 1] = 0xFF;
-			}
-			for (int j = 0; j < NBRBUTTONS; j++)
-			{
-				control_packet[JOYBUTTON] |= (jsdat->button[j] == 1) << j; // 10 for not storing anything.
-			}
-			
-			if ((d = term_getchar_nb()) != -1)
-			{
-				// Logic to read arrow key presses
-				// Source: https://ubuntuforums.org/showthread.php?t=2276177
-				if (d == 27) //escape key
-				{
-					y = getchar();
-					z = getchar(); 
-					//printf("Key code y is %d\n", y);
-					//printf("Key code z is %d\n", z);
-					if (d == 27 && y == 91)
-					{
-						switch (z)
-						{
-						case 65:   
-						//printf("up arrow key pressed\n");
-						control_packet[KEY] = 42;
-						break;
-
-						case 66:
-						//printf("down arrow key pressed\n");
-						control_packet[KEY] = 44;
-						break;
-
-						case 67:
-						//printf("right arrow key pressed\n");
-						control_packet[KEY] = 43;
-						break;
-
-						case 68:
-						//printf("left arrow key pressed\n");
-						control_packet[KEY] = 45;
-						break;
-						}
-					}
-					else
-					control_packet[MODE] = 27; 
-					//isContinuing = 0;
-				}
-				else if ((d >= 48) && (d <= 56))
-					control_packet[MODE] = d;
-					//control_packet[MODE] = 0xFF;
-				else 
-					control_packet[KEY] = d;
-					//control_packet[KEY] = 0xFF;
-			}
-      
-			clock_gettime(CLOCK_REALTIME, &tp);
-			
-			#ifdef DEBUGCLK
-			fprintf(stderr, "clk=%ld,%ld\n",tp.tv_sec, tp.tv_nsec);
-			#endif
-			
-			if (tp.tv_nsec - tic >= DELAY_PACKET_NS || tp.tv_sec - tic_s > 0)
-			{
-				tic = tp.tv_nsec;
-				tic_s = tp.tv_sec;
-				send_packet();
-			}
-      
-			#ifdef DEBUGTIMEOUT
-			count++;
-			#endif
-		}
-	}
-	else
+	/* 
+	##################### CREATING THREADS #######################
+	*/
+	pthread_t thread0;
+	int created_thread = pthread_create(&thread0, NULL, entrythread_read, NULL);
+	if (created_thread)
 	{
-		while(1)
-		{
-			if ((rs232_getchar_nb(&c)) != -1)
-		 	{
-				//printf("current time is %ld\n", tp.tv_nsec);
-				if(tic_rx && ((tp.tv_nsec - tic_rx) > TELEMETRY_TIMEOUT_NS))
-				{
-					printf("timeout detected, sending mode as 1\n");
-					control_packet[MODE] = '1';
-					tic_rx = tp.tv_nsec;
-				}
-		 		//term_putchar(c); 
-		  		process_telemetry(c);
-
-			}
-		}
+		printf("couldn't create thread!\n");
+		exit(1);
 	}
 
+	while (isContinuing)
+	{
+
+		// Response time is a bit variable. Latency can be percieved still.
+
+		// poll axes with raw-OS method
+		js_getJoystickValue(&fd, &js, jsdat);
+		for (int j = 0; j < NBRAXES; j++)
+		{
+			control_packet[AXISROLL + 2*j] = MSBYTE( jsdat->axis[j] );
+			control_packet[AXISROLL + 2*j + 1] = LSBYTE( jsdat->axis[j] );
+			//control_packet[AXISTHROTTLE + 2*j] = 0xFF;
+			//control_packet[AXISTHROTTLE + 2*j + 1] = 0xFF;
+		}
+		for (int j = 0; j < NBRBUTTONS; j++)
+		{
+			control_packet[JOYBUTTON] |= (jsdat->button[j] == 1) << j; // 10 for not storing anything.
+		}
+		
+		if ((d = term_getchar_nb()) != -1)
+		{
+			// Logic to read arrow key presses
+			// Source: https://ubuntuforums.org/showthread.php?t=2276177
+			if (d == 27) //escape key
+			{
+				y = getchar();
+				z = getchar(); 
+				//printf("Key code y is %d\n", y);
+				//printf("Key code z is %d\n", z);
+				if (d == 27 && y == 91)
+				{
+					switch (z)
+					{
+					case 65:   
+					//printf("up arrow key pressed\n");
+					control_packet[KEY] = 42;
+					break;
+
+					case 66:
+					//printf("down arrow key pressed\n");
+					control_packet[KEY] = 44;
+					break;
+
+					case 67:
+					//printf("right arrow key pressed\n");
+					control_packet[KEY] = 43;
+					break;
+
+					case 68:
+					//printf("left arrow key pressed\n");
+					control_packet[KEY] = 45;
+					break;
+					}
+				}
+				else
+				control_packet[MODE] = 27; 
+				//isContinuing = 0;
+			}
+			else if ((d >= '0') && (d <= '8'))
+				control_packet[MODE] = d;
+				//control_packet[MODE] = 0xFF;
+			else if (d == 3 || d == 16) // CTRL+C or CTRL+P
+				isContinuing = 0;
+			else
+				control_packet[KEY] = d;
+				//control_packet[KEY] = 0xFF;
+		}
+	
+		clock_gettime(CLOCK_REALTIME, &tp);
+		
+		#ifdef DEBUGCLK
+		fprintf(stderr, "clk=%ld,%ld\n",tp.tv_sec, tp.tv_nsec);
+		#endif
+		
+		if (tp.tv_nsec - tic >= DELAY_PACKET_NS || tp.tv_sec - tic_s > 0)
+		{
+			tic = tp.tv_nsec;
+			tic_s = tp.tv_sec;
+			send_packet();
+		}
+
+	}
+	pthread_join(thread0, NULL);
 
 
 	JoystickData_destroy(jsdat);
