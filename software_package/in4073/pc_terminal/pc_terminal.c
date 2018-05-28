@@ -517,7 +517,7 @@ int main(int argc, char **argv)
 	{
 		clock_gettime(CLOCK_REALTIME, &tp);
 	}
-
+  
 	pid_t process_1 = fork();
 	if (process_1)
 	{	
@@ -592,7 +592,7 @@ int main(int argc, char **argv)
 					control_packet[KEY] = d;
 					//control_packet[KEY] = 0xFF;
 			}
-
+      
 			clock_gettime(CLOCK_REALTIME, &tp);
 			
 			#ifdef DEBUGCLK
@@ -605,6 +605,7 @@ int main(int argc, char **argv)
 				tic_s = tp.tv_sec;
 				send_packet();
 			}
+      
 			#ifdef DEBUGTIMEOUT
 			count++;
 			#endif
@@ -625,9 +626,12 @@ int main(int argc, char **argv)
 				}
 		 		//term_putchar(c); 
 		  		process_telemetry(c);
+
 			}
 		}
 	}
+
+
 
 	JoystickData_destroy(jsdat);
 	term_exitio();
