@@ -19,7 +19,7 @@
 #include "joystick.h"
 
 // #define DEBUG
-// #define DEBUGACK
+//#define DEBUGTIMEOUT
 // #define DEBUGCLK
 
 
@@ -479,6 +479,9 @@ int main(int argc, char **argv)
 	int d;
 	int y ;
 	int z ;
+	#ifdef DEBUGTIMEOUT
+	uint32_t count = 0;
+	#endif
 	
 	term_puts("\nTerminal program - Embedded Real-Time Systems\n");
 
@@ -508,18 +511,25 @@ int main(int argc, char **argv)
 	long tic = tp.tv_nsec;
 	time_t tic_s = tp.tv_sec;
 
+	long tic_rx = tp.tv_nsec;
+
 	while (tp.tv_sec - tic_s < 3)
 	{
 		clock_gettime(CLOCK_REALTIME, &tp);
 	}
-		
-
+  
 	pid_t process_1 = fork();
-	
 	if (process_1)
-	{
+	{	
 		while (isContinuing)
 		{
+			#ifdef DEBUGTIMEOUT
+			if(count == 2000) //timeout failure scenario testcase 
+			{
+				//printf("Timeout!!\n");
+				tic_rx = 100;
+			}
+			#endif
 			// Response time is a bit variable. Latency can be percieved still.
 
 			// poll axes with raw-OS method
@@ -543,36 +553,37 @@ int main(int argc, char **argv)
 				if (d == 27) //escape key
 				{
 					y = getchar();
-					z = getchar();
-					printf("Key code y is %d\n", y);
-					printf("Key code z is %d\n", z);
+					z = getchar(); 
+					//printf("Key code y is %d\n", y);
+					//printf("Key code z is %d\n", z);
 					if (d == 27 && y == 91)
 					{
 						switch (z)
 						{
-						case 65:
-						printf("up arrow key pressed\n");
+						case 65:   
+						//printf("up arrow key pressed\n");
 						control_packet[KEY] = 42;
 						break;
 
 						case 66:
-						printf("down arrow key pressed\n");
+						//printf("down arrow key pressed\n");
 						control_packet[KEY] = 44;
 						break;
 
 						case 67:
-						printf("right arrow key pressed\n");
+						//printf("right arrow key pressed\n");
 						control_packet[KEY] = 43;
 						break;
 
 						case 68:
-						printf("left arrow key pressed\n");
+						//printf("left arrow key pressed\n");
 						control_packet[KEY] = 45;
 						break;
 						}
 					}
-					else 
-					isContinuing = 0;
+					else
+					control_packet[MODE] = 27; 
+					//isContinuing = 0;
 				}
 				else if ((d >= 48) && (d <= 56))
 					control_packet[MODE] = d;
@@ -581,7 +592,7 @@ int main(int argc, char **argv)
 					control_packet[KEY] = d;
 					//control_packet[KEY] = 0xFF;
 			}
-
+      
 			clock_gettime(CLOCK_REALTIME, &tp);
 			
 			#ifdef DEBUGCLK
@@ -594,14 +605,28 @@ int main(int argc, char **argv)
 				tic_s = tp.tv_sec;
 				send_packet();
 			}
+      
+			#ifdef DEBUGTIMEOUT
+			count++;
+			#endif
 		}
-	} else {
-		while (1)
+	}
+	else
+	{
+		while(1)
 		{
 			if ((rs232_getchar_nb(&c)) != -1)
-			{
-				//term_putchar(c);
-				process_telemetry(c);
+		 	{
+				//printf("current time is %ld\n", tp.tv_nsec);
+				if(tic_rx && ((tp.tv_nsec - tic_rx) > TELEMETRY_TIMEOUT_NS))
+				{
+					printf("timeout detected, sending mode as 1\n");
+					control_packet[MODE] = '1';
+					tic_rx = tp.tv_nsec;
+				}
+		 		//term_putchar(c); 
+		  		process_telemetry(c);
+
 			}
 		}
 	}

@@ -18,12 +18,14 @@
 
 #include "in4073.h"
 
-#define DEBUG	
+#define DEBUG_TIMEOUT
+//#define BATTERY_MONITORING	
 
 uint8_t buttons = 0;
 int16_t axis[4] = {0};
 uint8_t keyboard_key = 0; 
 uint8_t mode = 0;
+uint8_t abort_mission = 0;
 
 
 /*------------------------------------------------------------------
@@ -52,12 +54,34 @@ void store_joystick_button(uint8_t *val)
 void store_key(uint8_t *val)
 {
 	keyboard_key = *val;
+	// switch(keyboard_key)
+	// {
+	// 	case 97: offset[LIFT] = offset[LIFT] + 10; //lift up
+	// 			 break;
+	// 	case 122: offset[LIFT] = offset[LIFT] - 10; //lift down
+	// 			 break;
+	// 	case 42: offset[PITCH] = offset[PITCH] - 10; //pitch down
+	// 			 break;
+	// 	case 43: offset[LIFT] = offset[ROLL] - 10; //roll down
+	// 			 break;
+	// 	case 44: offset[LIFT] = offset[PITCH] + 10; //pitch up
+	// 			 break;
+	// 	case 45: offset[PITCH] = offset[ROLL] + 10; //roll up
+	// 			 break;
+	// 	case 113: offset[YAW] = offset[YAW] - 10; //yaw down
+	// 			 break;
+	// 	case 119: offset[YAW] = offset[YAW] + 10; //yaw up
+	// 			 break; 
+	// }
 }
 
 void store_mode(uint8_t *val)
 {
 	if (*val == 27)
+	{
+		abort_mission = 1;
 		nextmode = 1;
+	}
 	else
 		nextmode = *val - '0';
 }
@@ -95,12 +119,51 @@ int main(void)
 		axis[i] = 0;
 
 	uint32_t tx_timer = 0;
-
+	uint32_t delta_time = 0;
+	uint32_t timeout = 0;
+	#ifdef DEBUG_TIMEOUT
+	uint32_t count = 0; // for timeout testing purpose
+	#endif
 
 	while (!demo_done)
 	{
+		//Enter panic mode if battery is low
+		//and if not in safe or panic mode already
+		#ifdef BATTERY_MONITORING
+		if((bat_volt < BATTERY_THRESHOLD) && (mode && (mode != 1)))
+			nextmode = 1;
+		#endif
+
+		#ifdef DEBUG_TIMEOUT
+		if(count%5000 == 0) //timeout failure scenario testcase. happens multiple time this way.
+		{
+			delta_time = 160000;
+		}
+		else
+		#endif
+			delta_time = get_time_us() - timeout;
+
+		if(timeout && (delta_time > RX_TIMEOUT) && (delta_time > 0))
+		{
+			//printf("%10ld %10ld %10ld \n", get_time_us(), timeout, delta_time); 
+			printf("comm link failure\n");
+			comm_link_failure = 1; 
+			nrf_gpio_pin_toggle(RED);
+
+			if(mode && (mode != 1))		//Enter panic mode only if NOT 
+										//in safe or panic mode already
+			{
+				nextmode = 	1; 
+			}		
+				
+		}
+
 		if (rx_queue.count)
 		{
+			#ifdef DEBUG_TIMEOUT
+			count++;
+			#endif
+			timeout = get_time_us();
 			process_packet( dequeue(&rx_queue) );
 		}
 
@@ -181,12 +244,19 @@ int main(void)
 			run_filters_and_control();
 		}
 		
+		
+
 		if (nextmode != mode)
 			switch_mode(nextmode);
+
 		
-		
-		
-		mode_RUN[mode]();
+		/*For the sequence Esc -> panic > safe > abort
+		//if(!mode && abort_mission)
+			//demo_done = true;
+		//else
+		// ADDENDUM: this part is in MODE_0_SAFE_RUN
+		*/
+			mode_RUN[mode]();
 		
 		if ((get_time_us() - tx_timer) > TELEMETRY_TX_INTERVAL)
 		{

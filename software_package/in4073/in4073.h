@@ -162,5 +162,12 @@ void update_motors(void);
 uint8_t telemetry_packet[TELEMETRY_PACKET_SIZE];
 void send_telemetry_packet();
 
+// Link failure detection by drone
+#define RX_TIMEOUT 150000    //currently set to 150msec
+#define BATTERY_THRESHOLD 1050  //min safe battery voltage should be 10.5V
+							   //set to 500 now for testing without the drone
+uint8_t comm_link_failure;
+uint8_t abort_mission;
+
 
 #endif // IN4073_H__
