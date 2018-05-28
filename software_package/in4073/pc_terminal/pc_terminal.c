@@ -462,12 +462,24 @@ void process_telemetry(uint8_t c)
 // global variable, be read by both threads, but actually changed only by one thread (easier)
 char isContinuing;
 struct timespec tp;
-pthread_mutex_t clock_gettime_mutex = PTHREAD_MUTEX_INITIALIZER;
+uint8_t is_sending_packet, is_timeout;
+
+void *entrythread_sender(void *param)
+{
+	while (isContinuing)
+	{
+		if (is_sending_packet)
+		{
+			send_packet();
+			is_sending_packet = 0;
+		}
+	}
+	return NULL;
+}
 
 void *entrythread_read(void *param)
 {
 		uint8_t c;
-		long tic_rx = tp.tv_nsec;
 
 		while (isContinuing)
 		{
@@ -484,19 +496,14 @@ void *entrythread_read(void *param)
 
 			if ((rs232_getchar_nb(&c)) != -1)
 		 	{
-				//printf("current time is %ld\n", tp.tv_nsec);
-				if (pthread_mutex_trylock(&clock_gettime_mutex) != EBUSY) 
+				if(is_timeout)
 				{
-					if(tic_rx && ((tp.tv_nsec - tic_rx) > TELEMETRY_TIMEOUT_NS))
-					{
-						printf("timeout detected, sending mode as 1\n");
-						control_packet[MODE] = '1';
-						tic_rx = tp.tv_nsec;
-					}
-					pthread_mutex_unlock(&clock_gettime_mutex);
+					printf("timeout detected, sending mode as 1\n");
+					control_packet[MODE] = '1';
+					is_timeout = 0;
 				}
-					//term_putchar(c); 
-					process_telemetry(c);
+				//term_putchar(c); 
+				process_telemetry(c);
 			}
 		}
 		return NULL;
@@ -537,9 +544,8 @@ int main(int argc, char **argv)
 
 	clock_gettime(CLOCK_REALTIME, &tp);
 	
-	long tic = tp.tv_nsec;
-	time_t tic_s = tp.tv_sec;
-  
+
+
 	isContinuing = 1;
 
 	/* 
@@ -547,13 +553,23 @@ int main(int argc, char **argv)
 	Jonathan Lévy
 	freely inspired from: http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/
 	*/
-	pthread_t thread0;
+	pthread_t thread0, thread1;
 	int created_thread = pthread_create(&thread0, NULL, entrythread_read, NULL);
 	if (created_thread)
 	{
-		printf("couldn't create thread!\n");
+		printf("couldn't create thread 0!\n");
 		exit(1);
 	}
+    created_thread = pthread_create(&thread1, NULL, entrythread_sender, NULL);
+	if (created_thread)
+	{
+		printf("couldn't create thread 1!\n");
+		exit(1);
+	}
+
+	long tic = tp.tv_nsec;
+	time_t tic_s = tp.tv_sec;
+	long tic_rx = tp.tv_nsec;
 
 	while (isContinuing)
 	{
@@ -623,28 +639,24 @@ int main(int argc, char **argv)
 				//control_packet[KEY] = 0xFF;
 		}
 
-		if (pthread_mutex_trylock(&clock_gettime_mutex) != EBUSY)
-		{
-			clock_gettime(CLOCK_REALTIME, &tp);
-			pthread_mutex_unlock(&clock_gettime_mutex);
-		}
-
-
-		
-		#ifdef DEBUGCLK
-		fprintf(stderr, "clk=%ld,%ld\n",tp.tv_sec, tp.tv_nsec);
-		#endif
-		
-		if (tp.tv_nsec - tic >= DELAY_PACKET_NS || tp.tv_sec - tic_s > 0)
+		clock_gettime(CLOCK_REALTIME, &tp);
+		if ((tp.tv_nsec - tic >= DELAY_PACKET_NS || tp.tv_sec - tic_s > 0) && !is_sending_packet)
 		{
 			tic = tp.tv_nsec;
 			tic_s = tp.tv_sec;
-			send_packet();
+			is_sending_packet = 1;
 		}
+		if ((tp.tv_nsec - tic_rx) > TELEMETRY_TIMEOUT_NS && !is_timeout)
+		{
+			tic_rx = tp.tv_nsec;
+			is_timeout = 1;
+		}
+							
+					
 
 	}
 	pthread_join(thread0, NULL);
-
+	pthread_join(thread1, NULL);
 
 	JoystickData_destroy(jsdat);
 	term_exitio();
