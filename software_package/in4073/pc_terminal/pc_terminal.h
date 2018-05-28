@@ -11,6 +11,9 @@
 #include <inttypes.h>
 #include <errno.h>
 #include <signal.h>
+
+#include <pthread.h>
+
 #include "packet_constants.h"
 
 uint8_t control_packet[CONTROL_PACKET_SIZE]; //packet to be sent to drone over serial
