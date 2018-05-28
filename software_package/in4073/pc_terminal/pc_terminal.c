@@ -545,6 +545,8 @@ int main(int argc, char **argv)
 
 	/* 
 	##################### CREATING THREADS #######################
+	Jonathan Lévy
+	freely inspired from: http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/
 	*/
 	pthread_t thread0;
 	int created_thread = pthread_create(&thread0, NULL, entrythread_read, NULL);
