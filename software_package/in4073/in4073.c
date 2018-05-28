@@ -18,7 +18,7 @@
 
 #include "in4073.h"
 
-#define DEBUG_TIMEOUT
+// #define DEBUG_TIMEOUT
 //#define BATTERY_MONITORING	
 
 uint8_t buttons = 0;
