@@ -93,12 +93,15 @@ void store_mode(uint8_t *val)
  */
 int main(void)
 {
+	is_DMP_on = true;
+	is_calibration_done = false;
+
 	uart_init();
 	gpio_init();
 	timers_init();
 	adc_init();
 	twi_init();
-	imu_init(true, 100);	
+	imu_init(is_DMP_on, 100);	
 	baro_init();
 	spi_flash_init();
 	ble_init();
@@ -238,6 +241,11 @@ int main(void)
 			clear_timer_flag();
 		}
 
+		if (nextmode != mode)
+			switch_mode(nextmode);
+
+
+		// Note: this is probably something that will be included in the mode functions.
 		if (check_sensor_int_flag()) 
 		{
 			get_dmp_data();

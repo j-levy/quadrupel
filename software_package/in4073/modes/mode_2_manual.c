@@ -2,6 +2,11 @@
 #include "switch_mode.h"
 #include "mode_2_manual.h"
 
+/*
+Manual mode functions for the state machine.
+Jonathan Lévy
+*/
+
 char mode_2_manual_CANLEAVE(uint8_t target)
 {
     char lock = 0;
