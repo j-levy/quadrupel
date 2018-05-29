@@ -80,7 +80,14 @@ void mode_2_manual_RUN()
 	ae[2] = (oo3);
 	ae[3] = (oo4);
 
-
+    if(!oo1 && !oo2 && !oo3 && !oo4)
+    {
+        for(int i =0; i<3; i++)
+        {
+            offset[i] = 0;
+        }
+    }
+        
 
     update_motors();
 }

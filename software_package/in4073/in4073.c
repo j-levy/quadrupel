@@ -44,6 +44,13 @@ void store_joystick_axis(uint8_t *val)
 		int16_t stickvalue = (((int16_t) *(val + 2*i)) << 8) + ((int16_t) *(val + 2*i + 1));
 		axis[i] = stickvalue;
 	}
+	if(axis[3] == 32767)
+	{
+		for(int i =0; i<3; i++)
+        {
+            offset[i] = 0;
+        }
+	}		
 }
 
 void store_joystick_button(uint8_t *val)
@@ -61,28 +68,29 @@ void store_key(uint8_t *val)
 		case 'j': proportional_controller_yaw = (proportional_controller_yaw > P_SCALING ? proportional_controller_yaw-P_SCALING : 1);
 			      break;
 
-		case 'a': offset[LIFT] = offset[LIFT] + OFFSET_SCALING; //lift up
+		case 'a': offset[LIFT] += OFFSET_SCALING; //lift up
 				  break;
 
-		case 'z': offset[LIFT] = (offset[LIFT] > OFFSET_SCALING ? offset[LIFT] - OFFSET_SCALING : 0); //lift down
+		case 'z': offset[LIFT] -= OFFSET_SCALING;
+					//offset[LIFT] = (offset[LIFT] > OFFSET_SCALING ? offset[LIFT] - OFFSET_SCALING : 0); //lift down
 				  break;	
 
-		case 44:  offset[PITCH] = offset[PITCH] + OFFSET_SCALING; //pitch up
+		case 44:  offset[PITCH] += OFFSET_SCALING; //pitch up
 				  break;
 
-		case 42:  offset[PITCH] = (offset[PITCH] > OFFSET_SCALING ? offset[PITCH] - OFFSET_SCALING : 0); //pitch down
+		case 42:  offset[PITCH] -= OFFSET_SCALING ; //pitch down
 				  break;
 
-		case 45:  offset[ROLL] = offset[ROLL] + OFFSET_SCALING; //roll up
+		case 43:  offset[ROLL] += OFFSET_SCALING; //roll down
 				  break;
 
-		case 43:  offset[ROLL] = (offset[ROLL] > OFFSET_SCALING ? offset[ROLL] - OFFSET_SCALING : 0); //roll down
+		case 45:  offset[ROLL] -= OFFSET_SCALING ; //roll up
 				  break;
 
-		case 'w': offset[YAW] = offset[YAW] + OFFSET_SCALING; //yaw up
+		case 'w': offset[YAW] += OFFSET_SCALING; //yaw up
 				  break; 
 
-		case 'q': offset[YAW] = (offset[YAW] > OFFSET_SCALING ? offset[YAW] - OFFSET_SCALING : 0); //yaw down
+		case 'q': offset[YAW] -= OFFSET_SCALING ; //yaw down
 				  break;	
 
 	}
