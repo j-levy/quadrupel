@@ -49,15 +49,15 @@ void mode_2_manual_RUN()
     js_yaw = ((axis[YAW]) * DT) >> BITSCALE;
     js_lift = (-(axis[LIFT] - 32767) >> 1) >> BITSCALE;
 
-    // a_roll = offset[ROLL] + js_roll;
-    // a_pitch = offset[PITCH] + js_pitch;
-    // a_yaw = offset[YAW] + js_yaw;
-    //a_lift = offset[LIFT] + js_lift;
+    a_roll = offset[ROLL] + js_roll;
+    a_pitch = offset[PITCH] + js_pitch;
+    a_yaw = offset[YAW] + js_yaw;
+    a_lift = offset[LIFT] + js_lift;
 
-    a_roll = ((offset[ROLL] + js_roll) < 0 ? 0 : offset[ROLL] + js_roll);
-    a_pitch = ((offset[PITCH] + js_pitch) < 0 ? 0 : offset[PITCH] + js_pitch);
-    a_yaw = ((offset[YAW] + js_yaw) < 0 ? 0 : offset[YAW] + js_yaw);
-    a_lift = ((offset[LIFT] + js_lift) < 0 ? 0 : offset[LIFT] + js_lift);
+    // a_roll = ((offset[ROLL] + js_roll) < 0 ? 0 : offset[ROLL] + js_roll);
+    // a_pitch = ((offset[PITCH] + js_pitch) < 0 ? 0 : offset[PITCH] + js_pitch);
+    // a_yaw = ((offset[YAW] + js_yaw) < 0 ? 0 : offset[YAW] + js_yaw);
+    // a_lift = ((offset[LIFT] + js_lift) < 0 ? 0 : offset[LIFT] + js_lift);
 
     oo1 = (a_lift + 2 * a_pitch - a_yaw);
 	oo2 = (a_lift - 2 * a_roll + a_yaw);
