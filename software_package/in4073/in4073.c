@@ -44,9 +44,11 @@ void store_joystick_axis(uint8_t *val)
 		int16_t stickvalue = (((int16_t) *(val + 2*i)) << 8) + ((int16_t) *(val + 2*i + 1));
 		axis[i] = stickvalue;
 	}
-	if(axis[3] == 32767)
+	
+	//If throttle is almost zero, clear the offset
+	if(axis[3] > 32000)
 	{
-		for(int i =0; i<3; i++)
+		for(int i =0; i<4; i++)
         {
             offset[i] = 0;
         }
@@ -263,8 +265,8 @@ int main(void)
 			clear_timer_flag();
 		}
 
-		if (nextmode != mode)
-			switch_mode(nextmode);
+		// if (nextmode != mode)
+		// 	switch_mode(nextmode); //commenting this additional code which possible got pasted twice in master
 
 
 		// Note: this is probably something that will be included in the mode functions.
