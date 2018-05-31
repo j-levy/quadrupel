@@ -88,6 +88,12 @@ void mode_4_yaw_RUN(void)
     oo3 = (oo3 < 200 ? MIN(a_lift, 200) : oo3);
     oo4 = (oo4 < 200? MIN(a_lift, 200) : oo4);
 
+    //Prevent underflow by restricting engine speeds to be positive
+    oo1 = (oo1 < 0 ? 0 : oo1);
+    oo2 = (oo2 < 0? 0 : oo2);
+    oo3 = (oo3 < 0 ? 0 : oo3);
+    oo4 = (oo4 < 0 ? 0 : oo4);
+
     if (oo1 > MAX_SPEED) oo1 = MAX_SPEED;
 	if (oo2 > MAX_SPEED) oo2 = MAX_SPEED;
 	if (oo3 > MAX_SPEED) oo3 = MAX_SPEED;

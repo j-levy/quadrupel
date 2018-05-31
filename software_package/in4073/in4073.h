@@ -176,7 +176,7 @@ uint8_t abort_mission;
 // Processing offset from Keyboard 
 #define OFFSET_SCALING 1
 
-#define P_SCALING 5
+#define P_SCALING 1
 
 uint8_t proportional_controller_yaw;
 bool is_calibration_done;
