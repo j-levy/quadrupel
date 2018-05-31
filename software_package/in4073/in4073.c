@@ -58,6 +58,13 @@ void store_joystick_axis(uint8_t *val)
 void store_joystick_button(uint8_t *val)
 {
 	buttons = *val;
+	//Enter panic mode if joystick fire button (Abort mission) pressed
+	if(buttons == 1)
+	{
+		abort_mission = 1;
+		nextmode = 1;
+	}
+		
 }
 
 void store_key(uint8_t *val)

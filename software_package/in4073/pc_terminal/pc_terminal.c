@@ -601,6 +601,9 @@ int main(int argc, char **argv)
 		{
 			control_packet[JOYBUTTON] |= (jsdat->button[j] == 1) << j; // 10 for not storing anything.
 		}
+		//If fire button is pressed send mode as panic (same as Esc key press behavior)
+		if(control_packet[JOYBUTTON] == 1)
+			control_packet[MODE] = 27;
 		
 		if ((d = term_getchar_nb()) != -1)
 		{
