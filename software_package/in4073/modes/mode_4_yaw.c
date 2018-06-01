@@ -60,7 +60,7 @@ void mode_4_yaw_RUN(void)
     //read sensor data
     // get_dmp_data(); // reads variable "sr"
     
-    int16_t setpoint_r = proportional_controller_yaw * js_yaw; // setpoint is angular rate
+    int16_t setpoint_r = js_yaw; // setpoint is angular rate
     js_yaw = proportional_controller_yaw * (setpoint_r - __SR);
 
     /* ##################################################
