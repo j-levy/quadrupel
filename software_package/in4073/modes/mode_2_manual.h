@@ -3,7 +3,7 @@
 
 // scale factor for the motor speed.
 // used as bit shift (6 = divide by 64)
-#define BITSCALE 6
+#define BITSCALE 0
 
 #define MAX_SPEED 600
 

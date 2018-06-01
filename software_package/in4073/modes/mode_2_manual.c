@@ -1,6 +1,7 @@
 #include "in4073.h"
 #include "switch_mode.h"
 #include "mode_2_manual.h"
+#include <math.h>
 
 /*
 Manual mode functions for the state machine.
@@ -54,10 +55,10 @@ void mode_2_manual_RUN()
     a_yaw = offset[YAW] + js_yaw;
     a_lift = offset[LIFT] + js_lift;
 
-    oo1 = (a_lift + 2 * a_pitch - a_yaw);
-	oo2 = (a_lift - 2 * a_roll + a_yaw);
-	oo3 = (a_lift - 2 * a_pitch - a_yaw);
-	oo4 = (a_lift + 2 * a_roll + a_yaw);
+    oo1 = (a_lift + 2 * a_pitch - a_yaw) / 4;
+	oo2 = (a_lift - 2 * a_roll + a_yaw) / 4;
+	oo3 = (a_lift - 2 * a_pitch - a_yaw) / 4;
+	oo4 = (a_lift + 2 * a_roll + a_yaw) / 4;
 
     oo1 = (oo1 < 200 ? MIN(a_lift, 200) : oo1);
     oo2 = (oo2 < 200? MIN(a_lift, 200) : oo2);
@@ -75,10 +76,10 @@ void mode_2_manual_RUN()
 
 	/* with ai = oi it follows
 	 */
-	ae[0] = (oo1);
-	ae[1] = (oo2);
-	ae[2] = (oo3);
-	ae[3] = (oo4);
+	ae[0] = sqrt(oo1);
+	ae[1] = sqrt(oo2);
+	ae[2] = sqrt(oo3);
+	ae[3] = sqrt(oo4);
 
 
 

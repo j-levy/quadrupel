@@ -54,6 +54,25 @@ void store_joystick_button(uint8_t *val)
 void store_key(uint8_t *val)
 {
 	keyboard_key = *val;
+	switch(keyboard_key)
+	{
+		case 'u': p_yaw += P_SCALING;
+				  break;
+		case 'j': p_yaw = (p_yaw > P_SCALING ? p_yaw-P_SCALING : 1);
+			      break;
+		case 'i': p_p1 += P_SCALING;
+				  break;	
+		case 'k': p_p1 = (p_p1 > P_SCALING ? p_p1 - P_SCALING : 1);
+			      break;
+		case 'o': p_p2 += P_SCALING;
+				  break;	
+		case 'l': p_p2 = (p_p2 > P_SCALING ? p_p2 - P_SCALING : 1);
+			      break;
+	}
+	telemetry_packet[P_YAW] = p_yaw;
+	telemetry_packet[P1] = p_p1;
+	telemetry_packet[P2] = p_p2;
+	
 	// switch(keyboard_key)
 	// {
 	// 	case 97: offset[LIFT] = offset[LIFT] + 10; //lift up
@@ -241,8 +260,8 @@ int main(void)
 			clear_timer_flag();
 		}
 
-		if (nextmode != mode)
-			switch_mode(nextmode);
+		// if (nextmode != mode)
+		// 	switch_mode(nextmode);
 
 
 		// Note: this is probably something that will be included in the mode functions.

@@ -30,8 +30,8 @@ char mode_4_yaw_CANENTER(uint8_t source)
 }
 void mode_4_yaw_INIT()
 {
-// initialize the global variable for the controller.
-proportional_controller_yaw = 1;
+    // initialize the global variable for the controller.
+    p_yaw = 1;
 }
 
 void mode_4_yaw_QUIT()
@@ -60,8 +60,8 @@ void mode_4_yaw_RUN(void)
     //read sensor data
     // get_dmp_data(); // reads variable "sr"
     
-    int16_t setpoint_r = proportional_controller_yaw * js_yaw; // setpoint is angular rate
-    js_yaw = proportional_controller_yaw * (setpoint_r - __SR);
+    int16_t setpoint_r = p_yaw * js_yaw; // setpoint is angular rate
+    js_yaw = p_yaw * (setpoint_r - __SR);
 
     /* ##################################################
     ################ END OF YAW CONTROL ################# 

@@ -58,5 +58,8 @@ void mode_3_calib_RUN()
     sp_offset = sp;
     sq_offset = sq;
     sr_offset = sr;
+    phi_offset = phi;
+    theta_offset = theta;
+    psi_offset = psi;
 
 }
