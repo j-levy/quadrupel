@@ -29,7 +29,7 @@ uint16_t motor4 = 0;
 // int16_t sp, sq, sr = 0;
 // int32_t pressure = 0;
 uint16_t bat_volt;
-uint8_t p_value;
+uint16_t p_value;
 uint8_t p1_value;
 uint8_t p2_value;
 int16_t phi;
@@ -84,7 +84,7 @@ void process_telemetry(uint8_t c)
             // sp = (packet_rx[SP]<<8)|packet_rx[SP+1];
             // sq = (packet_rx[SQ]<<8)|packet_rx[SQ+1];
             // sr = (packet_rx[SR]<<8)|packet_rx[SR+1];
-            p_value = packet_rx[P_YAW];
+            p_value = (packet_rx[P_YAW]<<8)|packet_rx[P_YAW+1];
 
             p1_value = packet_rx[P1];
             p2_value = packet_rx[P2];

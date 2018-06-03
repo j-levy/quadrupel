@@ -174,10 +174,10 @@ uint8_t comm_link_failure;
 uint8_t abort_mission;
 
 
-uint8_t p_yaw;
+uint16_t p_yaw;
 uint8_t p_p1;
 uint8_t p_p2;
-#define P_SCALING 1
+#define P_SCALING 10
 bool is_calibration_done;
 
 #endif // IN4073_H__

@@ -39,31 +39,51 @@ void mode_2_manual_QUIT()
 
 void mode_2_manual_RUN()
 {
-    int16_t oo1, oo2, oo3, oo4;
-    int16_t js_roll, js_pitch, js_lift, a_roll, a_pitch, a_yaw, a_lift;
-    static int16_t js_yaw = 0;
+    int32_t oo1, oo2, oo3, oo4;
+    int32_t js_roll, js_pitch, js_lift, a_roll, a_pitch, a_yaw, a_lift;
+    static int32_t js_yaw = 0;
     
-    js_roll = axis[ROLL] >> (BITSCALE+2);
-    js_pitch = axis[PITCH] >> (BITSCALE+2);
+    // js_roll = axis[ROLL] >> (BITSCALE+2);
+    // js_pitch = axis[PITCH] >> (BITSCALE+2);
 
-    // Yaw command is not cumulative in manual mode
-    js_yaw = ((axis[YAW]) * DT) >> BITSCALE;
-    js_lift = (-(axis[LIFT] - 32767) >> 1) >> BITSCALE;
+    // // Yaw command is not cumulative in manual mode
+    // js_yaw = ((axis[YAW]) * DT) >> BITSCALE;
+    // js_lift = (-(axis[LIFT] - 32767) >> 1) >> BITSCALE;
+
+    // joystick reading.
+    js_roll = axis[ROLL] ;
+    js_pitch = axis[PITCH] ;
+    js_yaw = ((axis[YAW]) * DT)  ;
+    js_lift = (-(axis[LIFT] - 32767) >> 1);
 
     a_roll = offset[ROLL] + js_roll;
     a_pitch = offset[PITCH] + js_pitch;
     a_yaw = offset[YAW] + js_yaw;
     a_lift = offset[LIFT] + js_lift;
 
-    oo1 = (a_lift + 2 * a_pitch - a_yaw) / 4;
-	oo2 = (a_lift - 2 * a_roll + a_yaw) / 4;
-	oo3 = (a_lift - 2 * a_pitch - a_yaw) / 4;
-	oo4 = (a_lift + 2 * a_roll + a_yaw) / 4;
+    oo1 = (a_lift + 2 * a_pitch - a_yaw) ;
+	oo2 = (a_lift - 2 * a_roll + a_yaw) ;
+	oo3 = (a_lift - 2 * a_pitch - a_yaw) ;
+	oo4 = (a_lift + 2 * a_roll + a_yaw) ;
 
-    oo1 = (oo1 < 200 ? MIN(a_lift, 200) : oo1);
-    oo2 = (oo2 < 200? MIN(a_lift, 200) : oo2);
-    oo3 = (oo3 < 200 ? MIN(a_lift, 200) : oo3);
-    oo4 = (oo4 < 200? MIN(a_lift, 200) : oo4);
+
+
+	oo1 = (oo1) >> (BITSCALE);
+	oo2 = (oo2) >> (BITSCALE);
+	oo3 = (oo3) >> (BITSCALE);
+    oo4 = (oo4) >> (BITSCALE);
+
+
+    oo1 = (oo1 < 200 ? MIN(a_lift>>BITSCALE, 200) : oo1);
+    oo2 = (oo2 < 200? MIN(a_lift>>BITSCALE, 200) : oo2);
+    oo3 = (oo3 < 200 ? MIN(a_lift>>BITSCALE, 200) : oo3);
+    oo4 = (oo4 < 200? MIN(a_lift>>BITSCALE, 200) : oo4);
+
+
+    oo1 = MAX(0, oo1);
+    oo2 = MAX(0, oo2);
+    oo3 = MAX(0, oo3);
+    oo4 = MAX(0, oo4);
 
 	/* clip ooi as rotors only provide prositive thrust
 	 */
@@ -76,10 +96,10 @@ void mode_2_manual_RUN()
 
 	/* with ai = oi it follows
 	 */
-	ae[0] = sqrt(oo1);
-	ae[1] = sqrt(oo2);
-	ae[2] = sqrt(oo3);
-	ae[3] = sqrt(oo4);
+	ae[0] = (oo1);
+	ae[1] = (oo2);
+	ae[2] = (oo3);
+	ae[3] = (oo4);
 
 
 

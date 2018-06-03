@@ -69,7 +69,8 @@ void store_key(uint8_t *val)
 		case 'l': p_p2 = (p_p2 > P_SCALING ? p_p2 - P_SCALING : 1);
 			      break;
 	}
-	telemetry_packet[P_YAW] = p_yaw;
+	telemetry_packet[P_YAW] = MSBYTE(p_yaw);
+	telemetry_packet[P_YAW+1] = LSBYTE(p_yaw);
 	telemetry_packet[P1] = p_p1;
 	telemetry_packet[P2] = p_p2;
 	

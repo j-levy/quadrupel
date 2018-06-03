@@ -42,8 +42,8 @@ void mode_4_yaw_QUIT()
 void mode_4_yaw_RUN(void)
 
 {
-    int16_t oo1, oo2, oo3, oo4;
-    int16_t js_roll, js_pitch, js_lift, js_yaw, a_roll, a_pitch, a_yaw, a_lift;
+    int32_t oo1, oo2, oo3, oo4;
+    int32_t js_roll, js_pitch, js_lift, js_yaw, a_roll, a_pitch, a_yaw, a_lift;
     
     // joystick reading.
     js_roll = axis[ROLL] >> (BITSCALE+2);
@@ -60,43 +60,95 @@ void mode_4_yaw_RUN(void)
     //read sensor data
     // get_dmp_data(); // reads variable "sr"
     
-    int16_t setpoint_r = p_yaw * js_yaw; // setpoint is angular rate
-    js_yaw = p_yaw * (setpoint_r - __SR);
+    int32_t setpoint_r = p_yaw * js_yaw; // setpoint is angular rate
+    js_yaw = p_yaw * (setpoint_r/4 - __SR);
 
     /* ##################################################
     ################ END OF YAW CONTROL ################# 
     ################################################### */
 
     // adding offsets
+    // a_roll = offset[ROLL] + js_roll;
+    // a_pitch = offset[PITCH] + js_pitch;
+    // a_yaw = (offset[YAW] + js_yaw) >> 2; // make the yaw rate smaller to the change, so that we can asee something.
+    // a_lift = offset[LIFT] + js_lift;
+
+
+
+    // // computing speeds, manual style.
+    // oo1 = (a_lift + 2 * a_pitch - a_yaw);
+	// oo2 = (a_lift - 2 * a_roll + a_yaw);
+	// oo3 = (a_lift - 2 * a_pitch - a_yaw);
+	// oo4 = (a_lift + 2 * a_roll + a_yaw);
+
+    // /* Here, limit the motor speeds after computation, then update motors!*/
+
+    // oo1 = (oo1 < 200 ? MIN(a_lift, 200) : oo1);
+    // oo2 = (oo2 < 200? MIN(a_lift, 200) : oo2);
+    // oo3 = (oo3 < 200 ? MIN(a_lift, 200) : oo3);
+    // oo4 = (oo4 < 200? MIN(a_lift, 200) : oo4);
+
+    // if (oo1 > MAX_SPEED) oo1 = MAX_SPEED;
+	// if (oo2 > MAX_SPEED) oo2 = MAX_SPEED;
+	// if (oo3 > MAX_SPEED) oo3 = MAX_SPEED;
+	// if (oo4 > MAX_SPEED) oo4 = MAX_SPEED;
+
+	// ae[0] = (oo1);
+	// ae[1] = (oo2);
+	// ae[2] = (oo3);
+	// ae[3] = (oo4);
+
+    //New way of assigning motor speeds
+    js_roll = axis[ROLL] ;
+    js_pitch = axis[PITCH] ;
+    js_yaw = ((axis[YAW]) * DT)  ;
+    js_lift = (-(axis[LIFT] - 32767) >> 1);
+
     a_roll = offset[ROLL] + js_roll;
     a_pitch = offset[PITCH] + js_pitch;
-    a_yaw = (offset[YAW] + js_yaw) >> 2; // make the yaw rate smaller to the change, so that we can asee something.
+    a_yaw = offset[YAW] + js_yaw;
     a_lift = offset[LIFT] + js_lift;
 
+    oo1 = (a_lift + 2 * a_pitch - a_yaw) ;
+	oo2 = (a_lift - 2 * a_roll + a_yaw) ;
+	oo3 = (a_lift - 2 * a_pitch - a_yaw) ;
+	oo4 = (a_lift + 2 * a_roll + a_yaw) ;
 
 
-    // computing speeds, manual style.
-    oo1 = (a_lift + 2 * a_pitch - a_yaw);
-	oo2 = (a_lift - 2 * a_roll + a_yaw);
-	oo3 = (a_lift - 2 * a_pitch - a_yaw);
-	oo4 = (a_lift + 2 * a_roll + a_yaw);
 
-    /* Here, limit the motor speeds after computation, then update motors!*/
+	oo1 = (oo1) >> (BITSCALE);
+	oo2 = (oo2) >> (BITSCALE);
+	oo3 = (oo3) >> (BITSCALE);
+    oo4 = (oo4) >> (BITSCALE);
 
-    oo1 = (oo1 < 200 ? MIN(a_lift, 200) : oo1);
-    oo2 = (oo2 < 200? MIN(a_lift, 200) : oo2);
-    oo3 = (oo3 < 200 ? MIN(a_lift, 200) : oo3);
-    oo4 = (oo4 < 200? MIN(a_lift, 200) : oo4);
+
+    oo1 = (oo1 < 200 ? MIN(a_lift>>BITSCALE, 200) : oo1);
+    oo2 = (oo2 < 200? MIN(a_lift>>BITSCALE, 200) : oo2);
+    oo3 = (oo3 < 200 ? MIN(a_lift>>BITSCALE, 200) : oo3);
+    oo4 = (oo4 < 200? MIN(a_lift>>BITSCALE, 200) : oo4);
+
+
+    oo1 = MAX(0, oo1);
+    oo2 = MAX(0, oo2);
+    oo3 = MAX(0, oo3);
+    oo4 = MAX(0, oo4);
+
+	/* clip ooi as rotors only provide prositive thrust
+	 */
+	
 
     if (oo1 > MAX_SPEED) oo1 = MAX_SPEED;
 	if (oo2 > MAX_SPEED) oo2 = MAX_SPEED;
 	if (oo3 > MAX_SPEED) oo3 = MAX_SPEED;
 	if (oo4 > MAX_SPEED) oo4 = MAX_SPEED;
 
+	/* with ai = oi it follows
+	 */
 	ae[0] = (oo1);
 	ae[1] = (oo2);
 	ae[2] = (oo3);
 	ae[3] = (oo4);
+
 
 
     update_motors();
