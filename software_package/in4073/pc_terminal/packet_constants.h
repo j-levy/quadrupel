@@ -1,5 +1,5 @@
 #define CONTROL_PACKET_SIZE 13
-#define TELEMETRY_PACKET_SIZE 17
+#define TELEMETRY_PACKET_SIZE 18
 
 #define START 0
 #define KEY 1
@@ -39,7 +39,8 @@
 // #define TEMPERATURE 23
 // #define PRESSURE 27
 #define TIMESTAMP 12
-#define CRC_TELEMETRY 16
+#define P_VALUE 16
+#define CRC_TELEMETRY 17
 
 #define MSBYTE(x) ((uint8_t) ((x & 0xff00) >> 8))
 

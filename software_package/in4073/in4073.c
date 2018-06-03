@@ -44,35 +44,66 @@ void store_joystick_axis(uint8_t *val)
 		int16_t stickvalue = (((int16_t) *(val + 2*i)) << 8) + ((int16_t) *(val + 2*i + 1));
 		axis[i] = stickvalue;
 	}
+	
+	//If throttle is almost zero, clear the offset
+	if(axis[3] > 32000)
+	{
+		for(int i =0; i<4; i++)
+        {
+            offset[i] = 0;
+        }
+	}		
 }
 
 void store_joystick_button(uint8_t *val)
 {
 	buttons = *val;
+	//Enter panic mode if joystick fire button (Abort mission) pressed
+	if(buttons == 1)
+	{
+		abort_mission = 1;
+		nextmode = 1;
+	}
+		
 }
 
 void store_key(uint8_t *val)
 {
 	keyboard_key = *val;
-	// switch(keyboard_key)
-	// {
-	// 	case 97: offset[LIFT] = offset[LIFT] + 10; //lift up
-	// 			 break;
-	// 	case 122: offset[LIFT] = offset[LIFT] - 10; //lift down
-	// 			 break;
-	// 	case 42: offset[PITCH] = offset[PITCH] - 10; //pitch down
-	// 			 break;
-	// 	case 43: offset[LIFT] = offset[ROLL] - 10; //roll down
-	// 			 break;
-	// 	case 44: offset[LIFT] = offset[PITCH] + 10; //pitch up
-	// 			 break;
-	// 	case 45: offset[PITCH] = offset[ROLL] + 10; //roll up
-	// 			 break;
-	// 	case 113: offset[YAW] = offset[YAW] - 10; //yaw down
-	// 			 break;
-	// 	case 119: offset[YAW] = offset[YAW] + 10; //yaw up
-	// 			 break; 
-	// }
+	switch(keyboard_key)
+	{
+		case 'u': proportional_controller_yaw += P_SCALING;
+				  break;
+		case 'j': proportional_controller_yaw = (proportional_controller_yaw > P_SCALING ? proportional_controller_yaw-P_SCALING : 1);
+			      break;
+
+		case 'a': offset[LIFT] += OFFSET_SCALING; //lift up
+				  break;
+
+		case 'z': offset[LIFT] -= OFFSET_SCALING;
+					//offset[LIFT] = (offset[LIFT] > OFFSET_SCALING ? offset[LIFT] - OFFSET_SCALING : 0); //lift down
+				  break;	
+
+		case 44:  offset[PITCH] += OFFSET_SCALING; //pitch up
+				  break;
+
+		case 42:  offset[PITCH] -= OFFSET_SCALING ; //pitch down
+				  break;
+
+		case 43:  offset[ROLL] += OFFSET_SCALING; //roll down
+				  break;
+
+		case 45:  offset[ROLL] -= OFFSET_SCALING ; //roll up
+				  break;
+
+		case 'w': offset[YAW] += OFFSET_SCALING; //yaw up
+				  break; 
+
+		case 'q': offset[YAW] -= OFFSET_SCALING ; //yaw down
+				  break;	
+
+	}
+	telemetry_packet[P_VALUE] = proportional_controller_yaw;
 }
 
 void store_mode(uint8_t *val)
@@ -241,8 +272,8 @@ int main(void)
 			clear_timer_flag();
 		}
 
-		if (nextmode != mode)
-			switch_mode(nextmode);
+		// if (nextmode != mode)
+		// 	switch_mode(nextmode); //commenting this additional code which possible got pasted twice in master
 
 
 		// Note: this is probably something that will be included in the mode functions.
