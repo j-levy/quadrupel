@@ -1,5 +1,5 @@
 #define CONTROL_PACKET_SIZE 13
-#define TELEMETRY_PACKET_SIZE 25
+#define TELEMETRY_PACKET_SIZE 23
 
 #define START 0
 #define KEY 1
@@ -43,9 +43,8 @@
 #define P1 18
 #define P2 19
 #define PHI 20
-#define SETPOINT_ROLL 22
-
-#define CRC_TELEMETRY 24
+//#define SETPOINT_ROLL 22
+#define CRC_TELEMETRY 22
 
 #define MSBYTE(x) ((uint8_t) ((x & 0xff00) >> 8))
 

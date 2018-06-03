@@ -57,8 +57,8 @@ void run_filters_and_control()
 		// 		be careful what you want to see as telemetry:
 		//		most current variables are on 4 BYTES now !!!
 		// 		Sensors and joystick raw values are still on 2 bytes though.
-		telemetry_packet[SETPOINT_ROLL] = MSBYTE(axis[ROLL]);
-		telemetry_packet[SETPOINT_ROLL+1] = LSBYTE(axis[ROLL]);
+		// telemetry_packet[SETPOINT_ROLL] = MSBYTE(axis[ROLL]);
+		// telemetry_packet[SETPOINT_ROLL+1] = LSBYTE(axis[ROLL]);
 	}
 
 
