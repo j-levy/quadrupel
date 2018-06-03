@@ -64,14 +64,14 @@ void mode_3_calib_RUN()
 
 
     // make a mean over time, but without taking hundreds of bytes of memory...
-    sax_offset = (sax + sax_offset)/2;
-    say_offset = (say + sax_offset)/2;
-    saz_offset = (saz + sax_offset)/2;
-    sp_offset = (sp + sp_offset)/2;
-    sq_offset = (sq + sq_offset)/2;
-    sr_offset = (sr + sr_offset)/2;
-    phi_offset = (phi + phi_offset)/2;
-    theta_offset = (theta + theta_offset)/2;
-    psi_offset = (psi + psi_offset)/2;
+    sax_offset = (sax/2) + (sax_offset/2);
+    say_offset = (say/2) + (sax_offset/2);
+    saz_offset = (saz/2)+ (sax_offset/2);
+    sp_offset = (sp/2) + (sp_offset/2);
+    sq_offset = (sq/2) + (sq_offset/2);
+    sr_offset = (sr/2) + (sr_offset/2);
+    phi_offset = (phi/2) + (phi_offset/2);
+    theta_offset = (theta/2) + (theta_offset/2);
+    psi_offset = (psi/2) + (psi_offset/2);
 
 }

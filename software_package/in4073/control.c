@@ -47,9 +47,6 @@ void run_filters_and_control()
 
 	if (mode == 5)
 	{
-
-
-
 		js[YAW] = p_yaw * (js[YAW]/p_yaw - __SR);
 		js[ROLL] = p_p2 * (p_p1 * (js[ROLL]/(p_p1*p_p2) - __PHI) - __SP);
 		js[PITCH] = p_p2 * (p_p1 * (js[PITCH]/(p_p1*p_p2) - __THETA) - __SQ);
@@ -62,8 +59,6 @@ void run_filters_and_control()
 		// 		Sensors and joystick raw values are still on 2 bytes though.
 		telemetry_packet[SETPOINT_ROLL] = MSBYTE(axis[ROLL]);
 		telemetry_packet[SETPOINT_ROLL+1] = LSBYTE(axis[ROLL]);
-
-
 	}
 
 
