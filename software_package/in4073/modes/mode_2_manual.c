@@ -29,6 +29,14 @@ char mode_2_manual_CANENTER(uint8_t source)
 
 void mode_2_manual_INIT()
 {
+    for (int i = 0; i < 4; i++) 
+        flight_coeffs[i] = 1;
+    
+    // coefficients determined empirically. They seem more or less ok.
+    flight_coeffs[ROLL] = 9;
+    flight_coeffs[PITCH] = flight_coeffs[ROLL];
+    flight_coeffs[LIFT] = 3*flight_coeffs[ROLL];
+    flight_coeffs[YAW] = 2*flight_coeffs[ROLL];
 
 }
 
@@ -39,69 +47,36 @@ void mode_2_manual_QUIT()
 
 void mode_2_manual_RUN()
 {
-    int32_t oo1, oo2, oo3, oo4;
-    int32_t js_roll, js_pitch, js_lift, a_roll, a_pitch, a_yaw, a_lift;
-    static int32_t js_yaw = 0;
+    int32_t oo[4];
+    int32_t js[4];
+    int32_t a[4];
     
-    // js_roll = axis[ROLL] >> (BITSCALE+2);
-    // js_pitch = axis[PITCH] >> (BITSCALE+2);
+    js[ROLL]= axis[ROLL] ;
+    js[PITCH] = axis[PITCH] ;
+    js[YAW] = axis[YAW] ;
+    js[LIFT] = (-(axis[LIFT] - 32767) >> 1);
 
-    // // Yaw command is not cumulative in manual mode
-    // js_yaw = ((axis[YAW]) * DT) >> BITSCALE;
-    // js_lift = (-(axis[LIFT] - 32767) >> 1) >> BITSCALE;
+    for (int i = 0; i < 4; i++)
+    {
+        a[i] = offset[i] + js[i];
+    }
 
-    // joystick reading.
-    js_roll = axis[ROLL] ;
-    js_pitch = axis[PITCH] ;
-    js_yaw = ((axis[YAW]) * DT)  ;
-    js_lift = (-(axis[LIFT] - 32767) >> 1);
+    oo[0] = a[LIFT]*flight_coeffs[LIFT] + 2 * a[PITCH]*flight_coeffs[PITCH] - a[YAW]*flight_coeffs[YAW] ;
+	oo[1] = a[LIFT]*flight_coeffs[LIFT] - 2 * a[ROLL]*flight_coeffs[ROLL] + a[YAW]*flight_coeffs[YAW];
+	oo[2] = a[LIFT]*flight_coeffs[LIFT] - 2 * a[PITCH]*flight_coeffs[PITCH] - a[YAW]*flight_coeffs[YAW] ;
+	oo[3] = a[LIFT]*flight_coeffs[LIFT] + 2 * a[ROLL]*flight_coeffs[ROLL] + a[YAW]*flight_coeffs[YAW] ;
 
-    a_roll = offset[ROLL] + js_roll;
-    a_pitch = offset[PITCH] + js_pitch;
-    a_yaw = offset[YAW] + js_yaw;
-    a_lift = offset[LIFT] + js_lift;
-
-    oo1 = (a_lift + 2 * a_pitch - a_yaw) ;
-	oo2 = (a_lift - 2 * a_roll + a_yaw) ;
-	oo3 = (a_lift - 2 * a_pitch - a_yaw) ;
-	oo4 = (a_lift + 2 * a_roll + a_yaw) ;
-
-
-
-	oo1 = (oo1) >> (BITSCALE);
-	oo2 = (oo2) >> (BITSCALE);
-	oo3 = (oo3) >> (BITSCALE);
-    oo4 = (oo4) >> (BITSCALE);
-
-
-    oo1 = (oo1 < 200 ? MIN(a_lift>>BITSCALE, 200) : oo1);
-    oo2 = (oo2 < 200? MIN(a_lift>>BITSCALE, 200) : oo2);
-    oo3 = (oo3 < 200 ? MIN(a_lift>>BITSCALE, 200) : oo3);
-    oo4 = (oo4 < 200? MIN(a_lift>>BITSCALE, 200) : oo4);
-
-
-    oo1 = MAX(0, oo1);
-    oo2 = MAX(0, oo2);
-    oo3 = MAX(0, oo3);
-    oo4 = MAX(0, oo4);
-
-	/* clip ooi as rotors only provide prositive thrust
-	 */
-	
-
-    if (oo1 > MAX_SPEED) oo1 = MAX_SPEED;
-	if (oo2 > MAX_SPEED) oo2 = MAX_SPEED;
-	if (oo3 > MAX_SPEED) oo3 = MAX_SPEED;
-	if (oo4 > MAX_SPEED) oo4 = MAX_SPEED;
-
-	/* with ai = oi it follows
-	 */
-	ae[0] = (oo1);
-	ae[1] = (oo2);
-	ae[2] = (oo3);
-	ae[3] = (oo4);
-
-
+    for (int i = 0; i < 4 ; i++)
+    {
+        oo[i] = oo[i] / ( flight_coeffs[LIFT] + flight_coeffs[PITCH] + flight_coeffs[ROLL] + flight_coeffs[YAW]); 
+        // because oo_max = (sum_coeffs) * coeffs)*a_max
+        // because coeff[ROLL] == coeff[PITCH] (I do this because of symmetry, makes sense)
+        oo[i] = MAX(oo[i], 0);
+        oo[i] = (oo[i] < MIN_SPEED*32 ? MIN(a[LIFT], MIN_SPEED*32) : oo[i]);
+        oo[i] = MIN(oo[i], MAX_SPEED*32);
+        ae[i] = oo[i] / (32); // scale 0->32767 to 0->1023, but capped to 600 anyway.
+        
+    }
 
     update_motors();
 }
