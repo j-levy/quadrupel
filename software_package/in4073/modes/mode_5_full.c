@@ -11,9 +11,6 @@ Author:Yuhao Xuan
 // TODO: rename mode_4_yaw into something more generic (same)
 
 
-// DEPRECATED
-#define JS_BITSCALE 1
-#define BITSCALE 6
 
 
 
@@ -37,6 +34,16 @@ char mode_5_full_CANENTER(uint8_t source)
 void mode_5_full_INIT()
 {
     // initialize the global variable for the controller.
+    for (int i = 0; i < 4; i++) 
+        flight_coeffs[i] = 1;
+    
+    // coefficients determined empirically. They seem more or less ok.
+    flight_coeffs[ROLL] = 9;
+    flight_coeffs[PITCH] = flight_coeffs[ROLL];
+    flight_coeffs[LIFT] = 3*flight_coeffs[ROLL];
+    flight_coeffs[YAW] = 2*flight_coeffs[ROLL];
+
+    // initialize the global variable for the controller.
     p_yaw = 1;
     p_p1 = 1;
     p_p2 = 1;
@@ -50,31 +57,22 @@ void mode_5_full_QUIT()
 void mode_5_full_RUN(void)
 
 {
-    int32_t oo1, oo2, oo3, oo4;
-    int32_t js_roll, js_pitch, js_lift, js_yaw, a_roll, a_pitch, a_yaw, a_lift;
+    int32_t oo[4];
+    int32_t js[4];
+    int32_t a[4];
     
-    // joystick reading.
-    // js_roll = axis[ROLL] >> (BITSCALE);
-    // js_pitch = axis[PITCH] >> (BITSCALE);
-    // js_yaw = ((axis[YAW]) * DT) >> BITSCALE;
-    // js_lift = (-(axis[LIFT] - 32767) >> 1) >> BITSCALE;
-
-    // joystick reading.
-    js_roll = axis[ROLL] >> JS_BITSCALE;
-    js_pitch = axis[PITCH] >> JS_BITSCALE;
-    js_yaw = axis[YAW] >> JS_BITSCALE;
-    js_lift = (-(axis[LIFT] - 32767) >> 1);
+    js[ROLL]= axis[ROLL] ;
+    js[PITCH] = axis[PITCH] ;
+    js[YAW] = axis[YAW] ;
+    js[LIFT] = (-(axis[LIFT] - 32767) >> 1);
 
     /* ##################################################
     ################ YAW CONTROL HERE ################### 
     ################################################### */
     //code freely inspired from the simulator.
     
-    //read sensor data
-    // get_dmp_data(); // reads variable "sr"
     
-    int32_t setpoint_r = js_yaw; // setpoint is angular rate
-    js_yaw = p_yaw * (setpoint_r/4 - __SR);
+    js[YAW] = p_yaw * (js[YAW]/p_yaw - __SR);
 
     telemetry_packet[PHI] = MSBYTE(__SR);
     telemetry_packet[PHI+1] = LSBYTE(__SR);
@@ -90,19 +88,12 @@ void mode_5_full_RUN(void)
     ###############  ROLL CONTROL PART  #################
     ###################################################*/
 
-    //This part introduces cascade p controller
-    //Equations as per kalman_control.pdf
-    int32_t setpoint_roll_s = js_roll;
-
-    int32_t setpoint_p_s;
-    setpoint_p_s = p_p1 * (setpoint_roll_s - __PHI);
-
     // telemetry_packet[PHI] = MSBYTE(__PHI);
     // telemetry_packet[PHI+1] = LSBYTE(__PHI);
-    telemetry_packet[SETPOINT_ROLL] = MSBYTE(setpoint_roll_s);
-    telemetry_packet[SETPOINT_ROLL+1] = LSBYTE(setpoint_roll_s);
+    telemetry_packet[SETPOINT_ROLL] = MSBYTE(js[ROLL]);
+    telemetry_packet[SETPOINT_ROLL+1] = LSBYTE(js[ROLL]);
 
-    js_roll = p_p2 * (setpoint_p_s - __SP);
+    js[ROLL] = p_p2 * (p_p1 * (js[ROLL]/(p_p1*p_p2) - __PHI) - __SP);
     /*###################################################
     ##############  END OF ROLL CONTROL  ################
     ##################################################*/
@@ -113,99 +104,44 @@ void mode_5_full_RUN(void)
     ###############  PITCH CONTROL PART  ################
     ###################################################*/
 
+    /*
     //This part introduces cascade p controller
     //Equations as per kalman_control.pdf
+
     int32_t setpoint_pitch_s = js_pitch;
 
     int32_t setpoint_q_s;
     setpoint_q_s = p_p1 * (setpoint_pitch_s - __THETA);
 
     js_pitch = p_p2 * (setpoint_q_s - __SQ);
+    */
+
+    js[PITCH] = p_p2 * (p_p1 * (js[PITCH]/(p_p1*p_p2) - __THETA) - __SQ);
     /*###################################################
     ##############  END OF PITCH CONTROL  ###############
     ##################################################*/
 
+    
+    for (int i = 0; i < 4; i++)
+    {
+        a[i] = offset[i] + js[i];
+    }
 
-    // // adding offsets
-    // a_roll = offset[ROLL] + js_roll;
-    // a_pitch = offset[PITCH] + js_pitch;
-    // a_yaw = (offset[YAW] + js_yaw) >> 2; // make the yaw rate smaller to the change, so that we can asee something.
-    // a_lift = offset[LIFT] + js_lift;
+    oo[0] = a[LIFT]*flight_coeffs[LIFT] + 2 * a[PITCH]*flight_coeffs[PITCH] - a[YAW]*flight_coeffs[YAW] ;
+	oo[1] = a[LIFT]*flight_coeffs[LIFT] - 2 * a[ROLL]*flight_coeffs[ROLL] + a[YAW]*flight_coeffs[YAW];
+	oo[2] = a[LIFT]*flight_coeffs[LIFT] - 2 * a[PITCH]*flight_coeffs[PITCH] - a[YAW]*flight_coeffs[YAW] ;
+	oo[3] = a[LIFT]*flight_coeffs[LIFT] + 2 * a[ROLL]*flight_coeffs[ROLL] + a[YAW]*flight_coeffs[YAW] ;
 
-
-
-    // // computing speeds, manual style.
-    // oo1 = (a_lift + 2 * a_pitch - a_yaw) ;
-	// oo2 = (a_lift - 2 * a_roll + a_yaw);
-	// oo3 = (a_lift - 2 * a_pitch - a_yaw) ;
-	// oo4 = (a_lift + 2 * a_roll + a_yaw);
-
-    // /* Here, limit the motor speeds after computation, then update motors!*/
-
-    // oo1 = (oo1 < 200 ? MIN(a_lift, 200) : oo1);
-    // oo2 = (oo2 < 200? MIN(a_lift, 200) : oo2);
-    // oo3 = (oo3 < 200 ? MIN(a_lift, 200) : oo3);
-    // oo4 = (oo4 < 200? MIN(a_lift, 200) : oo4);
-
-    // if (oo1 > MAX_SPEED) oo1 = MAX_SPEED;
-	// if (oo2 > MAX_SPEED) oo2 = MAX_SPEED;
-	// if (oo3 > MAX_SPEED) oo3 = MAX_SPEED;
-	// if (oo4 > MAX_SPEED) oo4 = MAX_SPEED;
-
-	// ae[0] = (oo1) >> (BITSCALE);
-	// ae[1] = (oo2) >> (BITSCALE);
-	// ae[2] = (oo3) >> (BITSCALE);
-	// ae[3] = (oo4) >> (BITSCALE);
-
-
-    // new motor speed assignment
-
-    a_roll = offset[ROLL] + js_roll;
-    a_pitch = offset[PITCH] + js_pitch;
-    a_yaw = offset[YAW] + js_yaw;
-    a_lift = offset[LIFT] + js_lift;
-
-    oo1 = (a_lift + 2 * a_pitch - a_yaw) ;
-	oo2 = (a_lift - 2 * a_roll + a_yaw) ;
-	oo3 = (a_lift - 2 * a_pitch - a_yaw) ;
-	oo4 = (a_lift + 2 * a_roll + a_yaw) ;
-
-
-
-	oo1 = (oo1) >> (BITSCALE);
-	oo2 = (oo2) >> (BITSCALE);
-	oo3 = (oo3) >> (BITSCALE);
-    oo4 = (oo4) >> (BITSCALE);
-
-
-    oo1 = (oo1 < 200 ? MIN(a_lift>>BITSCALE, 200) : oo1);
-    oo2 = (oo2 < 200? MIN(a_lift>>BITSCALE, 200) : oo2);
-    oo3 = (oo3 < 200 ? MIN(a_lift>>BITSCALE, 200) : oo3);
-    oo4 = (oo4 < 200? MIN(a_lift>>BITSCALE, 200) : oo4);
-
-
-    oo1 = MAX(0, oo1);
-    oo2 = MAX(0, oo2);
-    oo3 = MAX(0, oo3);
-    oo4 = MAX(0, oo4);
-
-	/* clip ooi as rotors only provide prositive thrust
-	 */
-	
-
-    if (oo1 > MAX_SPEED) oo1 = MAX_SPEED;
-	if (oo2 > MAX_SPEED) oo2 = MAX_SPEED;
-	if (oo3 > MAX_SPEED) oo3 = MAX_SPEED;
-	if (oo4 > MAX_SPEED) oo4 = MAX_SPEED;
-
-	/* with ai = oi it follows
-	 */
-	ae[0] = (oo1);
-	ae[1] = (oo2);
-	ae[2] = (oo3);
-	ae[3] = (oo4);
-
-
+    for (int i = 0; i < 4 ; i++)
+    {
+        oo[i] = oo[i] / ( flight_coeffs[LIFT] + flight_coeffs[PITCH] + flight_coeffs[ROLL] + flight_coeffs[YAW]); 
+        // because oo_max = (sum_coeffs) * coeffs)*a_max
+        // because coeff[ROLL] == coeff[PITCH] (I do this because of symmetry, makes sense)
+        oo[i] = MAX(oo[i], 0);
+        oo[i] = (oo[i] < MIN_SPEED*32 ? MIN(a[LIFT], MIN_SPEED*32) : oo[i]);
+        oo[i] = MIN(oo[i], MAX_SPEED*32);
+        ae[i] = oo[i] / (32); // scale 0->32767 to 0->1023. But is capped anyway. So it's a good scale.
+    }
 
     update_motors();
    

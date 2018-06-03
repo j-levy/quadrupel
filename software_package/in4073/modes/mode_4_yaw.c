@@ -32,7 +32,7 @@ void mode_4_yaw_INIT()
 {
 
     for (int i = 0; i < 4; i++) 
-    flight_coeffs[i] = 1;
+        flight_coeffs[i] = 1;
     
     // coefficients determined empirically. They seem more or less ok.
     flight_coeffs[ROLL] = 9;
