@@ -18,6 +18,10 @@
 
 #include "in4073.h"
 
+#define MIN(a,b) (a < b ? a : b)
+
+#define MAX(a,b) (a > b ? a : b)
+
 // #define DEBUG_TIMEOUT
 //#define BATTERY_MONITORING	
 
@@ -68,6 +72,17 @@ void store_key(uint8_t *val)
 				  break;	
 		case 'l': p_p2 = (p_p2 > P_SCALING ? p_p2 - P_SCALING : 1);
 			      break;
+
+		case 't' : flight_coeffs[LIFT]++; break;
+		case 'g' : flight_coeffs[LIFT] = MAX(flight_coeffs[LIFT]-1, 1); break;
+		case 'y' : flight_coeffs[ROLL]++; 
+					flight_coeffs[PITCH] = flight_coeffs[ROLL];break;
+		case 'h' : flight_coeffs[ROLL] = MAX(flight_coeffs[ROLL]-1, 1); 
+					flight_coeffs[PITCH] = flight_coeffs[ROLL]; break;
+		case 'r' : flight_coeffs[YAW]++; break;
+		case 'f' : flight_coeffs[YAW] = MAX(flight_coeffs[YAW]-1, 1); break;
+
+
 	}
 	telemetry_packet[P_YAW] = MSBYTE(p_yaw);
 	telemetry_packet[P_YAW+1] = LSBYTE(p_yaw);
