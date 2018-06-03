@@ -11,6 +11,11 @@ Author:Yuhao Xuan
 // TODO: rename mode_4_yaw into something more generic (same)
 
 
+// DEPRECATED
+#define JS_BITSCALE 1
+#define BITSCALE 6
+
+
 
 char mode_5_full_CANLEAVE(uint8_t target)
 {
