@@ -1,6 +1,6 @@
 #include "in4073.h"
 #include "switch_mode.h"
-#include "mode_2_manual.h"
+#include "modes_flight.h"
 
 
 /*
