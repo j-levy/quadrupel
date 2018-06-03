@@ -17,6 +17,7 @@
  */
 
 #include "in4073.h"
+#include "modes/switch_mode.h"
 
 #define MIN(a,b) (a < b ? a : b)
 
@@ -284,7 +285,9 @@ int main(void)
 		if (check_sensor_int_flag()) 
 		{
 			get_dmp_data();
-			run_filters_and_control();
+
+			if (mode == MODE_2_MANUAL || mode == MODE_4_YAWCTRL || mode == MODE_5_FULLCTRL )
+				run_filters_and_control();
 		}
 		
 		
@@ -293,13 +296,7 @@ int main(void)
 			switch_mode(nextmode);
 
 		
-		/*For the sequence Esc -> panic > safe > abort
-		//if(!mode && abort_mission)
-			//demo_done = true;
-		//else
-		// ADDENDUM: this part is in MODE_0_SAFE_RUN
-		*/
-			mode_RUN[mode]();
+		mode_RUN[mode]();
 		
 		if ((get_time_us() - tx_timer) > TELEMETRY_TX_INTERVAL)
 		{
