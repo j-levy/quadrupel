@@ -18,12 +18,14 @@
 
 #include "in4073.h"
 
-#define DEBUG	
+// #define DEBUG_TIMEOUT
+//#define BATTERY_MONITORING	
 
 uint8_t buttons = 0;
 int16_t axis[4] = {0};
 uint8_t keyboard_key = 0; 
 uint8_t mode = 0;
+uint8_t abort_mission = 0;
 
 
 /*------------------------------------------------------------------
@@ -42,22 +44,75 @@ void store_joystick_axis(uint8_t *val)
 		int16_t stickvalue = (((int16_t) *(val + 2*i)) << 8) + ((int16_t) *(val + 2*i + 1));
 		axis[i] = stickvalue;
 	}
+	
+	//If throttle is almost zero, clear the offset
+	if(axis[3] > 32000)
+	{
+		for(int i =0; i<4; i++)
+        {
+            offset[i] = 0;
+        }
+	}		
 }
 
 void store_joystick_button(uint8_t *val)
 {
 	buttons = *val;
+	//Enter panic mode if joystick fire button (Abort mission) pressed
+	if(buttons == 1)
+	{
+		abort_mission = 1;
+		nextmode = 1;
+	}
+		
 }
 
 void store_key(uint8_t *val)
 {
 	keyboard_key = *val;
+	switch(keyboard_key)
+	{
+		case 'u': proportional_controller_yaw += P_SCALING;
+				  break;
+		case 'j': proportional_controller_yaw = (proportional_controller_yaw > P_SCALING ? proportional_controller_yaw-P_SCALING : 1);
+			      break;
+
+		case 'a': offset[LIFT] += OFFSET_SCALING; //lift up
+				  break;
+
+		case 'z': offset[LIFT] -= OFFSET_SCALING;
+					//offset[LIFT] = (offset[LIFT] > OFFSET_SCALING ? offset[LIFT] - OFFSET_SCALING : 0); //lift down
+				  break;	
+
+		case 44:  offset[PITCH] += OFFSET_SCALING; //pitch up
+				  break;
+
+		case 42:  offset[PITCH] -= OFFSET_SCALING ; //pitch down
+				  break;
+
+		case 43:  offset[ROLL] += OFFSET_SCALING; //roll down
+				  break;
+
+		case 45:  offset[ROLL] -= OFFSET_SCALING ; //roll up
+				  break;
+
+		case 'w': offset[YAW] += OFFSET_SCALING; //yaw up
+				  break; 
+
+		case 'q': offset[YAW] -= OFFSET_SCALING ; //yaw down
+				  break;	
+
+	}
+	telemetry_packet[P_VALUE] = proportional_controller_yaw;
 }
 
 void store_mode(uint8_t *val)
 {
 	if (*val == 27)
+	{
+		abort_mission = 1;
 		nextmode = 1;
+	}
 	else
 		nextmode = *val - '0';
 }
@@ -69,12 +124,15 @@ void store_mode(uint8_t *val)
  */
 int main(void)
 {
+	is_DMP_on = true;
+	is_calibration_done = false;
+
 	uart_init();
 	gpio_init();
 	timers_init();
 	adc_init();
 	twi_init();
-	imu_init(true, 100);	
+	imu_init(is_DMP_on, 100);	
 	baro_init();
 	spi_flash_init();
 	ble_init();
@@ -96,12 +154,51 @@ int main(void)
 		axis[i] = 0;
 
 	uint32_t tx_timer = 0;
-
+	uint32_t delta_time = 0;
+	uint32_t timeout = 0;
+	#ifdef DEBUG_TIMEOUT
+	uint32_t count = 0; // for timeout testing purpose
+	#endif
 
 	while (!demo_done)
 	{
+		//Enter panic mode if battery is low
+		//and if not in safe or panic mode already
+		#ifdef BATTERY_MONITORING
+		if((bat_volt < BATTERY_THRESHOLD) && (mode && (mode != 1)))
+			nextmode = 1;
+		#endif
+
+		#ifdef DEBUG_TIMEOUT
+		if(count%5000 == 0) //timeout failure scenario testcase. happens multiple time this way.
+		{
+			delta_time = 160000;
+		}
+		else
+		#endif
+			delta_time = get_time_us() - timeout;
+
+		if(timeout && (delta_time > RX_TIMEOUT) && (delta_time > 0))
+		{
+			//printf("%10ld %10ld %10ld \n", get_time_us(), timeout, delta_time); 
+			printf("comm link failure\n");
+			comm_link_failure = 1; 
+			nrf_gpio_pin_toggle(RED);
+
+			if(mode && (mode != 1))		//Enter panic mode only if NOT 
+										//in safe or panic mode already
+			{
+				nextmode = 	1; 
+			}		
+				
+		}
+
 		if (rx_queue.count)
 		{
+			#ifdef DEBUG_TIMEOUT
+			count++;
+			#endif
+			timeout = get_time_us();
 			process_packet( dequeue(&rx_queue) );
 		}
 
@@ -176,18 +273,30 @@ int main(void)
 			clear_timer_flag();
 		}
 
+		// if (nextmode != mode)
+		// 	switch_mode(nextmode); //commenting this additional code which possible got pasted twice in master
+
+
+		// Note: this is probably something that will be included in the mode functions.
 		if (check_sensor_int_flag()) 
 		{
 			get_dmp_data();
 			run_filters_and_control();
 		}
 		
+		
+
 		if (nextmode != mode)
 			switch_mode(nextmode);
+
 		
-		
-		
-		mode_RUN[mode]();
+		/*For the sequence Esc -> panic > safe > abort
+		//if(!mode && abort_mission)
+			//demo_done = true;
+		//else
+		// ADDENDUM: this part is in MODE_0_SAFE_RUN
+		*/
+			mode_RUN[mode]();
 		
 		if ((get_time_us() - tx_timer) > TELEMETRY_TX_INTERVAL)
 		{

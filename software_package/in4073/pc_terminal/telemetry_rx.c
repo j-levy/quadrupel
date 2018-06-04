@@ -29,6 +29,7 @@ uint16_t motor4 = 0;
 // int16_t sp, sq, sr = 0;
 // int32_t pressure = 0;
 uint16_t bat_volt;
+uint8_t p_value;
 int32_t timestamp = 0;
 
 void process_telemetry(uint8_t c)
@@ -79,7 +80,7 @@ void process_telemetry(uint8_t c)
             // sp = (packet_rx[SP]<<8)|packet_rx[SP+1];
             // sq = (packet_rx[SQ]<<8)|packet_rx[SQ+1];
             // sr = (packet_rx[SR]<<8)|packet_rx[SR+1];
-
+            p_value = packet_rx[P_VALUE]; 
             bat_volt = (packet_rx[BAT_VOLT]<<8)|packet_rx[BAT_VOLT+1];
             // pressure = (packet_rx[PRESSURE]<<24)|(packet_rx[PRESSURE + 1]<<16)|(packet_rx[PRESSURE + 2]<<8)|packet_rx[PRESSURE+3];
             timestamp = (packet_rx[TIMESTAMP]<<24)|(packet_rx[TIMESTAMP + 1]<<16)|(packet_rx[TIMESTAMP + 2]<<8)|packet_rx[TIMESTAMP+3];
@@ -87,6 +88,7 @@ void process_telemetry(uint8_t c)
             printf("Time |%6d|", timestamp);
             printf("Mode |%d|", packet_rx[MODE_DRONE]);
             printf("Motors |%3d %3d %3d %3d|", motor1,motor2,motor3,motor4);
+            printf("P |%d|", p_value);
             // printf("|%6d %6d %6d|",phi,theta,psi);
             // printf("|%6d %6d %6d|",sp,sq,sr);
             printf("Battery |%4d|\n",bat_volt);

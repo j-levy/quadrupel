@@ -1,6 +1,13 @@
 #include "in4073.h"
 #include "switch_mode.h"
 
+
+/*
+Panic functions for the state machine.
+Jonathan Lévy
+*/
+
+
 /* 
  TODO: write the constants as #define
 */

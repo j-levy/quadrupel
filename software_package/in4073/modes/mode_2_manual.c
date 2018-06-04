@@ -2,6 +2,11 @@
 #include "switch_mode.h"
 #include "mode_2_manual.h"
 
+/*
+Manual mode functions for the state machine.
+Jonathan Lévy
+*/
+
 char mode_2_manual_CANLEAVE(uint8_t target)
 {
     char lock = 0;
@@ -49,6 +54,10 @@ void mode_2_manual_RUN()
     a_yaw = offset[YAW] + js_yaw;
     a_lift = offset[LIFT] + js_lift;
 
+    // a_roll = ((offset[ROLL] + js_roll) < 0 ? 0 : offset[ROLL] + js_roll);
+    // a_pitch = ((offset[PITCH] + js_pitch) < 0 ? 0 : offset[PITCH] + js_pitch);
+    // a_yaw = ((offset[YAW] + js_yaw) < 0 ? 0 : offset[YAW] + js_yaw);
+    
     oo1 = (a_lift + 2 * a_pitch - a_yaw);
 	oo2 = (a_lift - 2 * a_roll + a_yaw);
 	oo3 = (a_lift - 2 * a_pitch - a_yaw);
@@ -58,6 +67,13 @@ void mode_2_manual_RUN()
     oo2 = (oo2 < 200? MIN(a_lift, 200) : oo2);
     oo3 = (oo3 < 200 ? MIN(a_lift, 200) : oo3);
     oo4 = (oo4 < 200? MIN(a_lift, 200) : oo4);
+
+    //Preventing underflow by restricting engine speeds to be positive
+    oo1 = (oo1 < 0 ? 0 : oo1);
+    oo2 = (oo2 < 0? 0 : oo2);
+    oo3 = (oo3 < 0 ? 0 : oo3);
+    oo4 = (oo4 < 0? 0 : oo4);
+    
 
 	/* clip ooi as rotors only provide prositive thrust
 	 */
@@ -74,8 +90,6 @@ void mode_2_manual_RUN()
 	ae[1] = (oo2);
 	ae[2] = (oo3);
 	ae[3] = (oo4);
-
-
 
     update_motors();
 }

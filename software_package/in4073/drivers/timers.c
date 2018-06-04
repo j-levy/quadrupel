@@ -13,8 +13,8 @@
 #include "in4073.h"
 #include "app_timer.h"
  
-uint32_t global_time;
-bool timer_flag;
+volatile uint32_t global_time;
+volatile bool timer_flag;
 
 void TIMER2_IRQHandler(void)
 {
@@ -55,9 +55,15 @@ void TIMER1_IRQHandler(void)
 
 
 uint32_t get_time_us(void)
-{
-	NRF_TIMER2->TASKS_CAPTURE[2]=1;
-	return (global_time+(NRF_TIMER2->CC[2]>>3));
+{		
+	uint32_t high=0,low=0;
+	while( (high != global_time))
+	{
+		high = global_time;
+		NRF_TIMER2->TASKS_CAPTURE[2]=1;
+		low = NRF_TIMER2->CC[2]>>3;
+	}
+	return high+low;
 }
 
 bool check_timer_flag(void)
@@ -103,10 +109,10 @@ void timers_init(void)
 	NRF_TIMER1->TASKS_START	= 1;
 	
 	NVIC_ClearPendingIRQ(TIMER2_IRQn);
-	NVIC_SetPriority(TIMER2_IRQn, 3);
+	NVIC_SetPriority(TIMER2_IRQn, 1);
 	NVIC_EnableIRQ(TIMER2_IRQn);
 	NVIC_ClearPendingIRQ(TIMER1_IRQn);
-	NVIC_SetPriority(TIMER1_IRQn, 3);
+	NVIC_SetPriority(TIMER1_IRQn, 1);
 	NVIC_EnableIRQ(TIMER1_IRQn);
 
 	// motor 0 - gpiote 0

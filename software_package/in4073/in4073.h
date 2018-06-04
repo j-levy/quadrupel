@@ -86,7 +86,11 @@ bool i2c_read(uint8_t slave_addr, uint8_t reg_addr, uint8_t length, uint8_t *dat
 int16_t phi, theta, psi;
 int16_t sp, sq, sr;
 int16_t sax, say, saz;
+// offsets to be read when calibrating, and to substract when piloting.
+int16_t sp_offset, sq_offset, sr_offset, sax_offset, say_offset, saz_offset;
+
 uint8_t sensor_fifo_count;
+bool is_DMP_on;
 void imu_init(bool dmp, uint16_t interrupt_frequency); // if dmp is true, the interrupt frequency is 100Hz - otherwise 32Hz-8kHz
 void get_dmp_data(void);
 void get_raw_sensor_data(void);
@@ -162,6 +166,20 @@ void update_motors(void);
 uint8_t telemetry_packet[TELEMETRY_PACKET_SIZE];
 void send_telemetry_packet();
 
+// Link failure detection by drone
+#define RX_TIMEOUT 150000    //currently set to 150msec
+#define BATTERY_THRESHOLD 1050  //min safe battery voltage should be 10.5V
+							   //set to 500 now for testing without the drone
+uint8_t comm_link_failure;
+uint8_t abort_mission;
+
+// Processing offset from Keyboard 
+#define OFFSET_SCALING 1
+
+#define P_SCALING 1
+
+uint8_t proportional_controller_yaw;
+bool is_calibration_done;
 
 //Logging functionality [Tuan Anh Nguyen]
 bool log_init();

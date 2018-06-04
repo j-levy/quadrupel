@@ -1,7 +1,9 @@
 /*------------------------------------------------------------------
- *  packet.c -- a packet parser, byte by byte.
- *
- *  Author: Niket Agrawal, Jonathan Levy
+ *  packet.c : process_packet() method parses the recived control packet byte by byte,
+ *             does CRC computation according to the logic explained below and validates 
+ *             correct reception of packets.
+ *  
+ *  Author: Niket Agrawal
  * 
  * CRC is computed byte by byte and CRC check is done at the end of each packet (13 bytes) as before. 
  * The idea is to NOT discard the whole packet upon CRC decoding failure, as we may have picked a wrong start byte 
