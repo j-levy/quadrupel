@@ -17,6 +17,11 @@
  */
 
 #include "in4073.h"
+#include "modes/switch_mode.h"
+
+#define MIN(a,b) (a < b ? a : b)
+
+#define MAX(a,b) (a > b ? a : b)
 
 // #define DEBUG_TIMEOUT
 //#define BATTERY_MONITORING	
@@ -68,6 +73,17 @@ void store_key(uint8_t *val)
 				  break;	
 		case 'l': p_p2 = (p_p2 > P_SCALING ? p_p2 - P_SCALING : 1);
 			      break;
+
+		case 't' : flight_coeffs[LIFT]++; break;
+		case 'g' : flight_coeffs[LIFT] = MAX(flight_coeffs[LIFT]-1, 1); break;
+		case 'y' : flight_coeffs[ROLL]++; 
+					flight_coeffs[PITCH] = flight_coeffs[ROLL];break;
+		case 'h' : flight_coeffs[ROLL] = MAX(flight_coeffs[ROLL]-1, 1); 
+					flight_coeffs[PITCH] = flight_coeffs[ROLL]; break;
+		case 'r' : flight_coeffs[YAW]++; break;
+		case 'f' : flight_coeffs[YAW] = MAX(flight_coeffs[YAW]-1, 1); break;
+
+
 	}
 	telemetry_packet[P_YAW] = MSBYTE(p_yaw);
 	telemetry_packet[P_YAW+1] = LSBYTE(p_yaw);
@@ -269,7 +285,9 @@ int main(void)
 		if (check_sensor_int_flag()) 
 		{
 			get_dmp_data();
-			run_filters_and_control();
+
+			if (mode == MODE_2_MANUAL || mode == MODE_4_YAWCTRL || mode == MODE_5_FULLCTRL )
+				run_filters_and_control();
 		}
 		
 		
@@ -278,13 +296,7 @@ int main(void)
 			switch_mode(nextmode);
 
 		
-		/*For the sequence Esc -> panic > safe > abort
-		//if(!mode && abort_mission)
-			//demo_done = true;
-		//else
-		// ADDENDUM: this part is in MODE_0_SAFE_RUN
-		*/
-			mode_RUN[mode]();
+		mode_RUN[mode]();
 		
 		if ((get_time_us() - tx_timer) > TELEMETRY_TX_INTERVAL)
 		{

@@ -158,6 +158,7 @@ char_ptr_t mode_CANENTER[7];
 #define PITCH 1
 #define YAW 2
 #define LIFT 3
+int32_t flight_coeffs[4]; // ROLL, PITCH, YAW, LIFT
 
 void update_motors(void);
 
@@ -175,9 +176,11 @@ uint8_t abort_mission;
 
 
 uint16_t p_yaw;
-uint8_t p_p1;
-uint8_t p_p2;
-#define P_SCALING 10
+uint16_t p_p1;
+uint16_t p_p2;
+#define P_SCALING 1
 bool is_calibration_done;
+
+
 
 #endif // IN4073_H__

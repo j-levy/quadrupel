@@ -1,3 +1,11 @@
+#define MAX_SPEED 600
+#define MIN_SPEED 200
+
+
+#define MIN(a,b) (a < b ? a : b)
+#define MAX(a,b) (a > b ? a : b)
+
+
 
 // define easy-to-use macros for sensor - offset
 #define __SAX    (sax - sax_offset)
@@ -9,4 +17,3 @@
 #define __PHI    (phi - phi_offset)
 #define __THETA    (theta - theta_offset)
 #define __PSI    (psi - psi_offset)
-
