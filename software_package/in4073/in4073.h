@@ -174,6 +174,10 @@ void send_telemetry_packet();
 uint8_t comm_link_failure;
 uint8_t abort_mission;
 
+// Processing offset from Keyboard 
+#define OFFSET_SCALING 1
+
+#define P_SCALING 1
 
 uint16_t p_yaw;
 uint16_t p_p1;
@@ -181,6 +185,11 @@ uint16_t p_p2;
 #define P_SCALING 1
 bool is_calibration_done;
 
-
+//Logging functionality [Tuan Anh Nguyen]
+bool log_init();
+bool log_sensor();
+bool log_write_item();
+void log_read_all();
+void log_read_last();
 
 #endif // IN4073_H__

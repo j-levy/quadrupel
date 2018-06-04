@@ -601,6 +601,9 @@ int main(int argc, char **argv)
 		{
 			control_packet[JOYBUTTON] |= (jsdat->button[j] == 1) << j; // 10 for not storing anything.
 		}
+		//If fire button is pressed send mode as panic (same as Esc key press behavior)
+		if(control_packet[JOYBUTTON] == 1)
+			control_packet[MODE] = 27;
 		
 		if ((d = term_getchar_nb()) != -1)
 		{
@@ -658,6 +661,7 @@ int main(int argc, char **argv)
 			tic_s = tp.tv_sec;
 			is_sending_packet = 1;
 		}
+
 		if ((tp.tv_nsec - tic_rx) > TELEMETRY_TIMEOUT_NS && !is_timeout)
 		{
 			tic_rx = tp.tv_nsec;
