@@ -87,7 +87,7 @@ int16_t phi, theta, psi;
 int16_t sp, sq, sr;
 int16_t sax, say, saz;
 // offsets to be read when calibrating, and to substract when piloting.
-int16_t sp_offset, sq_offset, sr_offset, sax_offset, say_offset, saz_offset;
+int16_t sp_offset, sq_offset, sr_offset, sax_offset, say_offset, saz_offset, phi_offset, psi_offset, theta_offset;
 
 uint8_t sensor_fifo_count;
 bool is_DMP_on;
@@ -158,6 +158,7 @@ char_ptr_t mode_CANENTER[7];
 #define PITCH 1
 #define YAW 2
 #define LIFT 3
+int32_t flight_coeffs[4]; // ROLL, PITCH, YAW, LIFT
 
 void update_motors(void);
 
@@ -178,7 +179,10 @@ uint8_t abort_mission;
 
 #define P_SCALING 1
 
-uint8_t proportional_controller_yaw;
+uint16_t p_yaw;
+uint16_t p_p1;
+uint16_t p_p2;
+#define P_SCALING 1
 bool is_calibration_done;
 
 //Logging functionality [Tuan Anh Nguyen]

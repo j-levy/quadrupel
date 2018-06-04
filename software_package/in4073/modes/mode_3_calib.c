@@ -38,6 +38,17 @@ void mode_3_calib_INIT()
 {
     // nothing in particular.
     is_calibration_done = true;
+
+    // initialize to last read values.
+    sax_offset = sax;
+    say_offset = say;
+    saz_offset = saz;
+    sp_offset = sp;
+    sq_offset = sq;
+    sr_offset = sr;
+    phi_offset = phi;
+    theta_offset = theta;
+    psi_offset = psi;
 }
 
 void mode_3_calib_QUIT()
@@ -49,14 +60,18 @@ void mode_3_calib_RUN()
 {    
     // get values, store them as offsets. 
     // The board might move, so we do this repetively so that only the final value is registered.
-
     // the sensor reading is already done in the main, actually.
-    
-    sax_offset = sax;
-    say_offset = say;
-    saz_offset = saz;
-    sp_offset = sp;
-    sq_offset = sq;
-    sr_offset = sr;
+
+
+    // make a mean over time, but without taking hundreds of bytes of memory...
+    sax_offset = (sax/2) + (sax_offset/2);
+    say_offset = (say/2) + (sax_offset/2);
+    saz_offset = (saz/2)+ (sax_offset/2);
+    sp_offset = (sp/2) + (sp_offset/2);
+    sq_offset = (sq/2) + (sq_offset/2);
+    sr_offset = (sr/2) + (sr_offset/2);
+    phi_offset = (phi/2) + (phi_offset/2);
+    theta_offset = (theta/2) + (theta_offset/2);
+    psi_offset = (psi/2) + (psi_offset/2);
 
 }

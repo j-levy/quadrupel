@@ -16,18 +16,23 @@ void mode_1_panic_RUN(void);
 void mode_2_manual_RUN(void);
 void mode_3_calib_RUN(void);
 void mode_4_yaw_RUN(void);
+void mode_5_full_RUN(void);
 
 void mode_0_safe_QUIT(void);
 void mode_1_panic_QUIT(void);
 void mode_2_manual_QUIT(void);
 void mode_3_calib_QUIT(void);
 void mode_4_yaw_QUIT(void);
+void mode_5_full_QUIT(void);
+
 
 void mode_0_safe_INIT(void);
 void mode_1_panic_INIT(void);
 void mode_2_manual_INIT(void);
 void mode_3_calib_INIT(void);
 void mode_4_yaw_INIT(void);
+void mode_5_full_INIT(void);
+
 
 char mode_0_safe_CANLEAVE(uint8_t target);
 char mode_0_safe_CANENTER(uint8_t source);
@@ -39,3 +44,5 @@ char mode_3_calib_CANLEAVE(uint8_t target);
 char mode_3_calib_CANENTER(uint8_t source);
 char mode_4_yaw_CANLEAVE(uint8_t target);
 char mode_4_yaw_CANENTER(uint8_t source);
+char mode_5_full_CANLEAVE(uint8_t target);
+char mode_5_full_CANENTER(uint8_t source);

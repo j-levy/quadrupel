@@ -1,7 +1,5 @@
 #include "in4073.h"
 #include "switch_mode.h"
-#include "mode_2_manual.h"
-
 /*
 Manual mode functions for the state machine.
 Jonathan Lévy
@@ -28,6 +26,14 @@ char mode_2_manual_CANENTER(uint8_t source)
 
 void mode_2_manual_INIT()
 {
+    for (int i = 0; i < 4; i++) 
+        flight_coeffs[i] = 1;
+    
+    // coefficients determined empirically. They seem more or less ok.
+    flight_coeffs[ROLL] = 9;
+    flight_coeffs[PITCH] = flight_coeffs[ROLL];
+    flight_coeffs[LIFT] = 3*flight_coeffs[ROLL];
+    flight_coeffs[YAW] = 2*flight_coeffs[ROLL];
 
 }
 
@@ -38,58 +44,5 @@ void mode_2_manual_QUIT()
 
 void mode_2_manual_RUN()
 {
-    int16_t oo1, oo2, oo3, oo4;
-    int16_t js_roll, js_pitch, js_lift, a_roll, a_pitch, a_yaw, a_lift;
-    static int16_t js_yaw = 0;
-    
-    js_roll = axis[ROLL] >> (BITSCALE+2);
-    js_pitch = axis[PITCH] >> (BITSCALE+2);
-
-    // Yaw command is not cumulative in manual mode
-    js_yaw = ((axis[YAW]) * DT) >> BITSCALE;
-    js_lift = (-(axis[LIFT] - 32767) >> 1) >> BITSCALE;
-
-    a_roll = offset[ROLL] + js_roll;
-    a_pitch = offset[PITCH] + js_pitch;
-    a_yaw = offset[YAW] + js_yaw;
-    a_lift = offset[LIFT] + js_lift;
-
-    // a_roll = ((offset[ROLL] + js_roll) < 0 ? 0 : offset[ROLL] + js_roll);
-    // a_pitch = ((offset[PITCH] + js_pitch) < 0 ? 0 : offset[PITCH] + js_pitch);
-    // a_yaw = ((offset[YAW] + js_yaw) < 0 ? 0 : offset[YAW] + js_yaw);
-    
-    oo1 = (a_lift + 2 * a_pitch - a_yaw);
-	oo2 = (a_lift - 2 * a_roll + a_yaw);
-	oo3 = (a_lift - 2 * a_pitch - a_yaw);
-	oo4 = (a_lift + 2 * a_roll + a_yaw);
-
-    oo1 = (oo1 < 200 ? MIN(a_lift, 200) : oo1);
-    oo2 = (oo2 < 200? MIN(a_lift, 200) : oo2);
-    oo3 = (oo3 < 200 ? MIN(a_lift, 200) : oo3);
-    oo4 = (oo4 < 200? MIN(a_lift, 200) : oo4);
-
-    //Preventing underflow by restricting engine speeds to be positive
-    oo1 = (oo1 < 0 ? 0 : oo1);
-    oo2 = (oo2 < 0? 0 : oo2);
-    oo3 = (oo3 < 0 ? 0 : oo3);
-    oo4 = (oo4 < 0? 0 : oo4);
-    
-
-	/* clip ooi as rotors only provide prositive thrust
-	 */
-	
-
-    if (oo1 > MAX_SPEED) oo1 = MAX_SPEED;
-	if (oo2 > MAX_SPEED) oo2 = MAX_SPEED;
-	if (oo3 > MAX_SPEED) oo3 = MAX_SPEED;
-	if (oo4 > MAX_SPEED) oo4 = MAX_SPEED;
-
-	/* with ai = oi it follows
-	 */
-	ae[0] = (oo1);
-	ae[1] = (oo2);
-	ae[2] = (oo3);
-	ae[3] = (oo4);
-
-    update_motors();
+    // code deported - not to be run at crazy speed
 }

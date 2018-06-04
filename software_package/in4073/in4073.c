@@ -17,6 +17,11 @@
  */
 
 #include "in4073.h"
+#include "modes/switch_mode.h"
+
+#define MIN(a,b) (a < b ? a : b)
+
+#define MAX(a,b) (a > b ? a : b)
 
 // #define DEBUG_TIMEOUT
 //#define BATTERY_MONITORING	
@@ -72,39 +77,73 @@ void store_key(uint8_t *val)
 	keyboard_key = *val;
 	switch(keyboard_key)
 	{
-		case 'u': proportional_controller_yaw += P_SCALING;
+    /* Keys for P controllers adjust*/
+		case 'u': p_yaw += P_SCALING;
 				  break;
-		case 'j': proportional_controller_yaw = (proportional_controller_yaw > P_SCALING ? proportional_controller_yaw-P_SCALING : 1);
+		case 'j': p_yaw = (p_yaw > P_SCALING ? p_yaw-P_SCALING : 1);
 			      break;
-
-		case 'a': offset[LIFT] += OFFSET_SCALING; //lift up
-				  break;
-
-		case 'z': offset[LIFT] -= OFFSET_SCALING;
-					//offset[LIFT] = (offset[LIFT] > OFFSET_SCALING ? offset[LIFT] - OFFSET_SCALING : 0); //lift down
+		case 'i': p_p1 += P_SCALING;
 				  break;	
-
-		case 44:  offset[PITCH] += OFFSET_SCALING; //pitch up
+		case 'k': p_p1 = (p_p1 > P_SCALING ? p_p1 - P_SCALING : 1);
+			      break;
+		case 'o': p_p2 += P_SCALING;
+				  break;	
+		case 'l': p_p2 = (p_p2 > P_SCALING ? p_p2 - P_SCALING : 1);
+			      break;
+      
+      
+    /* keys for relative coefficient for flight adjust */
+		case 't' : flight_coeffs[LIFT]++; break;
+		case 'g' : flight_coeffs[LIFT] = MAX(flight_coeffs[LIFT]-1, 1); break;
+		case 'y' : flight_coeffs[ROLL]++; 
+					flight_coeffs[PITCH] = flight_coeffs[ROLL];break;
+		case 'h' : flight_coeffs[ROLL] = MAX(flight_coeffs[ROLL]-1, 1); 
+					flight_coeffs[PITCH] = flight_coeffs[ROLL]; break;
+		case 'r' : flight_coeffs[YAW]++; break;
+		case 'f' : flight_coeffs[YAW] = MAX(flight_coeffs[YAW]-1, 1); break;
+      
+     /* keys for offset adjust 
+     WARNING: only pitch and roll. Missing LIFT and YAW. See next comments. */
+    case 44:  offset[PITCH] += OFFSET_SCALING; //pitch up
 				  break;
-
 		case 42:  offset[PITCH] -= OFFSET_SCALING ; //pitch down
 				  break;
-
 		case 43:  offset[ROLL] += OFFSET_SCALING; //roll down
 				  break;
-
 		case 45:  offset[ROLL] -= OFFSET_SCALING ; //roll up
 				  break;
-
 		case 'w': offset[YAW] += OFFSET_SCALING; //yaw up
 				  break; 
-
 		case 'q': offset[YAW] -= OFFSET_SCALING ; //yaw down
 				  break;	
 
+
 	}
-	telemetry_packet[P_VALUE] = proportional_controller_yaw;
-}
+	telemetry_packet[P_YAW] = MSBYTE(p_yaw);
+	telemetry_packet[P_YAW+1] = LSBYTE(p_yaw);
+	telemetry_packet[P1] = p_p1;
+	telemetry_packet[P2] = p_p2;
+	
+	// switch(keyboard_key)
+	// {
+	// 	case 97: offset[LIFT] = offset[LIFT] + 10; //lift up
+	// 			 break;
+	// 	case 122: offset[LIFT] = offset[LIFT] - 10; //lift down
+	// 			 break;
+	// 	case 42: offset[PITCH] = offset[PITCH] - 10; //pitch down
+	// 			 break;
+	// 	case 43: offset[LIFT] = offset[ROLL] - 10; //roll down
+	// 			 break;
+	// 	case 44: offset[LIFT] = offset[PITCH] + 10; //pitch up
+	// 			 break;
+	// 	case 45: offset[PITCH] = offset[ROLL] + 10; //roll up
+	// 			 break;
+	// 	case 113: offset[YAW] = offset[YAW] - 10; //yaw down
+	// 			 break;
+	// 	case 119: offset[YAW] = offset[YAW] + 10; //yaw up
+	// 			 break; 
+	// }
+
 
 void store_mode(uint8_t *val)
 {
@@ -272,16 +311,13 @@ int main(void)
 			
 			clear_timer_flag();
 		}
-
-		// if (nextmode != mode)
-		// 	switch_mode(nextmode); //commenting this additional code which possible got pasted twice in master
-
-
-		// Note: this is probably something that will be included in the mode functions.
-		if (check_sensor_int_flag()) 
+    
+    if (check_sensor_int_flag()) 
 		{
 			get_dmp_data();
-			run_filters_and_control();
+
+			if (mode == MODE_2_MANUAL || mode == MODE_4_YAWCTRL || mode == MODE_5_FULLCTRL )
+				run_filters_and_control();
 		}
 		
 		
@@ -290,13 +326,7 @@ int main(void)
 			switch_mode(nextmode);
 
 		
-		/*For the sequence Esc -> panic > safe > abort
-		//if(!mode && abort_mission)
-			//demo_done = true;
-		//else
-		// ADDENDUM: this part is in MODE_0_SAFE_RUN
-		*/
-			mode_RUN[mode]();
+		mode_RUN[mode]();
 		
 		if ((get_time_us() - tx_timer) > TELEMETRY_TX_INTERVAL)
 		{
