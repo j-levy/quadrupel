@@ -49,11 +49,27 @@ void store_joystick_axis(uint8_t *val)
 		int16_t stickvalue = (((int16_t) *(val + 2*i)) << 8) + ((int16_t) *(val + 2*i + 1));
 		axis[i] = stickvalue;
 	}
+	
+	//If throttle is almost zero, clear the offset
+	if(axis[3] > 32000)
+	{
+		for(int i =0; i<4; i++)
+        {
+            offset[i] = 0;
+        }
+	}		
 }
 
 void store_joystick_button(uint8_t *val)
 {
 	buttons = *val;
+	//Enter panic mode if joystick fire button (Abort mission) pressed
+	if(buttons == 1)
+	{
+		abort_mission = 1;
+		nextmode = 1;
+	}
+		
 }
 
 void store_key(uint8_t *val)
@@ -109,7 +125,7 @@ void store_key(uint8_t *val)
 	// 	case 119: offset[YAW] = offset[YAW] + 10; //yaw up
 	// 			 break; 
 	// }
-}
+
 
 void store_mode(uint8_t *val)
 {
@@ -141,6 +157,7 @@ int main(void)
 	baro_init();
 	spi_flash_init();
 	ble_init();
+	log_init();
 
 	init_modes();
 
@@ -281,6 +298,7 @@ int main(void)
 		// 	switch_mode(nextmode);
 
 
+
 		// Note: this is probably something that will be included in the mode functions.
 		if (check_sensor_int_flag()) 
 		{
@@ -302,6 +320,9 @@ int main(void)
 		{
 			tx_timer = get_time_us();
 			send_telemetry_packet();
+			log_write_item();
+			//log_read_last();
+			log_read_all();
 		}
 	}	
 
