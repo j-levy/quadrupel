@@ -31,8 +31,8 @@ uint16_t motor4 = 0;
 uint16_t bat_volt;
 
 uint16_t p_value;
-uint16_t p1_value;
-uint16_t p2_value;
+uint8_t p1_value;
+uint8_t p2_value;
 int16_t phi;
 
 
