@@ -45,5 +45,10 @@ void send_telemetry_packet()
 		//fprintf(stderr, "\n");
         printf("\n");
 	#endif
+	//reset packet	
+	for (int j = 0; j < TELEMETRY_PACKET_SIZE; j++)
+	{
+		telemetry_packet[j] = 0;	
+	}
 
 }

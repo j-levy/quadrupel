@@ -175,7 +175,7 @@ uint8_t comm_link_failure;
 uint8_t abort_mission;
 
 // Processing offset from Keyboard 
-#define OFFSET_SCALING 1
+#define OFFSET_SCALING 32
 
 #define P_SCALING 1
 
