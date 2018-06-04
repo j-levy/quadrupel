@@ -136,6 +136,7 @@ int main(void)
 	baro_init();
 	spi_flash_init();
 	ble_init();
+	log_init();
 
 	init_modes();
 
@@ -301,6 +302,9 @@ int main(void)
 		{
 			tx_timer = get_time_us();
 			send_telemetry_packet();
+			log_write_item();
+			//log_read_last();
+			log_read_all();
 		}
 	}	
 

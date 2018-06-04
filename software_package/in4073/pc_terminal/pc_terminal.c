@@ -661,6 +661,7 @@ int main(int argc, char **argv)
 			tic_s = tp.tv_sec;
 			is_sending_packet = 1;
 		}
+
 		if ((tp.tv_nsec - tic_rx) > TELEMETRY_TIMEOUT_NS && !is_timeout)
 		{
 			tic_rx = tp.tv_nsec;

@@ -181,4 +181,11 @@ uint8_t abort_mission;
 uint8_t proportional_controller_yaw;
 bool is_calibration_done;
 
+//Logging functionality [Tuan Anh Nguyen]
+bool log_init();
+bool log_sensor();
+bool log_write_item();
+void log_read_all();
+void log_read_last();
+
 #endif // IN4073_H__
