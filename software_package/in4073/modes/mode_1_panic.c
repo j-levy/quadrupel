@@ -1,6 +1,5 @@
 #include "in4073.h"
 #include "switch_mode.h"
-#include "modes_flight.h"
 
 
 /*
@@ -36,7 +35,7 @@ void mode_1_panic_INIT()
 {
     for (int i = 0; i < 4; i++)
     {
-        ae[i] = MIN(ae[i], MIN_SPEED);
+        ae[i] = 300;
         offset[i] = 0;
     }
     counter = 0;
@@ -54,7 +53,7 @@ void mode_1_panic_QUIT()
 void mode_1_panic_RUN()
 {    
     counter++;
-    if (counter%500 == 0) // slow down a bit
+    if (counter%1500 == 0) // slow down A LOT
     {
         for (int i = 0; i < 4; i++)
             ae[i] = (ae[i] - 1 < 0 ? 0 : ae[i] - 1);
