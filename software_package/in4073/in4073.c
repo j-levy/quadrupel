@@ -333,7 +333,7 @@ int main(void)
 		{
 			tx_timer = get_time_us();
 			send_telemetry_packet();
-			log_write_item();
+			log_sensor();
 			//log_read_last();
 			log_read_all();
 		}

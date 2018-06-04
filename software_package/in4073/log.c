@@ -28,7 +28,7 @@ bool log_init() {
     flash_chip_erase();
     return spi_flash_init();
 }
-
+/*
 bool log_write_item() {
     if (logsize > 3400){
         printf("Flash memory full");
@@ -71,7 +71,7 @@ bool log_write_item() {
         return false;
     }
 }
-
+*/
 
 bool log_sensor(){
     if (logsize > MAX_ITEM){
