@@ -123,6 +123,7 @@ void store_key(uint8_t *val)
 	telemetry_packet[P_YAW+1] = LSBYTE(p_yaw);
 	telemetry_packet[P1] = p_p1;
 	telemetry_packet[P2] = p_p2;
+}
 	
 	// switch(keyboard_key)
 	// {
