@@ -59,8 +59,6 @@ bool demo_done;
 bool is_calibration_done;
 bool is_DMP_on;
 
-
-
 // Mode
 uint8_t mode;
 // Control and motors
@@ -68,8 +66,12 @@ int16_t motor[4],ae[4], offset[4];
 uint8_t buttons;
 uint8_t keyboard_key;
 int16_t axis[4];
+int32_t flight_coeffs[4]; // ROLL, PITCH, YAW, LIFT
+
 // offsets to be read when calibrating, and to substract when piloting.
-int16_t sp_offset, sq_offset, sr_offset, sax_offset, say_offset, saz_offset, phi_offset, psi_offset, theta_offset;
+int16_t sp_offset, sq_offset, sr_offset; 
+int16_t sax_offset, say_offset, saz_offset;
+int16_t phi_offset, psi_offset, theta_offset;
 
 // Coefficients for the control
 uint16_t p_yaw;
@@ -79,8 +81,6 @@ uint16_t p_p2;
 // tester for link failure
 uint8_t comm_link_failure;
 uint8_t abort_mission;
-
-int32_t flight_coeffs[4]; // ROLL, PITCH, YAW, LIFT
 
 uint8_t telemetry_packet[TELEMETRY_PACKET_SIZE];
 
