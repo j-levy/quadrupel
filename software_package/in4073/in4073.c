@@ -115,7 +115,11 @@ void store_key(uint8_t *val)
 		case 'w': offset[YAW] += OFFSET_SCALING; //yaw up
 				  break; 
 		case 'q': offset[YAW] -= OFFSET_SCALING ; //yaw down
-				  break;	
+				  break;
+		case 'a': offset[LIFT] += OFFSET_SCALING; //yaw up
+				  break; 
+		case 'z': offset[LIFT] -= OFFSET_SCALING ; //yaw down
+				  break;
 
 
 	}
