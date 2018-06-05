@@ -48,8 +48,8 @@ void run_filters_and_control()
 	if (mode == 5)
 	{
 		js[YAW] = p_yaw * (js[YAW]/p_yaw - __SR);
-		js[ROLL] = p_p1 * (js[ROLL]/(p_p1) - __PHI) - (p_p2 * __SP);
-		js[PITCH] = p_p1 * (js[PITCH]/(p_p1) - __THETA) - (p_p2 * __SQ);
+		js[ROLL] = (p_p1<<3) * (js[ROLL]/(p_p1) - __PHI) - ((p_p2<<3) * __SP);
+		js[PITCH] = (p_p1<<3) * (js[PITCH]/(p_p1) - __THETA) - ((p_p2<<3) * __SQ);
 		// you can add telemetry here! Be careful with the number of bytes though.
 		telemetry_packet[PHI] = MSBYTE(__PHI);
 		telemetry_packet[PHI+1] = LSBYTE(__PHI);
