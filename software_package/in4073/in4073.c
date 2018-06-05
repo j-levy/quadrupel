@@ -251,25 +251,6 @@ int main(void)
 
 			read_baro();
 
-			/*
-			#ifdef DEBUG
-
-				printf("%10ld | ", get_time_us());
-				printf("ae: %3d %3d %3d %3d | ",ae[0],ae[1],ae[2],ae[3]);
-				printf("motor: %3d %3d %3d %3d | ",motor[0],motor[1],motor[2],motor[3]);
-				//printf("%6d %6d %6d | ", phi, theta, psi);
-				//printf("%6d %6d %6d | ", sp, sq, sr);
-				//printf("%4d | %4ld | %6ld | ", bat_volt, temperature, pressure);
-				
-				printf("axis: %d %d %d %d |", axis[0], axis[1], axis[2], ((-(axis[LIFT] - 32767) / 2)));
-
-				printf("%d |", buttons);
- 
-				printf("%d | ", mode);
-				printf("\n");
-
-			#endif
-			*/
 
 			//Filling rotor RPM data
 			for (int j = 0; j < 4; j++)
@@ -278,42 +259,15 @@ int main(void)
 				telemetry_packet[ROTOR1 + 2*j + 1] = LSBYTE( ae[j] );
 			}	
 
-			//Mode
+			//Mode & battery voltage
 			telemetry_packet[MODE_DRONE] = mode;
-
-			//Attitude
-			// telemetry_packet[PHI] = MSBYTE(phi);
-			// telemetry_packet[PHI + 1] = LSBYTE(phi);
-			// telemetry_packet[THETA] = MSBYTE(theta);
-			// telemetry_packet[THETA + 1] = LSBYTE(theta);
-			// telemetry_packet[PSI] = MSBYTE(psi);
-			// telemetry_packet[PSI + 1] = LSBYTE(psi);
-
-			//Angular velocity
-			// telemetry_packet[SP] = MSBYTE(sp);
-			// telemetry_packet[SP + 1] = LSBYTE(sp);
-			// telemetry_packet[SQ] = MSBYTE(sq);
-			// telemetry_packet[SQ + 1] = LSBYTE(sq);
-			// telemetry_packet[SR] = MSBYTE(sr);
-			// telemetry_packet[SR + 1] = LSBYTE(sr);
-			
 			telemetry_packet[BAT_VOLT] = MSBYTE(bat_volt);
 			telemetry_packet[BAT_VOLT + 1] = LSBYTE(bat_volt);
 
-			// telemetry_packet[TEMPERATURE] = MSBYTE_WORD(temperature);
-			// telemetry_packet[TEMPERATURE + 1] = BYTE2_WORD(temperature);
-			// telemetry_packet[TEMPERATURE + 2] = BYTE3_WORD(temperature);
-			// telemetry_packet[TEMPERATURE + 3] = LSBYTE_WORD(temperature);
-
-			// telemetry_packet[PRESSURE] = MSBYTE_WORD(pressure);
-			// telemetry_packet[PRESSURE + 1] = BYTE2_WORD(pressure);
-			// telemetry_packet[PRESSURE + 2] = BYTE3_WORD(pressure);
-			// telemetry_packet[PRESSURE + 3] = LSBYTE_WORD(pressure);
-			
 			clear_timer_flag();
 		}
     
-    if (check_sensor_int_flag()) 
+    	if (check_sensor_int_flag()) 
 		{
 			get_dmp_data();
 
@@ -333,11 +287,13 @@ int main(void)
 		{
 			tx_timer = get_time_us();
 			send_telemetry_packet();
-			//log_sensor();
-			//log_read_last();
-			//log_read_all();
+			log_sensor();
 		}
 	}	
+	
+	// TODO : implement offloading with these functions
+	log_read_last();
+	log_read_all();
 
 	printf("\n\t Goodbye \n\n");
 	nrf_delay_ms(100);

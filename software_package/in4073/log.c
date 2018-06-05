@@ -75,7 +75,8 @@ bool log_write_item() {
 
 bool log_sensor(){
     if (logsize > MAX_ITEM){
-        printf("Flash memory full");
+        //
+        // printf("Flash memory full");
         return false;
     }
     uint32_t current_time = get_time_us();
