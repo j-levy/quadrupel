@@ -47,9 +47,10 @@ void run_filters_and_control()
 
 	if (mode == 5)
 	{
-		js[YAW] = p_yaw * (js[YAW]/p_yaw - __SR);
-		js[ROLL] = (p_p1<<3) * (js[ROLL]/(p_p1) - __PHI) - ((p_p2<<3) * __SP);
-		js[PITCH] = (p_p1<<3) * (js[PITCH]/(p_p1) - __THETA) - ((p_p2<<3) * __SQ);
+		js[YAW] = (p_yaw>>3) * (js[YAW]/(p_yaw>>3) - __SR);
+		js[ROLL] = (p_p1>>3) * (js[ROLL]/(p_p1>>3) - __PHI) - ((p_p2>>3) * __SP);
+		js[PITCH] = (p_p1>>3) * (js[PITCH]/(p_p1>>3) - __THETA) - ((p_p2>>3) * __SQ);
+		// <divide by 8
 		// you can add telemetry here! Be careful with the number of bytes though.
 		telemetry_packet[PHI] = MSBYTE(__PHI);
 		telemetry_packet[PHI+1] = LSBYTE(__PHI);
@@ -73,6 +74,7 @@ void run_filters_and_control()
         // because coeff[ROLL] == coeff[PITCH] (I do this because of symmetry, makes sense)
         oo[i] = MAX(oo[i], 0);
         oo[i] = (oo[i] < MIN_SPEED*32 ? MIN(a[LIFT], MIN_SPEED*32) : oo[i]);
+		oo[i] = (a[LIFT] < MIN_SPEED*32 ? MIN(a[LIFT], oo[i]) : oo[i]);
         oo[i] = MIN(oo[i], MAX_SPEED*32);
         ae[i] = oo[i] / (32); // scale 0->32767 to 0->1023, but capped to 600 anyway.
         

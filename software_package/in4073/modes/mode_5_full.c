@@ -36,9 +36,9 @@ void mode_5_full_INIT()
     flight_coeffs[YAW] = 2*flight_coeffs[ROLL];
 
     // initialize the global variable for the controller.
-    p_yaw = 1;
-    p_p1 = 1;
-    p_p2 = 1;
+    p_yaw = 8;
+    p_p1 = 8;
+    p_p2 = 8;
 }
 
 void mode_5_full_QUIT()
