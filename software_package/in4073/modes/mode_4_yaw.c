@@ -4,6 +4,8 @@ Author:Yuhao Xuan
 */
 #include "in4073.h"
 #include "switch_mode.h"
+#include "modes_flight.h"
+
 
 
 
@@ -26,9 +28,6 @@ char mode_4_yaw_CANENTER(uint8_t source)
 }
 void mode_4_yaw_INIT()
 {
-
-    for (int i = 0; i < 4; i++) 
-        flight_coeffs[i] = 1;
     
     // coefficients determined empirically. They seem more or less ok.
     flight_coeffs[ROLL] = 9;
@@ -37,7 +36,7 @@ void mode_4_yaw_INIT()
     flight_coeffs[YAW] = 2*flight_coeffs[ROLL];
 
     // initialize the global variable for the controller.
-    p_yaw = 1;
+    p_yaw = P_SCALE;
 }
 
 void mode_4_yaw_QUIT()

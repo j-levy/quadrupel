@@ -78,17 +78,17 @@ void store_key(uint8_t *val)
 	switch(keyboard_key)
 	{
     /* Keys for P controllers adjust*/
-		case 'u': p_yaw += P_SCALING;
+		case 'u': p_yaw = MIN(p_yaw+1, 254);
 				  break;
-		case 'j': p_yaw = (p_yaw > P_SCALING ? p_yaw-P_SCALING : 1);
+		case 'j': p_yaw = MAX(p_yaw-1, 1);
 			      break;
-		case 'i': p_p1 += P_SCALING;
-				  break;	
-		case 'k': p_p1 = (p_p1 > P_SCALING ? p_p1 - P_SCALING : 1);
+		case 'i': p_p1 = MIN(p_p1+1, 254);
+				  break;
+		case 'k': p_p1 = MAX(p_p1-1, 1);
 			      break;
-		case 'o': p_p2 += P_SCALING;
+		case 'o': p_p2 = MIN(p_p2+1, 254);
 				  break;	
-		case 'l': p_p2 = (p_p2 > P_SCALING ? p_p2 - P_SCALING : 1);
+		case 'l': p_p2 = MAX(p_p2-1, 1);
 			      break;
       
       
