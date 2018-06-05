@@ -41,17 +41,17 @@ void run_filters_and_control()
 
 	if (mode == 4)
 	{
-		js[YAW] = (p_yaw * (js[YAW]/p_yaw - __SR))/P_SCALE;
+		js[YAW] = (p_yaw * (P_SCALE*js[YAW]/p_yaw - __SR))/P_SCALE;
 		// you can add telemetry here!
 	}
 
 	if (mode == 5)
 	{
-		js[YAW] = ((p_yaw) * (js[YAW]/(p_yaw) - __SR))/P_SCALE;
+		js[YAW] = ((p_yaw) * (P_SCALE*js[YAW]/(p_yaw) - __SR))/P_SCALE;
 
-		js[ROLL]  = ((p_p1) * (js[ROLL] /(p_p1) - __PHI ) - ((p_p2) * __SP))/P_SCALE;
+		js[ROLL]  = ((p_p1) * (P_SCALE*js[ROLL] /(p_p1) - __PHI ) - ((p_p2) * __SP))/P_SCALE;
 		// change sign of p_p2 ?
-		js[PITCH] = ((p_p1) * (js[PITCH]/(p_p1) - __THETA) - ((p_p2) * __SQ))/P_SCALE;
+		js[PITCH] = ((p_p1) * (P_SCALE*js[PITCH]/(p_p1) - __THETA) - ((p_p2) * __SQ))/P_SCALE;
 		
 		// <divide by 8
 		// you can add telemetry here! Be careful with the number of bytes though.
