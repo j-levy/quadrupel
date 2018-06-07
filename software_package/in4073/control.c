@@ -59,6 +59,13 @@ void run_filters_and_control()
 		telemetry_packet[PHI+1] = LSBYTE(__PHI);
 	}
 
+	if (mode == 6)
+	{
+		//printf("RAW SENSORS |sax|%d|say|%d|saz|%d|sp|%d|sq|%d|sr|%d|\n",sax,say,saz,sp,sq,sr);
+		telemetry_packet[PHI] = MSBYTE(sax);
+		telemetry_packet[PHI+1] = LSBYTE(sax);	
+	
+	}
 
     for (int i = 0; i < 4; i++)
     {

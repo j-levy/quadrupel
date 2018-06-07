@@ -286,9 +286,12 @@ int main(void)
 		}
 		
 		
-
 		if (nextmode != mode)
+		{
+			if (mode==6)
+				imu_init(true,100);
 			switch_mode(nextmode);
+		}
 
 		
 		mode_RUN[mode]();

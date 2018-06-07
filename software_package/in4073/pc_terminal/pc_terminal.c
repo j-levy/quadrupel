@@ -513,8 +513,8 @@ void *entrythread_read(void *param)
 					control_packet[MODE] = '1';
 					is_timeout = 0;
 				}
-				term_putchar(c); 
-				//process_telemetry(c);
+				//term_putchar(c); 
+				process_telemetry(c);
 			}
 		}
 		return NULL;

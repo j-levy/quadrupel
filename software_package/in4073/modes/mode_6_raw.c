@@ -23,7 +23,8 @@ char mode_6_raw_CANENTER(uint8_t source)
 void mode_6_raw_INIT()
 {
     //initialize the imu to raw mode
-    imu_init(false, 100);
+    imu_init(false, 1000);
+    //printf("MODE 6 ENTERED");
 
 
     // initialize the global variable for the controller.
