@@ -78,15 +78,15 @@ void store_key(uint8_t *val)
 	switch(keyboard_key)
 	{
     /* Keys for P controllers adjust*/
-		case 'u': p_yaw = MIN(p_yaw+1, 254);
+		case 'u': p_yaw = MIN(p_yaw+1, 65534);
 				  break;
 		case 'j': p_yaw = MAX(p_yaw-1, 1);
 			      break;
-		case 'i': p_p1 = MIN(p_p1+1, 254);
+		case 'i': p_p1 = MIN(p_p1+1, 65534);
 				  break;
 		case 'k': p_p1 = MAX(p_p1-1, 1);
 			      break;
-		case 'o': p_p2 = MIN(p_p2+1, 254);
+		case 'o': p_p2 = MIN(p_p2+1, 65534);
 				  break;	
 		case 'l': p_p2 = MAX(p_p2-1, 1);
 			      break;
@@ -125,29 +125,11 @@ void store_key(uint8_t *val)
 	}
 	telemetry_packet[P_YAW] = MSBYTE(p_yaw);
 	telemetry_packet[P_YAW+1] = LSBYTE(p_yaw);
-	telemetry_packet[P1] = p_p1;
-	telemetry_packet[P2] = p_p2;
+	telemetry_packet[P1] = MSBYTE(p_p1);
+	telemetry_packet[P1+1] = LSBYTE(p_p1);
+	telemetry_packet[P2] = MSBYTE(p_p2);
+	telemetry_packet[P2+1] = LSBYTE(p_p2);
 }
-	
-	// switch(keyboard_key)
-	// {
-	// 	case 97: offset[LIFT] = offset[LIFT] + 10; //lift up
-	// 			 break;
-	// 	case 122: offset[LIFT] = offset[LIFT] - 10; //lift down
-	// 			 break;
-	// 	case 42: offset[PITCH] = offset[PITCH] - 10; //pitch down
-	// 			 break;
-	// 	case 43: offset[LIFT] = offset[ROLL] - 10; //roll down
-	// 			 break;
-	// 	case 44: offset[LIFT] = offset[PITCH] + 10; //pitch up
-	// 			 break;
-	// 	case 45: offset[PITCH] = offset[ROLL] + 10; //roll up
-	// 			 break;
-	// 	case 113: offset[YAW] = offset[YAW] - 10; //yaw down
-	// 			 break;
-	// 	case 119: offset[YAW] = offset[YAW] + 10; //yaw up
-	// 			 break; 
-	// }
 
 
 void store_mode(uint8_t *val)
