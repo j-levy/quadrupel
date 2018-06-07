@@ -273,10 +273,16 @@ int main(void)
     
     	if (check_sensor_int_flag()) 
 		{
-			get_dmp_data();
-
 			if (mode == MODE_2_MANUAL || mode == MODE_4_YAWCTRL || mode == MODE_5_FULLCTRL )
+			{
+				get_dmp_data();
 				run_filters_and_control();
+			}
+			if (mode == MODE_6_RAW)
+			{
+				get_raw_sensor_data();
+				run_filters_and_control();
+			}
 		}
 		
 		

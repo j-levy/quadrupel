@@ -49,6 +49,7 @@ void mode_3_calib_INIT()
     phi_offset = phi;
     theta_offset = theta;
     psi_offset = psi;
+
 }
 
 void mode_3_calib_QUIT()
@@ -73,5 +74,6 @@ void mode_3_calib_RUN()
     phi_offset = (phi/2) + (phi_offset/2);
     theta_offset = (theta/2) + (theta_offset/2);
     psi_offset = (psi/2) + (psi_offset/2);
+    printf("DMP Calib |sax|%i|say|%i|saz|%i|sp|%d|sq|%d|sr|%d|\n",sax,say,saz,sp,sq,sr);
 
 }
