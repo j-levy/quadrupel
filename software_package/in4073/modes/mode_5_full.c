@@ -4,6 +4,7 @@ Author:Yuhao Xuan, Jonathan Levy
 */
 #include "in4073.h"
 #include "switch_mode.h"
+#include "modes_flight.h"
 
 
 char mode_5_full_CANLEAVE(uint8_t target)
@@ -36,9 +37,9 @@ void mode_5_full_INIT()
     flight_coeffs[YAW] = 2*flight_coeffs[ROLL];
 
     // initialize the global variable for the controller.
-    p_yaw = 1;
-    p_p1 = 1;
-    p_p2 = 1;
+    p_yaw = P_SCALE;
+    p_p1 = P_SCALE;
+    p_p2 = P_SCALE;
 }
 
 void mode_5_full_QUIT()

@@ -5,7 +5,8 @@
 #define MIN(a,b) (a < b ? a : b)
 #define MAX(a,b) (a > b ? a : b)
 
-
+// this allows for better precision for controller tuning
+#define P_SCALE (16)
 
 // define easy-to-use macros for sensor - offset
 #define __SAX    (sax - sax_offset)
