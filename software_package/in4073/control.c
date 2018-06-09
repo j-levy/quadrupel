@@ -22,6 +22,25 @@ void update_motors(void)
 	motor[3] = ae[3];
 }
 
+/*
+* 1st order Butterworth filter
+* Sampling frequency 100Hz
+* Cut off frequency 10Hz
+*
+* Niket Agrawal
+*/
+void filter_butter()
+{
+	// for (int i = 0; i < MAXWIN; i++)
+    // { 
+	// 	xv[0] = xv[1]; 
+    //     xv[1] = next input value / GAIN;
+    //     yv[0] = yv[1]; 
+    //     yv[1] = (xv[0] + xv[1]) + (0.5095254495 * yv[0]);
+    //     next output value = yv[1];
+    // }
+}
+
 void run_filters_and_control()
 {
 	// fancy stuff here
@@ -62,8 +81,7 @@ void run_filters_and_control()
 	if (mode == 6)
 	{
 		//printf("RAW SENSORS |sax|%d|say|%d|saz|%d|sp|%d|sq|%d|sr|%d|\n",sax,say,saz,sp,sq,sr);
-		telemetry_packet[PHI] = MSBYTE(sax);
-		telemetry_packet[PHI+1] = LSBYTE(sax);	
+		filter_butter();
 	
 	}
 

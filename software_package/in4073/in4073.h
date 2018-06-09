@@ -115,6 +115,9 @@ void_ptr_t mode_QUIT[7];
 char_ptr_t mode_CANLEAVE[7];
 char_ptr_t mode_CANENTER[7];
 
+void filter_butter(void);
+#define MAXWIN 10
+
 
 /* ################################# ORIGINAL FILE BELOW ################################# */
 void timers_init(void);
@@ -198,6 +201,7 @@ void ble_send(void);
 
 void run_filters_and_control();
 void update_motors(void);
+
 
 
 
