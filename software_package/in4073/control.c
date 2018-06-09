@@ -31,14 +31,15 @@ void update_motors(void)
 */
 void filter_butter()
 {
-	// for (int i = 0; i < MAXWIN; i++)
-    // { 
-	// 	xv[0] = xv[1]; 
-    //     xv[1] = next input value / GAIN;
-    //     yv[0] = yv[1]; 
-    //     yv[1] = (xv[0] + xv[1]) + (0.5095254495 * yv[0]);
-    //     next output value = yv[1];
-    // }
+	static int32_t gain = 4.077683537e+00;
+	for (int i = 0; i < MAXWIN; i++)
+    { 
+		xv[0] = xv[1]; 
+        xv[1] = __SR / gain;
+        yv[0] = yv[1]; 
+        yv[1] = (xv[0] + xv[1]) + (0.5095254495 * yv[0]);
+        next output value = yv[1];
+    }
 }
 
 void run_filters_and_control()

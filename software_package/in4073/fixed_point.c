@@ -1,17 +1,17 @@
 /*
-* Source: http://wwwtmp.st.ewi.tudelft.nl/koen/cs4140/Resources/index.html
+*
 */
 
 /*----------------------------------------------------------------
  * float2fix -- convert float to fixed point 18+14 bits
  *----------------------------------------------------------------
  */
-int float2fix(double x)
+int int16_t2fix(double a)
 {
-	int	y;
+	int	b;
 
-	y = x * (1 << 14);
-	return y;
+	b = a * (1 << 6);
+	return b;
 }
 
 
