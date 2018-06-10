@@ -1,8 +1,6 @@
-/*
-*Functions for fixed point operations
-*Source: http://wwwtmp.st.ewi.tudelft.nl/koen/cs4140/Resources/index.html
-*/
+#define SHIFT 14 
 
-int float2fix(double x);
-double fix2float(int x);
-double fixmul(int x1, int x2);
+int32_t fixmulint(int32_t a, int32_t b);
+
+int32_t fixdiv(int32_t a, int32_t b);
+

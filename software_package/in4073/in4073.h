@@ -37,7 +37,7 @@
 
 
 // Link failure detection by drone
-#define RX_TIMEOUT 150000    //currently set to 150msec
+#define RX_TIMEOUT 500000    //currently set to 500msec
 #define BATTERY_THRESHOLD 1050  //min safe battery voltage should be 10.5V
 // Processing offset from Keyboard 
 #define OFFSET_SCALING 32
@@ -116,7 +116,10 @@ char_ptr_t mode_CANLEAVE[7];
 char_ptr_t mode_CANENTER[7];
 
 void filter_butter(void);
-#define MAXWIN 10
+//#define MAXWIN 12
+int32_t xf[3], yf[3]; // filter equation variables 
+int32_t af[3], bf[3]; //filter coefficients
+int16_t srf; //filtered sr value
 
 
 /* ################################# ORIGINAL FILE BELOW ################################# */

@@ -1,6 +1,7 @@
 #include "in4073.h"
 #include "switch_mode.h"
 #include "modes_flight.h"
+#include "fixed_point.h"
 
 
 char mode_6_raw_CANLEAVE(uint8_t target)
@@ -31,6 +32,26 @@ void mode_6_raw_INIT()
     for (int i = 0; i < 4; i++) 
         flight_coeffs[i] = 1;
     
+    for(int j=0; j < 3; j++)
+    {
+        xf[j] = 0;
+        yf[j] = 0;
+    }
+
+    // b[0] = TOFIXEDPOINT(0.0675);
+    // b[1] = TOFIXEDPOINT(0.01349);
+    // b[2] = TOFIXEDPOINT(0.0675);
+    // a[0] = TOFIXEDPOINT(1.0000);
+    // a[1] = TOFIXEDPOINT(-1.1430);
+    // a[2] = TOFIXEDPOINT(0.4128);
+
+    bf[0] = 0.0675 * (1 << SHIFT);
+    bf[1] = 0.01349 * (1 << SHIFT);
+    bf[2] = 0.0675 * (1 << SHIFT);
+    af[0] = 1.0000 * (1 << SHIFT);
+    af[1] = -1.1430 * (1 << SHIFT);
+    af[2] = 0.4128 * (1 << SHIFT);
+    
     // coefficients determined empirically. They seem more or less ok.
     flight_coeffs[ROLL] = 9;
     flight_coeffs[PITCH] = flight_coeffs[ROLL];
@@ -41,6 +62,9 @@ void mode_6_raw_INIT()
     p_yaw = P_SCALE;
     p_p1 = P_SCALE;
     p_p2 = P_SCALE;
+
+    //filter_butter();
+    //calibration();
 }
 
 void mode_6_raw_QUIT()

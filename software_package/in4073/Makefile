@@ -46,6 +46,7 @@ $(abspath ./modes/mode_3_calib.c) \
 $(abspath ./modes/mode_4_yaw.c) \
 $(abspath ./modes/mode_5_full.c) \
 $(abspath ./modes/mode_6_raw.c) \
+$(abspath ./fixed_point.c) \
 $(abspath ../components/toolchain/system_nrf51.c) \
 $(abspath ../components/drivers_nrf/delay/nrf_delay.c) \
 $(abspath ./in4073.c) \

@@ -12,6 +12,7 @@
 
 #include "in4073.h"
 #include "modes/modes_flight.h"
+#include "fixed_point.h"
 
 void update_motors(void)
 {					
@@ -23,7 +24,7 @@ void update_motors(void)
 }
 
 /*
-* 1st order Butterworth filter
+* 2nd order Butterworth filter
 * Sampling frequency 100Hz
 * Cut off frequency 10Hz
 *
@@ -31,15 +32,20 @@ void update_motors(void)
 */
 void filter_butter()
 {
-	static int32_t gain = 4.077683537e+00;
-	for (int i = 0; i < MAXWIN; i++)
-    { 
-		xv[0] = xv[1]; 
-        xv[1] = __SR / gain;
-        yv[0] = yv[1]; 
-        yv[1] = (xv[0] + xv[1]) + (0.5095254495 * yv[0]);
-        next output value = yv[1];
-    }
+	xf[2] = sr;
+	
+	yf[2] = fixdiv(((fixmulint(af[0], xf[2]) + fixmulint(af[1], xf[1]) + 
+	fixmulint(af[2], xf[0]) - fixmulint(bf[1], yf[1]) - fixmulint(bf[2], yf[0]))
+	* (1 << 14)), bf[0]);
+	xf[0] = xf[1];
+	yf[0] = yf[1];
+	xf[1] = xf[2];
+	yf[1] = yf[2];
+	srf = yf[2];
+
+	//Send telemtry packet for display on PC 	
+	telemetry_packet[SRF] = MSBYTE(srf);
+	telemetry_packet[SRF + 1] = LSBYTE(srf);
 }
 
 void run_filters_and_control()
@@ -75,8 +81,6 @@ void run_filters_and_control()
 		
 		// <divide by 8
 		// you can add telemetry here! Be careful with the number of bytes though.
-		telemetry_packet[PHI] = MSBYTE(__PHI);
-		telemetry_packet[PHI+1] = LSBYTE(__PHI);
 	}
 
 	if (mode == 6)

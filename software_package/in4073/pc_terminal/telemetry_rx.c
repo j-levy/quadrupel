@@ -33,7 +33,7 @@ uint16_t bat_volt;
 uint16_t p_value;
 uint8_t p1_value;
 uint8_t p2_value;
-int16_t phi;
+int16_t srf;
 
 
 int32_t timestamp = 0;
@@ -91,7 +91,8 @@ void process_telemetry(uint8_t c)
             p1_value = packet_rx[P1];
             p2_value = packet_rx[P2];
 
-            phi = (packet_rx[PHI]<<8)|packet_rx[PHI+1];
+            //phi = (packet_rx[PHI]<<8)|packet_rx[PHI+1];
+            srf = (packet_rx[SRF]<<8)|packet_rx[SRF+1];
             //setpoint_roll = (packet_rx[SETPOINT_ROLL]<<8)|packet_rx[SETPOINT_ROLL+1];
 
             bat_volt = (packet_rx[BAT_VOLT]<<8)|packet_rx[BAT_VOLT+1];
@@ -104,7 +105,8 @@ void process_telemetry(uint8_t c)
             printf("P |%d|", p_value);
             printf("P1 |%d| ", p1_value);
             printf("P2 |%d|", p2_value);
-            printf("phi |%d|", phi);
+            printf("srf |%d|", srf);
+
             //printf("setpoint_roll |%d|", setpoint_roll);
           
 
