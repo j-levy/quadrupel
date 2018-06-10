@@ -55,8 +55,6 @@ void run_filters_and_control()
 		
 		// <divide by 8
 		// you can add telemetry here! Be careful with the number of bytes though.
-		telemetry_packet[PHI] = MSBYTE(__PHI);
-		telemetry_packet[PHI+1] = LSBYTE(__PHI);
 	}
 
 
