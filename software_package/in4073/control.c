@@ -46,6 +46,8 @@ void filter_butter()
 	//Send telemtry packet for display on PC 	
 	telemetry_packet[SRF] = MSBYTE(srf);
 	telemetry_packet[SRF + 1] = LSBYTE(srf);
+	telemetry_packet[SR] = MSBYTE(sr);
+	telemetry_packet[SR + 1] = LSBYTE(sr);
 }
 
 void run_filters_and_control()

@@ -1,5 +1,5 @@
 #define CONTROL_PACKET_SIZE 13
-#define TELEMETRY_PACKET_SIZE 25
+#define TELEMETRY_PACKET_SIZE 27
 
 #define START 0
 #define KEY 1
@@ -42,8 +42,9 @@
 #define P_YAW 16
 #define P1 18
 #define P2 20
-#define SRF 22
-#define CRC_TELEMETRY 24
+#define SR 22
+#define SRF 24
+#define CRC_TELEMETRY 26
 
 #define MSBYTE(x) ((uint8_t) ((x & 0xff00) >> 8))
 

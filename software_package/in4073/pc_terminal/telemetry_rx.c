@@ -34,6 +34,7 @@ uint16_t p_value;
 uint8_t p1_value;
 uint8_t p2_value;
 int16_t srf;
+int16_t sr;
 
 
 int32_t timestamp = 0;
@@ -93,6 +94,7 @@ void process_telemetry(uint8_t c)
 
             //phi = (packet_rx[PHI]<<8)|packet_rx[PHI+1];
             srf = (packet_rx[SRF]<<8)|packet_rx[SRF+1];
+            sr = (packet_rx[SR]<<8)|packet_rx[SR+1];
             //setpoint_roll = (packet_rx[SETPOINT_ROLL]<<8)|packet_rx[SETPOINT_ROLL+1];
 
             bat_volt = (packet_rx[BAT_VOLT]<<8)|packet_rx[BAT_VOLT+1];
@@ -115,8 +117,8 @@ void process_telemetry(uint8_t c)
             printf("Battery |%4d|\n",bat_volt);
             //printf("|%6d| \n", pressure); 
             FILE *fp;
-            fp = fopen("filtered_data.csv", "a");
-            fprintf(fp, " %d, %d\n", timestamp, srf);
+            fp = fopen("/home/niket/ESL/filtered_data.csv", "a");
+            fprintf(fp, " %d, %d, %d\n", timestamp, sr, srf);
                  
         }  
         else if (crc != 0)
