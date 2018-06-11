@@ -34,9 +34,8 @@ void filter_butter()
 {
 	xf[2] = sr;
 	
-	yf[2] = fixdiv(((fixmulint(af[0], xf[2]) + fixmulint(af[1], xf[1]) + 
-	fixmulint(af[2], xf[0]) - fixmulint(bf[1], yf[1]) - fixmulint(bf[2], yf[0]))
-	* (1 << 14)), bf[0]);
+	yf[2] = (fixmulint(af[0], xf[2]) + fixmulint(af[1], xf[1]) + 
+	fixmulint(af[2], xf[0]) - fixmulint(bf[1], yf[1]) - fixmulint(bf[2], yf[0]));
 	xf[0] = xf[1];
 	yf[0] = yf[1];
 	xf[1] = xf[2];

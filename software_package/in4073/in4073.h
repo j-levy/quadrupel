@@ -49,7 +49,7 @@
 #define LIFT 3
 //Telemetry data Tx rate [Niket Agrawal]
 // 100msec -> 10Hz
-#define TELEMETRY_TX_INTERVAL 100000 
+#define TELEMETRY_TX_INTERVAL 20000 
 
 
 /* ################################# CONTROL VARIABLES VARIABLES ################################# */

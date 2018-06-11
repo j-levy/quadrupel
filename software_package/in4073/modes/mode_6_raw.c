@@ -45,12 +45,12 @@ void mode_6_raw_INIT()
     // a[1] = TOFIXEDPOINT(-1.1430);
     // a[2] = TOFIXEDPOINT(0.4128);
 
-    bf[0] = 0.0675 * (1 << SHIFT);
-    bf[1] = 0.01349 * (1 << SHIFT);
-    bf[2] = 0.0675 * (1 << SHIFT);
-    af[0] = 1.0000 * (1 << SHIFT);
-    af[1] = -1.1430 * (1 << SHIFT);
-    af[2] = 0.4128 * (1 << SHIFT);
+    af[0] = 0.0675 * (1 << SHIFT);
+    af[1] = 0.01349 * (1 << SHIFT);
+    af[2] = 0.0675 * (1 << SHIFT);
+    bf[0] = 1.0000 * (1 << SHIFT);
+    bf[1] = -1.1430 * (1 << SHIFT);
+    bf[2] = 0.4128 * (1 << SHIFT);
     
     // coefficients determined empirically. They seem more or less ok.
     flight_coeffs[ROLL] = 9;

@@ -115,11 +115,13 @@ void process_telemetry(uint8_t c)
             // printf("|%6d %6d %6d|",phi,theta,psi);
             // printf("|%6d %6d %6d|",sp,sq,sr);
             printf("Battery |%4d|\n",bat_volt);
-            //printf("|%6d| \n", pressure); 
-            FILE *fp;
-            fp = fopen("/home/niket/ESL/filtered_data.csv", "a");
-            fprintf(fp, " %d, %d, %d\n", timestamp, sr, srf);
-                 
+            //printf("|%6d| \n", pressure);
+            if (packet_rx[MODE_DRONE] == 6){
+                FILE *fp;
+                fp = fopen("filtered_data.csv", "a");
+                fprintf(fp, " %d, %d, %d\n", timestamp, sr, srf);
+                fclose(fp);
+            }
         }  
         else if (crc != 0)
         {
