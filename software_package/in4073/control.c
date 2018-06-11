@@ -41,7 +41,8 @@ void filter_butter()
 	xf[1] = xf[2];
 	yf[1] = yf[2];
 	srf = yf[2];
-
+	// srf = yf[2] >> SHIFT;
+	
 	//Send telemtry packet for display on PC 	
 	telemetry_packet[SRF] = MSBYTE(srf);
 	telemetry_packet[SRF + 1] = LSBYTE(srf);

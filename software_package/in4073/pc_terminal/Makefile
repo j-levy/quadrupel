@@ -24,10 +24,12 @@ $(EXEC): $(OBJ)
 
 clean:
 	rm -rf *.o
+	rm *.csv
 
 mrproper: clean
 	rm -rf $(EXEC).o $(EXEC)
-
+	rm *.csv
+	
 run: all
 	$(EXEC)
 

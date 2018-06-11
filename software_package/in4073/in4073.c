@@ -170,6 +170,7 @@ int main(void)
 {
 	is_DMP_on = true;
 	is_calibration_done = false;
+	TIMER_PERIOD = 20; //ms, hence 50Hz control
 
 	uart_init();
 	gpio_init();
@@ -285,13 +286,17 @@ int main(void)
 			}
 		}
 		
-		
+
 		if (nextmode != mode)
 		{
+			/*
+			// DEPORTED INTO MODE6_QUIT (that's made for that !)
 			if (mode==6)
 				imu_init(true,100);
+			*/
 			switch_mode(nextmode);
 		}
+		
 
 		
 		mode_RUN[mode]();

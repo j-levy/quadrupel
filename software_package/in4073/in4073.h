@@ -33,12 +33,16 @@
 #define BLUE		30
 #define INT_PIN		5
 // Timers
-#define TIMER_PERIOD	20 //50ms=20Hz (MAX 23bit, 4.6h)
+int16_t TIMER_PERIOD;
+// previously: #define TIMER_PERIOD 20
+//50ms=20Hz (MAX 23bit, 4.6h)
 
 
 // Link failure detection by drone
-#define RX_TIMEOUT 500000    //currently set to 500msec
-#define BATTERY_THRESHOLD 1050  //min safe battery voltage should be 10.5V
+#define RX_TIMEOUT 500000    
+//currently set to 500msec
+#define BATTERY_THRESHOLD 1050  
+//min safe battery voltage should be 10.5V
 // Processing offset from Keyboard 
 #define OFFSET_SCALING 32
 #define P_SCALING 1
