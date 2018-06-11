@@ -20,4 +20,4 @@ uint8_t control_packet[CONTROL_PACKET_SIZE]; //packet to be sent to drone over s
 void process_telemetry(uint8_t c);
 void send_packet();
 int rs232_putchar(char c);
-FILE *fp;
+//FILE *fp;

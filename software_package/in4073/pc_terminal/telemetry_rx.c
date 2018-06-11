@@ -114,8 +114,9 @@ void process_telemetry(uint8_t c)
             // printf("|%6d %6d %6d|",sp,sq,sr);
             printf("Battery |%4d|\n",bat_volt);
             //printf("|%6d| \n", pressure); 
-
-            fprintf(fp, "%d", srf);
+            FILE *fp;
+            fp = fopen("filtered_data.csv", "a");
+            fprintf(fp, " %d, %d\n", timestamp, srf);
                  
         }  
         else if (crc != 0)
