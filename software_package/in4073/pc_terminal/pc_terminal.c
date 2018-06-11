@@ -555,7 +555,7 @@ int main(int argc, char **argv)
 
 	clock_gettime(CLOCK_REALTIME, &tp);
 	
-
+	fp = fopen("filterdata.txt", "w");
 
 	isContinuing = 1;
 	signal(SIGINT, INThandler);
