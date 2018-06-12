@@ -52,8 +52,8 @@ int16_t TIMER_PERIOD;
 #define YAW 2
 #define LIFT 3
 //Telemetry data Tx rate [Niket Agrawal]
-// 100msec -> 10Hz
-#define TELEMETRY_TX_INTERVAL 20000 
+// 100msec -> 10Hz (here 20 Hz) (now 20Hz)
+#define TELEMETRY_TX_INTERVAL 50000 
 
 
 /* ################################# CONTROL VARIABLES VARIABLES ################################# */
@@ -88,6 +88,11 @@ uint8_t abort_mission;
 
 uint8_t telemetry_packet[TELEMETRY_PACKET_SIZE];
 
+// butterworth filter
+int32_t xf[3], yf[3]; // filter equation variables 
+int32_t af[3], bf[3]; //filter coefficients
+int16_t spf; //filtered sr value
+
 //Telemtry Tx [Niket Agrawal]
 void send_telemetry_packet();
 
@@ -121,9 +126,7 @@ char_ptr_t mode_CANENTER[7];
 
 void filter_butter(void);
 //#define MAXWIN 12
-int32_t xf[3], yf[3]; // filter equation variables 
-int32_t af[3], bf[3]; //filter coefficients
-int16_t srf; //filtered sr value
+
 
 
 /* ################################# ORIGINAL FILE BELOW ################################# */

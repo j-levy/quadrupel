@@ -23,12 +23,9 @@ char mode_6_raw_CANENTER(uint8_t source)
 }
 void mode_6_raw_INIT()
 {
-    //initialize the imu to raw mode
-    imu_init(false, 1000);
-    // set the interruption rate to 1000 Hz
-    TIMER_PERIOD = 1; //ms
+    //initialize the imu to raw mode at 1000 Hz
+    imu_init(false, 1024);
 
-    //printf("MODE 6 ENTERED");
 
     // coefficients determined empirically. They seem more or less ok.
     flight_coeffs[ROLL] = 9;
@@ -36,27 +33,55 @@ void mode_6_raw_INIT()
     flight_coeffs[LIFT] = 3*flight_coeffs[ROLL];
     flight_coeffs[YAW] = 2*flight_coeffs[ROLL];
     
+
+    // credits: http://www-users.cs.york.ac.uk/~fisher/mkfilter/
+    /* sampling 1000Hz, cutoff 10Hz*/
+    /*
+    float gain = 1058.546241;
+    int32_t fp_gain = 1 << SHIFT;
+
+    float af_f[3];
+    float bf_f[3];
+    af_f[0] = (1/gain);
+    af_f[1] = (2/gain);
+    af_f[2] = (1/gain);
+    bf_f[0] = 0;
+    bf_f[1] = 1.9111970674;
+    bf_f[2] =  -0.9149758348;
+    */
+
+
+    /* samping 1000Hz, cutoff 2Hz, ORDER 1
+        Lowered order to have lower cutoff with better precision (lower numbers) */
+    
+    float gain = 1.601528487e+02;
+    int32_t fp_gain = 1 << SHIFT;
+
+    float af_f[3];
+    float bf_f[3];
+    af_f[0] = (1/gain);
+    af_f[1] = (1/gain);
+    af_f[2] = 0;
+    bf_f[0] = 0; // unused
+    bf_f[1] = 0.9875119299;
+    bf_f[2] =  0;
+    
+
+    
+
     for(int j=0; j < 3; j++)
     {
         xf[j] = 0;
         yf[j] = 0;
+        bf[j] = (int32_t) (bf_f[j] * fp_gain);
+        af[j] = (int32_t) (af_f[j] * fp_gain);
     }
-
-    af[0] = (int32_t) ((double) 0.0675 * (double) (1 << SHIFT));
-    af[1] = (int32_t) ((double) 0.01349 * (double)  (1 << SHIFT));
-    af[2] = (int32_t) ((double) 0.0675 * (double) (1 << SHIFT));
-    bf[0] = (int32_t) ((double) 1.0000 * (double) (1 << SHIFT));
-    bf[1] = (int32_t) ((double) -1.1430 * (double)  (1 << SHIFT));
-    bf[2] = (int32_t) ((double) 0.4128 * (double) (1 << SHIFT));
-
-
     // initialize the global variable for the controller.
     p_yaw = P_SCALE;
     p_p1 = P_SCALE;
     p_p2 = P_SCALE;
 
     //filter_butter();
-    //calibration();
 }
 
 void mode_6_raw_QUIT()
@@ -66,7 +91,6 @@ void mode_6_raw_QUIT()
 }
 
 void mode_6_raw_RUN(void)
-
 {
     // code deported - not to be run at crazy speed
 }
