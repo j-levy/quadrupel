@@ -25,29 +25,26 @@ void update_motors(void)
 
 /*
 * 2nd order Butterworth filter
-* Sampling frequency 100Hz
+* Sampling frequency 1000Hz
 * Cut off frequency 10Hz
 *
-* Niket Agrawal
+* Jonathan Levy
 */
 void filter_butter()
 {
-	xf[2] = sr;
-	
-	yf[2] = (fixmulint(af[0], xf[2]) + fixmulint(af[1], xf[1]) + 
-	fixmulint(af[2], xf[0]) - fixmulint(bf[1], yf[1]) - fixmulint(bf[2], yf[0]));
-	xf[0] = xf[1];
-	yf[0] = yf[1];
-	xf[1] = xf[2];
-	yf[1] = yf[2];
-	srf = yf[2];
-	// srf = yf[2] >> SHIFT;
+	xf[2] = xf[1];
+	xf[1] = xf[0];
+	xf[0] = (__SP); // scaling to avoid overflow while keeping more precision on coeffs
+	yf[2] = yf[1];
+	yf[1] = yf[0];
+	yf[0] = ((xf[0] + xf[2])*af[0] + xf[1]*af[1] + yf[1]*bf[1] + yf[2]*bf[2]) >> SHIFT;
+	spf = yf[0];
 	
 	//Send telemtry packet for display on PC 	
-	telemetry_packet[SRF] = MSBYTE(srf);
-	telemetry_packet[SRF + 1] = LSBYTE(srf);
-	telemetry_packet[SR] = MSBYTE(sr);
-	telemetry_packet[SR + 1] = LSBYTE(sr);
+	telemetry_packet[SRF] = MSBYTE(spf);
+	telemetry_packet[SRF + 1] = LSBYTE(spf);
+	telemetry_packet[SR] = MSBYTE(__SP);
+	telemetry_packet[SR + 1] = LSBYTE(__SP);
 }
 
 void run_filters_and_control()
@@ -78,10 +75,8 @@ void run_filters_and_control()
 		js[YAW] = ((p_yaw) * (P_SCALE*js[YAW]/(p_yaw) - __SR))/P_SCALE;
 
 		js[ROLL]  = ((p_p1) * (P_SCALE*js[ROLL] /(p_p1) - __PHI ) - ((p_p2) * __SP))/P_SCALE;
-		// change sign of p_p2 ?
 		js[PITCH] = ((p_p1) * (P_SCALE*js[PITCH]/(p_p1) - __THETA) + ((p_p2) * __SQ))/P_SCALE;
 		
-		// <divide by 8
 		// you can add telemetry here! Be careful with the number of bytes though.
 	}
 
@@ -104,14 +99,16 @@ void run_filters_and_control()
 
     for (int i = 0; i < 4 ; i++)
     {
-        oo[i] = oo[i] / ( flight_coeffs[LIFT] + flight_coeffs[PITCH] + flight_coeffs[ROLL] + flight_coeffs[YAW]); 
+        oo[i] = oo[i] >> 6; /// ( flight_coeffs[LIFT] + flight_coeffs[PITCH] + flight_coeffs[ROLL] + flight_coeffs[YAW]);  // sum(coefs) = 63, proche de 64
+
         // because oo_max = (sum_coeffs) * coeffs)*a_max
         // because coeff[ROLL] == coeff[PITCH] (I do this because of symmetry, makes sense)
+		
         oo[i] = MAX(oo[i], 0);
-        oo[i] = (oo[i] < MIN_SPEED*32 ? MIN(a[LIFT], MIN_SPEED*32) : oo[i]);
-		oo[i] = (a[LIFT] < MIN_SPEED*32 ? MIN(a[LIFT], oo[i]) : oo[i]);
-        oo[i] = MIN(oo[i], MAX_SPEED*32);
-        ae[i] = oo[i] / (32); // scale 0->32767 to 0->1023, but capped to 600 anyway.
+        oo[i] = (oo[i] < MIN_SPEED ? MIN(a[LIFT], MIN_SPEED) : oo[i]);
+		oo[i] = (a[LIFT] < MIN_SPEED ? MIN(a[LIFT], oo[i]) : oo[i]);
+        oo[i] = MIN(oo[i], MAX_SPEED);
+        ae[i] = oo[i] >> 5; // scale 0->32767 to 0->1023, but capped to 600 anyway.
         
     }
 	update_motors();
