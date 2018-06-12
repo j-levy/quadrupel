@@ -62,6 +62,7 @@ int16_t TIMER_PERIOD;
 bool demo_done;
 bool is_calibration_done;
 bool is_DMP_on;
+bool is_RED_on;
 
 // Mode
 uint8_t mode;

@@ -169,6 +169,7 @@ void store_mode(uint8_t *val)
 int main(void)
 {
 	is_DMP_on = true;
+	is_RED_on = false;
 	is_calibration_done = false;
 	TIMER_PERIOD = 20; //ms, hence check_timer_flag will run at 50Hz (verified, timed with LED+Stopwatch)
 
@@ -229,13 +230,21 @@ int main(void)
 			//printf("%10ld %10ld %10ld \n", get_time_us(), timeout, delta_time); 
 			printf("comm link failure\n");
 			comm_link_failure = 1; 
-			nrf_gpio_pin_toggle(RED);
+			if (!is_RED_on)
+			{
+				nrf_gpio_pin_toggle(RED);
+				is_RED_on = true;
+			}
 
 			if(mode && (mode != 1))		//Enter panic mode only if NOT 
 										//in safe or panic mode already
 			{
 				nextmode = 	1; 
-			}		
+			} else  {
+
+					nrf_gpio_pin_toggle(RED);
+					is_RED_on = false;
+			}
 				
 		}
 

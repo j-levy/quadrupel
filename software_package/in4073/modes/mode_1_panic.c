@@ -49,6 +49,12 @@ void mode_1_panic_QUIT()
         ae[i] = 0;
 
     update_motors();
+    if (is_RED_on)
+    {
+        nrf_gpio_pin_toggle(RED);
+        is_RED_on = false;
+    }
+
 }
 
 void mode_1_panic_RUN()
