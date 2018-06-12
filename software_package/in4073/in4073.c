@@ -273,13 +273,13 @@ int main(void)
 		{
 			tx_timer = get_time_us();
 			send_telemetry_packet();
-			log_sensor();
+			//log_sensor();
 		}
 	}	
 	
 	// TODO : implement offloading with these functions
-	log_read_last();
-	log_read_all();
+	//log_read_last();
+	//log_read_all();
 
 	printf("\n\t Goodbye \n\n");
 	nrf_delay_ms(100);

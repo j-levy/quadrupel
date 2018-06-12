@@ -1,4 +1,4 @@
-#define MAX_SPEED 600
+#define MAX_SPEED 800
 #define MIN_SPEED 200
 
 
