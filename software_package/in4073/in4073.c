@@ -51,13 +51,16 @@ void store_joystick_axis(uint8_t *val)
 	}
 	
 	//If throttle is almost zero, clear the offset
+
+	/*
 	if(axis[3] > 32000)
 	{
 		for(int i =0; i<4; i++)
         {
             offset[i] = 0;
         }
-	}		
+	}
+	*/
 }
 
 void store_joystick_button(uint8_t *val)
