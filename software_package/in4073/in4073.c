@@ -104,7 +104,7 @@ void store_key(uint8_t *val)
       
      /* keys for offset adjust 
      WARNING: only pitch and roll. Missing LIFT and YAW. See next comments. */
-    case 44:  offset[PITCH] += OFFSET_SCALING; //pitch up
+    	case 44:  offset[PITCH] += OFFSET_SCALING; //pitch up
 				  break;
 		case 42:  offset[PITCH] -= OFFSET_SCALING ; //pitch down
 				  break;
@@ -170,14 +170,14 @@ int main(void)
 {
 	is_DMP_on = true;
 	is_calibration_done = false;
-	TIMER_PERIOD = 20; //ms, hence 50Hz control
+	TIMER_PERIOD = 20; //ms, hence check_timer_flag will run at 50Hz (verified, timed with LED+Stopwatch)
 
 	uart_init();
 	gpio_init();
 	timers_init();
 	adc_init();
 	twi_init();
-	imu_init(is_DMP_on, 100);	
+	imu_init(is_DMP_on, 1000); // DMP on : the parameter is unused (hard-coded in the function at 100 Hz !	
 	baro_init();
 	spi_flash_init();
 	ble_init();
@@ -185,7 +185,8 @@ int main(void)
 
 	init_modes();
 
-	uint32_t counter = 0;
+	uint32_t counter0 = 0;
+	uint32_t counter1 = 0;
 	demo_done = false;
 	mode = 0;
 
@@ -249,8 +250,9 @@ int main(void)
 
 		if (check_timer_flag()) 
 		{
-			if (counter++%20 == 0) 
-				nrf_gpio_pin_toggle(BLUE);
+			// RUNS AT "1/TIMER_PERIOD" HZ 
+			if (counter0++%100 == 0) 
+				nrf_gpio_pin_toggle(YELLOW);
 
 			adc_request_sample();
 
@@ -274,6 +276,14 @@ int main(void)
     
     	if (check_sensor_int_flag()) 
 		{
+			// RUNS AT 1000 HZ ( when in RAW mode ) or 100 Hz in other flight modes or 40 kHz otherwise (basically probably when the sensor is not asked) 
+            //(measured with blinker & stopwatch)
+            // the speed of this part is probably set by the function get_dmp_data() or get_raw_sensor_data(). When they are not executed, the loop runs at full speed (which is a bit of a pain in the ass. so I added a manual part to limit its speed, basically calling the dedicated function to affect the sensor flag.
+            
+			if (counter1++%1000 == 0) 
+				nrf_gpio_pin_toggle(GREEN);
+
+			
 			if (mode == MODE_2_MANUAL || mode == MODE_4_YAWCTRL || mode == MODE_5_FULLCTRL )
 			{
 				get_dmp_data();
@@ -283,17 +293,18 @@ int main(void)
 			{
 				get_raw_sensor_data();
 				run_filters_and_control();
-			}
+			} else {
+                if (is_DMP_on)
+                    get_dmp_data();
+                else
+                    get_raw_sensor_data();
+            }
+
 		}
 		
 
 		if (nextmode != mode)
 		{
-			/*
-			// DEPORTED INTO MODE6_QUIT (that's made for that !)
-			if (mode==6)
-				imu_init(true,100);
-			*/
 			switch_mode(nextmode);
 		}
 		
