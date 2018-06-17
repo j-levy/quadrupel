@@ -34,17 +34,44 @@ void filter_butter()
 {
 	xf[2] = xf[1];
 	xf[1] = xf[0];
-	xf[0] = (sp); // scaling to avoid overflow while keeping more precision on coeffs
+	xf[0] = (sr); // scaling to avoid overflow while keeping more precision on coeffs
 	yf[2] = yf[1];
 	yf[1] = yf[0];
 	yf[0] = (xf[0]*af[0] + xf[1]*af[1] + xf[2]*af[2] + yf[1]*bf[1] + yf[2]*bf[2]) >> SHIFT;
-	spf = yf[0]; 
+	srf = yf[0]; 
+
+}
+
+void filter_k()
+{
+	// slideshow 5, slide 52, algorithm
+	// i take the same constants on both directions
+	// because symmetry.
+	// I know real live doesn't work that way, but we won't be able to test it anyways.
+	int32_t e;
+
+	p_out = sp - p_b;
+	phi_out = phi_out + p_out * P2PHI;
+	e = phi_out - phi;
+	phi_out = phi_out - e / C1;
+	p_b = p_b + (e/P2PHI) / C2;
+
+	q_out = sq - q_b;
+	theta_out = theta_out + q_out * P2PHI;
+	e = theta_out - theta;
+	theta_out = theta_out - e / C1;
+	q_b = q_b + (e/P2PHI) / C2;
 	
-	//Send telemtry packet for display on PC 	
-	telemetry_packet[SRF] = MSBYTE(spf);
-	telemetry_packet[SRF + 1] = LSBYTE(spf);
-	telemetry_packet[SR] = MSBYTE(sp);
-	telemetry_packet[SR + 1] = LSBYTE(sp);
+
+	// I overwrite the variables.
+	// In any case, whenever this function will be called again,
+	// It will be because of the interrupt from the sensor
+	// So these variables will be overwritten again by the sensor.
+	phi = MAX(MIN((int16_t) phi_out, -32768), 32767);
+	theta = MAX(MIN((int16_t) theta_out, -32768), 32767);
+	sp = MAX(MIN((int16_t) p_out, -32768), 32767);
+	sq = MAX(MIN((int16_t) q_out, -32768), 32767);
+
 }
 
 void run_filters_and_control()
@@ -84,6 +111,14 @@ void run_filters_and_control()
 	{
 		//printf("RAW SENSORS |sax|%d|say|%d|saz|%d|sp|%d|sq|%d|sr|%d|\n",sax,say,saz,sp,sq,sr);
 		filter_butter();
+		filter_k();
+		// You can add telemetry herer!
+			
+		//Send telemtry packet for display on PC 	
+		telemetry_packet[SRF] = MSBYTE(srf);
+		telemetry_packet[SRF + 1] = LSBYTE(srf);
+		telemetry_packet[SR] = MSBYTE(sr);
+		telemetry_packet[SR + 1] = LSBYTE(sr);
 	
 	}
 

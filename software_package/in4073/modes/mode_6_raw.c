@@ -81,6 +81,10 @@ void mode_6_raw_INIT()
     p_p1 = P_SCALE;
     p_p2 = P_SCALE;
 
+    C1 = P_SCALE; // small=believe sphi, large=believe sp
+    C2 = P_SCALE * 1000; // >1000*C1: slow drift
+    P2PHI = P_SCALE; // depends on loop freq: measure/compute
+
     //filter_butter();
 }
 
