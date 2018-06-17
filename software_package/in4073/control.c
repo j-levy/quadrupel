@@ -58,21 +58,21 @@ void run_filters_and_control()
     int32_t js[4];
     int32_t a[4];
     
-    js[ROLL]= axis[ROLL] ;
-    js[PITCH] = axis[PITCH] ;
-    js[YAW] = axis[YAW] ;
+    js[ROLL]= axis[ROLL] >> 2;
+    js[PITCH] = axis[PITCH] >> 2;
+    js[YAW] = axis[YAW] >> 2;
     js[LIFT] = (-(axis[LIFT] - 32767) >> 1);
 
 
 	if (mode == 4)
 	{
-		js[YAW] = (p_yaw * (P_SCALE*js[YAW]/p_yaw - __SR))/P_SCALE;
+		js[YAW] = (p_yaw * (P_SCALE*js[YAW]/p_yaw + __SR))/P_SCALE;
 		// you can add telemetry here!
 	}
 
 	if (mode == 5)
 	{
-		js[YAW] = ((p_yaw) * (P_SCALE*js[YAW]/(p_yaw) - __SR))/P_SCALE;
+		js[YAW] = ((p_yaw) * (P_SCALE*js[YAW]/(p_yaw) + __SR))/P_SCALE;
 
 		js[ROLL]  = ((p_p1) * (P_SCALE*js[ROLL] /(p_p1) - __PHI ) - ((p_p2) * __SP))/P_SCALE;
 		js[PITCH] = ((p_p1) * (P_SCALE*js[PITCH]/(p_p1) - __THETA) + ((p_p2) * __SQ))/P_SCALE;
@@ -105,10 +105,10 @@ void run_filters_and_control()
         // because coeff[ROLL] == coeff[PITCH] (I do this because of symmetry, makes sense)
 		
         oo[i] = MAX(oo[i], 0);
-        oo[i] = (oo[i] < MIN_SPEED ? MIN(a[LIFT], MIN_SPEED) : oo[i]);
-		oo[i] = (a[LIFT] < MIN_SPEED ? MIN(a[LIFT], oo[i]) : oo[i]);
-        oo[i] = MIN(oo[i], MAX_SPEED);
-        ae[i] = oo[i] >> 5; // scale 0->32767 to 0->1023, but capped to 600 anyway.
+        oo[i] = (oo[i] < MIN_SPEED*32 ? MIN(MAX(a[LIFT],0), MIN_SPEED*32) : oo[i]);
+		oo[i] = (a[LIFT] < MIN_SPEED*32 ? MIN(MAX(a[LIFT],0), oo[i]) : oo[i]);
+        oo[i] = MIN(oo[i], MAX_SPEED*32);
+        ae[i] = oo[i] / (32); // scale 0->32767 to 0->1023, but capped to 600 anyway.
         
     }
 	update_motors();

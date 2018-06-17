@@ -80,17 +80,10 @@ void process_telemetry(uint8_t c)
             motor3 = (packet_rx[ROTOR3]<<8)|packet_rx[ROTOR3+1];
             motor4 = (packet_rx[ROTOR4]<<8)|packet_rx[ROTOR4+1];
 
-            // phi = (packet_rx[PHI]<<8)|packet_rx[PHI+1];
-            // theta = (packet_rx[THETA]<<8)|packet_rx[THETA+1];
-            // psi = (packet_rx[PSI]<<8)|packet_rx[PSI+1];
-
-            // sp = (packet_rx[SP]<<8)|packet_rx[SP+1];
-            // sq = (packet_rx[SQ]<<8)|packet_rx[SQ+1];
-            // sr = (packet_rx[SR]<<8)|packet_rx[SR+1];
             p_value = (packet_rx[P_YAW]<<8)|packet_rx[P_YAW+1];
 
-            p1_value = packet_rx[P1];
-            p2_value = packet_rx[P2];
+            p1_value = packet_rx[P1]<<8|packet_rx[P1+1];
+            p2_value = packet_rx[P2]<<8|packet_rx[P2+1];
 
             //phi = (packet_rx[PHI]<<8)|packet_rx[PHI+1];
             srf = (packet_rx[SRF]<<8)|packet_rx[SRF+1];
@@ -98,7 +91,6 @@ void process_telemetry(uint8_t c)
             //setpoint_roll = (packet_rx[SETPOINT_ROLL]<<8)|packet_rx[SETPOINT_ROLL+1];
 
             bat_volt = (packet_rx[BAT_VOLT]<<8)|packet_rx[BAT_VOLT+1];
-            // pressure = (packet_rx[PRESSURE]<<24)|(packet_rx[PRESSURE + 1]<<16)|(packet_rx[PRESSURE + 2]<<8)|packet_rx[PRESSURE+3];
             timestamp = (packet_rx[TIMESTAMP]<<24)|(packet_rx[TIMESTAMP + 1]<<16)|(packet_rx[TIMESTAMP + 2]<<8)|packet_rx[TIMESTAMP+3];
 
             printf("Time |%6d|", timestamp);
@@ -111,7 +103,6 @@ void process_telemetry(uint8_t c)
 
             //printf("setpoint_roll |%d|", setpoint_roll);
           
-
             // printf("|%6d %6d %6d|",phi,theta,psi);
             // printf("|%6d %6d %6d|",sp,sq,sr);
             printf("Battery |%4d|\n",bat_volt);

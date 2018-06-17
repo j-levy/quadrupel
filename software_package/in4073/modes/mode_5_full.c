@@ -31,10 +31,16 @@ void mode_5_full_INIT()
         flight_coeffs[i] = 1;
     
     // coefficients determined empirically. They seem more or less ok.
+    /*
     flight_coeffs[ROLL] = 9;
     flight_coeffs[PITCH] = flight_coeffs[ROLL];
     flight_coeffs[LIFT] = 3*flight_coeffs[ROLL];
     flight_coeffs[YAW] = 2*flight_coeffs[ROLL];
+*/
+    flight_coeffs[ROLL] = 7;
+    flight_coeffs[PITCH] = flight_coeffs[ROLL];
+    flight_coeffs[LIFT] = 29;
+    flight_coeffs[YAW] = 15;
 
     // initialize the global variable for the controller.
     p_yaw = P_SCALE;

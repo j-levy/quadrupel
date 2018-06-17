@@ -1,5 +1,5 @@
-#define MAX_SPEED (600 >>5)
-#define MIN_SPEED (200 >>5)
+#define MAX_SPEED 800
+#define MIN_SPEED 200
 
 
 #define MIN(a,b) (a < b ? a : b)
