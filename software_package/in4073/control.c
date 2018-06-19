@@ -34,11 +34,11 @@ void filter_butter()
 {
 	xf[2] = xf[1];
 	xf[1] = xf[0];
-	xf[0] = (sr); // scaling to avoid overflow while keeping more precision on coeffs
+	xf[0] = (sp); // scaling to avoid overflow while keeping more precision on coeffs
 	yf[2] = yf[1];
 	yf[1] = yf[0];
 	yf[0] = (xf[0]*af[0] + xf[1]*af[1] + xf[2]*af[2] + yf[1]*bf[1] + yf[2]*bf[2]) >> SHIFT;
-	srf = yf[0]; 
+	spf = yf[0]; 
 
 }
 
@@ -111,14 +111,14 @@ void run_filters_and_control()
 	{
 		//printf("RAW SENSORS |sax|%d|say|%d|saz|%d|sp|%d|sq|%d|sr|%d|\n",sax,say,saz,sp,sq,sr);
 		filter_butter();
-		filter_k();
+		//filter_k();
 		// You can add telemetry herer!
 			
 		//Send telemtry packet for display on PC 	
-		telemetry_packet[SRF] = MSBYTE(srf);
-		telemetry_packet[SRF + 1] = LSBYTE(srf);
-		telemetry_packet[SR] = MSBYTE(sr);
-		telemetry_packet[SR + 1] = LSBYTE(sr);
+		telemetry_packet[SRF] = MSBYTE(spf);
+		telemetry_packet[SRF + 1] = LSBYTE(spf);
+		telemetry_packet[SR] = MSBYTE(sp);
+		telemetry_packet[SR + 1] = LSBYTE(sp);
 	
 	}
 

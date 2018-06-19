@@ -92,7 +92,7 @@ uint8_t telemetry_packet[TELEMETRY_PACKET_SIZE];
 // butterworth filter
 int32_t xf[3], yf[3]; // filter equation variables 
 int32_t af[3], bf[3]; //filter coefficients
-int16_t srf; //filtered sr value
+int16_t spf; //filtered sr value
 
 
 // K-Filter
