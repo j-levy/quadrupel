@@ -175,20 +175,6 @@ int	rs232_getchar_nb(uint8_t *c)
 }
 
 
-/* This function is not used, and is shit anyways. Needs to be re-written with the new parameter to 
-	pass. Who would need that anyways.*/
-/*
-uint8_t 	rs232_getchar()
-{
-	int 	c;
-
-	while ((rs232_getchar_nb(&c)) == -1)
-		;
-	return c;
-}
-*/
-
-
 int 	rs232_putchar(char c)
 {
 	int result;
@@ -200,263 +186,6 @@ int 	rs232_putchar(char c)
 	assert(result == 1);
 	return result;
 }
-
-
-/*------------------------------------------------------------
- * Method to process the received ACK packet from Drone 
- *
- * Author - Niket Agrawal
- *
- * Compares the received packet ID with the ID of the 
- * last sent packet.
- * 
- *------------------------------------------------------------
- 
-void process_rx(uint8_t c)
-{
-		//fprintf(stderr, "read: %X", c);
-		if (rx_index == 0 && c != _STARTBYTE)
-    	{
-        	return ;
-    	}
-
-    	if (rx_index < SIZEOFACKPACKET)
-    	{
-        	packet_rx[rx_index] = c;  //to print the received packet contents 
-        	rx_crc = rx_crc ^ c;
-        	rx_index = rx_index + 1; 
-    	}
-
-    	if (rx_index == SIZEOFACKPACKET) // whole packet received
-    	{		
-    		#ifdef DEBUGACK
-        		fprintf(stderr, "packet got~~~ : ");
-            	for (int j = 0; j < SIZEOFACKPACKET; j++)
-            	{
-                	fprintf(stderr, "%X ", packet_rx[j]);
-            	}
-        		fprintf(stderr, " ~ crc = %X\n",rx_crc); 
-        	#endif
-
-    		if (rx_crc == 0)  //CRC check passed
-    		{
-    			//compare the packet ID in the ACK packet with 
-    			//the packet ID of the last sent packet
-    			rx_packet_id = ((uint16_t) packet_rx[PACKETID])*256 + packet_rx[PACKETID+1]; /// They're the same offset as the big packet
-
-				fprintf(stderr, "rx_packet_id = %d\n", rx_packet_id);
-
-				// the rx_packet_id is updated, and the send_packet will be able to read it.
-
-
-    		}
-    		else
-    		{
-    			fprintf(stderr, "CRC check failed for the ACK packet\n");
-    		}
-			rx_index = 0;
-			rx_crc = 0;
-    	}
-	
-}
-*/
-
-
-
-/*------------------------------------------------------------
- * Method to send the created packet over serial 
- *
- * Author - Niket Agrawal
- *
- *------------------------------------------------------------
- *
-
-void send_packet()
-{
-	control_packet[START] = _STARTBYTE;
-
-	uint8_t crc = 0;
-
-	for(int i = 0; i < CONTROL_PACKET_SIZE; i++)
-	{
-		crc = crc ^ control_packet[i];
-	}
-	control_packet[CRC] = crc;   
-	int i = 0;
-
-	while((rs232_putchar(control_packet[i]) == 1) && (i < CONTROL_PACKET_SIZE))
-	{
-		i++;
-	}
-
-	#ifdef DEBUG
-		// display the packet that is sent
-		//fprintf(stderr, "control packet sent : ");
-		for (int j = 0; j < CONTROL_PACKET_SIZE; j++)
-		{
-			fprintf(stderr, "%X ", control_packet[j]);
-		}
-		fprintf(stderr, "\n");
-	#endif
-
-	//reset packet	
-	for (int j = 0; j < CONTROL_PACKET_SIZE; j++)
-	{
-		if(j != MODE)  //Retain the previous mode info
-			control_packet[j] = 0;	
-	}
-	
-}
-*/
-
-
-/*-----------------------------------------------------------------
-* Function to read arrow key inputs
-* Source: https://ubuntuforums.org/showthread.php?t=2276177
-*------------------------------------------------------------------
-*/
-// int getch()
-// {
-//  int ch;
-//  struct termios oldt;
-//  struct termios newt;
-//  tcgetattr(STDIN_FILENO, &oldt); /*store old settings */
-//  newt = oldt; /* copy old settings to new settings */
-//  newt.c_lflag &= ~(ICANON | ECHO); /* make one change to old settings in new settings */
-//  tcsetattr(STDIN_FILENO, TCSANOW, &newt); /*apply the new settings immediatly */
-//  ch = getchar(); /* standard getchar call */
-//  tcsetattr(STDIN_FILENO, TCSANOW, &oldt); /*reapply the old settings */
-//  return ch; /*return received char */
-// }
-
-/*------------------------------------------------------------
- * Method to process the received telemetry data from drone 
- *
- * Author - Niket Agrawal
- *
- *------------------------------------------------------------
- *
-void process_telemetry(uint8_t c)
-{
-	if (index_parser == 0 && c != _STARTBYTE)
-    {
-        return ;
-    }
-
-    if (index_parser < TELEMETRY_PACKET_SIZE)
-    {
-        packet_rx[index_parser] = c;
-        #ifdef DEBUGCRC
-        //Corrupt CRC for random byte to simulate error scenario
-        if((count == 750) || (count == 150) || (count == 1300)) {
-            crc = 9;
-         }
-        else
-        #endif
-        crc = crc ^ c;
-
-        index_parser = (index_parser + 1); // in any case, don't go over SIZEOFPACKET.    
-    }
-
-    if (index_parser == TELEMETRY_PACKET_SIZE) //reached the end of a packet 
-    {
-        #ifdef DEBUG
-            printf("packet received~~~ : ");
-            for (int j = 0; j < TELEMETRY_PACKET_SIZE; j++)
-            {
-                printf("%X ", packet_rx[j]);
-            }
-            printf(" ~ crc = %X \n",crc); 
-        #endif
-
-        if (crc == 0) 
-		{
-            // last_OK[0] = packet[PACKETID];
-            // last_OK[1] = packet[PACKETID+1];
-            // #ifdef DEBUG
-
-            // send_ack(packet[PACKETID], packet[PACKETID+1]);
-
-            // #endif
-            //l = CONTROL_PACKET_SIZE;
-            // #ifndef DEBUG 
-
-            // // send_ack(packet[PACKETID], packet[PACKETID+1]);
-
-            // process_key(packet + KEY);
-
-            // process_joystick_axis(packet + AXISTHROTTLE); // throttle is the first value.
-
-            // process_joystick_button(packet + JOYBUTTON);
-
-            // #endif
-
-        }  
-        else if (crc != 0)
-        {
-            #ifdef DEBUG
-            // not passing. Pin-pon-error-blink-red
-            printf(" - crc fail.");
-            nrf_gpio_pin_toggle(RED);
-            #endif
-
-            crc = 0;  //reset crc as it will be recomputed
-            l = l + 1;  // begin from the next byte after the previous start byte
-            while(packet_rx[l] != _STARTBYTE)  //find the index of next startbyte starting 
-            {                               //from the byte after the previous start byte
-                //printf("iteration\n");
-                l++;
-            }      
-
-            #ifdef DEBUGCRC                        
-            printf("Next start byte found at %d\n", l);
-            #endif
-
-            if(l < CONTROL_PACKET_SIZE)
-            {
-                #ifdef DEBUGCRC
-                printf("l is less than packet length\n");
-                #endif
-                //Compute crc from this new start byte till the last byte in our current array
-                index_parser = 0;    //index is zero for new start byte, new packet starts from here   
-                for(int i = l; i < TELEMETRY_PACKET_SIZE; i++)
-                {
-                    packet_rx[i-l] = packet_rx[i];  //overwrite previous bytes
-                    crc = crc ^ packet_rx[i];
-                    index_parser = index_parser + 1;
-                }
-                //packet_length = l + CONTROL_PACKET_SIZE;  //reset packet length for full packet traversal
-                //printf("New packet length is %d\n", packet_length);
-            }
-
-            else //no other start byte found in the current packet
-                 //reset index to zero and clear packet 
-            {
-                index_parser = 0;
-                for(int i = 0; i < TELEMETRY_PACKET_SIZE; i++)
-                {
-                    packet_rx[i] = 0;
-                }
-            }
-            
-        } 
-        
-    }
-
-    // reset index to zero and clear packet if index reached the end of packet
-    if(index_parser == TELEMETRY_PACKET_SIZE)
-    {
-        index_parser = 0;
-        for(int i = 0; i < l; i++)  
-        {
-            packet_rx[i] = 0;
-        }
-    }
-    #ifdef DEBUGCRC
-    count++; 
-    #endif
-}
-*/
 
 
 // global variable, be read by both threads, but actually changed only by one thread (easier)
@@ -613,45 +342,41 @@ int main(int argc, char **argv)
 			{
 				y = getchar();
 				z = getchar(); 
-				//printf("Key code y is %d\n", y);
-				//printf("Key code z is %d\n", z);
+
 				if (d == 27 && y == 91)
 				{
 					switch (z)
 					{
 					case 65:   
-					//printf("up arrow key pressed\n");
+					//up arrow key pressed
 					control_packet[KEY] = 42;
 					break;
 
 					case 66:
-					//printf("down arrow key pressed\n");
+					//down arrow key pressed
 					control_packet[KEY] = 44;
 					break;
 
 					case 67:
-					//printf("right arrow key pressed\n");
+					//right arrow key pressed
 					control_packet[KEY] = 43;
 					break;
 
 					case 68:
-					//printf("left arrow key pressed\n");
+					//left arrow key pressed
 					control_packet[KEY] = 45;
 					break;
 					}
 				}
 				else
 				control_packet[MODE] = 27; 
-				//isContinuing = 0;
 			}
 			else if ((d >= '0') && (d <= '8'))
 				control_packet[MODE] = d;
-				//control_packet[MODE] = 0xFF;
 			else if (d == 3 || d == 16) // CTRL+C or CTRL+P
 				isContinuing = 0;
 			else
 				control_packet[KEY] = d;
-				//control_packet[KEY] = 0xFF;
 		}
 
 		clock_gettime(CLOCK_REALTIME, &tp);

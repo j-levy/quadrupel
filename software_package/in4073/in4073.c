@@ -32,15 +32,14 @@ uint8_t keyboard_key = 0;
 uint8_t mode = 0;
 uint8_t abort_mission = 0;
 
+uint8_t nextmode;
 
 /*------------------------------------------------------------------
- * process_{joystick, key} -- process command keys, mode change, or joystick
+ * process joystick axis values
  * Jonathan Lévy
  * April 2018
  *------------------------------------------------------------------
  */
-
-uint8_t nextmode;
 
 void store_joystick_axis(uint8_t *val)
 {
@@ -49,20 +48,14 @@ void store_joystick_axis(uint8_t *val)
 		int16_t stickvalue = (((int16_t) *(val + 2*i)) << 8) + ((int16_t) *(val + 2*i + 1));
 		axis[i] = stickvalue;
 	}
-	
-	//If throttle is almost zero, clear the offset
-
-	/*
-	if(axis[3] > 32000)
-	{
-		for(int i =0; i<4; i++)
-        {
-            offset[i] = 0;
-        }
-	}
-	*/
 }
 
+/*------------------------------------------------------------------
+ * process joystick button input and handling abort mission
+ * Niket Agrawal
+ * May 2018
+ *------------------------------------------------------------------
+ */
 void store_joystick_button(uint8_t *val)
 {
 	buttons = *val;
@@ -74,6 +67,15 @@ void store_joystick_button(uint8_t *val)
 	}
 		
 }
+
+/*------------------------------------------------------------------
+ * process joystick key, handle static trimming offset,
+ * handle modification of control loop constants
+ * Author - Niket Agrawal
+ * Flight coefficients - Jonathan Lévy
+ * May 2018
+ *------------------------------------------------------------------
+ */
 
 void store_key(uint8_t *val)
 {
@@ -105,8 +107,7 @@ void store_key(uint8_t *val)
 		case 'r' : flight_coeffs[YAW]++; break;
 		case 'f' : flight_coeffs[YAW] = MAX(flight_coeffs[YAW]-1, 1); break;
       
-     /* keys for offset adjust 
-     WARNING: only pitch and roll. Missing LIFT and YAW. See next comments. */
+     /* keys for offset adjust */
     case 44:  offset[PITCH] += OFFSET_SCALING; //pitch up
 				  break;
 		case 42:  offset[PITCH] -= OFFSET_SCALING ; //pitch down
@@ -123,9 +124,8 @@ void store_key(uint8_t *val)
 				  break; 
 		case 'z': offset[LIFT] -= OFFSET_SCALING ; //yaw down
 				  break;
-
-
 	}
+	
 	telemetry_packet[P_YAW] = MSBYTE(p_yaw);
 	telemetry_packet[P_YAW+1] = LSBYTE(p_yaw);
 	telemetry_packet[P1] = MSBYTE(p_p1);
@@ -134,7 +134,12 @@ void store_key(uint8_t *val)
 	telemetry_packet[P2+1] = LSBYTE(p_p2);
 }
 
-
+/*------------------------------------------------------------------
+ * process mode information from keyboard
+ * Niket Agrawal
+ * May 2018
+ *------------------------------------------------------------------
+ */
 void store_mode(uint8_t *val)
 {
 	if (*val == 27)

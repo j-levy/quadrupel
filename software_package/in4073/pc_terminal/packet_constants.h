@@ -1,6 +1,10 @@
+//Packet structure for control and telemtery packets
+
 #define CONTROL_PACKET_SIZE 13
 #define TELEMETRY_PACKET_SIZE 23
 
+
+// Control packet
 #define START 0
 #define KEY 1
 #define MODE 2
@@ -17,6 +21,8 @@
 #define DELAY_PACKET_NS 20000000
 #define TELEMETRY_TIMEOUT_NS 750000000
 
+
+//Telemtery Packet
 #define ROTOR1 1
 #define ROTOR2 3
 #define ROTOR3 5
@@ -29,6 +35,8 @@
 #define P2 20
 #define CRC_TELEMETRY 22
 
+//Macros to ease breaking of a bigger sized data type to bytes
+//and storing in packet array
 #define MSBYTE(x) ((uint8_t) ((x & 0xff00) >> 8))
 
 #define LSBYTE(x) ((uint8_t) ((x & 0x00ff)))
