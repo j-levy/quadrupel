@@ -28,55 +28,11 @@ bool log_init() {
     flash_chip_erase();
     return spi_flash_init();
 }
-/*
-bool log_write_item() {
-    if (logsize > 3400){
-        printf("Flash memory full");
-        return false;
-    }
 
-    #ifdef DEBUG
-    printf("Data to be logged: ");
-    for (int i = 0; i<TELEMETRY_PACKET_SIZE;i++){
-        printf("%X ", telemetry_packet[i]);
-    }
-    printf("\n");
-    #endif
 
-    bool write_status = flash_write_bytes(current_address, telemetry_packet, TELEMETRY_PACKET_SIZE);
-    if (write_status){
-        logsize++;
-        current_address += TELEMETRY_PACKET_SIZE;
-
-        #ifdef DEBUG
-        printf("Log successful.\n");
-        #endif
-        //reset packet	
-        for (int j = 0; j < TELEMETRY_PACKET_SIZE; j++)
-        {
-            telemetry_packet[j] = 0;	
-        }
-        return true;
-    } else {
-
-        #ifdef DEBUG
-        printf("Error writing to flash!");
-        #endif
-
-        //reset packet	
-        for (int j = 0; j < TELEMETRY_PACKET_SIZE; j++)
-        {
-            telemetry_packet[j] = 0;	
-        }
-        return false;
-    }
-}
-*/
-
+//Log the current DMP readings and motor speeds with timestamp
 bool log_sensor(){
     if (logsize > MAX_ITEM){
-        //
-        // printf("Flash memory full");
         return false;
     }
     uint32_t current_time = get_time_us();
@@ -86,7 +42,7 @@ bool log_sensor(){
 	sensor_data[2] = BYTE3_WORD(current_time);
 	sensor_data[3] = LSBYTE_WORD(current_time);	
 
-    //Attitude
+    //Phi-theta-psi
     sensor_data[4] = MSBYTE(phi);
     sensor_data[5] = LSBYTE(phi);
     sensor_data[6] = MSBYTE(theta);
@@ -94,7 +50,7 @@ bool log_sensor(){
     sensor_data[8] = MSBYTE(psi);
     sensor_data[9] = LSBYTE(psi);
 
-    //Angular velocity
+    //sp-sq-sr
     sensor_data[10] = MSBYTE(sp);
     sensor_data[11] = LSBYTE(sp);
     sensor_data[12] = MSBYTE(sq);
@@ -127,10 +83,12 @@ bool log_sensor(){
     }
 }
 
+
+//Read the final entry of the log
 void log_read_last(){
     uint8_t buffer[LOG_ITEM_SIZE] = {0};
     uint32_t reading_address = current_address - LOG_ITEM_SIZE;
-    printf("Reading log. Address %6ld.", reading_address);
+    //printf("Reading log. Address %6ld.", reading_address);
     if(flash_read_bytes(reading_address, buffer,LOG_ITEM_SIZE)){
         for (int i = 0; i<LOG_ITEM_SIZE;i++){
             printf("%X ", buffer[i]);
@@ -138,6 +96,7 @@ void log_read_last(){
     }
 }
 
+//Read all log entries
 void log_read_all(){
     uint8_t buffer[LOG_ITEM_SIZE] = {0};
     uint32_t reading_address = 0;

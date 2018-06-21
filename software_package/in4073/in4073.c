@@ -284,10 +284,6 @@ int main(void)
 			//log_sensor();
 		}
 	}	
-	
-	// TODO : implement offloading with these functions
-	//log_read_last();
-	//log_read_all();
 
 	printf("\n\t Goodbye \n\n");
 	nrf_delay_ms(100);
