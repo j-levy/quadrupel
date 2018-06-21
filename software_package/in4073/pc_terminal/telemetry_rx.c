@@ -2,8 +2,9 @@
  * telemtery_rx.c -> Parses and Process the telemetry data
  * received from drone  
  *
- * Mostly by Niket Agrawal
- * Contributions from Tuan Anh Nguyen
+ * Authors and contribution
+ * Niket Agrawal (70%)
+ * Tuan Anh Nguyen (30%)
  *
  * May 2018
  *------------------------------------------------------------
