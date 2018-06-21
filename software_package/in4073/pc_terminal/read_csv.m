@@ -7,7 +7,7 @@ set(gcf,'CurrentCharacter','@'); % set to a dummy character
 if (~exist('startrow')) 
     startrow = 0;
 end
-MaxNbrOfPoints = 1000;
+MaxNbrOfPoints = 700;
 counter = 0;
 
 M = csvread(filename, startrow, 0);
@@ -25,8 +25,8 @@ startrow = length(time)-1;
 time = [];
 
 fig = figure;
-h = animatedline('MaximumNumPoints',200, 'Color', 'b');
-j = animatedline('MaximumNumPoints',200, 'Color', 'r');
+h = animatedline('MaximumNumPoints',MaxNbrOfPoints, 'Color', 'b');
+j = animatedline('MaximumNumPoints',MaxNbrOfPoints, 'Color', 'r');
 while ~finished
     M = csvread(filename, startrow, 0);
     time = [];
