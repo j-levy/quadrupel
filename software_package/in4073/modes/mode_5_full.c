@@ -1,6 +1,6 @@
 /*
-MODE 5: yaw control function.
-Author:Yuhao Xuan, Jonathan Levy
+    MODE 5: full control mode.
+    (Most of the useful code is in control.c)
 */
 #include "in4073.h"
 #include "switch_mode.h"

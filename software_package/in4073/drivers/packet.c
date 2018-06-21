@@ -3,7 +3,9 @@
  *             does CRC computation according to the logic explained below and validates 
  *             correct reception of packets.
  *  
- *  Author: Niket Agrawal
+ *  Authors and contribution:
+ *  Niket Agrawal (70%)
+ *  Tuan Anh Nguyen (30%)
  * 
  * CRC is computed byte by byte and CRC check is done at the end of each packet (13 bytes) as before. 
  * The idea is to NOT discard the whole packet upon CRC decoding failure, as we may have picked a wrong start byte 
@@ -33,28 +35,6 @@ static uint8_t crc = 0;
 static int count = 0;
 #endif
 static uint8_t l = 0;  //variable used to determine new startbyte
-
-//static uint8_t last_OK[2] = {0,0};
-
-// void send_ack(){
-    
-//     /* WARNING : the pc_terminal reads the characters as int. SIGNED INT.
-//         Plus, the code -1 (which is, BAD LUCK, corresponding to 0xFF) means no character received.
-//         This is why I changed the start bit to 0xF0.
-//     */
-
-//     uint8_t ack_CRC = _STARTBYTE ^ last_OK[0]  ^ last_OK[1];
-//     #ifdef DEBUGACK
-//     printf("%x %x %x %x", _STARTBYTE, packet[PACKETID], packet[PACKETID+1], ack_CRC);
-//     #endif
-//     //#ifndef DEBUGACK
-//     // printf("%c%c%c%c", _STARTBYTE, a, b, ack_CRC);
-    
-//     uart_put4(_STARTBYTE, last_OK[0], last_OK[1], ack_CRC );
-
-    
-    //#endif
-//}
 
 void process_packet(uint8_t c) {
     // Packet beginning detection.
@@ -93,14 +73,7 @@ void process_packet(uint8_t c) {
         #endif
 
         if (crc == 0) {
-            // last_OK[0] = packet[PACKETID];
-            // last_OK[1] = packet[PACKETID+1];
-            // #ifdef DEBUG
-
-            // send_ack(packet[PACKETID], packet[PACKETID+1]);
-
-            // #endif
-            //l = CONTROL_PACKET_SIZE;
+            
             #ifdef ENABLE_STORE_DATA 
 
             store_key(packet + KEY);
@@ -182,54 +155,3 @@ void process_packet(uint8_t c) {
     #endif
 }
 
-
-/*------------------------------------------------------------
- *  
- *
- * Author - Niket Agrawal
- *
- * Sends the telemetry data to the PC at 10Hz
- * 
- *------------------------------------------------------------
- *
-void send_telemetry_packet()
-{
-    telemetry_packet[START] = _STARTBYTE;
-    uint32_t current_time = get_time_us();
-	telemetry_packet[TIMESTAMP] = MSBYTE_WORD(current_time);
-	telemetry_packet[TIMESTAMP + 1] = BYTE2_WORD(current_time);
-	telemetry_packet[TIMESTAMP + 2] = BYTE3_WORD(current_time);
-	telemetry_packet[TIMESTAMP + 3] = LSBYTE_WORD(current_time);
-
-	uint8_t crc = 0;
-
-	for(int i = 0; i < TELEMETRY_PACKET_SIZE; i++)
-	{
-		crc = crc ^ telemetry_packet[i];
-	}
-	telemetry_packet[CRC_TELEMETRY] = crc;   
-	int j = 0;
-    while(j < TELEMETRY_PACKET_SIZE)
-	{
-        uart_put(telemetry_packet[j]);
-		j++;
-	}
-    #ifdef DEBUGTELEMETRYTX
-		// display the packet that is sent
-		//fprintf(stderr, "telemetry packet sent : ");
-        printf("telemetry packet sent : ");
-		for (int k = 0; k < TELEMETRY_PACKET_SIZE; k++)
-		{
-			//fprintf(stderr, "%X ", telemetry_packet[k]);
-            printf("%X ", telemetry_packet[k]);
-		}
-		//fprintf(stderr, "\n");
-        printf("\n");
-	#endif
-    //reset packet	
-	for (int j = 0; j < TELEMETRY_PACKET_SIZE; j++)
-	{
-		telemetry_packet[j] = 0;	
-	}
-
-}*/

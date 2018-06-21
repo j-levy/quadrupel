@@ -4,10 +4,17 @@
 
 
 /*  
- Mode is a global variable, so it can be written and read right away.
+    Switch mode functions and actual mode-switcher
+    Jonathan LEVY
 
-Switch modes if the switching is legitimate
-
+    The state machine is created by each mode having 5 functions,
+    that can be accessed with function pointers.
+    These 5 types of functions are:
+        - Init (run when entering the mode)
+        - Quit (run when exiting the mode)
+        - Can Enter (returns 1 if the mode can be left, 0 otherwise)
+        - Can Leave (returns 1 if the mode can be entered, 0 otherwise)
+        - Run (is run when in the mode. This is useful for Panic and Calibration, the flight code being in control.c)
 */
 void init_modes()
 {
@@ -33,10 +40,6 @@ void init_modes()
     mode_INIT[4] = mode_4_yaw_INIT;
     mode_INIT[5] = mode_5_full_INIT;
 
-
-    /*TODO : add prototypes in header 
-    */
-
     mode_CANENTER[0] = mode_0_safe_CANENTER;
     mode_CANENTER[1] = mode_1_panic_CANENTER;
     mode_CANENTER[2] = mode_2_manual_CANENTER;
@@ -52,6 +55,7 @@ void init_modes()
     mode_CANLEAVE[4] = mode_4_yaw_CANLEAVE;
     mode_CANLEAVE[5] = mode_5_full_CANLEAVE;
 }
+
 
 void switch_mode( uint8_t newmode )
 {

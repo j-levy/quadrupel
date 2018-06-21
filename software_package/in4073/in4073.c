@@ -153,7 +153,8 @@ void store_mode(uint8_t *val)
 
 
 /*------------------------------------------------------------------
- * main -- everything you need is here :)
+ * main -- everything you need is here 
+ * Various contributions
  *------------------------------------------------------------------
  */
 int main(void)

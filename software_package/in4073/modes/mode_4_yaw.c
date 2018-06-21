@@ -1,6 +1,6 @@
 /*
-MODE 4: yaw control function.
-Author:Yuhao Xuan
+    MODE 4: yaw control.
+    (Most of the useful code is in control.c)
 */
 #include "in4073.h"
 #include "switch_mode.h"
