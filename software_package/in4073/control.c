@@ -1,12 +1,7 @@
 /*------------------------------------------------------------------
  *  control.c -- here you can implement your control algorithm
- *		 and any motor clipping or whatever else
- *		 remember! motor input =  0-1000 : 125-250 us (OneShot125)
- *
- *  I. Protonotarios
- *  Embedded Software Lab
- *
- *  July 2016
+ * 	Mostly from Jonathan Levy
+ * 	Contribution from Niket Agrawal
  *------------------------------------------------------------------
  */
 
@@ -15,7 +10,6 @@
 
 void update_motors(void)
 {					
-	
 	motor[0] = ae[0];
 	motor[1] = ae[1];
 	motor[2] = ae[2];
@@ -77,7 +71,7 @@ void run_filters_and_control()
         oo[i] = (oo[i] < MIN_SPEED*32 ? MIN(MAX(a[LIFT],0), MIN_SPEED*32) : oo[i]);
 		oo[i] = (a[LIFT] < MIN_SPEED*32 ? MIN(MAX(a[LIFT],0), oo[i]) : oo[i]);
         oo[i] = MIN(oo[i], MAX_SPEED*32);
-        ae[i] = oo[i] / (32); // scale 0->32767 to 0->1023, but capped to 600 anyway.
+        ae[i] = oo[i] / (32); // scale 0->32767 to 0->1023, but capped to 800 anyway.
         
     }
 	update_motors();

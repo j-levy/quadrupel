@@ -8,10 +8,6 @@ Panic functions for the state machine.
 Jonathan Lévy
 */
 
-
-/* 
- TODO: write the constants as #define
-*/
 static uint16_t counter;
 
 char mode_1_panic_CANLEAVE(uint8_t target)
@@ -54,7 +50,7 @@ void mode_1_panic_QUIT()
 void mode_1_panic_RUN()
 {    
     counter++;
-    if (counter%500 == 0) // slow down a bit
+    if (counter%1500 == 0) // slow down a bit
     {
         for (int i = 0; i < 4; i++)
             ae[i] = (ae[i] - 1 < 0 ? 0 : ae[i] - 1);

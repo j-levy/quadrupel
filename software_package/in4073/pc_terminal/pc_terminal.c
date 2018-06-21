@@ -6,10 +6,14 @@
  * read more: http://mirror.datenwolf.net/serial/
  * 
  * Revised 
- * [Niket Agrawal]
+ * Niket Agrawal, Tuan Anh Nguyen 
  * May 2018
  * Methods for sending control packet to drone and
  * processing the telemetry data from drone 
+ * Sending Telemetry
+ * 
+ * Jonathan Levy
+ * Threads and interrupt for correct 
  *------------------------------------------------------------
  */
 
