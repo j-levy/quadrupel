@@ -2,6 +2,8 @@
  *  control.c -- here you can implement your control algorithm
  * 	Mostly from Jonathan Levy
  * 	Contribution from Niket Agrawal
+ *
+ *      Tuning done by Tuan Anh Nguyen
  *------------------------------------------------------------------
  */
 
