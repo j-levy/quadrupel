@@ -27,15 +27,16 @@ uint16_t motor1 = 0;
 uint16_t motor2 = 0;
 uint16_t motor3 = 0;
 uint16_t motor4 = 0;
-// int16_t phi, theta, psi;
-// int16_t sp, sq, sr = 0;
+int16_t phi_value, theta_value, psi_value;
+int16_t sp_value, sq_value, sr_value;
+int16_t sax_value, say_value, saz_value;
 // int32_t pressure = 0;
 uint16_t bat_volt;
 
 uint16_t p_value;
 uint16_t p1_value;
 uint16_t p2_value;
-//int16_t phi;
+
 
 
 int32_t timestamp = 0;
@@ -89,12 +90,34 @@ void process_telemetry(uint8_t c)
             bat_volt = (packet_rx[BAT_VOLT]<<8)|packet_rx[BAT_VOLT+1];
             timestamp = (packet_rx[TIMESTAMP]<<24)|(packet_rx[TIMESTAMP + 1]<<16)|(packet_rx[TIMESTAMP + 2]<<8)|packet_rx[TIMESTAMP+3];
 
+            sp_value = packet_rx[SP]<<8|packet_rx[SP+1];
+            sq_value = packet_rx[SQ]<<8|packet_rx[SQ+1];
+            sr_value = packet_rx[SR]<<8|packet_rx[SR+1];
+
+            sax_value = packet_rx[SAX]<<8|packet_rx[SAX+1];
+            say_value = packet_rx[SAY]<<8|packet_rx[SAY+1];
+            saz_value = packet_rx[SAZ]<<8|packet_rx[SAZ+1];
+
+            phi_value = packet_rx[PHI]<<8|packet_rx[PHI+1];
+            theta_value = packet_rx[THETA]<<8|packet_rx[THETA+1];
+            psi_value = packet_rx[PSI]<<8|packet_rx[PSI+1];
+
             printf("Time |%6d|", timestamp);
             printf("Mode |%d|", packet_rx[MODE_DRONE]);
             printf("Motors |%3d %3d %3d %3d|", motor1,motor2,motor3,motor4);
             printf("P |%d|", p_value);
             printf("P1 |%d| ", p1_value);
             printf("P2 |%d|", p2_value);
+
+            printf("SP |%d|", sp_value);
+            printf("SQ |%d|", sq_value);
+            printf("SR |%d|", sr_value);
+            printf("SAX |%d|", sax_value);
+            printf("SPY |%d|", say_value);
+            printf("SAZ |%d|", saz_value);
+            printf("PHI |%d|", phi_value);
+            printf("THETA |%d|", theta_value);
+            printf("PSI |%d|", psi_value);
           
             // printf("|%6d %6d %6d|",phi,theta,psi);
             // printf("|%6d %6d %6d|",sp,sq,sr);

@@ -35,6 +35,16 @@ void mode_2_manual_INIT()
     flight_coeffs[LIFT] = 3*flight_coeffs[ROLL];
     flight_coeffs[YAW] = 2*flight_coeffs[ROLL];
 
+    sp_offset = 0;
+    sq_offset = 0;
+    sr_offset = 0; 
+    sax_offset = 0;
+    say_offset = 0;
+    saz_offset = 0;
+    phi_offset = 0;
+    psi_offset = 0; 
+    theta_offset = 0;
+
 }
 
 void mode_2_manual_QUIT()

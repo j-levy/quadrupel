@@ -1,7 +1,7 @@
 //Packet structure for control and telemtery packets
 
 #define CONTROL_PACKET_SIZE 13
-#define TELEMETRY_PACKET_SIZE 23
+#define TELEMETRY_PACKET_SIZE 41
 
 
 // Control packet
@@ -33,7 +33,16 @@
 #define P_YAW 16
 #define P1 18
 #define P2 20
-#define CRC_TELEMETRY 22
+#define SP 22
+#define SQ 24
+#define SR 26
+#define SAX 28
+#define SAY 30
+#define SAZ 32
+#define PHI 34
+#define THETA 36
+#define PSI 38
+#define CRC_TELEMETRY 40
 
 //Macros to ease breaking of a bigger sized data type to bytes
 //and storing in packet array

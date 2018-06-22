@@ -18,6 +18,7 @@
 
 #include "in4073.h"
 #include "modes/switch_mode.h"
+#include "modes/modes_flight.h"
 
 #define MIN(a,b) (a < b ? a : b)
 
@@ -265,6 +266,27 @@ int main(void)
     	if (check_sensor_int_flag()) 
 		{
 			get_dmp_data();
+
+			//For measurements
+			telemetry_packet[SP] = MSBYTE(__SP);
+			telemetry_packet[SP+1] = LSBYTE(__SP);
+			telemetry_packet[SQ] = MSBYTE(__SQ);
+			telemetry_packet[SQ+1] = LSBYTE(__SQ);
+			telemetry_packet[SR] = MSBYTE(__SR);
+			telemetry_packet[SR+1] = LSBYTE(__SR);
+			telemetry_packet[SAX] = MSBYTE(__SAX);
+			telemetry_packet[SAX+1] = LSBYTE(__SAX);
+			telemetry_packet[SAY] = MSBYTE(__SAY);
+			telemetry_packet[SAY+1] = LSBYTE(__SAY);
+			telemetry_packet[SAZ] = MSBYTE(__SAZ);
+			telemetry_packet[SAZ+1] = LSBYTE(__SAZ);
+
+			telemetry_packet[PHI] = MSBYTE(__PHI);
+			telemetry_packet[PHI+1] = LSBYTE(__PHI);
+			telemetry_packet[THETA] = MSBYTE(__THETA);
+			telemetry_packet[THETA+1] = LSBYTE(__THETA);
+			telemetry_packet[PSI] = MSBYTE(__PSI);
+			telemetry_packet[PSI+1] = LSBYTE(__PSI);
 
 			if (mode == MODE_2_MANUAL || mode == MODE_4_YAWCTRL || mode == MODE_5_FULLCTRL )
 				run_filters_and_control();
