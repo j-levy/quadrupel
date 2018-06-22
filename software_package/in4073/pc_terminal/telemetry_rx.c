@@ -104,7 +104,7 @@ void process_telemetry(uint8_t c)
 
             printf("Time |%6d|", timestamp);
             printf("Mode |%d|", packet_rx[MODE_DRONE]);
-            printf("Motors |%3d %3d %3d %3d|", motor1,motor2,motor3,motor4);
+            printf("Motors |%3d | %3d | %3d | %3d|", motor1,motor2,motor3,motor4);
             printf("P |%d|", p_value);
             printf("P1 |%d| ", p1_value);
             printf("P2 |%d|", p2_value);
