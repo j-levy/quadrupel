@@ -1,0 +1,915 @@
+using /dev/input/js0
+
+Terminal program - Embedded Real-Time Systems
+Type ^C to exit
+Time |893207|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-16|SAX |258|SPY |-438|SAZ |14380|PHI |154|THETA |-16|PSI |-1|Battery | 595|
+Time |993221|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |1|SAX |60|SPY |-336|SAZ |14372|PHI |44|THETA |5|PSI |-34|Battery | 581|
+Time |1093234|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-27|SQ |-1|SR |13|SAX |292|SPY |-498|SAZ |14412|PHI |-8|THETA |15|PSI |50|Battery | 581|
+Time |1193242|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |222|SPY |-432|SAZ |14372|PHI |-55|THETA |25|PSI |37|Battery | 560|
+Time |1293271|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |218|SPY |-440|SAZ |14378|PHI |-98|THETA |34|PSI |19|Battery | 581|
+Time |1393288|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-3|SR |-17|SAX |236|SPY |-444|SAZ |14350|PHI |-138|THETA |43|PSI |2|Battery | 581|
+Time |1493304|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |218|SPY |-428|SAZ |14386|PHI |-176|THETA |51|PSI |-15|Battery | 560|
+Time |1593335|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-3|SR |-17|SAX |230|SPY |-446|SAZ |14348|PHI |-211|THETA |59|PSI |-32|Battery | 574|
+Time |1693830|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-3|SR |-17|SAX |244|SPY |-436|SAZ |14376|PHI |-245|THETA |68|PSI |-50|Battery | 581|
+Time |1794373|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |214|SPY |-436|SAZ |14382|PHI |-275|THETA |75|PSI |-68|Battery | 560|
+Time |1895330|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |248|SPY |-426|SAZ |14380|PHI |-304|THETA |82|PSI |-86|Battery | 574|
+Time |1995341|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-18|SAX |234|SPY |-444|SAZ |14360|PHI |-331|THETA |89|PSI |-104|Battery | 581|
+Time |2095784|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |208|SPY |-436|SAZ |14388|PHI |-356|THETA |94|PSI |-122|Battery | 560|
+Time |2196290|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-3|SR |-17|SAX |222|SPY |-432|SAZ |14372|PHI |-379|THETA |100|PSI |-139|Battery | 581|
+Time |2296788|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |224|SPY |-432|SAZ |14386|PHI |-401|THETA |105|PSI |-157|Battery | 581|
+Time |2397274|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |224|SPY |-458|SAZ |14356|PHI |-422|THETA |110|PSI |-175|Battery | 560|
+Time |2497797|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |210|SPY |-426|SAZ |14378|PHI |-442|THETA |114|PSI |-193|Battery | 581|
+Time |2598312|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |200|SPY |-456|SAZ |14360|PHI |-460|THETA |119|PSI |-211|Battery | 581|
+Time |2698783|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |216|SPY |-430|SAZ |14356|PHI |-477|THETA |122|PSI |-229|Battery | 560|
+Time |2799627|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |240|SPY |-434|SAZ |14382|PHI |-493|THETA |125|PSI |-246|Battery | 574|
+Time |2899792|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |244|SPY |-418|SAZ |14370|PHI |-507|THETA |129|PSI |-264|Battery | 581|
+Time |3000314|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |230|SPY |-440|SAZ |14380|PHI |-521|THETA |132|PSI |-282|Battery | 560|
+Time |3100809|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |228|SPY |-460|SAZ |14376|PHI |-534|THETA |136|PSI |-300|Battery | 574|
+Time |3201306|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-16|SAX |238|SPY |-436|SAZ |14390|PHI |-546|THETA |137|PSI |-318|Battery | 581|
+Time |3301784|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |224|SPY |-438|SAZ |14394|PHI |-558|THETA |140|PSI |-335|Battery | 560|
+Time |3402288|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |226|SPY |-420|SAZ |14374|PHI |-568|THETA |143|PSI |-353|Battery | 581|
+Time |3502808|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |246|SPY |-456|SAZ |14348|PHI |-578|THETA |146|PSI |-371|Battery | 581|
+Time |3603278|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |248|SPY |-438|SAZ |14378|PHI |-587|THETA |148|PSI |-390|Battery | 560|
+Time |3704192|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |232|SPY |-442|SAZ |14358|PHI |-596|THETA |151|PSI |-407|Battery | 581|
+Time |3804306|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |220|SPY |-446|SAZ |14364|PHI |-605|THETA |152|PSI |-426|Battery | 581|
+Time |3904807|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |232|SPY |-444|SAZ |14400|PHI |-612|THETA |155|PSI |-444|Battery | 560|
+Time |4005294|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |244|SPY |-412|SAZ |14412|PHI |-619|THETA |156|PSI |-461|Battery | 574|
+Time |4105765|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |228|SPY |-444|SAZ |14406|PHI |-625|THETA |158|PSI |-479|Battery | 602|
+Time |4206287|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-16|SAX |234|SPY |-460|SAZ |14396|PHI |-631|THETA |160|PSI |-497|Battery | 560|
+Time |4306808|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |230|SPY |-430|SAZ |14400|PHI |-637|THETA |162|PSI |-515|Battery | 574|
+Time |4407302|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |230|SPY |-436|SAZ |14404|PHI |-643|THETA |163|PSI |-533|Battery | 581|
+Time |4507762|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |226|SPY |-442|SAZ |14380|PHI |-647|THETA |163|PSI |-551|Battery | 560|
+Time |4608297|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |214|SPY |-434|SAZ |14430|PHI |-653|THETA |164|PSI |-569|Battery | 574|
+Time |4708765|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-18|SAX |216|SPY |-438|SAZ |14386|PHI |-658|THETA |165|PSI |-587|Battery | 581|
+Time |4809289|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |232|SPY |-456|SAZ |14386|PHI |-661|THETA |166|PSI |-606|Battery | 560|
+Time |4909783|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |230|SPY |-438|SAZ |14388|PHI |-665|THETA |167|PSI |-624|Battery | 581|
+Time |5010278|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |220|SPY |-438|SAZ |14382|PHI |-668|THETA |167|PSI |-642|Battery | 581|
+Time |5110760|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-16|SAX |246|SPY |-436|SAZ |14372|PHI |-672|THETA |168|PSI |-660|Battery | 560|
+Time |5211308|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |206|SPY |-430|SAZ |14394|PHI |-675|THETA |168|PSI |-678|Battery | 574|
+Time |5311991|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |208|SPY |-434|SAZ |14390|PHI |-677|THETA |169|PSI |-696|Battery | 581|
+Time |5412247|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |230|SPY |-450|SAZ |14362|PHI |-680|THETA |169|PSI |-714|Battery | 560|
+Time |5512792|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |200|SPY |-432|SAZ |14400|PHI |-683|THETA |169|PSI |-732|Battery | 574|
+Time |5613315|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |236|SPY |-438|SAZ |14366|PHI |-685|THETA |170|PSI |-751|Battery | 581|
+Time |5713795|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |222|SPY |-430|SAZ |14368|PHI |-687|THETA |170|PSI |-769|Battery | 560|
+Time |5814761|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |240|SPY |-444|SAZ |14394|PHI |-690|THETA |171|PSI |-787|Battery | 574|
+Time |5914792|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-3|SR |-17|SAX |228|SPY |-444|SAZ |14342|PHI |-692|THETA |172|PSI |-805|Battery | 581|
+Time |6015315|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |240|SPY |-434|SAZ |14362|PHI |-694|THETA |172|PSI |-823|Battery | 560|
+Time |6115801|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |238|SPY |-430|SAZ |14388|PHI |-696|THETA |173|PSI |-841|Battery | 581|
+Time |6216275|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |222|SPY |-426|SAZ |14364|PHI |-698|THETA |173|PSI |-859|Battery | 581|
+Time |6316817|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-18|SAX |214|SPY |-440|SAZ |14372|PHI |-700|THETA |174|PSI |-878|Battery | 560|
+Time |6417387|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |226|SPY |-442|SAZ |14376|PHI |-701|THETA |175|PSI |-896|Battery | 574|
+Time |6517807|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |212|SPY |-440|SAZ |14376|PHI |-703|THETA |175|PSI |-914|Battery | 581|
+Time |6618292|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |226|SPY |-442|SAZ |14380|PHI |-704|THETA |175|PSI |-933|Battery | 560|
+Time |6718816|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-3|SR |-17|SAX |238|SPY |-432|SAZ |14376|PHI |-705|THETA |176|PSI |-951|Battery | 574|
+Time |6819381|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |216|SPY |-442|SAZ |14372|PHI |-707|THETA |177|PSI |-969|Battery | 581|
+Time |6919801|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |222|SPY |-454|SAZ |14386|PHI |-708|THETA |177|PSI |-987|Battery | 560|
+Time |7020296|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-3|SR |-17|SAX |234|SPY |-426|SAZ |14368|PHI |-710|THETA |178|PSI |-1006|Battery | 574|
+Time |7120764|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |208|SPY |-456|SAZ |14364|PHI |-710|THETA |178|PSI |-1024|Battery | 581|
+Time |7221449|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |240|SPY |-402|SAZ |14416|PHI |-711|THETA |178|PSI |-1042|Battery | 560|
+Time |7321827|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-18|SAX |226|SPY |-448|SAZ |14402|PHI |-711|THETA |179|PSI |-1060|Battery | 581|
+Time |7422322|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |226|SPY |-466|SAZ |14384|PHI |-711|THETA |179|PSI |-1079|Battery | 581|
+Time |7523340|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |226|SPY |-438|SAZ |14358|PHI |-712|THETA |179|PSI |-1097|Battery | 560|
+Time |7623355|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |226|SPY |-442|SAZ |14390|PHI |-713|THETA |179|PSI |-1115|Battery | 595|
+Time |7723765|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |218|SPY |-430|SAZ |14346|PHI |-713|THETA |179|PSI |-1133|Battery | 581|
+Time |7824262|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-3|SR |-17|SAX |218|SPY |-426|SAZ |14394|PHI |-713|THETA |180|PSI |-1152|Battery | 560|
+Time |7924778|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-3|SR |-17|SAX |252|SPY |-442|SAZ |14384|PHI |-714|THETA |181|PSI |-1170|Battery | 574|
+Time |8025250|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |232|SPY |-438|SAZ |14374|PHI |-715|THETA |181|PSI |-1188|Battery | 581|
+Time |8125795|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |234|SPY |-446|SAZ |14406|PHI |-716|THETA |182|PSI |-1206|Battery | 560|
+Time |8226261|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |224|SPY |-430|SAZ |14372|PHI |-716|THETA |182|PSI |-1224|Battery | 581|
+Time |8326781|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |244|SPY |-442|SAZ |14374|PHI |-716|THETA |182|PSI |-1242|Battery | 581|
+Time |8427275|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |240|SPY |-450|SAZ |14394|PHI |-717|THETA |182|PSI |-1261|Battery | 560|
+Time |8527756|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |216|SPY |-446|SAZ |14368|PHI |-718|THETA |182|PSI |-1279|Battery | 581|
+Time |8628254|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-3|SR |-17|SAX |232|SPY |-422|SAZ |14372|PHI |-718|THETA |182|PSI |-1297|Battery | 581|
+Time |8728745|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |266|SPY |-438|SAZ |14364|PHI |-718|THETA |183|PSI |-1316|Battery | 560|
+Time |8829263|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |234|SPY |-452|SAZ |14348|PHI |-719|THETA |183|PSI |-1334|Battery | 574|
+Time |8930284|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |220|SPY |-430|SAZ |14376|PHI |-720|THETA |183|PSI |-1352|Battery | 581|
+Time |9030289|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |230|SPY |-440|SAZ |14376|PHI |-720|THETA |182|PSI |-1370|Battery | 560|
+Time |9130747|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-24|SQ |-3|SR |-17|SAX |244|SPY |-326|SAZ |14344|PHI |-721|THETA |182|PSI |-1389|Battery | 574|
+Time |9231262|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |226|SPY |-406|SAZ |14396|PHI |-721|THETA |182|PSI |-1407|Battery | 581|
+Time |9331754|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |228|SPY |-438|SAZ |14392|PHI |-720|THETA |182|PSI |-1426|Battery | 560|
+Time |9432245|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-3|SR |-17|SAX |206|SPY |-444|SAZ |14386|PHI |-720|THETA |182|PSI |-1444|Battery | 574|
+Time |9532748|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-3|SR |-17|SAX |252|SPY |-434|SAZ |14374|PHI |-720|THETA |183|PSI |-1462|Battery | 581|
+Time |9633239|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |244|SPY |-432|SAZ |14370|PHI |-720|THETA |183|PSI |-1480|Battery | 567|
+Time |9733764|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |240|SPY |-406|SAZ |14328|PHI |-720|THETA |183|PSI |-1499|Battery | 581|
+Time |9834335|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-3|SR |-17|SAX |232|SPY |-412|SAZ |14380|PHI |-720|THETA |184|PSI |-1517|Battery | 602|
+Time |9934740|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |246|SPY |-444|SAZ |14372|PHI |-720|THETA |183|PSI |-1535|Battery | 567|
+Time |10035234|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |226|SPY |-438|SAZ |14376|PHI |-720|THETA |184|PSI |-1553|Battery | 574|
+Time |10135758|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |214|SPY |-432|SAZ |14384|PHI |-720|THETA |184|PSI |-1572|Battery | 602|
+Time |10236254|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |236|SPY |-440|SAZ |14374|PHI |-721|THETA |183|PSI |-1590|Battery | 560|
+Time |10337084|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |218|SPY |-426|SAZ |14362|PHI |-721|THETA |184|PSI |-1608|Battery | 595|
+Time |10437229|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |204|SPY |-422|SAZ |14394|PHI |-721|THETA |183|PSI |-1627|Battery | 602|
+Time |10537756|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |230|SPY |-442|SAZ |14402|PHI |-721|THETA |184|PSI |-1645|Battery | 560|
+Time |10638242|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |234|SPY |-446|SAZ |14394|PHI |-721|THETA |184|PSI |-1663|Battery | 581|
+Time |10738722|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-3|SR |-17|SAX |244|SPY |-446|SAZ |14366|PHI |-720|THETA |185|PSI |-1681|Battery | 581|
+Time |10839977|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |214|SPY |-468|SAZ |14398|PHI |-720|THETA |185|PSI |-1699|Battery | 560|
+Time |10940272|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |220|SPY |-448|SAZ |14384|PHI |-721|THETA |185|PSI |-1718|Battery | 602|
+Time |11040281|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-3|SR |-17|SAX |216|SPY |-428|SAZ |14394|PHI |-721|THETA |186|PSI |-1736|Battery | 581|
+Time |11140741|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |224|SPY |-430|SAZ |14348|PHI |-721|THETA |186|PSI |-1754|Battery | 560|
+Time |11241257|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |248|SPY |-446|SAZ |14392|PHI |-721|THETA |186|PSI |-1772|Battery | 581|
+Time |11341777|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-16|SAX |230|SPY |-440|SAZ |14374|PHI |-722|THETA |186|PSI |-1790|Battery | 581|
+Time |11442273|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-16|SAX |218|SPY |-444|SAZ |14368|PHI |-722|THETA |186|PSI |-1808|Battery | 560|
+Time |11542789|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |252|SPY |-438|SAZ |14384|PHI |-722|THETA |186|PSI |-1827|Battery | 574|
+Time |11643374|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |210|SPY |-424|SAZ |14412|PHI |-722|THETA |186|PSI |-1845|Battery | 581|
+Time |11743732|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |220|SPY |-434|SAZ |14390|PHI |-722|THETA |186|PSI |-1863|Battery | 560|
+Time |11844265|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |220|SPY |-426|SAZ |14394|PHI |-721|THETA |186|PSI |-1881|Battery | 574|
+Time |11944765|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |244|SPY |-442|SAZ |14386|PHI |-721|THETA |186|PSI |-1899|Battery | 581|
+Time |12045280|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-3|SR |-16|SAX |220|SPY |-438|SAZ |14396|PHI |-720|THETA |186|PSI |-1918|Battery | 560|
+Time |12146510|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-3|SR |-17|SAX |214|SPY |-448|SAZ |14366|PHI |-720|THETA |185|PSI |-1936|Battery | 574|
+Time |12246527|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |220|SPY |-454|SAZ |14376|PHI |-720|THETA |185|PSI |-1954|Battery | 581|
+Time |12346758|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |224|SPY |-430|SAZ |14380|PHI |-720|THETA |185|PSI |-1972|Battery | 560|
+Time |12447231|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |252|SPY |-450|SAZ |14356|PHI |-720|THETA |186|PSI |-1991|Battery | 574|
+Time |12547774|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |228|SPY |-442|SAZ |14358|PHI |-721|THETA |186|PSI |-2009|Battery | 581|
+Time |12648824|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-18|SAX |230|SPY |-440|SAZ |14384|PHI |-721|THETA |186|PSI |-2027|Battery | 560|
+Time |12749101|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |244|SPY |-456|SAZ |14362|PHI |-721|THETA |186|PSI |-2046|Battery | 574|
+Time |12849251|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |230|SPY |-434|SAZ |14392|PHI |-722|THETA |186|PSI |-2064|Battery | 581|
+Time |12949774|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-3|SR |-17|SAX |234|SPY |-430|SAZ |14346|PHI |-721|THETA |186|PSI |-2082|Battery | 560|
+Time |13050708|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |184|SPY |-452|SAZ |14420|PHI |-721|THETA |186|PSI |-2100|Battery | 574|
+Time |13150864|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |220|SPY |-436|SAZ |14396|PHI |-721|THETA |186|PSI |-2118|Battery | 581|
+Time |13251328|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |204|SPY |-420|SAZ |14378|PHI |-721|THETA |185|PSI |-2137|Battery | 560|
+Time |13351970|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |246|SPY |-444|SAZ |14398|PHI |-721|THETA |185|PSI |-2155|Battery | 581|
+Time |13452392|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |210|SPY |-438|SAZ |14384|PHI |-722|THETA |184|PSI |-2173|Battery | 581|
+Time |13552775|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |230|SPY |-432|SAZ |14396|PHI |-722|THETA |184|PSI |-2191|Battery | 560|
+Time |13653296|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |228|SPY |-430|SAZ |14370|PHI |-722|THETA |185|PSI |-2209|Battery | 574|
+Time |13753796|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |254|SPY |-428|SAZ |14386|PHI |-722|THETA |185|PSI |-2227|Battery | 581|
+Time |13854594|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |238|SPY |-436|SAZ |14354|PHI |-722|THETA |186|PSI |-2246|Battery | 560|
+Time |13954746|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |222|SPY |-448|SAZ |14350|PHI |-722|THETA |186|PSI |-2264|Battery | 574|
+Time |14055238|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |218|SPY |-430|SAZ |14358|PHI |-722|THETA |186|PSI |-2282|Battery | 581|
+Time |14155734|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-3|SR |-17|SAX |234|SPY |-430|SAZ |14364|PHI |-722|THETA |185|PSI |-2301|Battery | 560|
+Time |14257075|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-16|SAX |216|SPY |-424|SAZ |14364|PHI |-723|THETA |185|PSI |-2319|Battery | 574|
+Time |14357091|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |220|SPY |-446|SAZ |14348|PHI |-723|THETA |185|PSI |-2337|Battery | 574|
+Time |14457263|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |234|SPY |-412|SAZ |14372|PHI |-722|THETA |184|PSI |-2355|Battery | 560|
+Time |14557729|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |230|SPY |-426|SAZ |14374|PHI |-722|THETA |184|PSI |-2374|Battery | 581|
+Time |14658255|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |208|SPY |-440|SAZ |14364|PHI |-722|THETA |184|PSI |-2392|Battery | 581|
+Time |14758746|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-26|SQ |-1|SR |-17|SAX |234|SPY |-418|SAZ |14384|PHI |-722|THETA |183|PSI |-2410|Battery | 560|
+Time |14859242|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-25|SQ |-1|SR |-17|SAX |254|SPY |-424|SAZ |14394|PHI |-722|THETA |183|PSI |-2428|Battery | 595|
+Time |14960279|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |238|SPY |-404|SAZ |14372|PHI |-705|THETA |183|PSI |-2435|Battery | 581|
+Time |15060512|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |204|SPY |-426|SAZ |14378|PHI |-681|THETA |181|PSI |-2436|Battery | 581|
+Time |15160772|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |242|SPY |-428|SAZ |14330|PHI |-659|THETA |180|PSI |-2437|Battery | 574|
+Time |15261274|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-2|SR |-1|SAX |232|SPY |-418|SAZ |14380|PHI |-638|THETA |179|PSI |-2437|Battery | 581|
+Time |15361843|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |226|SPY |-420|SAZ |14396|PHI |-618|THETA |178|PSI |-2438|Battery | 560|
+Time |15462287|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |212|SPY |-430|SAZ |14352|PHI |-600|THETA |176|PSI |-2439|Battery | 581|
+Time |15562812|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-2|SR |-2|SAX |228|SPY |-424|SAZ |14348|PHI |-583|THETA |175|PSI |-2439|Battery | 581|
+Time |15663279|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |220|SPY |-436|SAZ |14366|PHI |-567|THETA |175|PSI |-2440|Battery | 560|
+Time |15763840|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |230|SPY |-442|SAZ |14380|PHI |-552|THETA |174|PSI |-2440|Battery | 581|
+Time |15864949|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |248|SPY |-438|SAZ |14374|PHI |-538|THETA |174|PSI |-2441|Battery | 581|
+Time |15965146|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |220|SPY |-428|SAZ |14390|PHI |-525|THETA |173|PSI |-2441|Battery | 581|
+Time |16065314|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |246|SPY |-428|SAZ |14370|PHI |-513|THETA |172|PSI |-2442|Battery | 574|
+Time |16166059|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |244|SPY |-426|SAZ |14364|PHI |-502|THETA |172|PSI |-2442|Battery | 595|
+Time |16266426|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |0|SR |-1|SAX |218|SPY |-428|SAZ |14406|PHI |-491|THETA |172|PSI |-2443|Battery | 581|
+Time |16367179|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |232|SPY |-440|SAZ |14388|PHI |-481|THETA |171|PSI |-2444|Battery | 560|
+Time |16467250|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |230|SPY |-420|SAZ |14412|PHI |-472|THETA |171|PSI |-2444|Battery | 574|
+Time |16567782|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |240|SPY |-434|SAZ |14436|PHI |-462|THETA |170|PSI |-2444|Battery | 581|
+Time |16668276|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |234|SPY |-444|SAZ |14388|PHI |-455|THETA |170|PSI |-2445|Battery | 560|
+Time |16768791|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |252|SPY |-450|SAZ |14410|PHI |-447|THETA |170|PSI |-2445|Battery | 574|
+Time |16869282|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |212|SPY |-450|SAZ |14364|PHI |-439|THETA |169|PSI |-2446|Battery | 581|
+Time |16969806|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |-1|SAX |244|SPY |-422|SAZ |14422|PHI |-433|THETA |169|PSI |-2446|Battery | 560|
+Time |17070273|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |204|SPY |-416|SAZ |14408|PHI |-426|THETA |168|PSI |-2446|Battery | 574|
+Time |17170763|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-2|SAX |228|SPY |-442|SAZ |14378|PHI |-420|THETA |168|PSI |-2447|Battery | 581|
+Time |17271259|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |218|SPY |-452|SAZ |14366|PHI |-414|THETA |168|PSI |-2447|Battery | 560|
+Time |17371754|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |204|SPY |-450|SAZ |14386|PHI |-409|THETA |167|PSI |-2448|Battery | 574|
+Time |17472276|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |0|SR |-2|SAX |224|SPY |-430|SAZ |14368|PHI |-404|THETA |166|PSI |-2449|Battery | 581|
+Time |17572874|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |250|SPY |-430|SAZ |14390|PHI |-400|THETA |165|PSI |-2449|Battery | 560|
+Time |17673271|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |232|SPY |-454|SAZ |14404|PHI |-396|THETA |165|PSI |-2449|Battery | 574|
+Time |17773767|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |238|SPY |-446|SAZ |14406|PHI |-392|THETA |165|PSI |-2450|Battery | 581|
+Time |17874259|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |210|SPY |-434|SAZ |14376|PHI |-388|THETA |165|PSI |-2450|Battery | 560|
+Time |17974787|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |220|SPY |-438|SAZ |14366|PHI |-384|THETA |164|PSI |-2450|Battery | 574|
+Time |18075248|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-2|SAX |248|SPY |-448|SAZ |14394|PHI |-381|THETA |165|PSI |-2451|Battery | 581|
+Time |18175720|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |230|SPY |-432|SAZ |14398|PHI |-377|THETA |165|PSI |-2451|Battery | 560|
+Time |18276240|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-2|SR |-1|SAX |218|SPY |-430|SAZ |14404|PHI |-375|THETA |165|PSI |-2451|Battery | 574|
+Time |18377189|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |240|SPY |-426|SAZ |14368|PHI |-372|THETA |165|PSI |-2452|Battery | 581|
+Time |18477221|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |196|SPY |-460|SAZ |14394|PHI |-368|THETA |165|PSI |-2452|Battery | 560|
+Time |18577684|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |224|SPY |-450|SAZ |14386|PHI |-366|THETA |165|PSI |-2452|Battery | 574|
+Time |18678233|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |228|SPY |-446|SAZ |14382|PHI |-364|THETA |165|PSI |-2452|Battery | 581|
+Time |18778730|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-2|SAX |246|SPY |-418|SAZ |14386|PHI |-362|THETA |165|PSI |-2453|Battery | 560|
+Time |18879547|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |234|SPY |-442|SAZ |14406|PHI |-360|THETA |165|PSI |-2453|Battery | 574|
+Time |18979717|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |-1|SAX |146|SPY |-410|SAZ |14468|PHI |-358|THETA |164|PSI |-2453|Battery | 581|
+Time |19080179|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |238|SPY |-416|SAZ |14342|PHI |-356|THETA |164|PSI |-2454|Battery | 560|
+Time |19180690|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-2|SR |-1|SAX |232|SPY |-440|SAZ |14380|PHI |-355|THETA |164|PSI |-2454|Battery | 574|
+Time |19281216|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |0|SR |-2|SAX |224|SPY |-452|SAZ |14346|PHI |-353|THETA |164|PSI |-2454|Battery | 581|
+Time |19381664|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |222|SPY |-446|SAZ |14382|PHI |-352|THETA |164|PSI |-2455|Battery | 560|
+Time |19482300|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |216|SPY |-414|SAZ |14364|PHI |-351|THETA |164|PSI |-2455|Battery | 574|
+Time |19582645|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |218|SPY |-448|SAZ |14388|PHI |-350|THETA |164|PSI |-2456|Battery | 581|
+Time |19683130|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |240|SPY |-410|SAZ |14404|PHI |-349|THETA |164|PSI |-2456|Battery | 560|
+Time |19783730|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |216|SPY |-438|SAZ |14380|PHI |-348|THETA |164|PSI |-2456|Battery | 574|
+Time |19884141|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-2|SR |-2|SAX |218|SPY |-438|SAZ |14382|PHI |-348|THETA |164|PSI |-2457|Battery | 581|
+Time |19984603|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |218|SPY |-432|SAZ |14390|PHI |-346|THETA |164|PSI |-2457|Battery | 560|
+Time |20085105|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |220|SPY |-412|SAZ |14380|PHI |-346|THETA |164|PSI |-2457|Battery | 574|
+Time |20186038|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |222|SPY |-448|SAZ |14374|PHI |-345|THETA |164|PSI |-2457|Battery | 581|
+Time |20286064|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-2|SR |-1|SAX |222|SPY |-432|SAZ |14370|PHI |-344|THETA |164|PSI |-2458|Battery | 560|
+Time |20386579|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |226|SPY |-446|SAZ |14388|PHI |-343|THETA |164|PSI |-2459|Battery | 574|
+Time |20487066|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |0|SR |-2|SAX |212|SPY |-432|SAZ |14392|PHI |-342|THETA |164|PSI |-2459|Battery | 581|
+Time |20587593|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |216|SPY |-424|SAZ |14382|PHI |-342|THETA |163|PSI |-2460|Battery | 560|
+Time |20688048|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |244|SPY |-434|SAZ |14390|PHI |-341|THETA |163|PSI |-2460|Battery | 574|
+Time |20788596|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |244|SPY |-434|SAZ |14404|PHI |-340|THETA |163|PSI |-2460|Battery | 581|
+Time |20889058|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |248|SPY |-428|SAZ |14384|PHI |-340|THETA |163|PSI |-2460|Battery | 560|
+Time |20989643|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |206|SPY |-450|SAZ |14378|PHI |-339|THETA |163|PSI |-2461|Battery | 574|
+Time |21090044|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-2|SR |-1|SAX |238|SPY |-424|SAZ |14386|PHI |-339|THETA |164|PSI |-2461|Battery | 581|
+Time |21190505|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-2|SR |-1|SAX |214|SPY |-442|SAZ |14402|PHI |-339|THETA |164|PSI |-2461|Battery | 560|
+Time |21291049|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |216|SPY |-456|SAZ |14348|PHI |-338|THETA |164|PSI |-2462|Battery | 574|
+Time |21391675|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |234|SPY |-450|SAZ |14360|PHI |-337|THETA |163|PSI |-2462|Battery | 581|
+Time |21492005|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-2|SR |-1|SAX |212|SPY |-456|SAZ |14410|PHI |-337|THETA |164|PSI |-2462|Battery | 560|
+Time |21592532|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |188|SPY |-452|SAZ |14368|PHI |-338|THETA |163|PSI |-2462|Battery | 574|
+Time |21693036|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |226|SPY |-426|SAZ |14358|PHI |-337|THETA |163|PSI |-2463|Battery | 581|
+Time |21793759|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |208|SPY |-436|SAZ |14378|PHI |-337|THETA |163|PSI |-2463|Battery | 560|
+Time |21893965|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |232|SPY |-424|SAZ |14374|PHI |-337|THETA |162|PSI |-2463|Battery | 574|
+Time |21994434|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |232|SPY |-424|SAZ |14352|PHI |-336|THETA |162|PSI |-2464|Battery | 581|
+Time |22094973|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |238|SPY |-444|SAZ |14362|PHI |-336|THETA |163|PSI |-2464|Battery | 560|
+Time |22195437|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |204|SPY |-438|SAZ |14372|PHI |-336|THETA |162|PSI |-2465|Battery | 581|
+Time |22295960|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-2|SR |-1|SAX |202|SPY |-454|SAZ |14370|PHI |-336|THETA |162|PSI |-2465|Battery | 581|
+Time |22396456|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |228|SPY |-442|SAZ |14378|PHI |-336|THETA |162|PSI |-2465|Battery | 560|
+Time |22496945|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |226|SPY |-444|SAZ |14382|PHI |-336|THETA |163|PSI |-2465|Battery | 574|
+Time |22597437|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |-1|SAX |220|SPY |-442|SAZ |14392|PHI |-336|THETA |163|PSI |-2465|Battery | 581|
+Time |22698695|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |226|SPY |-446|SAZ |14358|PHI |-335|THETA |163|PSI |-2465|Battery | 560|
+Time |22798707|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |224|SPY |-442|SAZ |14346|PHI |-333|THETA |164|PSI |-2465|Battery | 574|
+Time |22898911|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |230|SPY |-448|SAZ |14366|PHI |-332|THETA |163|PSI |-2465|Battery | 581|
+Time |22999428|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |238|SPY |-442|SAZ |14396|PHI |-332|THETA |163|PSI |-2465|Battery | 560|
+Time |23099929|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |234|SPY |-426|SAZ |14344|PHI |-331|THETA |162|PSI |-2465|Battery | 574|
+Time |23200424|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |228|SPY |-416|SAZ |14378|PHI |-330|THETA |162|PSI |-2464|Battery | 581|
+Time |23300940|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-2|SQ |-1|SR |0|SAX |208|SPY |-564|SAZ |14272|PHI |-328|THETA |161|PSI |-2464|Battery | 560|
+Time |23401403|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |230|SPY |-432|SAZ |14344|PHI |-328|THETA |161|PSI |-2464|Battery | 574|
+Time |23501955|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |248|SPY |-446|SAZ |14358|PHI |-327|THETA |161|PSI |-2464|Battery | 581|
+Time |23602415|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |208|SPY |-438|SAZ |14380|PHI |-326|THETA |161|PSI |-2464|Battery | 560|
+Time |23702909|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |232|SPY |-436|SAZ |14404|PHI |-326|THETA |160|PSI |-2464|Battery | 574|
+Time |23803406|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |240|SPY |-438|SAZ |14382|PHI |-325|THETA |160|PSI |-2464|Battery | 581|
+Time |23904002|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |206|SPY |-414|SAZ |14354|PHI |-325|THETA |161|PSI |-2463|Battery | 560|
+Time |24004370|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |226|SPY |-420|SAZ |14368|PHI |-324|THETA |160|PSI |-2463|Battery | 574|
+Time |24104891|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |234|SPY |-422|SAZ |14344|PHI |-323|THETA |160|PSI |-2463|Battery | 581|
+Time |24206111|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |228|SPY |-420|SAZ |14404|PHI |-322|THETA |160|PSI |-2463|Battery | 560|
+Time |24306128|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |226|SPY |-434|SAZ |14382|PHI |-322|THETA |160|PSI |-2463|Battery | 574|
+Time |24406364|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |204|SPY |-452|SAZ |14412|PHI |-322|THETA |160|PSI |-2463|Battery | 581|
+Time |24506890|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-2|SR |0|SAX |224|SPY |-428|SAZ |14384|PHI |-321|THETA |161|PSI |-2463|Battery | 560|
+Time |24607465|Mode |0|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |228|SPY |-442|SAZ |14374|PHI |-321|THETA |160|PSI |-2462|Battery | 581|
+Time |24707849|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-18|SPY |-315|SAZ |7050|PHI |-1|THETA |1|PSI |0|Battery | 581|
+Time |24808394|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |0|SR |0|SAX |-2|SPY |-319|SAZ |7065|PHI |0|THETA |1|PSI |0|Battery | 560|
+Time |24908855|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |-3|SPY |-349|SAZ |7072|PHI |0|THETA |0|PSI |0|Battery | 574|
+Time |25009666|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-2|SR |0|SAX |0|SPY |-324|SAZ |7074|PHI |0|THETA |0|PSI |0|Battery | 581|
+Time |25110238|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |0|SR |0|SAX |0|SPY |-338|SAZ |7080|PHI |0|THETA |1|PSI |0|Battery | 560|
+Time |25210333|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-3|SPY |-346|SAZ |7069|PHI |0|THETA |1|PSI |0|Battery | 574|
+Time |25310860|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |10|SPY |-315|SAZ |7077|PHI |0|THETA |1|PSI |0|Battery | 581|
+Time |25411345|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |-11|SPY |-320|SAZ |7074|PHI |1|THETA |1|PSI |0|Battery | 560|
+Time |25511845|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |0|SR |0|SAX |-17|SPY |-339|SAZ |7059|PHI |-1|THETA |2|PSI |0|Battery | 595|
+Time |25612502|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-5|SPY |-337|SAZ |7077|PHI |-1|THETA |1|PSI |0|Battery | 581|
+Time |25712846|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-2|SR |0|SAX |6|SPY |-324|SAZ |7085|PHI |0|THETA |1|PSI |0|Battery | 560|
+Time |25813319|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-10|SPY |-322|SAZ |7066|PHI |-1|THETA |1|PSI |-1|Battery | 574|
+Time |25913974|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |1|SPY |-334|SAZ |7068|PHI |-1|THETA |1|PSI |-1|Battery | 581|
+Time |26014672|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |1|SAX |-5|SPY |-342|SAZ |7097|PHI |0|THETA |1|PSI |-1|Battery | 560|
+Time |26114814|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-13|SPY |-322|SAZ |7074|PHI |-1|THETA |1|PSI |-1|Battery | 581|
+Time |26215319|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |-1|SAX |-13|SPY |-339|SAZ |7079|PHI |0|THETA |1|PSI |-1|Battery | 581|
+Time |26315806|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |-21|SPY |-350|SAZ |7057|PHI |0|THETA |2|PSI |-1|Battery | 560|
+Time |26416842|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |2|SPY |-315|SAZ |7103|PHI |0|THETA |1|PSI |-1|Battery | 574|
+Time |26516863|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |-14|SPY |-327|SAZ |7068|PHI |1|THETA |1|PSI |-1|Battery | 581|
+Time |26617286|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |1|SPY |-334|SAZ |7074|PHI |-1|THETA |1|PSI |-1|Battery | 595|
+Time |26717831|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |20|SPY |-311|SAZ |7090|PHI |-1|THETA |1|PSI |-1|Battery | 574|
+Time |26818299|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |-3|SPY |-320|SAZ |7080|PHI |-1|THETA |1|PSI |-1|Battery | 581|
+Time |26918785|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |4|SPY |-319|SAZ |7078|PHI |-1|THETA |1|PSI |-1|Battery | 560|
+Time |27019286|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |1|SR |-1|SAX |7|SPY |-338|SAZ |7057|PHI |-1|THETA |1|PSI |0|Battery | 574|
+Time |27119780|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |5|SPY |-340|SAZ |7065|PHI |0|THETA |0|PSI |0|Battery | 581|
+Time |27220273|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-12|SPY |-342|SAZ |7061|PHI |0|THETA |1|PSI |0|Battery | 560|
+Time |27320764|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |1|SR |0|SAX |-17|SPY |-352|SAZ |7079|PHI |0|THETA |1|PSI |0|Battery | 574|
+Time |27421392|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-4|SPY |-329|SAZ |7026|PHI |0|THETA |1|PSI |0|Battery | 581|
+Time |27522115|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |-14|SPY |-336|SAZ |7098|PHI |0|THETA |1|PSI |0|Battery | 560|
+Time |27622273|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-14|SPY |-331|SAZ |7090|PHI |0|THETA |1|PSI |0|Battery | 574|
+Time |27722783|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |-1|SAX |14|SPY |-328|SAZ |7067|PHI |0|THETA |1|PSI |0|Battery | 581|
+Time |27823245|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-2|SPY |-325|SAZ |7093|PHI |0|THETA |2|PSI |0|Battery | 560|
+Time |27923756|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-2|SPY |-322|SAZ |7080|PHI |-1|THETA |2|PSI |0|Battery | 574|
+Time |28024239|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |1|SPY |-338|SAZ |7076|PHI |-1|THETA |1|PSI |0|Battery | 581|
+Time |28124752|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |1|SAX |-2|SPY |-311|SAZ |7099|PHI |-1|THETA |0|PSI |0|Battery | 560|
+Time |28225249|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |14|SPY |-316|SAZ |7081|PHI |-1|THETA |1|PSI |0|Battery | 581|
+Time |28326053|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |22|SPY |-327|SAZ |7079|PHI |-1|THETA |1|PSI |-1|Battery | 581|
+Time |28426240|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |18|SPY |-329|SAZ |7065|PHI |-1|THETA |1|PSI |-1|Battery | 560|
+Time |28526726|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-2|SR |0|SAX |-5|SPY |-332|SAZ |7083|PHI |-1|THETA |1|PSI |-1|Battery | 574|
+Time |28627217|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |0|SR |-1|SAX |22|SPY |-322|SAZ |7075|PHI |-1|THETA |2|PSI |-1|Battery | 581|
+Time |28728333|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-6|SPY |-331|SAZ |7066|PHI |-1|THETA |2|PSI |-1|Battery | 560|
+Time |28828350|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |1|SR |0|SAX |-8|SPY |-327|SAZ |7118|PHI |-1|THETA |1|PSI |-1|Battery | 574|
+Time |28928722|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |1|SR |0|SAX |-10|SPY |-322|SAZ |7156|PHI |-1|THETA |1|PSI |-1|Battery | 581|
+Time |29029189|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |-1|SAX |-25|SPY |-336|SAZ |7068|PHI |-1|THETA |1|PSI |-1|Battery | 560|
+Time |29129706|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |-3|SPY |-331|SAZ |7083|PHI |-1|THETA |1|PSI |-1|Battery | 574|
+Time |29230227|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |4|SPY |-338|SAZ |7077|PHI |-1|THETA |1|PSI |-1|Battery | 581|
+Time |29330994|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |4|SPY |-340|SAZ |7090|PHI |-1|THETA |1|PSI |-1|Battery | 560|
+Time |29431186|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |6|SPY |-319|SAZ |7102|PHI |-1|THETA |1|PSI |-1|Battery | 574|
+Time |29531670|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-2|SR |0|SAX |82|SPY |-335|SAZ |7055|PHI |0|THETA |1|PSI |-1|Battery | 581|
+Time |29632227|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |23|SPY |-350|SAZ |7052|PHI |0|THETA |1|PSI |0|Battery | 560|
+Time |29732714|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |7|SPY |-321|SAZ |7081|PHI |0|THETA |1|PSI |-1|Battery | 574|
+Time |29833293|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-3|SPY |-334|SAZ |7084|PHI |0|THETA |1|PSI |0|Battery | 581|
+Time |29933696|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-2|SR |0|SAX |6|SPY |-333|SAZ |7070|PHI |-1|THETA |2|PSI |0|Battery | 560|
+Time |30034196|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |5|SPY |-344|SAZ |7081|PHI |0|THETA |1|PSI |0|Battery | 574|
+Time |30134689|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-11|SPY |-343|SAZ |7040|PHI |0|THETA |1|PSI |0|Battery | 581|
+Time |30235204|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |0|SR |0|SAX |-2|SPY |-332|SAZ |7088|PHI |0|THETA |1|PSI |0|Battery | 560|
+Time |30335721|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |4|SPY |-331|SAZ |7075|PHI |0|THETA |1|PSI |0|Battery | 574|
+Time |30436192|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-2|SR |0|SAX |-16|SPY |-330|SAZ |7072|PHI |0|THETA |1|PSI |0|Battery | 602|
+Time |30536759|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |1|SR |0|SAX |-28|SPY |-326|SAZ |7061|PHI |0|THETA |1|PSI |0|Battery | 560|
+Time |30637261|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |0|SPY |-332|SAZ |7070|PHI |0|THETA |1|PSI |0|Battery | 574|
+Time |30737751|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-14|SPY |-330|SAZ |7095|PHI |0|THETA |0|PSI |-1|Battery | 581|
+Time |30838722|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |1|SR |0|SAX |26|SPY |-303|SAZ |7084|PHI |0|THETA |1|PSI |-1|Battery | 560|
+Time |30939425|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |0|SPY |-333|SAZ |7112|PHI |0|THETA |1|PSI |-1|Battery | 574|
+Time |31039566|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |5|SPY |-345|SAZ |7072|PHI |-1|THETA |1|PSI |-1|Battery | 574|
+Time |31139746|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |-1|SAX |9|SPY |-330|SAZ |7067|PHI |-1|THETA |1|PSI |-1|Battery | 560|
+Time |31240289|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |-13|SPY |-332|SAZ |7052|PHI |0|THETA |2|PSI |-1|Battery | 574|
+Time |31340787|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-2|SPY |-331|SAZ |7055|PHI |-1|THETA |1|PSI |-1|Battery | 581|
+Time |31441507|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |8|SPY |-322|SAZ |7094|PHI |-1|THETA |1|PSI |-1|Battery | 560|
+Time |31542086|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |1|SPY |-360|SAZ |7053|PHI |-1|THETA |1|PSI |-1|Battery | 574|
+Time |31642236|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |-1|SAX |-10|SPY |-324|SAZ |7085|PHI |-1|THETA |1|PSI |-1|Battery | 581|
+Time |31742925|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |1|SR |0|SAX |8|SPY |-340|SAZ |7061|PHI |-1|THETA |1|PSI |-1|Battery | 560|
+Time |31843372|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |1|SAX |4|SPY |-340|SAZ |7092|PHI |0|THETA |1|PSI |-1|Battery | 574|
+Time |31943738|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |4|SPY |-333|SAZ |7077|PHI |-1|THETA |1|PSI |-1|Battery | 581|
+Time |32044242|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |-9|SPY |-349|SAZ |7068|PHI |-1|THETA |1|PSI |-1|Battery | 560|
+Time |32144780|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-7|SPY |-342|SAZ |7078|PHI |-1|THETA |1|PSI |0|Battery | 574|
+Time |32245272|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |-6|SPY |-329|SAZ |7085|PHI |-1|THETA |1|PSI |0|Battery | 581|
+Time |32345743|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-10|SPY |-358|SAZ |7070|PHI |-1|THETA |1|PSI |0|Battery | 560|
+Time |32446520|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |-1|SAX |8|SPY |-335|SAZ |7068|PHI |-1|THETA |1|PSI |0|Battery | 574|
+Time |32546720|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |0|SR |0|SAX |20|SPY |-342|SAZ |7061|PHI |-1|THETA |1|PSI |0|Battery | 581|
+Time |32647250|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |-16|SPY |-355|SAZ |7103|PHI |0|THETA |2|PSI |0|Battery | 560|
+Time |32747743|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-9|SPY |-352|SAZ |7078|PHI |-1|THETA |1|PSI |0|Battery | 574|
+Time |32848240|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-2|SPY |-346|SAZ |7074|PHI |-1|THETA |1|PSI |0|Battery | 581|
+Time |32949106|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |2|SPY |-329|SAZ |7053|PHI |-1|THETA |1|PSI |-1|Battery | 560|
+Time |33049191|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-2|SR |0|SAX |2|SPY |-339|SAZ |7082|PHI |-1|THETA |1|PSI |0|Battery | 574|
+Time |33149731|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |3|SPY |-322|SAZ |7093|PHI |-1|THETA |1|PSI |0|Battery | 581|
+Time |33250219|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |10|SPY |-333|SAZ |7069|PHI |-1|THETA |1|PSI |0|Battery | 560|
+Time |33350690|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-2|SR |1|SAX |30|SPY |-336|SAZ |7083|PHI |0|THETA |1|PSI |0|Battery | 574|
+Time |33451919|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-2|SR |0|SAX |9|SPY |-373|SAZ |7030|PHI |0|THETA |1|PSI |0|Battery | 574|
+Time |33551940|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-27|SPY |-337|SAZ |7112|PHI |0|THETA |2|PSI |0|Battery | 581|
+Time |33652170|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |-1|SAX |-17|SPY |-339|SAZ |7077|PHI |0|THETA |2|PSI |0|Battery | 560|
+Time |33752638|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |-1|SAX |8|SPY |-346|SAZ |7079|PHI |-1|THETA |1|PSI |0|Battery | 574|
+Time |33853155|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |4|SPY |-323|SAZ |7113|PHI |-1|THETA |1|PSI |0|Battery | 581|
+Time |33953980|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-7|SPY |-347|SAZ |7085|PHI |-1|THETA |1|PSI |0|Battery | 560|
+Time |34054129|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-2|SR |0|SAX |14|SPY |-336|SAZ |7072|PHI |-2|THETA |1|PSI |-1|Battery | 574|
+Time |34154634|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |0|SR |0|SAX |-22|SPY |-323|SAZ |7062|PHI |-1|THETA |1|PSI |-1|Battery | 581|
+Time |34255129|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |0|SPY |-361|SAZ |7080|PHI |-2|THETA |1|PSI |-1|Battery | 560|
+Time |34356021|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |1|SAX |-19|SPY |-348|SAZ |7044|PHI |-2|THETA |1|PSI |-1|Battery | 574|
+Time |34456113|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-16|SPY |-355|SAZ |7041|PHI |-2|THETA |1|PSI |-1|Battery | 581|
+Time |34556630|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-9|SPY |-352|SAZ |7074|PHI |-1|THETA |2|PSI |0|Battery | 560|
+Time |34657126|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |-1|SAX |-6|SPY |-334|SAZ |7063|PHI |-1|THETA |2|PSI |0|Battery | 574|
+Time |34757623|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-10|SPY |-340|SAZ |7056|PHI |-1|THETA |1|PSI |0|Battery | 581|
+Time |34858509|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |1|SR |0|SAX |5|SPY |-350|SAZ |7069|PHI |-1|THETA |2|PSI |0|Battery | 560|
+Time |34958603|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |11|SPY |-335|SAZ |7051|PHI |-1|THETA |1|PSI |0|Battery | 574|
+Time |35059127|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-2|SPY |-314|SAZ |7070|PHI |-2|THETA |1|PSI |0|Battery | 581|
+Time |35159616|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |0|SR |-1|SAX |8|SPY |-328|SAZ |7064|PHI |-2|THETA |1|PSI |0|Battery | 560|
+Time |35260663|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |6|SPY |-324|SAZ |7069|PHI |-2|THETA |1|PSI |0|Battery | 574|
+Time |35360668|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |11|SPY |-317|SAZ |7067|PHI |-2|THETA |1|PSI |0|Battery | 581|
+Time |35461152|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |9|SPY |-336|SAZ |7072|PHI |-2|THETA |1|PSI |0|Battery | 560|
+Time |35561619|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-11|SPY |-335|SAZ |7069|PHI |-2|THETA |1|PSI |0|Battery | 581|
+Time |35662791|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |-17|SPY |-337|SAZ |7044|PHI |-2|THETA |1|PSI |0|Battery | 581|
+Time |35762814|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |0|SR |0|SAX |-4|SPY |-314|SAZ |7064|PHI |-2|THETA |2|PSI |-1|Battery | 560|
+Time |35863124|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-19|SPY |-344|SAZ |7090|PHI |-1|THETA |1|PSI |-1|Battery | 574|
+Time |35963584|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |-6|SPY |-323|SAZ |7092|PHI |-2|THETA |1|PSI |-1|Battery | 581|
+Time |36064073|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |11|SPY |-344|SAZ |7073|PHI |-1|THETA |1|PSI |-1|Battery | 560|
+Time |36164626|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |2|SPY |-343|SAZ |7074|PHI |-2|THETA |1|PSI |0|Battery | 574|
+Time |36265701|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |-1|SAX |3|SPY |-346|SAZ |7044|PHI |-2|THETA |1|PSI |-1|Battery | 581|
+Time |36365719|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |3|SPY |-340|SAZ |7078|PHI |-2|THETA |1|PSI |0|Battery | 560|
+Time |36466103|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |-1|SQ |-1|SR |0|SAX |16|SPY |-323|SAZ |7075|PHI |-2|THETA |1|PSI |0|Battery | 574|
+Time |36566589|Mode |3|Motors |  0 |   0 |   0 |   0|P |0|P1 |0| P2 |0|SP |0|SQ |0|SR |0|SAX |-18|SPY |-407|SAZ |7134|PHI |-1|THETA |1|PSI |0|Battery | 581|
+Time |36667142|Mode |5|Motors |  0 |   0 |   0 |   0|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-9|SPY |-312|SAZ |7109|PHI |-1|THETA |1|PSI |0|Battery | 560|
+Time |36768191|Mode |5|Motors |  0 |   0 |   0 |   0|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-19|SPY |-354|SAZ |7093|PHI |-1|THETA |1|PSI |0|Battery | 574|
+Time |36868201|Mode |5|Motors |  0 |   0 |   0 |   0|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |-1|SAX |3|SPY |-344|SAZ |7081|PHI |-2|THETA |0|PSI |0|Battery | 581|
+Time |36968641|Mode |5|Motors |  0 |   0 |   0 |   0|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |15|SPY |-344|SAZ |7049|PHI |-2|THETA |1|PSI |0|Battery | 560|
+Time |37069143|Mode |5|Motors |  0 |   0 |   0 |   0|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |-1|SAX |-5|SPY |-354|SAZ |7085|PHI |-2|THETA |1|PSI |0|Battery | 574|
+Time |37170155|Mode |5|Motors |  0 |   0 |   0 |   0|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |1|SPY |-340|SAZ |7065|PHI |-2|THETA |1|PSI |0|Battery | 581|
+Time |37270164|Mode |5|Motors |  0 |   0 |   0 |   0|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-17|SPY |-348|SAZ |7079|PHI |-2|THETA |0|PSI |0|Battery | 560|
+Time |37370635|Mode |5|Motors |  0 |   0 |   0 |   0|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |-27|SPY |-346|SAZ |7045|PHI |-2|THETA |0|PSI |1|Battery | 574|
+Time |37471141|Mode |5|Motors |  0 |   0 |   0 |   0|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |1|SPY |-348|SAZ |7071|PHI |-2|THETA |0|PSI |1|Battery | 581|
+Time |37571619|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-31|SPY |-328|SAZ |7071|PHI |-2|THETA |0|PSI |1|Battery | 560|
+Time |37672117|Mode |5|Motors |255 | 255 | 255 | 255|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-3|SPY |-342|SAZ |7099|PHI |-1|THETA |0|PSI |1|Battery | 574|
+Time |37772653|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |0|SAX |-13|SPY |-350|SAZ |7071|PHI |-2|THETA |0|PSI |1|Battery | 581|
+Time |37873272|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |29|SPY |-356|SAZ |7103|PHI |-1|THETA |0|PSI |1|Battery | 560|
+Time |37973749|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |39|SPY |-350|SAZ |7057|PHI |-1|THETA |1|PSI |1|Battery | 574|
+Time |38074111|Mode |5|Motors |255 | 255 | 255 | 255|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |15|SPY |-346|SAZ |7067|PHI |-1|THETA |1|PSI |1|Battery | 581|
+Time |38174633|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-1|SPY |-302|SAZ |7053|PHI |-2|THETA |1|PSI |2|Battery | 560|
+Time |38275117|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-7|SPY |-344|SAZ |7093|PHI |-2|THETA |1|PSI |2|Battery | 574|
+Time |38375649|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |-23|SPY |-346|SAZ |7131|PHI |-2|THETA |1|PSI |2|Battery | 581|
+Time |38476137|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |0|SAX |21|SPY |-330|SAZ |7055|PHI |-2|THETA |1|PSI |2|Battery | 560|
+Time |38576681|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |0|SAX |-5|SPY |-340|SAZ |7095|PHI |-2|THETA |1|PSI |2|Battery | 574|
+Time |38677233|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |-15|SPY |-302|SAZ |7097|PHI |-2|THETA |1|PSI |2|Battery | 581|
+Time |38777611|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |0|SAX |21|SPY |-330|SAZ |7071|PHI |-2|THETA |1|PSI |3|Battery | 560|
+Time |38878133|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |35|SPY |-352|SAZ |7025|PHI |-2|THETA |1|PSI |3|Battery | 574|
+Time |38978616|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |27|SPY |-352|SAZ |7075|PHI |-2|THETA |1|PSI |3|Battery | 581|
+Time |39079124|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-11|SPY |-340|SAZ |7103|PHI |-2|THETA |1|PSI |3|Battery | 560|
+Time |39179607|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |1|SPY |-332|SAZ |7057|PHI |-2|THETA |0|PSI |3|Battery | 574|
+Time |39280128|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |13|SPY |-328|SAZ |7055|PHI |-2|THETA |1|PSI |3|Battery | 581|
+Time |39380687|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |33|SPY |-314|SAZ |7055|PHI |-2|THETA |1|PSI |3|Battery | 560|
+Time |39481094|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |43|SPY |-364|SAZ |7065|PHI |-2|THETA |0|PSI |3|Battery | 581|
+Time |39581635|Mode |5|Motors |256 | 255 | 256 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |9|SPY |-324|SAZ |7071|PHI |-1|THETA |0|PSI |3|Battery | 581|
+Time |39682105|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-13|SPY |-340|SAZ |7085|PHI |-1|THETA |0|PSI |4|Battery | 560|
+Time |39782629|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |13|SPY |-348|SAZ |7075|PHI |-1|THETA |-1|PSI |4|Battery | 574|
+Time |39883225|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |7|SPY |-322|SAZ |7093|PHI |-1|THETA |-2|PSI |4|Battery | 581|
+Time |39983610|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |17|SPY |-342|SAZ |7071|PHI |-1|THETA |-1|PSI |4|Battery | 560|
+Time |40084121|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |3|SPY |-336|SAZ |7097|PHI |-1|THETA |-1|PSI |4|Battery | 574|
+Time |40184632|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-3|SPY |-358|SAZ |7051|PHI |-1|THETA |-1|PSI |4|Battery | 581|
+Time |40285119|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |15|SPY |-348|SAZ |7075|PHI |-2|THETA |-1|PSI |4|Battery | 560|
+Time |40385660|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-3|SPY |-314|SAZ |7047|PHI |-2|THETA |-2|PSI |4|Battery | 574|
+Time |40486504|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |-1|SAX |-1|SPY |-328|SAZ |7057|PHI |-2|THETA |-2|PSI |4|Battery | 581|
+Time |40586656|Mode |5|Motors |256 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |-7|SPY |-338|SAZ |7085|PHI |-2|THETA |-3|PSI |4|Battery | 560|
+Time |40687143|Mode |5|Motors |256 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |1|SR |0|SAX |19|SPY |-344|SAZ |7063|PHI |-2|THETA |-3|PSI |5|Battery | 574|
+Time |40787668|Mode |5|Motors |256 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |5|SPY |-306|SAZ |7085|PHI |-2|THETA |-3|PSI |5|Battery | 581|
+Time |40888149|Mode |5|Motors |256 | 255 | 255 | 255|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |-1|SAX |13|SPY |-330|SAZ |7071|PHI |-2|THETA |-2|PSI |5|Battery | 560|
+Time |40988625|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-9|SPY |-332|SAZ |7095|PHI |-2|THETA |-2|PSI |5|Battery | 574|
+Time |41089105|Mode |5|Motors |256 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |1|SPY |-336|SAZ |7059|PHI |-2|THETA |-2|PSI |5|Battery | 581|
+Time |41189685|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |11|SPY |-326|SAZ |7069|PHI |-2|THETA |-3|PSI |5|Battery | 560|
+Time |41290150|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |21|SPY |-332|SAZ |7089|PHI |-2|THETA |-3|PSI |5|Battery | 574|
+Time |41390614|Mode |5|Motors |256 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |-1|SAX |29|SPY |-352|SAZ |7075|PHI |-3|THETA |-2|PSI |5|Battery | 581|
+Time |41491143|Mode |5|Motors |256 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-5|SPY |-334|SAZ |7115|PHI |-3|THETA |-2|PSI |5|Battery | 560|
+Time |41591657|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-19|SPY |-340|SAZ |7085|PHI |-3|THETA |-2|PSI |5|Battery | 574|
+Time |41692894|Mode |5|Motors |256 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |1|SR |0|SAX |13|SPY |-336|SAZ |7079|PHI |-2|THETA |-2|PSI |5|Battery | 581|
+Time |41792884|Mode |5|Motors |256 | 255 | 255 | 255|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-11|SPY |-322|SAZ |7053|PHI |-1|THETA |-2|PSI |5|Battery | 560|
+Time |41893114|Mode |5|Motors |256 | 255 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |5|SPY |-344|SAZ |7065|PHI |-1|THETA |-2|PSI |5|Battery | 574|
+Time |41993603|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-13|SPY |-360|SAZ |7049|PHI |0|THETA |-2|PSI |5|Battery | 581|
+Time |42094096|Mode |5|Motors |256 | 255 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |1|SR |1|SAX |3|SPY |-364|SAZ |7067|PHI |0|THETA |-3|PSI |6|Battery | 560|
+Time |42195359|Mode |5|Motors |256 | 255 | 255 | 255|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |17|SPY |-326|SAZ |7087|PHI |0|THETA |-3|PSI |6|Battery | 574|
+Time |42295380|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |21|SPY |-330|SAZ |7063|PHI |0|THETA |-3|PSI |6|Battery | 581|
+Time |42395624|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |3|SPY |-342|SAZ |7087|PHI |0|THETA |-3|PSI |6|Battery | 560|
+Time |42496113|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |-9|SPY |-336|SAZ |7065|PHI |0|THETA |-3|PSI |6|Battery | 595|
+Time |42596614|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |21|SPY |-310|SAZ |7053|PHI |0|THETA |-2|PSI |6|Battery | 581|
+Time |42697820|Mode |5|Motors |256 | 255 | 255 | 255|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |0|SAX |-1|SPY |-344|SAZ |7081|PHI |0|THETA |-2|PSI |6|Battery | 560|
+Time |42797828|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |0|SAX |17|SPY |-320|SAZ |7049|PHI |0|THETA |-1|PSI |6|Battery | 574|
+Time |42898092|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |-5|SPY |-332|SAZ |7111|PHI |0|THETA |-1|PSI |6|Battery | 581|
+Time |42998633|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |3|SPY |-338|SAZ |7061|PHI |-1|THETA |-1|PSI |7|Battery | 560|
+Time |43099182|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |5|SPY |-314|SAZ |7081|PHI |-1|THETA |-1|PSI |7|Battery | 574|
+Time |43199591|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |-2|SQ |-1|SR |0|SAX |3|SPY |-330|SAZ |7045|PHI |-1|THETA |-1|PSI |7|Battery | 581|
+Time |43300113|Mode |5|Motors |256 | 255 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |-3|SPY |-356|SAZ |7089|PHI |0|THETA |-2|PSI |7|Battery | 560|
+Time |43401104|Mode |5|Motors |255 | 255 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |31|SPY |-326|SAZ |7103|PHI |0|THETA |-1|PSI |7|Battery | 574|
+Time |43501114|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |0|SAX |-1|SPY |-348|SAZ |7079|PHI |0|THETA |-1|PSI |7|Battery | 581|
+Time |43601593|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |-5|SPY |-332|SAZ |7059|PHI |0|THETA |-1|PSI |8|Battery | 560|
+Time |43702087|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |15|SPY |-348|SAZ |7071|PHI |0|THETA |-1|PSI |8|Battery | 574|
+Time |43802716|Mode |5|Motors |256 | 255 | 256 | 255|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-15|SPY |-324|SAZ |7121|PHI |1|THETA |-2|PSI |8|Battery | 581|
+Time |43903072|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |7|SPY |-342|SAZ |7077|PHI |1|THETA |-2|PSI |8|Battery | 560|
+Time |44003764|Mode |5|Motors |256 | 255 | 255 | 255|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |5|SPY |-344|SAZ |7033|PHI |1|THETA |-2|PSI |8|Battery | 574|
+Time |44104078|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |-1|SPY |-342|SAZ |7069|PHI |1|THETA |-2|PSI |8|Battery | 581|
+Time |44204599|Mode |5|Motors |256 | 255 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |1|SR |0|SAX |15|SPY |-356|SAZ |7073|PHI |1|THETA |-2|PSI |9|Battery | 560|
+Time |44305096|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |15|SPY |-354|SAZ |7037|PHI |1|THETA |-1|PSI |9|Battery | 574|
+Time |44406321|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-11|SPY |-350|SAZ |7095|PHI |0|THETA |-1|PSI |9|Battery | 581|
+Time |44506326|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |19|SPY |-332|SAZ |7083|PHI |0|THETA |-1|PSI |9|Battery | 560|
+Time |44606598|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-2|SQ |-1|SR |0|SAX |-9|SPY |-334|SAZ |7073|PHI |-1|THETA |0|PSI |9|Battery | 574|
+Time |44707138|Mode |5|Motors |255 | 255 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |13|SPY |-336|SAZ |7067|PHI |0|THETA |0|PSI |9|Battery | 574|
+Time |44807995|Mode |5|Motors |255 | 255 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |-9|SPY |-334|SAZ |7039|PHI |0|THETA |0|PSI |9|Battery | 560|
+Time |44908100|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |-1|SAX |15|SPY |-338|SAZ |7079|PHI |1|THETA |0|PSI |9|Battery | 574|
+Time |45008595|Mode |5|Motors |256 | 255 | 255 | 255|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |-25|SPY |-336|SAZ |7049|PHI |1|THETA |-1|PSI |9|Battery | 581|
+Time |45109112|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |-1|SPY |-326|SAZ |7067|PHI |0|THETA |-2|PSI |9|Battery | 560|
+Time |45209613|Mode |5|Motors |256 | 255 | 255 | 255|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |17|SPY |-336|SAZ |7075|PHI |1|THETA |-2|PSI |9|Battery | 574|
+Time |45310767|Mode |5|Motors |255 | 255 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |7|SPY |-326|SAZ |7057|PHI |1|THETA |-2|PSI |10|Battery | 581|
+Time |45410774|Mode |5|Motors |256 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |0|SR |0|SAX |61|SPY |-328|SAZ |7037|PHI |0|THETA |-2|PSI |10|Battery | 560|
+Time |45511094|Mode |5|Motors |255 | 255 | 255 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |0|SAX |17|SPY |-336|SAZ |7061|PHI |-1|THETA |-1|PSI |10|Battery | 581|
+Time |45611637|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-2|SQ |-1|SR |0|SAX |-19|SPY |-344|SAZ |7081|PHI |-1|THETA |-2|PSI |10|Battery | 581|
+Time |45712129|Mode |5|Motors |256 | 255 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |7|SPY |-344|SAZ |7061|PHI |-1|THETA |-2|PSI |10|Battery | 560|
+Time |45812847|Mode |5|Motors |255 | 255 | 256 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |-1|SAX |5|SPY |-330|SAZ |7075|PHI |-1|THETA |-2|PSI |9|Battery | 574|
+Time |45913117|Mode |5|Motors |260 | 251 | 260 | 251|P |108|P1 |45| P2 |116|SP |1|SQ |-2|SR |-56|SAX |-65|SPY |-320|SAZ |7101|PHI |0|THETA |1|PSI |-31|Battery | 581|
+Time |46013573|Mode |5|Motors |264 | 247 | 265 | 246|P |108|P1 |45| P2 |116|SP |3|SQ |-2|SR |-154|SAX |-149|SPY |-234|SAZ |7041|PHI |5|THETA |7|PSI |-160|Battery | 560|
+Time |46114094|Mode |5|Motors |263 | 248 | 264 | 247|P |108|P1 |45| P2 |116|SP |3|SQ |-2|SR |-159|SAX |27|SPY |-304|SAZ |7037|PHI |11|THETA |8|PSI |-309|Battery | 574|
+Time |46214588|Mode |5|Motors |265 | 246 | 266 | 245|P |108|P1 |45| P2 |116|SP |5|SQ |-2|SR |-197|SAX |47|SPY |-308|SAZ |7045|PHI |21|THETA |16|PSI |-494|Battery | 581|
+Time |46315231|Mode |5|Motors |262 | 249 | 263 | 247|P |108|P1 |45| P2 |116|SP |3|SQ |-1|SR |-133|SAX |-35|SPY |-266|SAZ |7073|PHI |30|THETA |26|PSI |-688|Battery | 560|
+Time |46415595|Mode |5|Motors |265 | 246 | 267 | 244|P |108|P1 |45| P2 |116|SP |4|SQ |-3|SR |-186|SAX |29|SPY |-284|SAZ |7109|PHI |38|THETA |33|PSI |-878|Battery | 574|
+Time |46516142|Mode |5|Motors |266 | 245 | 268 | 243|P |108|P1 |45| P2 |116|SP |5|SQ |-4|SR |-246|SAX |141|SPY |-398|SAZ |7119|PHI |45|THETA |41|PSI |-1087|Battery | 602|
+Time |46616606|Mode |5|Motors |265 | 246 | 268 | 243|P |108|P1 |45| P2 |116|SP |6|SQ |-4|SR |-190|SAX |-57|SPY |-274|SAZ |7161|PHI |56|THETA |50|PSI |-1331|Battery | 560|
+Time |46717224|Mode |5|Motors |266 | 245 | 269 | 242|P |108|P1 |45| P2 |116|SP |4|SQ |-4|SR |-191|SAX |-145|SPY |-278|SAZ |7139|PHI |66|THETA |55|PSI |-1570|Battery | 574|
+Time |46817593|Mode |5|Motors |264 | 248 | 266 | 244|P |108|P1 |45| P2 |116|SP |4|SQ |-3|SR |-170|SAX |85|SPY |-240|SAZ |7071|PHI |73|THETA |57|PSI |-1774|Battery | 581|
+Time |46918277|Mode |5|Motors |268 | 243 | 271 | 239|P |108|P1 |45| P2 |116|SP |6|SQ |-6|SR |-234|SAX |-11|SPY |-212|SAZ |7033|PHI |83|THETA |65|PSI |-2010|Battery | 560|
+Time |47018772|Mode |5|Motors |264 | 247 | 267 | 243|P |108|P1 |45| P2 |116|SP |4|SQ |-3|SR |-165|SAX |45|SPY |-320|SAZ |7033|PHI |91|THETA |70|PSI |-2235|Battery | 574|
+Time |47119292|Mode |5|Motors |260 | 251 | 263 | 247|P |108|P1 |45| P2 |116|SP |2|SQ |-3|SR |-86|SAX |33|SPY |-274|SAZ |7085|PHI |96|THETA |72|PSI |-2379|Battery | 581|
+Time |47220666|Mode |5|Motors |263 | 248 | 267 | 243|P |108|P1 |45| P2 |116|SP |3|SQ |-3|SR |-145|SAX |49|SPY |-270|SAZ |7069|PHI |100|THETA |74|PSI |-2533|Battery | 560|
+Time |47320673|Mode |5|Motors |265 | 247 | 269 | 242|P |108|P1 |45| P2 |116|SP |5|SQ |-3|SR |-197|SAX |121|SPY |-348|SAZ |7045|PHI |106|THETA |79|PSI |-2741|Battery | 574|
+Time |47420781|Mode |5|Motors |264 | 247 | 268 | 242|P |108|P1 |45| P2 |116|SP |3|SQ |-5|SR |-172|SAX |101|SPY |-326|SAZ |6991|PHI |112|THETA |85|PSI |-2980|Battery | 581|
+Time |47521280|Mode |5|Motors |264 | 248 | 268 | 242|P |108|P1 |45| P2 |116|SP |4|SQ |-4|SR |-145|SAX |-39|SPY |-304|SAZ |7059|PHI |121|THETA |89|PSI |-3195|Battery | 560|
+Time |47621832|Mode |5|Motors |262 | 249 | 267 | 244|P |108|P1 |45| P2 |116|SP |4|SQ |-3|SR |-146|SAX |115|SPY |-268|SAZ |7097|PHI |123|THETA |91|PSI |-3364|Battery | 574|
+Time |47722859|Mode |5|Motors |264 | 248 | 268 | 242|P |108|P1 |45| P2 |116|SP |6|SQ |-4|SR |-187|SAX |65|SPY |-252|SAZ |7085|PHI |127|THETA |93|PSI |-3558|Battery | 581|
+Time |47822900|Mode |5|Motors |268 | 244 | 273 | 237|P |108|P1 |45| P2 |116|SP |7|SQ |-5|SR |-273|SAX |21|SPY |-288|SAZ |7095|PHI |138|THETA |99|PSI |-3814|Battery | 560|
+Time |47923394|Mode |5|Motors |270 | 242 | 275 | 235|P |108|P1 |45| P2 |116|SP |10|SQ |-7|SR |-359|SAX |53|SPY |-312|SAZ |7071|PHI |149|THETA |108|PSI |-4144|Battery | 574|
+Time |48023931|Mode |5|Motors |266 | 246 | 271 | 238|P |108|P1 |45| P2 |116|SP |8|SQ |-3|SR |-240|SAX |-49|SPY |-178|SAZ |7037|PHI |162|THETA |109|PSI |-4451|Battery | 581|
+Time |48125027|Mode |5|Motors |262 | 250 | 267 | 242|P |108|P1 |45| P2 |116|SP |6|SQ |-3|SR |-205|SAX |93|SPY |-192|SAZ |7057|PHI |166|THETA |110|PSI |-4648|Battery | 560|
+Time |48225066|Mode |5|Motors |270 | 243 | 275 | 234|P |108|P1 |45| P2 |116|SP |10|SQ |-7|SR |-312|SAX |147|SPY |-332|SAZ |7139|PHI |172|THETA |118|PSI |-4930|Battery | 560|
+Time |48325459|Mode |5|Motors |266 | 246 | 272 | 238|P |108|P1 |45| P2 |116|SP |7|SQ |-5|SR |-276|SAX |-1|SPY |-244|SAZ |7073|PHI |182|THETA |121|PSI |-5234|Battery | 581|
+Time |48425959|Mode |5|Motors |273 | 240 | 279 | 230|P |108|P1 |45| P2 |116|SP |6|SQ |-3|SR |-223|SAX |345|SPY |-282|SAZ |7081|PHI |202|THETA |123|PSI |-5671|Battery | 567|
+Time |48527208|Mode |5|Motors |262 | 251 | 267 | 242|P |108|P1 |45| P2 |116|SP |3|SQ |-3|SR |-125|SAX |147|SPY |-368|SAZ |7041|PHI |205|THETA |124|PSI |-5879|Battery | 595|
+Time |48627299|Mode |5|Motors |269 | 245 | 274 | 235|P |108|P1 |45| P2 |116|SP |9|SQ |-4|SR |-291|SAX |-125|SPY |-136|SAZ |7117|PHI |209|THETA |123|PSI |-6120|Battery | 574|
+Time |48727493|Mode |5|Motors |264 | 249 | 269 | 240|P |108|P1 |45| P2 |116|SP |3|SQ |-5|SR |-216|SAX |49|SPY |-232|SAZ |7055|PHI |216|THETA |126|PSI |-6385|Battery | 560|
+Time |48828269|Mode |5|Motors |270 | 243 | 276 | 233|P |108|P1 |45| P2 |116|SP |10|SQ |-6|SR |-347|SAX |25|SPY |-208|SAZ |7079|PHI |223|THETA |130|PSI |-6706|Battery | 574|
+Time |48928536|Mode |5|Motors |277 | 236 | 284 | 224|P |108|P1 |45| P2 |116|SP |10|SQ |-10|SR |-394|SAX |211|SPY |-138|SAZ |7035|PHI |247|THETA |135|PSI |-7184|Battery | 581|
+Time |49029024|Mode |5|Motors |265 | 249 | 271 | 237|P |108|P1 |45| P2 |116|SP |6|SQ |-5|SR |-240|SAX |-27|SPY |-152|SAZ |7015|PHI |253|THETA |136|PSI |-7496|Battery | 560|
+Time |49129527|Mode |5|Motors |264 | 250 | 270 | 239|P |108|P1 |45| P2 |116|SP |6|SQ |-4|SR |-205|SAX |113|SPY |-280|SAZ |7097|PHI |259|THETA |133|PSI |-7756|Battery | 574|
+Time |49230045|Mode |5|Motors |270 | 244 | 276 | 232|P |108|P1 |45| P2 |116|SP |10|SQ |-6|SR |-352|SAX |155|SPY |-222|SAZ |7071|PHI |265|THETA |136|PSI |-8056|Battery | 581|
+Time |49330562|Mode |5|Motors |272 | 242 | 279 | 229|P |108|P1 |45| P2 |116|SP |9|SQ |-6|SR |-370|SAX |-81|SPY |-104|SAZ |7071|PHI |280|THETA |135|PSI |-8475|Battery | 560|
+Time |49431030|Mode |5|Motors |273 | 241 | 280 | 228|P |108|P1 |45| P2 |116|SP |6|SQ |-7|SR |-285|SAX |-29|SPY |-110|SAZ |7077|PHI |296|THETA |137|PSI |-8927|Battery | 574|
+Time |49531512|Mode |5|Motors |269 | 245 | 275 | 232|P |108|P1 |45| P2 |116|SP |8|SQ |-3|SR |-239|SAX |-41|SPY |-92|SAZ |7111|PHI |304|THETA |134|PSI |-9255|Battery | 581|
+Time |49632068|Mode |5|Motors |265 | 250 | 271 | 236|P |108|P1 |45| P2 |116|SP |8|SQ |-6|SR |-262|SAX |245|SPY |-170|SAZ |7129|PHI |311|THETA |133|PSI |-9513|Battery | 560|
+Time |49732532|Mode |5|Motors |261 | 254 | 267 | 240|P |108|P1 |45| P2 |116|SP |4|SQ |-5|SR |-157|SAX |323|SPY |-254|SAZ |7057|PHI |309|THETA |131|PSI |-9735|Battery | 574|
+Time |49833695|Mode |5|Motors |267 | 248 | 273 | 234|P |108|P1 |45| P2 |116|SP |10|SQ |-3|SR |-275|SAX |-79|SPY |-134|SAZ |7031|PHI |314|THETA |128|PSI |-10026|Battery | 581|
+Time |49933781|Mode |5|Motors |265 | 250 | 271 | 236|P |108|P1 |45| P2 |116|SP |6|SQ |-5|SR |-234|SAX |339|SPY |-198|SAZ |7135|PHI |314|THETA |130|PSI |-10258|Battery | 581|
+Time |50033966|Mode |5|Motors |268 | 247 | 273 | 233|P |108|P1 |45| P2 |116|SP |14|SQ |-11|SR |-482|SAX |-517|SPY |-68|SAZ |7049|PHI |313|THETA |122|PSI |-10504|Battery | 574|
+Time |50134621|Mode |5|Motors |267 | 249 | 272 | 234|P |108|P1 |45| P2 |116|SP |12|SQ |-8|SR |-512|SAX |-709|SPY |-84|SAZ |7099|PHI |329|THETA |118|PSI |-10852|Battery | 581|
+Time |50235009|Mode |5|Motors |259 | 256 | 265 | 242|P |108|P1 |45| P2 |116|SP |4|SQ |-1|SR |-78|SAX |627|SPY |-208|SAZ |7141|PHI |334|THETA |129|PSI |-11191|Battery | 560|
+Time |50335892|Mode |5|Motors |266 | 249 | 272 | 235|P |108|P1 |45| P2 |116|SP |5|SQ |-3|SR |-194|SAX |261|SPY |-178|SAZ |7113|PHI |335|THETA |119|PSI |-11392|Battery | 574|
+Time |50435986|Mode |5|Motors |271 | 245 | 277 | 229|P |108|P1 |45| P2 |116|SP |12|SQ |-7|SR |-400|SAX |173|SPY |-168|SAZ |7081|PHI |343|THETA |124|PSI |-11697|Battery | 581|
+Time |50536490|Mode |5|Motors |269 | 247 | 275 | 231|P |108|P1 |45| P2 |116|SP |6|SQ |-5|SR |-230|SAX |133|SPY |-52|SAZ |7121|PHI |356|THETA |121|PSI |-12124|Battery | 560|
+Time |50636999|Mode |5|Motors |271 | 245 | 277 | 228|P |108|P1 |45| P2 |116|SP |11|SQ |-6|SR |-354|SAX |103|SPY |-38|SAZ |7105|PHI |366|THETA |120|PSI |-12454|Battery | 574|
+Time |50738181|Mode |5|Motors |267 | 249 | 273 | 233|P |108|P1 |45| P2 |116|SP |6|SQ |-4|SR |-198|SAX |-73|SPY |-136|SAZ |7093|PHI |376|THETA |116|PSI |-12807|Battery | 581|
+Time |50838212|Mode |5|Motors |273 | 244 | 278 | 227|P |108|P1 |45| P2 |116|SP |11|SQ |-6|SR |-350|SAX |-13|SPY |-156|SAZ |7115|PHI |387|THETA |115|PSI |-13144|Battery | 581|
+Time |50938455|Mode |5|Motors |266 | 251 | 271 | 234|P |108|P1 |45| P2 |116|SP |8|SQ |-4|SR |-215|SAX |-43|SPY |-212|SAZ |7105|PHI |390|THETA |107|PSI |-13456|Battery | 560|
+Time |51038982|Mode |5|Motors |269 | 248 | 274 | 230|P |108|P1 |45| P2 |116|SP |8|SQ |-3|SR |-292|SAX |31|SPY |-8|SAZ |7077|PHI |393|THETA |105|PSI |-13743|Battery | 574|
+Time |51139470|Mode |5|Motors |269 | 248 | 274 | 230|P |108|P1 |45| P2 |116|SP |9|SQ |-5|SR |-304|SAX |27|SPY |-12|SAZ |7055|PHI |401|THETA |102|PSI |-14113|Battery | 581|
+Time |51240430|Mode |5|Motors |268 | 250 | 272 | 232|P |108|P1 |45| P2 |116|SP |8|SQ |-6|SR |-264|SAX |-71|SPY |-192|SAZ |7111|PHI |407|THETA |99|PSI |-14436|Battery | 560|
+Time |51340447|Mode |5|Motors |274 | 244 | 279 | 225|P |108|P1 |45| P2 |116|SP |10|SQ |-5|SR |-344|SAX |-107|SPY |-162|SAZ |7099|PHI |413|THETA |96|PSI |-14800|Battery | 574|
+Time |51440923|Mode |5|Motors |264 | 254 | 268 | 236|P |108|P1 |45| P2 |116|SP |4|SQ |-3|SR |-194|SAX |115|SPY |-188|SAZ |7033|PHI |412|THETA |92|PSI |-15075|Battery | 581|
+Time |51541457|Mode |5|Motors |263 | 255 | 267 | 237|P |108|P1 |45| P2 |116|SP |6|SQ |-4|SR |-171|SAX |-17|SPY |42|SAZ |7045|PHI |411|THETA |89|PSI |-15288|Battery | 560|
+Time |51641919|Mode |5|Motors |272 | 246 | 277 | 227|P |108|P1 |45| P2 |116|SP |10|SQ |-5|SR |-346|SAX |57|SPY |-144|SAZ |7091|PHI |415|THETA |88|PSI |-15576|Battery | 574|
+Time |51742476|Mode |5|Motors |270 | 248 | 274 | 229|P |108|P1 |45| P2 |116|SP |9|SQ |-4|SR |-305|SAX |55|SPY |-62|SAZ |7055|PHI |423|THETA |84|PSI |-15952|Battery | 581|
+Time |51842948|Mode |5|Motors |270 | 249 | 274 | 230|P |108|P1 |45| P2 |116|SP |7|SQ |-7|SR |-295|SAX |113|SPY |-6|SAZ |7015|PHI |429|THETA |80|PSI |-16281|Battery | 560|
+Time |51943468|Mode |5|Motors |264 | 255 | 267 | 236|P |108|P1 |45| P2 |116|SP |7|SQ |-2|SR |-184|SAX |71|SPY |24|SAZ |7027|PHI |431|THETA |73|PSI |-16527|Battery | 574|
+Time |52043934|Mode |5|Motors |265 | 254 | 268 | 235|P |108|P1 |45| P2 |116|SP |3|SQ |-5|SR |-236|SAX |159|SPY |160|SAZ |7055|PHI |432|THETA |71|PSI |-16754|Battery | 581|
+Time |52144403|Mode |5|Motors |262 | 257 | 265 | 238|P |108|P1 |45| P2 |116|SP |3|SQ |-3|SR |-157|SAX |17|SPY |118|SAZ |7109|PHI |432|THETA |66|PSI |-17000|Battery | 560|
+Time |52244928|Mode |5|Motors |262 | 256 | 265 | 238|P |108|P1 |45| P2 |116|SP |6|SQ |-5|SR |-186|SAX |143|SPY |148|SAZ |7133|PHI |428|THETA |62|PSI |-17172|Battery | 574|
+Time |52345464|Mode |5|Motors |264 | 255 | 267 | 236|P |108|P1 |45| P2 |116|SP |7|SQ |-5|SR |-234|SAX |209|SPY |492|SAZ |7103|PHI |428|THETA |60|PSI |-17359|Battery | 581|
+Time |52445927|Mode |5|Motors |285 | 235 | 289 | 213|P |108|P1 |45| P2 |116|SP |16|SQ |-10|SR |-570|SAX |19|SPY |62|SAZ |7033|PHI |457|THETA |55|PSI |-17962|Battery | 560|
+Time |52546600|Mode |5|Motors |270 | 250 | 272 | 230|P |108|P1 |45| P2 |116|SP |5|SQ |-3|SR |-237|SAX |-109|SPY |-140|SAZ |7053|PHI |456|THETA |50|PSI |-18413|Battery | 574|
+Time |52646958|Mode |5|Motors |264 | 256 | 266 | 236|P |108|P1 |45| P2 |116|SP |6|SQ |-2|SR |-171|SAX |-23|SPY |-102|SAZ |7045|PHI |451|THETA |46|PSI |-18597|Battery | 581|
+Time |52747460|Mode |5|Motors |260 | 260 | 262 | 241|P |108|P1 |45| P2 |116|SP |2|SQ |-4|SR |-98|SAX |-31|SPY |-90|SAZ |7081|PHI |446|THETA |42|PSI |-18735|Battery | 560|
+Time |52848372|Mode |5|Motors |264 | 255 | 267 | 236|P |108|P1 |45| P2 |116|SP |4|SQ |-3|SR |-160|SAX |-95|SPY |-50|SAZ |7053|PHI |442|THETA |39|PSI |-18910|Battery | 574|
+Time |52948418|Mode |5|Motors |265 | 255 | 266 | 236|P |108|P1 |45| P2 |116|SP |4|SQ |-2|SR |-169|SAX |-159|SPY |60|SAZ |7141|PHI |439|THETA |32|PSI |-19118|Battery | 581|
+Time |53048900|Mode |5|Motors |263 | 256 | 265 | 237|P |108|P1 |45| P2 |116|SP |7|SQ |0|SR |-166|SAX |-93|SPY |-28|SAZ |7065|PHI |437|THETA |30|PSI |-19306|Battery | 560|
+Time |53149409|Mode |5|Motors |264 | 256 | 265 | 237|P |108|P1 |45| P2 |116|SP |2|SQ |-5|SR |-178|SAX |-69|SPY |-22|SAZ |7135|PHI |436|THETA |24|PSI |-19476|Battery | 574|
+Time |53250001|Mode |5|Motors |266 | 253 | 268 | 235|P |108|P1 |45| P2 |116|SP |5|SQ |-6|SR |-213|SAX |-69|SPY |-38|SAZ |7115|PHI |432|THETA |22|PSI |-19688|Battery | 581|
+Time |53350395|Mode |5|Motors |265 | 255 | 266 | 236|P |108|P1 |45| P2 |116|SP |5|SQ |-3|SR |-172|SAX |-147|SPY |42|SAZ |7121|PHI |431|THETA |20|PSI |-19929|Battery | 560|
+Time |53450942|Mode |5|Motors |262 | 258 | 263 | 239|P |108|P1 |45| P2 |116|SP |1|SQ |-4|SR |-128|SAX |-87|SPY |134|SAZ |7083|PHI |428|THETA |16|PSI |-20078|Battery | 574|
+Time |53551399|Mode |5|Motors |258 | 261 | 259 | 243|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |-39|SAX |-141|SPY |-56|SAZ |7111|PHI |422|THETA |12|PSI |-20184|Battery | 581|
+Time |53651950|Mode |5|Motors |255 | 264 | 256 | 247|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |2|SAX |-81|SPY |16|SAZ |7097|PHI |410|THETA |8|PSI |-20190|Battery | 560|
+Time |53752466|Mode |5|Motors |255 | 264 | 256 | 247|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |1|SAX |-71|SPY |30|SAZ |7093|PHI |399|THETA |5|PSI |-20182|Battery | 574|
+Time |53853254|Mode |5|Motors |254 | 265 | 254 | 249|P |108|P1 |45| P2 |116|SP |-3|SQ |-2|SR |26|SAX |-59|SPY |90|SAZ |7071|PHI |390|THETA |2|PSI |-20164|Battery | 581|
+Time |53953403|Mode |5|Motors |253 | 265 | 254 | 249|P |108|P1 |45| P2 |116|SP |-2|SQ |-2|SR |36|SAX |-53|SPY |28|SAZ |7103|PHI |381|THETA |-1|PSI |-20126|Battery | 560|
+Time |54053933|Mode |5|Motors |253 | 265 | 253 | 250|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |41|SAX |-43|SPY |22|SAZ |7065|PHI |373|THETA |-3|PSI |-20086|Battery | 574|
+Time |54154528|Mode |5|Motors |252 | 266 | 252 | 251|P |108|P1 |45| P2 |116|SP |-2|SQ |-2|SR |66|SAX |-57|SPY |194|SAZ |7057|PHI |362|THETA |-6|PSI |-20034|Battery | 581|
+Time |54254920|Mode |5|Motors |252 | 267 | 252 | 252|P |108|P1 |45| P2 |116|SP |-3|SQ |-1|SR |70|SAX |-51|SPY |104|SAZ |7103|PHI |355|THETA |-9|PSI |-19956|Battery | 560|
+Time |54355435|Mode |5|Motors |251 | 267 | 251 | 253|P |108|P1 |45| P2 |116|SP |-2|SQ |-1|SR |88|SAX |-15|SPY |-50|SAZ |7065|PHI |347|THETA |-10|PSI |-19879|Battery | 574|
+Time |54455953|Mode |5|Motors |248 | 270 | 247 | 256|P |108|P1 |45| P2 |116|SP |-4|SQ |0|SR |163|SAX |-81|SPY |46|SAZ |7053|PHI |335|THETA |-13|PSI |-19743|Battery | 581|
+Time |54556441|Mode |5|Motors |242 | 275 | 241 | 263|P |108|P1 |45| P2 |116|SP |-6|SQ |1|SR |230|SAX |41|SPY |-22|SAZ |7079|PHI |317|THETA |-19|PSI |-19483|Battery | 560|
+Time |54657642|Mode |5|Motors |243 | 274 | 242 | 262|P |108|P1 |45| P2 |116|SP |-7|SQ |3|SR |243|SAX |-73|SPY |-66|SAZ |7095|PHI |303|THETA |-23|PSI |-19245|Battery | 574|
+Time |54757647|Mode |5|Motors |240 | 278 | 238 | 267|P |108|P1 |45| P2 |116|SP |-9|SQ |1|SR |323|SAX |9|SPY |-74|SAZ |7091|PHI |288|THETA |-30|PSI |-18972|Battery | 581|
+Time |54857952|Mode |5|Motors |244 | 274 | 242 | 263|P |108|P1 |45| P2 |116|SP |-7|SQ |1|SR |233|SAX |-67|SPY |48|SAZ |7109|PHI |274|THETA |-35|PSI |-18647|Battery | 560|
+Time |54958425|Mode |5|Motors |242 | 275 | 241 | 264|P |108|P1 |45| P2 |116|SP |-5|SQ |0|SR |259|SAX |-11|SPY |-44|SAZ |7097|PHI |260|THETA |-38|PSI |-18376|Battery | 574|
+Time |55058946|Mode |5|Motors |238 | 279 | 235 | 270|P |108|P1 |45| P2 |116|SP |-10|SQ |3|SR |332|SAX |-13|SPY |28|SAZ |7055|PHI |243|THETA |-44|PSI |-18008|Battery | 581|
+Time |55159364|Mode |5|Motors |239 | 278 | 236 | 269|P |108|P1 |45| P2 |116|SP |-8|SQ |4|SR |302|SAX |3|SPY |60|SAZ |7005|PHI |231|THETA |-48|PSI |-17671|Battery | 560|
+Time |55259909|Mode |5|Motors |239 | 278 | 236 | 269|P |108|P1 |45| P2 |116|SP |-11|SQ |4|SR |356|SAX |-5|SPY |-102|SAZ |7043|PHI |218|THETA |-55|PSI |-17355|Battery | 574|
+Time |55360396|Mode |5|Motors |242 | 274 | 240 | 266|P |108|P1 |45| P2 |116|SP |-7|SQ |3|SR |262|SAX |-21|SPY |-34|SAZ |7059|PHI |207|THETA |-60|PSI |-17006|Battery | 581|
+Time |55460856|Mode |5|Motors |243 | 273 | 241 | 265|P |108|P1 |45| P2 |116|SP |-7|SQ |1|SR |262|SAX |-9|SPY |-110|SAZ |7063|PHI |198|THETA |-63|PSI |-16763|Battery | 560|
+Time |55561386|Mode |5|Motors |237 | 279 | 233 | 272|P |108|P1 |45| P2 |116|SP |-10|SQ |2|SR |375|SAX |5|SPY |-74|SAZ |7009|PHI |184|THETA |-68|PSI |-16400|Battery | 574|
+Time |55661871|Mode |5|Motors |236 | 279 | 233 | 274|P |108|P1 |45| P2 |116|SP |-13|SQ |5|SR |374|SAX |5|SPY |-42|SAZ |7093|PHI |170|THETA |-74|PSI |-15934|Battery | 581|
+Time |55762388|Mode |5|Motors |237 | 278 | 234 | 273|P |108|P1 |45| P2 |116|SP |-11|SQ |5|SR |387|SAX |-89|SPY |-210|SAZ |7109|PHI |158|THETA |-78|PSI |-15532|Battery | 560|
+Time |55862865|Mode |5|Motors |226 | 289 | 221 | 286|P |108|P1 |45| P2 |116|SP |-18|SQ |6|SR |562|SAX |157|SPY |120|SAZ |7013|PHI |137|THETA |-90|PSI |-14979|Battery | 574|
+Time |55963384|Mode |5|Motors |234 | 281 | 230 | 277|P |108|P1 |45| P2 |116|SP |-11|SQ |5|SR |439|SAX |-209|SPY |-92|SAZ |7041|PHI |123|THETA |-99|PSI |-14449|Battery | 581|
+Time |56063851|Mode |5|Motors |238 | 277 | 234 | 273|P |108|P1 |45| P2 |116|SP |-9|SQ |2|SR |357|SAX |31|SPY |-148|SAZ |7063|PHI |113|THETA |-104|PSI |-13995|Battery | 560|
+Time |56165128|Mode |5|Motors |241 | 274 | 236 | 271|P |108|P1 |45| P2 |116|SP |-10|SQ |4|SR |290|SAX |125|SPY |-48|SAZ |7123|PHI |104|THETA |-107|PSI |-13602|Battery | 574|
+Time |56265135|Mode |5|Motors |233 | 282 | 228 | 279|P |108|P1 |45| P2 |116|SP |-14|SQ |4|SR |458|SAX |1|SPY |-10|SAZ |7111|PHI |93|THETA |-112|PSI |-13205|Battery | 581|
+Time |56365320|Mode |5|Motors |238 | 277 | 233 | 274|P |108|P1 |45| P2 |116|SP |-8|SQ |2|SR |336|SAX |75|SPY |-22|SAZ |7089|PHI |85|THETA |-118|PSI |-12737|Battery | 560|
+Time |56465837|Mode |5|Motors |243 | 272 | 238 | 269|P |108|P1 |45| P2 |116|SP |-8|SQ |2|SR |263|SAX |139|SPY |-106|SAZ |7087|PHI |78|THETA |-119|PSI |-12375|Battery | 574|
+Time |56566303|Mode |5|Motors |244 | 270 | 239 | 268|P |108|P1 |45| P2 |116|SP |-8|SQ |2|SR |265|SAX |83|SPY |-196|SAZ |7047|PHI |73|THETA |-118|PSI |-12067|Battery | 581|
+Time |56666851|Mode |5|Motors |240 | 275 | 235 | 273|P |108|P1 |45| P2 |116|SP |-7|SQ |1|SR |300|SAX |179|SPY |-136|SAZ |7081|PHI |66|THETA |-119|PSI |-11695|Battery | 560|
+Time |56767320|Mode |5|Motors |240 | 274 | 235 | 273|P |108|P1 |45| P2 |116|SP |-9|SQ |4|SR |348|SAX |147|SPY |-182|SAZ |7063|PHI |57|THETA |-121|PSI |-11331|Battery | 574|
+Time |56867827|Mode |5|Motors |241 | 273 | 236 | 272|P |108|P1 |45| P2 |116|SP |-11|SQ |2|SR |309|SAX |-5|SPY |-184|SAZ |7157|PHI |52|THETA |-123|PSI |-10968|Battery | 581|
+Time |56968315|Mode |5|Motors |238 | 276 | 233 | 275|P |108|P1 |45| P2 |116|SP |-8|SQ |4|SR |355|SAX |127|SPY |-50|SAZ |7011|PHI |45|THETA |-127|PSI |-10601|Battery | 560|
+Time |57068985|Mode |5|Motors |243 | 271 | 237 | 271|P |108|P1 |45| P2 |116|SP |-9|SQ |3|SR |288|SAX |93|SPY |-70|SAZ |7087|PHI |38|THETA |-131|PSI |-10256|Battery | 574|
+Time |57169343|Mode |5|Motors |247 | 267 | 242 | 266|P |108|P1 |45| P2 |116|SP |-6|SQ |0|SR |218|SAX |23|SPY |-126|SAZ |7101|PHI |36|THETA |-131|PSI |-9984|Battery | 581|
+Time |57269884|Mode |5|Motors |245 | 269 | 240 | 268|P |108|P1 |45| P2 |116|SP |-6|SQ |1|SR |241|SAX |269|SPY |-126|SAZ |7083|PHI |36|THETA |-126|PSI |-9723|Battery | 560|
+Time |57370388|Mode |5|Motors |245 | 269 | 240 | 268|P |108|P1 |45| P2 |116|SP |-6|SQ |1|SR |218|SAX |81|SPY |-198|SAZ |7105|PHI |33|THETA |-124|PSI |-9458|Battery | 574|
+Time |57470870|Mode |5|Motors |245 | 269 | 239 | 269|P |108|P1 |45| P2 |116|SP |-6|SQ |1|SR |264|SAX |113|SPY |-150|SAZ |7063|PHI |33|THETA |-121|PSI |-9217|Battery | 581|
+Time |57572141|Mode |5|Motors |245 | 269 | 240 | 268|P |108|P1 |45| P2 |116|SP |-5|SQ |2|SR |222|SAX |59|SPY |-176|SAZ |7083|PHI |29|THETA |-123|PSI |-8926|Battery | 560|
+Time |57672147|Mode |5|Motors |238 | 276 | 232 | 276|P |108|P1 |45| P2 |116|SP |-10|SQ |5|SR |368|SAX |57|SPY |-230|SAZ |7141|PHI |23|THETA |-126|PSI |-8587|Battery | 574|
+Time |57772323|Mode |5|Motors |247 | 267 | 241 | 267|P |108|P1 |45| P2 |116|SP |-5|SQ |3|SR |213|SAX |193|SPY |-184|SAZ |7085|PHI |20|THETA |-130|PSI |-8299|Battery | 581|
+Time |57872853|Mode |5|Motors |247 | 267 | 241 | 267|P |108|P1 |45| P2 |116|SP |-6|SQ |-1|SR |226|SAX |81|SPY |-64|SAZ |7037|PHI |21|THETA |-125|PSI |-8063|Battery | 560|
+Time |57973494|Mode |5|Motors |243 | 271 | 237 | 271|P |108|P1 |45| P2 |116|SP |-9|SQ |4|SR |299|SAX |199|SPY |-184|SAZ |7019|PHI |20|THETA |-124|PSI |-7776|Battery | 574|
+Time |58073850|Mode |5|Motors |245 | 268 | 240 | 268|P |108|P1 |45| P2 |116|SP |-5|SQ |1|SR |223|SAX |27|SPY |-210|SAZ |7093|PHI |15|THETA |-128|PSI |-7451|Battery | 581|
+Time |58174340|Mode |5|Motors |247 | 267 | 242 | 267|P |108|P1 |45| P2 |116|SP |-4|SQ |0|SR |202|SAX |115|SPY |-234|SAZ |7043|PHI |13|THETA |-128|PSI |-7200|Battery | 560|
+Time |58274871|Mode |5|Motors |247 | 266 | 242 | 266|P |108|P1 |45| P2 |116|SP |-6|SQ |0|SR |218|SAX |-29|SPY |-196|SAZ |7165|PHI |13|THETA |-126|PSI |-7003|Battery | 574|
+Time |58375484|Mode |5|Motors |243 | 270 | 238 | 271|P |108|P1 |45| P2 |116|SP |-6|SQ |3|SR |272|SAX |1|SPY |-218|SAZ |7097|PHI |11|THETA |-128|PSI |-6736|Battery | 581|
+Time |58475852|Mode |5|Motors |246 | 268 | 240 | 268|P |108|P1 |45| P2 |116|SP |-3|SQ |2|SR |203|SAX |119|SPY |-294|SAZ |7087|PHI |6|THETA |-129|PSI |-6459|Battery | 560|
+Time |58576319|Mode |5|Motors |241 | 272 | 235 | 273|P |108|P1 |45| P2 |116|SP |-9|SQ |2|SR |350|SAX |33|SPY |-190|SAZ |7111|PHI |-1|THETA |-127|PSI |-6204|Battery | 574|
+Time |58676835|Mode |5|Motors |239 | 274 | 233 | 275|P |108|P1 |45| P2 |116|SP |-10|SQ |3|SR |333|SAX |65|SPY |-290|SAZ |7079|PHI |-8|THETA |-133|PSI |-5809|Battery | 581|
+Time |58777308|Mode |5|Motors |245 | 268 | 239 | 269|P |108|P1 |45| P2 |116|SP |-6|SQ |1|SR |231|SAX |137|SPY |-250|SAZ |7081|PHI |-15|THETA |-136|PSI |-5469|Battery | 560|
+Time |58877820|Mode |5|Motors |243 | 270 | 237 | 272|P |108|P1 |45| P2 |116|SP |-8|SQ |2|SR |272|SAX |119|SPY |-242|SAZ |7029|PHI |-17|THETA |-137|PSI |-5205|Battery | 574|
+Time |58978345|Mode |5|Motors |240 | 273 | 234 | 275|P |108|P1 |45| P2 |116|SP |-10|SQ |3|SR |350|SAX |39|SPY |-262|SAZ |7061|PHI |-22|THETA |-145|PSI |-4862|Battery | 602|
+Time |59078845|Mode |5|Motors |238 | 275 | 232 | 277|P |108|P1 |45| P2 |116|SP |-8|SQ |6|SR |391|SAX |5|SPY |-340|SAZ |7105|PHI |-29|THETA |-150|PSI |-4454|Battery | 560|
+Time |59179744|Mode |5|Motors |240 | 273 | 233 | 275|P |108|P1 |45| P2 |116|SP |-8|SQ |3|SR |330|SAX |63|SPY |-290|SAZ |7011|PHI |-40|THETA |-158|PSI |-4054|Battery | 574|
+Time |59279849|Mode |5|Motors |243 | 270 | 236 | 272|P |108|P1 |45| P2 |116|SP |-6|SQ |1|SR |266|SAX |79|SPY |-236|SAZ |7021|PHI |-43|THETA |-161|PSI |-3720|Battery | 581|
+Time |59380359|Mode |5|Motors |247 | 266 | 240 | 268|P |108|P1 |45| P2 |116|SP |-7|SQ |0|SR |216|SAX |73|SPY |-260|SAZ |6989|PHI |-45|THETA |-159|PSI |-3473|Battery | 560|
+Time |59480850|Mode |5|Motors |246 | 267 | 239 | 270|P |108|P1 |45| P2 |116|SP |-6|SQ |2|SR |254|SAX |167|SPY |-264|SAZ |7083|PHI |-49|THETA |-158|PSI |-3215|Battery | 574|
+Time |59581346|Mode |5|Motors |245 | 268 | 238 | 271|P |108|P1 |45| P2 |116|SP |-8|SQ |2|SR |261|SAX |85|SPY |-278|SAZ |7059|PHI |-50|THETA |-160|PSI |-2938|Battery | 581|
+Time |59681804|Mode |5|Motors |241 | 272 | 234 | 275|P |108|P1 |45| P2 |116|SP |-10|SQ |1|SR |337|SAX |-47|SPY |-240|SAZ |7015|PHI |-52|THETA |-165|PSI |-2600|Battery | 560|
+Time |59782387|Mode |5|Motors |243 | 270 | 235 | 274|P |108|P1 |45| P2 |116|SP |-7|SQ |2|SR |299|SAX |71|SPY |-356|SAZ |7067|PHI |-61|THETA |-169|PSI |-2228|Battery | 574|
+Time |59882848|Mode |5|Motors |242 | 270 | 235 | 274|P |108|P1 |45| P2 |116|SP |-9|SQ |2|SR |349|SAX |-117|SPY |-374|SAZ |7123|PHI |-68|THETA |-174|PSI |-1899|Battery | 581|
+Time |59983210|Mode |5|Motors |245 | 268 | 238 | 272|P |108|P1 |45| P2 |116|SP |-8|SQ |2|SR |273|SAX |63|SPY |-298|SAZ |7047|PHI |-72|THETA |-176|PSI |-1549|Battery | 560|
+Time |60083700|Mode |5|Motors |247 | 266 | 239 | 270|P |108|P1 |45| P2 |116|SP |-5|SQ |1|SR |247|SAX |-87|SPY |-330|SAZ |7113|PHI |-72|THETA |-177|PSI |-1294|Battery | 574|
+Time |60184227|Mode |5|Motors |246 | 267 | 238 | 271|P |108|P1 |45| P2 |116|SP |-8|SQ |2|SR |268|SAX |125|SPY |-228|SAZ |7069|PHI |-74|THETA |-178|PSI |-1006|Battery | 581|
+Time |60284706|Mode |5|Motors |244 | 269 | 236 | 273|P |108|P1 |45| P2 |116|SP |-8|SQ |2|SR |276|SAX |-17|SPY |-268|SAZ |7031|PHI |-74|THETA |-182|PSI |-671|Battery | 560|
+Time |60385170|Mode |5|Motors |240 | 273 | 231 | 278|P |108|P1 |45| P2 |116|SP |-11|SQ |5|SR |425|SAX |-73|SPY |-438|SAZ |7097|PHI |-79|THETA |-189|PSI |-326|Battery | 574|
+Time |60485692|Mode |5|Motors |238 | 275 | 229 | 280|P |108|P1 |45| P2 |116|SP |-11|SQ |1|SR |378|SAX |-5|SPY |-324|SAZ |7077|PHI |-83|THETA |-203|PSI |129|Battery | 581|
+Time |60586211|Mode |5|Motors |236 | 277 | 227 | 282|P |108|P1 |45| P2 |116|SP |-11|SQ |3|SR |399|SAX |103|SPY |-242|SAZ |7091|PHI |-91|THETA |-214|PSI |606|Battery | 560|
+Time |60687200|Mode |5|Motors |244 | 269 | 234 | 274|P |108|P1 |45| P2 |116|SP |-7|SQ |4|SR |282|SAX |45|SPY |-376|SAZ |7091|PHI |-92|THETA |-218|PSI |960|Battery | 574|
+Time |60787204|Mode |5|Motors |254 | 260 | 245 | 264|P |108|P1 |45| P2 |116|SP |-3|SQ |-1|SR |82|SAX |25|SPY |-392|SAZ |7035|PHI |-95|THETA |-212|PSI |1150|Battery | 581|
+Time |60887685|Mode |5|Motors |251 | 263 | 242 | 267|P |108|P1 |45| P2 |116|SP |-6|SQ |0|SR |217|SAX |-47|SPY |-392|SAZ |7033|PHI |-94|THETA |-208|PSI |1304|Battery | 560|
+Time |60988911|Mode |5|Motors |241 | 272 | 232 | 277|P |108|P1 |45| P2 |116|SP |-10|SQ |3|SR |365|SAX |-65|SPY |-300|SAZ |7107|PHI |-94|THETA |-212|PSI |1652|Battery | 574|
+Time |61088920|Mode |5|Motors |238 | 275 | 228 | 280|P |108|P1 |45| P2 |116|SP |-11|SQ |6|SR |417|SAX |-43|SPY |-394|SAZ |7011|PHI |-97|THETA |-227|PSI |2099|Battery | 602|
+Time |61189193|Mode |5|Motors |240 | 274 | 229 | 279|P |108|P1 |45| P2 |116|SP |-11|SQ |2|SR |388|SAX |-5|SPY |-310|SAZ |6989|PHI |-103|THETA |-240|PSI |2545|Battery | 560|
+Time |61289712|Mode |5|Motors |241 | 273 | 230 | 279|P |108|P1 |45| P2 |116|SP |-9|SQ |3|SR |367|SAX |-11|SPY |-388|SAZ |7103|PHI |-106|THETA |-248|PSI |2969|Battery | 574|
+Time |61390207|Mode |5|Motors |242 | 271 | 232 | 277|P |108|P1 |45| P2 |116|SP |-9|SQ |4|SR |346|SAX |-59|SPY |-390|SAZ |7029|PHI |-108|THETA |-252|PSI |3336|Battery | 581|
+Time |61490731|Mode |5|Motors |243 | 271 | 232 | 276|P |108|P1 |45| P2 |116|SP |-9|SQ |4|SR |356|SAX |-187|SPY |-462|SAZ |7037|PHI |-111|THETA |-260|PSI |3720|Battery | 560|
+Time |61591786|Mode |5|Motors |239 | 274 | 227 | 281|P |108|P1 |45| P2 |116|SP |-11|SQ |2|SR |402|SAX |-25|SPY |-398|SAZ |7077|PHI |-119|THETA |-271|PSI |4148|Battery | 574|
+Time |61691796|Mode |5|Motors |245 | 269 | 234 | 274|P |108|P1 |45| P2 |116|SP |-6|SQ |1|SR |253|SAX |-55|SPY |-372|SAZ |7065|PHI |-116|THETA |-276|PSI |4530|Battery | 581|
+Time |61792276|Mode |5|Motors |244 | 270 | 232 | 276|P |108|P1 |45| P2 |116|SP |-10|SQ |2|SR |343|SAX |99|SPY |-378|SAZ |6987|PHI |-117|THETA |-278|PSI |4843|Battery | 560|
+Time |61892746|Mode |5|Motors |240 | 274 | 228 | 280|P |108|P1 |45| P2 |116|SP |-12|SQ |3|SR |418|SAX |-83|SPY |-310|SAZ |7005|PHI |-116|THETA |-284|PSI |5250|Battery | 574|
+Time |61993336|Mode |5|Motors |236 | 278 | 223 | 285|P |108|P1 |45| P2 |116|SP |-11|SQ |5|SR |445|SAX |-255|SPY |-350|SAZ |6989|PHI |-118|THETA |-300|PSI |5748|Battery | 581|
+Time |62093739|Mode |5|Motors |242 | 273 | 228 | 279|P |108|P1 |45| P2 |116|SP |-9|SQ |3|SR |384|SAX |-97|SPY |-506|SAZ |7071|PHI |-124|THETA |-312|PSI |6172|Battery | 560|
+Time |62194265|Mode |5|Motors |240 | 275 | 226 | 281|P |108|P1 |45| P2 |116|SP |-11|SQ |3|SR |403|SAX |11|SPY |-462|SAZ |7059|PHI |-127|THETA |-322|PSI |6620|Battery | 574|
+Time |62295251|Mode |5|Motors |243 | 272 | 228 | 279|P |108|P1 |45| P2 |116|SP |-12|SQ |3|SR |368|SAX |-81|SPY |-322|SAZ |7107|PHI |-127|THETA |-328|PSI |7030|Battery | 581|
+Time |62395533|Mode |5|Motors |243 | 272 | 229 | 278|P |108|P1 |45| P2 |116|SP |-12|SQ |3|SR |394|SAX |-233|SPY |-418|SAZ |7041|PHI |-125|THETA |-336|PSI |7431|Battery | 560|
+Time |62495898|Mode |5|Motors |241 | 274 | 226 | 281|P |108|P1 |45| P2 |116|SP |-12|SQ |4|SR |438|SAX |-45|SPY |-396|SAZ |7057|PHI |-123|THETA |-345|PSI |7854|Battery | 574|
+Time |62596425|Mode |5|Motors |237 | 278 | 222 | 285|P |108|P1 |45| P2 |116|SP |-16|SQ |6|SR |501|SAX |-205|SPY |-510|SAZ |7115|PHI |-126|THETA |-359|PSI |8376|Battery | 581|
+Time |62696913|Mode |5|Motors |244 | 272 | 228 | 278|P |108|P1 |45| P2 |116|SP |-8|SQ |3|SR |299|SAX |-151|SPY |-514|SAZ |7045|PHI |-128|THETA |-371|PSI |8842|Battery | 560|
+Time |62797402|Mode |5|Motors |250 | 266 | 233 | 273|P |108|P1 |45| P2 |116|SP |-9|SQ |1|SR |280|SAX |-243|SPY |-304|SAZ |7103|PHI |-126|THETA |-375|PSI |9134|Battery | 574|
+Time |62898632|Mode |5|Motors |251 | 265 | 235 | 271|P |108|P1 |45| P2 |116|SP |-4|SQ |2|SR |237|SAX |-229|SPY |-354|SAZ |7033|PHI |-120|THETA |-372|PSI |9425|Battery | 581|
+Time |62998638|Mode |5|Motors |249 | 268 | 232 | 273|P |108|P1 |45| P2 |116|SP |-9|SQ |1|SR |260|SAX |-177|SPY |-418|SAZ |7071|PHI |-117|THETA |-375|PSI |9725|Battery | 560|
+Time |63098927|Mode |5|Motors |255 | 261 | 239 | 267|P |108|P1 |45| P2 |116|SP |-3|SQ |-1|SR |112|SAX |-113|SPY |-454|SAZ |7093|PHI |-114|THETA |-366|PSI |9925|Battery | 574|
+Time |63199450|Mode |5|Motors |249 | 267 | 233 | 273|P |108|P1 |45| P2 |116|SP |-9|SQ |5|SR |299|SAX |-155|SPY |-470|SAZ |7059|PHI |-112|THETA |-362|PSI |10160|Battery | 581|
+Time |63300696|Mode |5|Motors |249 | 267 | 234 | 272|P |108|P1 |45| P2 |116|SP |-8|SQ |2|SR |235|SAX |-181|SPY |-370|SAZ |7095|PHI |-111|THETA |-366|PSI |10513|Battery | 560|
+Time |63400709|Mode |5|Motors |253 | 263 | 237 | 268|P |108|P1 |45| P2 |116|SP |-5|SQ |1|SR |184|SAX |-161|SPY |-354|SAZ |7081|PHI |-108|THETA |-367|PSI |10779|Battery | 574|
+Time |63500900|Mode |5|Motors |248 | 268 | 233 | 273|P |108|P1 |45| P2 |116|SP |-8|SQ |1|SR |214|SAX |-255|SPY |-404|SAZ |7055|PHI |-105|THETA |-367|PSI |11052|Battery | 581|
+Time |63601383|Mode |5|Motors |253 | 263 | 237 | 268|P |108|P1 |45| P2 |116|SP |-4|SQ |3|SR |203|SAX |-425|SPY |-394|SAZ |7095|PHI |-102|THETA |-364|PSI |11252|Battery | 560|
+Time |63701877|Mode |5|Motors |253 | 263 | 238 | 268|P |108|P1 |45| P2 |116|SP |-4|SQ |0|SR |182|SAX |-253|SPY |-474|SAZ |7073|PHI |-99|THETA |-364|PSI |11455|Battery | 574|
+Time |63802404|Mode |5|Motors |250 | 266 | 234 | 272|P |108|P1 |45| P2 |116|SP |-8|SQ |1|SR |244|SAX |-93|SPY |-372|SAZ |7031|PHI |-99|THETA |-364|PSI |11694|Battery | 581|
+Time |63903012|Mode |5|Motors |248 | 268 | 233 | 273|P |108|P1 |45| P2 |116|SP |-8|SQ |2|SR |247|SAX |-293|SPY |-318|SAZ |7107|PHI |-95|THETA |-368|PSI |12003|Battery | 560|
+Time |64003436|Mode |5|Motors |253 | 263 | 238 | 268|P |108|P1 |45| P2 |116|SP |-7|SQ |-1|SR |187|SAX |-301|SPY |-418|SAZ |7165|PHI |-92|THETA |-368|PSI |12231|Battery | 574|
+Time |64103961|Mode |5|Motors |250 | 267 | 234 | 271|P |108|P1 |45| P2 |116|SP |-7|SQ |2|SR |261|SAX |-237|SPY |-438|SAZ |7095|PHI |-93|THETA |-369|PSI |12477|Battery | 581|
+Time |64204455|Mode |5|Motors |251 | 266 | 235 | 270|P |108|P1 |45| P2 |116|SP |-7|SQ |0|SR |242|SAX |-171|SPY |-352|SAZ |7075|PHI |-93|THETA |-367|PSI |12707|Battery | 560|
+Time |64304974|Mode |5|Motors |251 | 265 | 236 | 270|P |108|P1 |45| P2 |116|SP |-7|SQ |0|SR |256|SAX |-391|SPY |-196|SAZ |7063|PHI |-91|THETA |-362|PSI |12932|Battery | 581|
+Time |64405966|Mode |5|Motors |256 | 260 | 241 | 264|P |108|P1 |45| P2 |116|SP |-3|SQ |-1|SR |90|SAX |-229|SPY |-358|SAZ |7103|PHI |-85|THETA |-362|PSI |13118|Battery | 581|
+Time |64505977|Mode |5|Motors |259 | 258 | 244 | 262|P |108|P1 |45| P2 |116|SP |-4|SQ |-1|SR |122|SAX |-237|SPY |-354|SAZ |7069|PHI |-82|THETA |-354|PSI |13202|Battery | 560|
+Time |64606429|Mode |5|Motors |257 | 259 | 243 | 263|P |108|P1 |45| P2 |116|SP |-1|SQ |1|SR |87|SAX |-283|SPY |-312|SAZ |7089|PHI |-78|THETA |-350|PSI |13322|Battery | 574|
+Time |64707132|Mode |5|Motors |255 | 262 | 240 | 265|P |108|P1 |45| P2 |116|SP |-4|SQ |0|SR |184|SAX |-239|SPY |-382|SAZ |7079|PHI |-76|THETA |-344|PSI |13447|Battery | 581|
+Time |64807460|Mode |5|Motors |250 | 266 | 236 | 270|P |108|P1 |45| P2 |116|SP |-5|SQ |1|SR |219|SAX |-319|SPY |-336|SAZ |7067|PHI |-77|THETA |-343|PSI |13636|Battery | 560|
+Time |64907950|Mode |5|Motors |256 | 261 | 241 | 264|P |108|P1 |45| P2 |116|SP |-6|SQ |-1|SR |158|SAX |-273|SPY |-404|SAZ |7041|PHI |-75|THETA |-343|PSI |13820|Battery | 581|
+Time |65008506|Mode |5|Motors |255 | 262 | 240 | 265|P |108|P1 |45| P2 |116|SP |-4|SQ |2|SR |175|SAX |-309|SPY |-430|SAZ |7089|PHI |-73|THETA |-345|PSI |13992|Battery | 581|
+Time |65109022|Mode |5|Motors |252 | 264 | 238 | 268|P |108|P1 |45| P2 |116|SP |-5|SQ |-1|SR |151|SAX |-171|SPY |-318|SAZ |7001|PHI |-72|THETA |-345|PSI |14213|Battery | 560|
+Time |65209799|Mode |5|Motors |256 | 260 | 242 | 263|P |108|P1 |45| P2 |116|SP |-4|SQ |-1|SR |96|SAX |-249|SPY |-324|SAZ |7051|PHI |-69|THETA |-341|PSI |14346|Battery | 574|
+Time |65310725|Mode |5|Motors |256 | 260 | 242 | 263|P |108|P1 |45| P2 |116|SP |-4|SQ |1|SR |131|SAX |-275|SPY |-348|SAZ |7037|PHI |-66|THETA |-336|PSI |14447|Battery | 581|
+Time |65410821|Mode |5|Motors |254 | 262 | 240 | 266|P |108|P1 |45| P2 |116|SP |-6|SQ |-1|SR |158|SAX |-281|SPY |-282|SAZ |7053|PHI |-65|THETA |-335|PSI |14615|Battery | 581|
+Time |65511016|Mode |5|Motors |256 | 261 | 242 | 264|P |108|P1 |45| P2 |116|SP |-4|SQ |-1|SR |115|SAX |-281|SPY |-296|SAZ |7067|PHI |-64|THETA |-333|PSI |14766|Battery | 574|
+Time |65611495|Mode |5|Motors |260 | 257 | 246 | 259|P |108|P1 |45| P2 |116|SP |-3|SQ |-1|SR |77|SAX |-321|SPY |-318|SAZ |7083|PHI |-60|THETA |-330|PSI |14849|Battery | 581|
+Time |65712070|Mode |5|Motors |254 | 263 | 240 | 266|P |108|P1 |45| P2 |116|SP |-4|SQ |-1|SR |151|SAX |-275|SPY |-406|SAZ |7083|PHI |-59|THETA |-330|PSI |15000|Battery | 560|
+Time |65813181|Mode |5|Motors |256 | 261 | 242 | 264|P |108|P1 |45| P2 |116|SP |-2|SQ |0|SR |99|SAX |-239|SPY |-384|SAZ |7093|PHI |-58|THETA |-328|PSI |15148|Battery | 574|
+Time |65913268|Mode |5|Motors |253 | 264 | 239 | 267|P |108|P1 |45| P2 |116|SP |-4|SQ |0|SR |177|SAX |-241|SPY |-418|SAZ |7071|PHI |-59|THETA |-324|PSI |15269|Battery | 574|
+Time |66013481|Mode |5|Motors |243 | 273 | 228 | 278|P |108|P1 |45| P2 |116|SP |-10|SQ |4|SR |375|SAX |-421|SPY |-190|SAZ |7025|PHI |-66|THETA |-335|PSI |15621|Battery | 560|
+Time |66113962|Mode |5|Motors |252 | 265 | 238 | 268|P |108|P1 |45| P2 |116|SP |-3|SQ |0|SR |120|SAX |-279|SPY |-84|SAZ |7019|PHI |-64|THETA |-339|PSI |15927|Battery | 574|
+Time |66214483|Mode |5|Motors |260 | 257 | 245 | 260|P |108|P1 |45| P2 |116|SP |-3|SQ |-2|SR |90|SAX |-355|SPY |-294|SAZ |7091|PHI |-53|THETA |-337|PSI |15991|Battery | 581|
+Time |66314944|Mode |5|Motors |257 | 260 | 243 | 262|P |108|P1 |45| P2 |116|SP |-1|SQ |1|SR |116|SAX |-333|SPY |-368|SAZ |7063|PHI |-51|THETA |-339|PSI |16146|Battery | 560|
+Time |66415483|Mode |5|Motors |258 | 259 | 243 | 262|P |108|P1 |45| P2 |116|SP |-2|SQ |1|SR |117|SAX |-339|SPY |-282|SAZ |7085|PHI |-47|THETA |-338|PSI |16261|Battery | 574|
+Time |66515976|Mode |5|Motors |251 | 266 | 236 | 269|P |108|P1 |45| P2 |116|SP |-6|SQ |2|SR |205|SAX |-269|SPY |-360|SAZ |7095|PHI |-48|THETA |-342|PSI |16488|Battery | 581|
+Time |66616473|Mode |5|Motors |256 | 261 | 241 | 264|P |108|P1 |45| P2 |116|SP |-2|SQ |-1|SR |98|SAX |-253|SPY |-326|SAZ |7073|PHI |-45|THETA |-343|PSI |16658|Battery | 560|
+Time |66717520|Mode |5|Motors |256 | 261 | 242 | 263|P |108|P1 |45| P2 |116|SP |-3|SQ |0|SR |118|SAX |-311|SPY |-278|SAZ |7069|PHI |-41|THETA |-341|PSI |16773|Battery | 574|
+Time |66817754|Mode |5|Motors |255 | 263 | 240 | 265|P |108|P1 |45| P2 |116|SP |-4|SQ |0|SR |151|SAX |-337|SPY |-356|SAZ |7081|PHI |-41|THETA |-343|PSI |16940|Battery | 574|
+Time |66917948|Mode |5|Motors |255 | 262 | 240 | 264|P |108|P1 |45| P2 |116|SP |-1|SQ |0|SR |89|SAX |-281|SPY |-318|SAZ |7009|PHI |-39|THETA |-344|PSI |17136|Battery | 560|
+Time |67018437|Mode |5|Motors |255 | 262 | 240 | 264|P |108|P1 |45| P2 |116|SP |-2|SQ |0|SR |113|SAX |-313|SPY |-268|SAZ |7065|PHI |-36|THETA |-344|PSI |17279|Battery | 574|
+Time |67118921|Mode |5|Motors |258 | 259 | 244 | 261|P |108|P1 |45| P2 |116|SP |-4|SQ |-2|SR |131|SAX |-423|SPY |-282|SAZ |7039|PHI |-33|THETA |-343|PSI |17385|Battery | 581|
+Time |67219414|Mode |5|Motors |256 | 261 | 242 | 263|P |108|P1 |45| P2 |116|SP |-2|SQ |0|SR |99|SAX |-275|SPY |-346|SAZ |7097|PHI |-30|THETA |-344|PSI |17528|Battery | 560|
+Time |67319901|Mode |5|Motors |260 | 258 | 245 | 259|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |45|SAX |-305|SPY |-292|SAZ |7067|PHI |-27|THETA |-339|PSI |17606|Battery | 574|
+Time |67420438|Mode |5|Motors |257 | 260 | 243 | 262|P |108|P1 |45| P2 |116|SP |-3|SQ |-1|SR |84|SAX |-289|SPY |-320|SAZ |7145|PHI |-24|THETA |-337|PSI |17698|Battery | 581|
+Time |67520926|Mode |5|Motors |258 | 260 | 244 | 261|P |108|P1 |45| P2 |116|SP |-1|SQ |0|SR |70|SAX |-353|SPY |-356|SAZ |7055|PHI |-21|THETA |-336|PSI |17791|Battery | 560|
+Time |67621430|Mode |5|Motors |261 | 257 | 247 | 258|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |47|SAX |-313|SPY |-284|SAZ |7025|PHI |-18|THETA |-331|PSI |17846|Battery | 574|
+Time |67722290|Mode |5|Motors |257 | 261 | 243 | 262|P |108|P1 |45| P2 |116|SP |-3|SQ |-1|SR |89|SAX |-311|SPY |-314|SAZ |7035|PHI |-16|THETA |-330|PSI |17934|Battery | 581|
+Time |67822414|Mode |5|Motors |256 | 261 | 242 | 262|P |108|P1 |45| P2 |116|SP |-3|SQ |-1|SR |111|SAX |-329|SPY |-256|SAZ |7037|PHI |-16|THETA |-329|PSI |18049|Battery | 560|
+Time |67922876|Mode |5|Motors |255 | 263 | 241 | 264|P |108|P1 |45| P2 |116|SP |-6|SQ |0|SR |156|SAX |-347|SPY |-378|SAZ |7061|PHI |-16|THETA |-332|PSI |18186|Battery | 574|
+Time |68023386|Mode |5|Motors |256 | 261 | 242 | 262|P |108|P1 |45| P2 |116|SP |-2|SQ |0|SR |89|SAX |-273|SPY |-210|SAZ |7049|PHI |-15|THETA |-333|PSI |18326|Battery | 581|
+Time |68124130|Mode |5|Motors |261 | 256 | 248 | 257|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |20|SAX |-329|SPY |-278|SAZ |7077|PHI |-10|THETA |-326|PSI |18389|Battery | 581|
+Time |68224339|Mode |5|Motors |262 | 255 | 249 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |1|SAX |-325|SPY |-302|SAZ |7073|PHI |-7|THETA |-321|PSI |18396|Battery | 560|
+Time |68324939|Mode |5|Motors |258 | 260 | 244 | 260|P |108|P1 |45| P2 |116|SP |-4|SQ |-2|SR |85|SAX |-393|SPY |-262|SAZ |7061|PHI |-4|THETA |-319|PSI |18445|Battery | 574|
+Time |68425367|Mode |5|Motors |262 | 256 | 249 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |3|SAX |-341|SPY |-322|SAZ |7047|PHI |-4|THETA |-314|PSI |18497|Battery | 581|
+Time |68526362|Mode |5|Motors |262 | 255 | 249 | 255|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |-1|SAX |-347|SPY |-302|SAZ |7065|PHI |-1|THETA |-310|PSI |18497|Battery | 560|
+Time |68626862|Mode |5|Motors |262 | 255 | 249 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |-1|SAX |-343|SPY |-304|SAZ |7101|PHI |2|THETA |-306|PSI |18497|Battery | 581|
+Time |68726910|Mode |5|Motors |263 | 255 | 250 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-2|SR |-24|SAX |-309|SPY |-298|SAZ |7043|PHI |4|THETA |-300|PSI |18492|Battery | 581|
+Time |68827366|Mode |5|Motors |265 | 252 | 253 | 252|P |108|P1 |45| P2 |116|SP |2|SQ |-1|SR |-64|SAX |-303|SPY |-318|SAZ |7101|PHI |7|THETA |-293|PSI |18434|Battery | 560|
+Time |68928070|Mode |5|Motors |264 | 253 | 252 | 253|P |108|P1 |45| P2 |116|SP |1|SQ |-1|SR |-49|SAX |-315|SPY |-304|SAZ |7065|PHI |10|THETA |-288|PSI |18378|Battery | 574|
+Time |69028364|Mode |5|Motors |267 | 250 | 256 | 249|P |108|P1 |45| P2 |116|SP |2|SQ |-3|SR |-100|SAX |-343|SPY |-256|SAZ |7073|PHI |16|THETA |-280|PSI |18271|Battery | 581|
+Time |69128878|Mode |5|Motors |266 | 252 | 254 | 251|P |108|P1 |45| P2 |116|SP |3|SQ |-1|SR |-88|SAX |-297|SPY |-322|SAZ |7035|PHI |18|THETA |-273|PSI |18173|Battery | 560|
+Time |69229397|Mode |5|Motors |262 | 255 | 251 | 254|P |108|P1 |45| P2 |116|SP |1|SQ |-1|SR |-49|SAX |-299|SPY |-334|SAZ |7039|PHI |21|THETA |-270|PSI |18120|Battery | 574|
+Time |69329966|Mode |5|Motors |267 | 250 | 256 | 249|P |108|P1 |45| P2 |116|SP |2|SQ |-2|SR |-107|SAX |-333|SPY |-292|SAZ |7067|PHI |24|THETA |-263|PSI |18009|Battery | 581|
+Time |69430736|Mode |5|Motors |268 | 249 | 257 | 247|P |108|P1 |45| P2 |116|SP |3|SQ |-3|SR |-120|SAX |-417|SPY |-272|SAZ |7049|PHI |30|THETA |-255|PSI |17868|Battery | 560|
+Time |69530864|Mode |5|Motors |270 | 247 | 260 | 245|P |108|P1 |45| P2 |116|SP |5|SQ |-4|SR |-182|SAX |-307|SPY |-364|SAZ |7043|PHI |34|THETA |-248|PSI |17707|Battery | 574|
+Time |69631396|Mode |5|Motors |270 | 247 | 261 | 244|P |108|P1 |45| P2 |116|SP |6|SQ |-3|SR |-172|SAX |-371|SPY |-354|SAZ |7081|PHI |39|THETA |-240|PSI |17486|Battery | 581|
+Time |69731862|Mode |5|Motors |273 | 244 | 264 | 242|P |108|P1 |45| P2 |116|SP |5|SQ |-6|SR |-209|SAX |-393|SPY |-266|SAZ |7029|PHI |44|THETA |-229|PSI |17233|Battery | 560|
+Time |69832671|Mode |5|Motors |270 | 246 | 261 | 244|P |108|P1 |45| P2 |116|SP |3|SQ |-4|SR |-175|SAX |-355|SPY |-356|SAZ |7109|PHI |48|THETA |-221|PSI |17021|Battery | 595|
+Time |69932845|Mode |5|Motors |273 | 244 | 264 | 241|P |108|P1 |45| P2 |116|SP |7|SQ |-3|SR |-229|SAX |-307|SPY |-344|SAZ |7043|PHI |53|THETA |-211|PSI |16793|Battery | 581|
+Time |70033374|Mode |5|Motors |272 | 245 | 264 | 242|P |108|P1 |45| P2 |116|SP |4|SQ |-4|SR |-203|SAX |-291|SPY |-400|SAZ |7019|PHI |57|THETA |-201|PSI |16516|Battery | 560|
+Time |70133942|Mode |5|Motors |276 | 240 | 269 | 237|P |108|P1 |45| P2 |116|SP |8|SQ |-6|SR |-304|SAX |-417|SPY |-258|SAZ |7029|PHI |63|THETA |-193|PSI |16226|Battery | 574|
+Time |70234342|Mode |5|Motors |280 | 236 | 273 | 232|P |108|P1 |45| P2 |116|SP |12|SQ |-6|SR |-393|SAX |-309|SPY |-322|SAZ |7117|PHI |71|THETA |-180|PSI |15853|Battery | 581|
+Time |70334864|Mode |5|Motors |279 | 238 | 272 | 233|P |108|P1 |45| P2 |116|SP |12|SQ |-5|SR |-356|SAX |-269|SPY |-348|SAZ |7019|PHI |81|THETA |-166|PSI |15436|Battery | 560|
+Time |70435352|Mode |5|Motors |274 | 242 | 268 | 238|P |108|P1 |45| P2 |116|SP |6|SQ |-4|SR |-306|SAX |-179|SPY |-342|SAZ |6975|PHI |85|THETA |-157|PSI |15101|Battery | 574|
+Time |70536198|Mode |5|Motors |277 | 239 | 271 | 234|P |108|P1 |45| P2 |116|SP |13|SQ |-7|SR |-366|SAX |-173|SPY |-434|SAZ |7007|PHI |88|THETA |-147|PSI |14759|Battery | 581|
+Time |70636400|Mode |5|Motors |279 | 237 | 274 | 232|P |108|P1 |45| P2 |116|SP |10|SQ |-5|SR |-383|SAX |-239|SPY |-260|SAZ |7035|PHI |99|THETA |-135|PSI |14319|Battery | 560|
+Time |70736890|Mode |5|Motors |289 | 228 | 285 | 221|P |108|P1 |45| P2 |116|SP |19|SQ |-10|SR |-638|SAX |21|SPY |-218|SAZ |7067|PHI |113|THETA |-122|PSI |13806|Battery | 574|
+Time |70837388|Mode |5|Motors |278 | 238 | 275 | 231|P |108|P1 |45| P2 |116|SP |9|SQ |-7|SR |-347|SAX |-355|SPY |-328|SAZ |7073|PHI |123|THETA |-107|PSI |13151|Battery | 581|
+Time |70937920|Mode |5|Motors |275 | 242 | 271 | 235|P |108|P1 |45| P2 |116|SP |9|SQ |-4|SR |-330|SAX |-215|SPY |-388|SAZ |7037|PHI |128|THETA |-101|PSI |12799|Battery | 560|
+Time |71038414|Mode |5|Motors |280 | 236 | 276 | 229|P |108|P1 |45| P2 |116|SP |11|SQ |-7|SR |-406|SAX |-133|SPY |-426|SAZ |7005|PHI |133|THETA |-90|PSI |12373|Battery | 574|
+Time |71138909|Mode |5|Motors |277 | 239 | 274 | 232|P |108|P1 |45| P2 |116|SP |10|SQ |-7|SR |-358|SAX |-339|SPY |-348|SAZ |7159|PHI |139|THETA |-85|PSI |11940|Battery | 581|
+Time |71239809|Mode |5|Motors |276 | 240 | 273 | 233|P |108|P1 |45| P2 |116|SP |10|SQ |-5|SR |-331|SAX |-389|SPY |-352|SAZ |7123|PHI |145|THETA |-78|PSI |11544|Battery | 560|
+Time |71339897|Mode |5|Motors |277 | 239 | 275 | 231|P |108|P1 |45| P2 |116|SP |10|SQ |-6|SR |-393|SAX |-287|SPY |-382|SAZ |7109|PHI |148|THETA |-74|PSI |11162|Battery | 595|
+Time |71440396|Mode |5|Motors |278 | 238 | 276 | 230|P |108|P1 |45| P2 |116|SP |7|SQ |-6|SR |-392|SAX |-169|SPY |-330|SAZ |7051|PHI |154|THETA |-66|PSI |10719|Battery | 581|
+Time |71540883|Mode |5|Motors |270 | 246 | 267 | 239|P |108|P1 |45| P2 |116|SP |8|SQ |-5|SR |-233|SAX |-109|SPY |-412|SAZ |7045|PHI |158|THETA |-63|PSI |10355|Battery | 560|
+Time |71641388|Mode |5|Motors |272 | 244 | 270 | 237|P |108|P1 |45| P2 |116|SP |8|SQ |-4|SR |-314|SAX |-161|SPY |-460|SAZ |7017|PHI |157|THETA |-60|PSI |10062|Battery | 574|
+Time |71742238|Mode |5|Motors |280 | 235 | 279 | 227|P |108|P1 |45| P2 |116|SP |13|SQ |-10|SR |-425|SAX |-199|SPY |-380|SAZ |7087|PHI |166|THETA |-49|PSI |9552|Battery | 581|
+Time |71842366|Mode |5|Motors |278 | 238 | 277 | 229|P |108|P1 |45| P2 |116|SP |11|SQ |-8|SR |-374|SAX |-217|SPY |-354|SAZ |6983|PHI |171|THETA |-42|PSI |9110|Battery | 560|
+Time |71942880|Mode |5|Motors |274 | 242 | 273 | 233|P |108|P1 |45| P2 |116|SP |11|SQ |-6|SR |-342|SAX |-233|SPY |-322|SAZ |7113|PHI |173|THETA |-40|PSI |8764|Battery | 574|
+Time |72043409|Mode |5|Motors |278 | 237 | 277 | 229|P |108|P1 |45| P2 |116|SP |13|SQ |-5|SR |-438|SAX |-33|SPY |-354|SAZ |7093|PHI |179|THETA |-32|PSI |8307|Battery | 581|
+Time |72144462|Mode |5|Motors |280 | 236 | 280 | 226|P |108|P1 |45| P2 |116|SP |15|SQ |-9|SR |-447|SAX |-217|SPY |-388|SAZ |7119|PHI |189|THETA |-21|PSI |7783|Battery | 560|
+Time |72244470|Mode |5|Motors |280 | 236 | 280 | 226|P |108|P1 |45| P2 |116|SP |12|SQ |-7|SR |-434|SAX |-215|SPY |-346|SAZ |7077|PHI |197|THETA |-14|PSI |7281|Battery | 574|
+Time |72344891|Mode |5|Motors |274 | 242 | 274 | 232|P |108|P1 |45| P2 |116|SP |9|SQ |-6|SR |-328|SAX |-79|SPY |-384|SAZ |7065|PHI |198|THETA |-13|PSI |6902|Battery | 581|
+Time |72445250|Mode |5|Motors |280 | 236 | 280 | 226|P |108|P1 |45| P2 |116|SP |13|SQ |-7|SR |-483|SAX |-61|SPY |-494|SAZ |7119|PHI |200|THETA |-8|PSI |6500|Battery | 560|
+Time |72545727|Mode |5|Motors |289 | 227 | 290 | 216|P |108|P1 |45| P2 |116|SP |18|SQ |-11|SR |-592|SAX |-167|SPY |-324|SAZ |7117|PHI |213|THETA |2|PSI |5853|Battery | 574|
+Time |72646253|Mode |5|Motors |277 | 239 | 278 | 228|P |108|P1 |45| P2 |116|SP |12|SQ |-5|SR |-395|SAX |-177|SPY |-294|SAZ |7077|PHI |223|THETA |10|PSI |5381|Battery | 581|
+Time |72746752|Mode |5|Motors |281 | 235 | 282 | 224|P |108|P1 |45| P2 |116|SP |14|SQ |-9|SR |-496|SAX |-81|SPY |-514|SAZ |6967|PHI |227|THETA |16|PSI |4915|Battery | 560|
+Time |72847997|Mode |5|Motors |285 | 231 | 287 | 219|P |108|P1 |45| P2 |116|SP |19|SQ |-8|SR |-581|SAX |55|SPY |-512|SAZ |7085|PHI |236|THETA |25|PSI |4344|Battery | 574|
+Time |72948003|Mode |5|Motors |283 | 232 | 286 | 220|P |108|P1 |45| P2 |116|SP |15|SQ |-11|SR |-518|SAX |-69|SPY |-320|SAZ |7087|PHI |250|THETA |32|PSI |3707|Battery | 581|
+Time |73048224|Mode |5|Motors |278 | 238 | 280 | 225|P |108|P1 |45| P2 |116|SP |14|SQ |-6|SR |-418|SAX |-159|SPY |-318|SAZ |7067|PHI |263|THETA |37|PSI |3154|Battery | 560|
+Time |73148766|Mode |5|Motors |273 | 243 | 275 | 231|P |108|P1 |45| P2 |116|SP |10|SQ |-5|SR |-372|SAX |33|SPY |-356|SAZ |7063|PHI |265|THETA |35|PSI |2788|Battery | 574|
+Time |73249243|Mode |5|Motors |279 | 237 | 282 | 224|P |108|P1 |45| P2 |116|SP |11|SQ |-7|SR |-469|SAX |-117|SPY |-382|SAZ |7053|PHI |271|THETA |44|PSI |2308|Battery | 581|
+Time |73349976|Mode |5|Motors |279 | 237 | 282 | 224|P |108|P1 |45| P2 |116|SP |12|SQ |-6|SR |-458|SAX |-189|SPY |-490|SAZ |7013|PHI |276|THETA |49|PSI |1810|Battery | 560|
+Time |73450228|Mode |5|Motors |292 | 224 | 295 | 210|P |108|P1 |45| P2 |116|SP |20|SQ |-11|SR |-669|SAX |-263|SPY |-240|SAZ |7017|PHI |285|THETA |57|PSI |1195|Battery | 574|
+Time |73550754|Mode |5|Motors |290 | 226 | 294 | 212|P |108|P1 |45| P2 |116|SP |19|SQ |-11|SR |-679|SAX |-479|SPY |-152|SAZ |7193|PHI |297|THETA |63|PSI |604|Battery | 581|
+Time |73651241|Mode |5|Motors |281 | 236 | 284 | 221|P |108|P1 |45| P2 |116|SP |16|SQ |-9|SR |-514|SAX |-57|SPY |-394|SAZ |7115|PHI |307|THETA |65|PSI |73|Battery | 560|
+Time |73751739|Mode |5|Motors |276 | 240 | 280 | 226|P |108|P1 |45| P2 |116|SP |14|SQ |-6|SR |-416|SAX |75|SPY |-378|SAZ |7097|PHI |313|THETA |64|PSI |-428|Battery | 581|
+Time |73852230|Mode |5|Motors |288 | 229 | 292 | 213|P |108|P1 |45| P2 |116|SP |19|SQ |-14|SR |-682|SAX |359|SPY |-450|SAZ |7023|PHI |324|THETA |71|PSI |-1014|Battery | 581|
+Time |73952916|Mode |5|Motors |298 | 219 | 303 | 202|P |108|P1 |45| P2 |116|SP |22|SQ |-13|SR |-826|SAX |1|SPY |-308|SAZ |7105|PHI |348|THETA |87|PSI |-1932|Battery | 560|
+Time |74053401|Mode |5|Motors |292 | 226 | 297 | 207|P |108|P1 |45| P2 |116|SP |20|SQ |-13|SR |-709|SAX |227|SPY |-244|SAZ |7043|PHI |380|THETA |92|PSI |-2820|Battery | 581|
+Time |74154418|Mode |5|Motors |283 | 235 | 288 | 217|P |108|P1 |45| P2 |116|SP |16|SQ |-8|SR |-529|SAX |-11|SPY |-142|SAZ |7023|PHI |396|THETA |90|PSI |-3497|Battery | 581|
+Time |74254430|Mode |5|Motors |277 | 241 | 281 | 223|P |108|P1 |45| P2 |116|SP |14|SQ |-7|SR |-415|SAX |63|SPY |-298|SAZ |6933|PHI |401|THETA |89|PSI |-3987|Battery | 560|
+Time |74354867|Mode |5|Motors |277 | 241 | 281 | 223|P |108|P1 |45| P2 |116|SP |14|SQ |-6|SR |-448|SAX |215|SPY |-298|SAZ |6969|PHI |405|THETA |88|PSI |-4507|Battery | 581|
+Time |74455390|Mode |5|Motors |279 | 239 | 284 | 220|P |108|P1 |45| P2 |116|SP |12|SQ |-7|SR |-466|SAX |-3|SPY |-152|SAZ |7031|PHI |410|THETA |91|PSI |-5040|Battery | 581|
+Time |74555883|Mode |5|Motors |278 | 240 | 283 | 221|P |108|P1 |45| P2 |116|SP |12|SQ |-7|SR |-473|SAX |63|SPY |-286|SAZ |7011|PHI |416|THETA |95|PSI |-5522|Battery | 560|
+Time |74656671|Mode |5|Motors |280 | 238 | 285 | 219|P |108|P1 |45| P2 |116|SP |12|SQ |-11|SR |-509|SAX |-37|SPY |-288|SAZ |7081|PHI |421|THETA |92|PSI |-6048|Battery | 574|
+Time |74757534|Mode |5|Motors |279 | 239 | 284 | 220|P |108|P1 |45| P2 |116|SP |11|SQ |-10|SR |-507|SAX |51|SPY |8|SAZ |7065|PHI |428|THETA |91|PSI |-6585|Battery | 581|
+Time |74857566|Mode |5|Motors |265 | 253 | 270 | 234|P |108|P1 |45| P2 |116|SP |6|SQ |-4|SR |-212|SAX |-171|SPY |-232|SAZ |7061|PHI |426|THETA |92|PSI |-6956|Battery | 560|
+Time |74957894|Mode |5|Motors |261 | 257 | 265 | 239|P |108|P1 |45| P2 |116|SP |4|SQ |-3|SR |-139|SAX |-21|SPY |-150|SAZ |7045|PHI |413|THETA |84|PSI |-7135|Battery | 581|
+Time |75058842|Mode |5|Motors |268 | 250 | 272 | 232|P |108|P1 |45| P2 |116|SP |9|SQ |-5|SR |-268|SAX |173|SPY |-332|SAZ |7025|PHI |410|THETA |87|PSI |-7406|Battery | 581|
+Time |75158894|Mode |5|Motors |268 | 250 | 272 | 232|P |108|P1 |45| P2 |116|SP |9|SQ |-5|SR |-291|SAX |33|SPY |-146|SAZ |7205|PHI |402|THETA |84|PSI |-7687|Battery | 560|
+Time |75259350|Mode |5|Motors |261 | 257 | 265 | 239|P |108|P1 |45| P2 |116|SP |4|SQ |-2|SR |-121|SAX |41|SPY |-118|SAZ |7037|PHI |400|THETA |80|PSI |-7975|Battery | 574|
+Time |75359895|Mode |5|Motors |268 | 250 | 272 | 233|P |108|P1 |45| P2 |116|SP |6|SQ |-5|SR |-243|SAX |135|SPY |-178|SAZ |7033|PHI |394|THETA |80|PSI |-8201|Battery | 581|
+Time |75460391|Mode |5|Motors |264 | 254 | 268 | 237|P |108|P1 |45| P2 |116|SP |3|SQ |-3|SR |-168|SAX |-25|SPY |-188|SAZ |7059|PHI |391|THETA |79|PSI |-8467|Battery | 560|
+Time |75560918|Mode |5|Motors |272 | 246 | 276 | 229|P |108|P1 |45| P2 |116|SP |8|SQ |-6|SR |-342|SAX |91|SPY |-226|SAZ |7039|PHI |393|THETA |81|PSI |-8801|Battery | 574|
+Time |75661398|Mode |5|Motors |275 | 243 | 279 | 225|P |108|P1 |45| P2 |116|SP |9|SQ |-5|SR |-402|SAX |17|SPY |-206|SAZ |6943|PHI |396|THETA |76|PSI |-9213|Battery | 581|
+Time |75761917|Mode |5|Motors |273 | 245 | 277 | 227|P |108|P1 |45| P2 |116|SP |10|SQ |-6|SR |-344|SAX |87|SPY |-178|SAZ |7081|PHI |402|THETA |77|PSI |-9665|Battery | 560|
+Time |75863003|Mode |5|Motors |266 | 252 | 269 | 235|P |108|P1 |45| P2 |116|SP |6|SQ |-3|SR |-218|SAX |31|SPY |-296|SAZ |7085|PHI |400|THETA |76|PSI |-9935|Battery | 574|
+Time |75963014|Mode |5|Motors |266 | 252 | 270 | 234|P |108|P1 |45| P2 |116|SP |8|SQ |-4|SR |-270|SAX |99|SPY |-8|SAZ |7061|PHI |397|THETA |77|PSI |-10168|Battery | 581|
+Time |76063330|Mode |5|Motors |274 | 244 | 278 | 226|P |108|P1 |45| P2 |116|SP |11|SQ |-7|SR |-371|SAX |113|SPY |-214|SAZ |7077|PHI |405|THETA |80|PSI |-10561|Battery | 560|
+Time |76163823|Mode |5|Motors |271 | 247 | 275 | 229|P |108|P1 |45| P2 |116|SP |9|SQ |-7|SR |-324|SAX |203|SPY |-156|SAZ |7067|PHI |409|THETA |80|PSI |-10907|Battery | 581|
+Time |76264317|Mode |5|Motors |271 | 247 | 275 | 229|P |108|P1 |45| P2 |116|SP |9|SQ |-7|SR |-331|SAX |81|SPY |-112|SAZ |7053|PHI |412|THETA |78|PSI |-11272|Battery | 581|
+Time |76364803|Mode |5|Motors |268 | 250 | 272 | 232|P |108|P1 |45| P2 |116|SP |6|SQ |-4|SR |-284|SAX |105|SPY |-82|SAZ |7043|PHI |414|THETA |80|PSI |-11602|Battery | 560|
+Time |76465294|Mode |5|Motors |269 | 249 | 273 | 230|P |108|P1 |45| P2 |116|SP |6|SQ |-3|SR |-275|SAX |55|SPY |-156|SAZ |7089|PHI |416|THETA |79|PSI |-11943|Battery | 581|
+Time |76565815|Mode |5|Motors |264 | 254 | 268 | 236|P |108|P1 |45| P2 |116|SP |5|SQ |-3|SR |-186|SAX |77|SPY |-84|SAZ |7051|PHI |413|THETA |76|PSI |-12183|Battery | 581|
+Time |76666304|Mode |5|Motors |266 | 252 | 270 | 234|P |108|P1 |45| P2 |116|SP |7|SQ |-4|SR |-237|SAX |71|SPY |-38|SAZ |7057|PHI |411|THETA |75|PSI |-12393|Battery | 560|
+Time |76767249|Mode |5|Motors |267 | 252 | 270 | 234|P |108|P1 |45| P2 |116|SP |4|SQ |-3|SR |-216|SAX |47|SPY |-112|SAZ |7061|PHI |408|THETA |74|PSI |-12656|Battery | 581|
+Time |76867263|Mode |5|Motors |262 | 257 | 265 | 239|P |108|P1 |45| P2 |116|SP |4|SQ |-3|SR |-134|SAX |5|SPY |-98|SAZ |7111|PHI |405|THETA |72|PSI |-12846|Battery | 581|
+Time |76967749|Mode |5|Motors |262 | 256 | 265 | 239|P |108|P1 |45| P2 |116|SP |3|SQ |-3|SR |-137|SAX |31|SPY |-84|SAZ |7107|PHI |400|THETA |71|PSI |-13004|Battery | 560|
+Time |77068271|Mode |5|Motors |262 | 256 | 265 | 239|P |108|P1 |45| P2 |116|SP |4|SQ |-2|SR |-142|SAX |27|SPY |-76|SAZ |7083|PHI |396|THETA |70|PSI |-13171|Battery | 581|
+Time |77168741|Mode |5|Motors |264 | 254 | 267 | 237|P |108|P1 |45| P2 |116|SP |5|SQ |-3|SR |-181|SAX |37|SPY |-88|SAZ |7131|PHI |395|THETA |71|PSI |-13367|Battery | 581|
+Time |77269274|Mode |5|Motors |260 | 257 | 263 | 241|P |108|P1 |45| P2 |116|SP |1|SQ |-2|SR |-88|SAX |29|SPY |-126|SAZ |7071|PHI |389|THETA |68|PSI |-13531|Battery | 560|
+Time |77369786|Mode |5|Motors |262 | 256 | 265 | 239|P |108|P1 |45| P2 |116|SP |3|SQ |-3|SR |-119|SAX |-15|SPY |-94|SAZ |7047|PHI |383|THETA |66|PSI |-13643|Battery | 581|
+Time |77470281|Mode |5|Motors |265 | 253 | 268 | 236|P |108|P1 |45| P2 |116|SP |7|SQ |-5|SR |-230|SAX |3|SPY |-126|SAZ |7081|PHI |383|THETA |61|PSI |-13833|Battery | 581|
+Time |77570808|Mode |5|Motors |264 | 254 | 267 | 237|P |108|P1 |45| P2 |116|SP |5|SQ |-3|SR |-205|SAX |61|SPY |-6|SAZ |7043|PHI |381|THETA |63|PSI |-14068|Battery | 560|
+Time |77671297|Mode |5|Motors |265 | 252 | 268 | 236|P |108|P1 |45| P2 |116|SP |4|SQ |-3|SR |-164|SAX |77|SPY |-90|SAZ |7111|PHI |381|THETA |64|PSI |-14302|Battery | 574|
+Time |77771808|Mode |5|Motors |263 | 255 | 266 | 238|P |108|P1 |45| P2 |116|SP |4|SQ |-3|SR |-151|SAX |15|SPY |-48|SAZ |7113|PHI |378|THETA |62|PSI |-14467|Battery | 581|
+Time |77872299|Mode |5|Motors |262 | 255 | 265 | 239|P |108|P1 |45| P2 |116|SP |2|SQ |-3|SR |-140|SAX |21|SPY |-24|SAZ |7073|PHI |377|THETA |62|PSI |-14641|Battery | 560|
+Time |77972765|Mode |5|Motors |257 | 260 | 260 | 244|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |-37|SAX |51|SPY |-60|SAZ |7051|PHI |373|THETA |61|PSI |-14743|Battery | 581|
+Time |78073262|Mode |5|Motors |257 | 261 | 259 | 245|P |108|P1 |45| P2 |116|SP |1|SQ |-2|SR |-47|SAX |69|SPY |-22|SAZ |7089|PHI |365|THETA |59|PSI |-14795|Battery | 581|
+Time |78173813|Mode |5|Motors |258 | 260 | 260 | 244|P |108|P1 |45| P2 |116|SP |1|SQ |-2|SR |-61|SAX |55|SPY |-34|SAZ |7073|PHI |359|THETA |57|PSI |-14870|Battery | 560|
+Time |78274305|Mode |5|Motors |258 | 259 | 261 | 244|P |108|P1 |45| P2 |116|SP |0|SQ |-3|SR |-70|SAX |37|SPY |-90|SAZ |7027|PHI |352|THETA |56|PSI |-14946|Battery | 574|
+Time |78374798|Mode |5|Motors |258 | 259 | 261 | 244|P |108|P1 |45| P2 |116|SP |0|SQ |-3|SR |-79|SAX |-3|SPY |-68|SAZ |7059|PHI |346|THETA |55|PSI |-15026|Battery | 581|
+Time |78475284|Mode |5|Motors |258 | 259 | 260 | 245|P |108|P1 |45| P2 |116|SP |1|SQ |-2|SR |-59|SAX |11|SPY |-48|SAZ |7043|PHI |342|THETA |53|PSI |-15102|Battery | 560|
+Time |78575814|Mode |5|Motors |257 | 260 | 259 | 246|P |108|P1 |45| P2 |116|SP |0|SQ |-3|SR |-34|SAX |21|SPY |-60|SAZ |7041|PHI |337|THETA |52|PSI |-15159|Battery | 581|
+Time |78676305|Mode |5|Motors |256 | 261 | 258 | 247|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |-23|SAX |9|SPY |-38|SAZ |7039|PHI |331|THETA |50|PSI |-15186|Battery | 581|
+Time |78776781|Mode |5|Motors |255 | 261 | 258 | 248|P |108|P1 |45| P2 |116|SP |0|SQ |-2|SR |-12|SAX |35|SPY |-60|SAZ |7025|PHI |325|THETA |48|PSI |-15201|Battery | 560|
+Time |78877290|Mode |5|Motors |254 | 262 | 257 | 249|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |29|SPY |-54|SAZ |7075|PHI |318|THETA |46|PSI |-15203|Battery | 581|
+Time |78977834|Mode |5|Motors |254 | 262 | 256 | 249|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |25|SPY |-54|SAZ |7059|PHI |313|THETA |45|PSI |-15203|Battery | 581|
+Time |79079075|Mode |5|Motors |255 | 262 | 256 | 249|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |41|SPY |-72|SAZ |7039|PHI |306|THETA |43|PSI |-15202|Battery | 560|
+Time |79179089|Mode |5|Motors |255 | 262 | 256 | 249|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |83|SPY |-106|SAZ |7051|PHI |301|THETA |41|PSI |-15201|Battery | 581|
+Time |79279318|Mode |5|Motors |255 | 262 | 256 | 249|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |117|SPY |-134|SAZ |7065|PHI |296|THETA |40|PSI |-15201|Battery | 581|
+Time |79379800|Mode |5|Motors |255 | 262 | 256 | 249|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |0|SAX |91|SPY |-110|SAZ |7051|PHI |292|THETA |39|PSI |-15200|Battery | 560|
+Time |79480724|Mode |5|Motors |255 | 262 | 256 | 249|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |69|SPY |-82|SAZ |7039|PHI |287|THETA |38|PSI |-15200|Battery | 574|
+Time |79580793|Mode |5|Motors |255 | 261 | 256 | 250|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |2|SAX |49|SPY |-72|SAZ |7067|PHI |283|THETA |36|PSI |-15199|Battery | 581|
+Time |79681263|Mode |5|Motors |254 | 262 | 255 | 251|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |19|SAX |41|SPY |-82|SAZ |7095|PHI |278|THETA |35|PSI |-15173|Battery | 560|
+Time |79781801|Mode |5|Motors |255 | 261 | 256 | 250|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |1|SAX |35|SPY |-72|SAZ |7091|PHI |273|THETA |34|PSI |-15161|Battery | 574|
+Time |79882292|Mode |5|Motors |255 | 261 | 256 | 250|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |1|SAX |51|SPY |-42|SAZ |7067|PHI |269|THETA |33|PSI |-15160|Battery | 581|
+Time |79982809|Mode |5|Motors |255 | 261 | 256 | 250|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |2|SAX |21|SPY |-32|SAZ |7039|PHI |265|THETA |32|PSI |-15158|Battery | 560|
+Time |80083295|Mode |5|Motors |249 | 267 | 250 | 256|P |108|P1 |45| P2 |116|SP |-3|SQ |0|SR |136|SAX |47|SPY |-118|SAZ |7077|PHI |258|THETA |30|PSI |-15086|Battery | 581|
+Time |80184214|Mode |5|Motors |249 | 267 | 250 | 257|P |108|P1 |45| P2 |116|SP |-3|SQ |-1|SR |88|SAX |15|SPY |-16|SAZ |7033|PHI |249|THETA |25|PSI |-14953|Battery | 581|
+Time |80284304|Mode |5|Motors |253 | 262 | 254 | 252|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |24|SAX |39|SPY |-52|SAZ |7091|PHI |244|THETA |24|PSI |-14900|Battery | 560|
+Time |80384837|Mode |5|Motors |249 | 267 | 249 | 257|P |108|P1 |45| P2 |116|SP |-7|SQ |1|SR |157|SAX |-11|SPY |-74|SAZ |7051|PHI |236|THETA |21|PSI |-14812|Battery | 574|
+Time |80485320|Mode |5|Motors |245 | 270 | 245 | 261|P |108|P1 |45| P2 |116|SP |-4|SQ |1|SR |174|SAX |23|SPY |34|SAZ |7069|PHI |227|THETA |17|PSI |-14609|Battery | 581|
+Time |80585941|Mode |5|Motors |245 | 270 | 246 | 261|P |108|P1 |45| P2 |116|SP |-4|SQ |0|SR |164|SAX |77|SPY |2|SAZ |7107|PHI |217|THETA |13|PSI |-14427|Battery | 560|
+Time |80686355|Mode |5|Motors |247 | 268 | 247 | 260|P |108|P1 |45| P2 |116|SP |-4|SQ |0|SR |147|SAX |37|SPY |-46|SAZ |7085|PHI |208|THETA |11|PSI |-14265|Battery | 574|
+Time |80787022|Mode |5|Motors |251 | 264 | 252 | 255|P |108|P1 |45| P2 |116|SP |-4|SQ |-2|SR |102|SAX |-23|SPY |-86|SAZ |7079|PHI |203|THETA |10|PSI |-14157|Battery | 581|
+Time |80887370|Mode |5|Motors |247 | 268 | 247 | 260|P |108|P1 |45| P2 |116|SP |-5|SQ |-1|SR |170|SAX |7|SPY |-46|SAZ |7025|PHI |195|THETA |9|PSI |-13992|Battery | 560|
+Time |80987830|Mode |5|Motors |246 | 269 | 246 | 261|P |108|P1 |45| P2 |116|SP |-4|SQ |0|SR |149|SAX |87|SPY |24|SAZ |7051|PHI |186|THETA |4|PSI |-13787|Battery | 574|
+Time |81088301|Mode |5|Motors |250 | 265 | 250 | 257|P |108|P1 |45| P2 |116|SP |-3|SQ |0|SR |100|SAX |25|SPY |-38|SAZ |7055|PHI |183|THETA |3|PSI |-13678|Battery | 581|
+Time |81188837|Mode |5|Motors |245 | 269 | 245 | 262|P |108|P1 |45| P2 |116|SP |-5|SQ |0|SR |222|SAX |139|SPY |-16|SAZ |7071|PHI |174|THETA |-1|PSI |-13518|Battery | 560|
+Time |81289334|Mode |5|Motors |243 | 271 | 243 | 265|P |108|P1 |45| P2 |116|SP |-8|SQ |2|SR |237|SAX |43|SPY |-102|SAZ |7063|PHI |165|THETA |-5|PSI |-13281|Battery | 574|
+Time |81390286|Mode |5|Motors |243 | 271 | 242 | 266|P |108|P1 |45| P2 |116|SP |-7|SQ |2|SR |214|SAX |63|SPY |-22|SAZ |7151|PHI |153|THETA |-11|PSI |-13016|Battery | 581|
+Time |81490326|Mode |5|Motors |244 | 270 | 244 | 264|P |108|P1 |45| P2 |116|SP |-7|SQ |0|SR |216|SAX |77|SPY |-62|SAZ |7049|PHI |145|THETA |-15|PSI |-12768|Battery | 560|
+Time |81590834|Mode |5|Motors |243 | 271 | 242 | 266|P |108|P1 |45| P2 |116|SP |-8|SQ |1|SR |239|SAX |95|SPY |-36|SAZ |7109|PHI |136|THETA |-19|PSI |-12511|Battery | 574|
+Time |81691357|Mode |5|Motors |243 | 271 | 242 | 266|P |108|P1 |45| P2 |116|SP |-5|SQ |1|SR |217|SAX |71|SPY |-112|SAZ |7059|PHI |129|THETA |-22|PSI |-12268|Battery | 581|
+Time |81791879|Mode |5|Motors |242 | 272 | 241 | 268|P |108|P1 |45| P2 |116|SP |-8|SQ |1|SR |254|SAX |65|SPY |-118|SAZ |7041|PHI |118|THETA |-27|PSI |-11985|Battery | 560|
+Time |81892740|Mode |5|Motors |245 | 268 | 244 | 264|P |108|P1 |45| P2 |116|SP |-6|SQ |1|SR |211|SAX |-77|SPY |-242|SAZ |7051|PHI |109|THETA |-31|PSI |-11731|Battery | 574|
+Time |81992841|Mode |5|Motors |240 | 274 | 238 | 270|P |108|P1 |45| P2 |116|SP |-8|SQ |3|SR |277|SAX |139|SPY |-68|SAZ |7011|PHI |97|THETA |-39|PSI |-11413|Battery | 581|
+Time |82093359|Mode |5|Motors |248 | 265 | 247 | 262|P |108|P1 |45| P2 |116|SP |-6|SQ |1|SR |182|SAX |67|SPY |-126|SAZ |7053|PHI |96|THETA |-39|PSI |-11228|Battery | 581|
+Time |82193930|Mode |5|Motors |242 | 271 | 240 | 268|P |108|P1 |45| P2 |116|SP |-10|SQ |3|SR |287|SAX |-5|SPY |-178|SAZ |7021|PHI |87|THETA |-42|PSI |-10963|Battery | 574|
+Time |82294444|Mode |5|Motors |238 | 275 | 236 | 273|P |108|P1 |45| P2 |116|SP |-12|SQ |5|SR |362|SAX |-21|SPY |-268|SAZ |7069|PHI |75|THETA |-53|PSI |-10580|Battery | 581|
+Time |82395590|Mode |5|Motors |241 | 272 | 239 | 270|P |108|P1 |45| P2 |116|SP |-9|SQ |2|SR |313|SAX |1|SPY |-220|SAZ |7019|PHI |65|THETA |-59|PSI |-10217|Battery | 560|
+Time |82495601|Mode |5|Motors |244 | 269 | 241 | 268|P |108|P1 |45| P2 |116|SP |-8|SQ |3|SR |239|SAX |-7|SPY |-162|SAZ |7025|PHI |62|THETA |-62|PSI |-9944|Battery | 560|
+Time |82595947|Mode |5|Motors |238 | 275 | 235 | 274|P |108|P1 |45| P2 |116|SP |-9|SQ |2|SR |342|SAX |7|SPY |-180|SAZ |7037|PHI |51|THETA |-70|PSI |-9607|Battery | 581|
+Time |82696882|Mode |5|Motors |240 | 273 | 237 | 272|P |108|P1 |45| P2 |116|SP |-8|SQ |2|SR |292|SAX |187|SPY |-142|SAZ |6967|PHI |43|THETA |-77|PSI |-9241|Battery | 560|
+Time |82796954|Mode |5|Motors |243 | 270 | 239 | 269|P |108|P1 |45| P2 |116|SP |-7|SQ |1|SR |293|SAX |57|SPY |-216|SAZ |7121|PHI |38|THETA |-79|PSI |-8955|Battery | 581|
+Time |82897420|Mode |5|Motors |243 | 270 | 240 | 269|P |108|P1 |45| P2 |116|SP |-5|SQ |2|SR |248|SAX |127|SPY |-160|SAZ |7029|PHI |34|THETA |-80|PSI |-8668|Battery | 581|
+Time |82998441|Mode |5|Motors |242 | 271 | 238 | 271|P |108|P1 |45| P2 |116|SP |-9|SQ |3|SR |273|SAX |47|SPY |-264|SAZ |7087|PHI |27|THETA |-84|PSI |-8368|Battery | 560|
+Time |83098537|Mode |5|Motors |243 | 270 | 239 | 270|P |108|P1 |45| P2 |116|SP |-7|SQ |1|SR |268|SAX |13|SPY |-162|SAZ |7149|PHI |20|THETA |-87|PSI |-8059|Battery | 560|
+Time |83198953|Mode |5|Motors |246 | 267 | 242 | 267|P |108|P1 |45| P2 |116|SP |-7|SQ |1|SR |231|SAX |55|SPY |-244|SAZ |7075|PHI |20|THETA |-88|PSI |-7808|Battery | 581|
+Time |83299440|Mode |5|Motors |241 | 272 | 237 | 272|P |108|P1 |45| P2 |116|SP |-8|SQ |1|SR |283|SAX |63|SPY |-220|SAZ |7121|PHI |13|THETA |-94|PSI |-7487|Battery | 560|
+Time |83399968|Mode |5|Motors |245 | 268 | 241 | 268|P |108|P1 |45| P2 |116|SP |-6|SQ |2|SR |216|SAX |121|SPY |-200|SAZ |7083|PHI |9|THETA |-93|PSI |-7216|Battery | 574|
+Time |83500716|Mode |5|Motors |241 | 272 | 236 | 273|P |108|P1 |45| P2 |116|SP |-8|SQ |2|SR |333|SAX |77|SPY |-206|SAZ |7051|PHI |4|THETA |-96|PSI |-6908|Battery | 581|
+Time |83600953|Mode |5|Motors |241 | 271 | 237 | 273|P |108|P1 |45| P2 |116|SP |-7|SQ |0|SR |272|SAX |43|SPY |-260|SAZ |7049|PHI |-4|THETA |-103|PSI |-6569|Battery | 560|
+Time |83701431|Mode |5|Motors |242 | 271 | 237 | 272|P |108|P1 |45| P2 |116|SP |-7|SQ |3|SR |278|SAX |61|SPY |-176|SAZ |7071|PHI |-8|THETA |-108|PSI |-6247|Battery | 581|
+Time |83801948|Mode |5|Motors |247 | 266 | 242 | 267|P |108|P1 |45| P2 |116|SP |-6|SQ |1|SR |194|SAX |19|SPY |-276|SAZ |7055|PHI |-10|THETA |-108|PSI |-5997|Battery | 581|
+Time |83902495|Mode |5|Motors |244 | 269 | 239 | 270|P |108|P1 |45| P2 |116|SP |-7|SQ |2|SR |250|SAX |121|SPY |-288|SAZ |7017|PHI |-13|THETA |-110|PSI |-5756|Battery | 560|
+Time |84002937|Mode |5|Motors |248 | 265 | 244 | 266|P |108|P1 |45| P2 |116|SP |-4|SQ |1|SR |160|SAX |105|SPY |-252|SAZ |7083|PHI |-16|THETA |-109|PSI |-5523|Battery | 574|
+Time |84103415|Mode |5|Motors |246 | 266 | 242 | 268|P |108|P1 |45| P2 |116|SP |-5|SQ |1|SR |187|SAX |3|SPY |-274|SAZ |7087|PHI |-19|THETA |-110|PSI |-5296|Battery | 581|
+Time |84203868|Mode |5|Motors |246 | 266 | 242 | 268|P |108|P1 |45| P2 |116|SP |-6|SQ |-1|SR |202|SAX |127|SPY |-184|SAZ |7061|PHI |-22|THETA |-111|PSI |-5064|Battery | 560|
+Time |84304411|Mode |5|Motors |245 | 268 | 240 | 269|P |108|P1 |45| P2 |116|SP |-6|SQ |-1|SR |205|SAX |121|SPY |-216|SAZ |7039|PHI |-25|THETA |-112|PSI |-4786|Battery | 595|
+Time |84404857|Mode |5|Motors |243 | 269 | 238 | 271|P |108|P1 |45| P2 |116|SP |-5|SQ |2|SR |258|SAX |85|SPY |-254|SAZ |7027|PHI |-27|THETA |-114|PSI |-4515|Battery | 581|
+Time |84505378|Mode |5|Motors |245 | 267 | 240 | 269|P |108|P1 |45| P2 |116|SP |-8|SQ |2|SR |244|SAX |-53|SPY |-306|SAZ |7009|PHI |-31|THETA |-117|PSI |-4239|Battery | 560|
+Time |84605880|Mode |5|Motors |244 | 269 | 239 | 271|P |108|P1 |45| P2 |116|SP |-5|SQ |1|SR |259|SAX |5|SPY |-290|SAZ |7067|PHI |-34|THETA |-120|PSI |-3956|Battery | 574|
+Time |84707144|Mode |5|Motors |245 | 267 | 240 | 269|P |108|P1 |45| P2 |116|SP |-4|SQ |0|SR |199|SAX |53|SPY |-294|SAZ |7085|PHI |-37|THETA |-123|PSI |-3689|Battery | 581|
+Time |84807198|Mode |5|Motors |243 | 270 | 237 | 272|P |108|P1 |45| P2 |116|SP |-6|SQ |2|SR |286|SAX |97|SPY |-184|SAZ |7129|PHI |-40|THETA |-124|PSI |-3422|Battery | 602|
+Time |84907442|Mode |5|Motors |249 | 264 | 244 | 266|P |108|P1 |45| P2 |116|SP |-7|SQ |-1|SR |170|SAX |-39|SPY |-408|SAZ |7091|PHI |-44|THETA |-126|PSI |-3155|Battery | 595|
+Time |85007880|Mode |5|Motors |251 | 261 | 246 | 264|P |108|P1 |45| P2 |116|SP |-2|SQ |1|SR |121|SAX |-27|SPY |-368|SAZ |7101|PHI |-44|THETA |-124|PSI |-2968|Battery | 581|
+Time |85108402|Mode |5|Motors |246 | 266 | 241 | 268|P |108|P1 |45| P2 |116|SP |-6|SQ |1|SR |239|SAX |117|SPY |-236|SAZ |7139|PHI |-45|THETA |-125|PSI |-2781|Battery | 560|
+Time |85208864|Mode |5|Motors |253 | 259 | 248 | 262|P |108|P1 |45| P2 |116|SP |-3|SQ |-1|SR |105|SAX |35|SPY |-322|SAZ |7081|PHI |-44|THETA |-118|PSI |-2647|Battery | 581|
+Time |85309656|Mode |5|Motors |257 | 256 | 252 | 258|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |35|SAX |-25|SPY |-284|SAZ |7083|PHI |-40|THETA |-111|PSI |-2602|Battery | 581|
+Time |85410000|Mode |5|Motors |254 | 258 | 250 | 260|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |46|SAX |85|SPY |-340|SAZ |7063|PHI |-37|THETA |-106|PSI |-2514|Battery | 581|
+Time |85510330|Mode |5|Motors |258 | 255 | 253 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |0|SAX |51|SPY |-302|SAZ |7051|PHI |-32|THETA |-98|PSI |-2504|Battery | 560|
+Time |85611152|Mode |5|Motors |257 | 255 | 254 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |0|SAX |43|SPY |-300|SAZ |7057|PHI |-27|THETA |-90|PSI |-2504|Battery | 602|
+Time |85711321|Mode |5|Motors |257 | 255 | 254 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |0|SAX |37|SPY |-320|SAZ |7061|PHI |-22|THETA |-82|PSI |-2504|Battery | 581|
+Time |85811768|Mode |5|Motors |257 | 255 | 254 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |0|SAX |41|SPY |-330|SAZ |7055|PHI |-18|THETA |-74|PSI |-2504|Battery | 560|
+Time |85912294|Mode |5|Motors |257 | 255 | 254 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |0|SAX |33|SPY |-316|SAZ |7085|PHI |-14|THETA |-67|PSI |-2504|Battery | 574|
+Time |86012749|Mode |5|Motors |257 | 255 | 254 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |-1|SAX |23|SPY |-300|SAZ |7063|PHI |-11|THETA |-61|PSI |-2504|Battery | 581|
+Time |86113857|Mode |5|Motors |257 | 255 | 254 | 256|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |-1|SAX |41|SPY |-288|SAZ |7075|PHI |-7|THETA |-55|PSI |-2504|Battery | 560|
+Time |86213879|Mode |5|Motors |256 | 255 | 254 | 256|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |39|SPY |-296|SAZ |7043|PHI |-4|THETA |-49|PSI |-2504|Battery | 574|
+Time |86314285|Mode |5|Motors |256 | 256 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |0|SAX |53|SPY |-308|SAZ |7081|PHI |0|THETA |-45|PSI |-2504|Battery | 581|
+Time |86414803|Mode |5|Motors |256 | 256 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |0|SAX |45|SPY |-294|SAZ |7065|PHI |4|THETA |-40|PSI |-2504|Battery | 560|
+Time |86515806|Mode |5|Motors |256 | 256 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-2|SR |1|SAX |15|SPY |-312|SAZ |7031|PHI |6|THETA |-36|PSI |-2503|Battery | 581|
+Time |86615821|Mode |5|Motors |256 | 256 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-2|SR |0|SAX |49|SPY |-312|SAZ |7047|PHI |9|THETA |-32|PSI |-2504|Battery | 581|
+Time |86716233|Mode |5|Motors |256 | 256 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |0|SAX |47|SPY |-320|SAZ |7045|PHI |11|THETA |-29|PSI |-2503|Battery | 560|
+Time |86816764|Mode |5|Motors |256 | 256 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |0|SAX |61|SPY |-302|SAZ |7041|PHI |14|THETA |-25|PSI |-2503|Battery | 581|
+Time |86917416|Mode |5|Motors |256 | 256 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |-1|SAX |9|SPY |-280|SAZ |7037|PHI |16|THETA |-21|PSI |-2503|Battery | 581|
+Time |87018177|Mode |5|Motors |256 | 256 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-2|SR |0|SAX |67|SPY |-312|SAZ |7097|PHI |18|THETA |-18|PSI |-2503|Battery | 560|
+Time |87118263|Mode |5|Motors |256 | 256 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |0|SAX |33|SPY |-308|SAZ |7081|PHI |20|THETA |-15|PSI |-2503|Battery | 574|
+Time |87218755|Mode |5|Motors |256 | 256 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |0|SAX |39|SPY |-308|SAZ |7075|PHI |22|THETA |-12|PSI |-2502|Battery | 581|
+Time |87319274|Mode |5|Motors |256 | 256 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |-1|SAX |55|SPY |-312|SAZ |7027|PHI |24|THETA |-9|PSI |-2502|Battery | 560|
+Time |87419794|Mode |5|Motors |256 | 256 | 255 | 255|P |108|P1 |45| P2 |116|SP |1|SQ |-1|SR |0|SAX |41|SPY |-298|SAZ |7039|PHI |26|THETA |-7|PSI |-2502|Battery | 574|
+Time |87520259|Mode |5|Motors |256 | 256 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |0|SAX |61|SPY |-302|SAZ |7083|PHI |28|THETA |-5|PSI |-2502|Battery | 581|
+Time |87620732|Mode |5|Motors |255 | 256 | 255 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |1|SAX |59|SPY |-320|SAZ |7053|PHI |29|THETA |-2|PSI |-2502|Battery | 560|
+Time |87721241|Mode |5|Motors |255 | 256 | 256 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-2|SR |0|SAX |13|SPY |-310|SAZ |7103|PHI |30|THETA |0|PSI |-2502|Battery | 574|
+Time |87821782|Mode |5|Motors |255 | 256 | 256 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |1|SAX |53|SPY |-286|SAZ |7041|PHI |31|THETA |1|PSI |-2501|Battery | 574|
+Time |87922276|Mode |5|Motors |255 | 256 | 256 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |0|SAX |45|SPY |-328|SAZ |7057|PHI |32|THETA |3|PSI |-2501|Battery | 560|
+Time |88023127|Mode |5|Motors |255 | 256 | 256 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |0|SAX |45|SPY |-290|SAZ |7073|PHI |33|THETA |5|PSI |-2501|Battery | 581|
+Time |88123265|Mode |5|Motors |255 | 256 | 256 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |0|SAX |43|SPY |-306|SAZ |7079|PHI |34|THETA |6|PSI |-2501|Battery | 581|
+Time |88223807|Mode |5|Motors |255 | 256 | 256 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-2|SR |-1|SAX |21|SPY |-306|SAZ |7057|PHI |35|THETA |7|PSI |-2501|Battery | 560|
+Time |88324274|Mode |5|Motors |255 | 256 | 256 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |-1|SAX |47|SPY |-324|SAZ |7069|PHI |36|THETA |9|PSI |-2501|Battery | 574|
+Time |88424799|Mode |5|Motors |255 | 256 | 256 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |69|SPY |-292|SAZ |7055|PHI |37|THETA |10|PSI |-2500|Battery | 581|
+Time |88525290|Mode |5|Motors |255 | 256 | 256 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |-1|SAX |43|SPY |-330|SAZ |7043|PHI |38|THETA |12|PSI |-2501|Battery | 560|
+Time |88625812|Mode |5|Motors |255 | 256 | 256 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |0|SAX |21|SPY |-294|SAZ |7069|PHI |39|THETA |13|PSI |-2501|Battery | 574|
+Time |88726303|Mode |5|Motors |255 | 256 | 256 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-2|SR |1|SAX |27|SPY |-308|SAZ |7047|PHI |39|THETA |14|PSI |-2501|Battery | 602|
+Time |88826789|Mode |5|Motors |255 | 256 | 256 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-2|SR |0|SAX |45|SPY |-290|SAZ |7067|PHI |40|THETA |14|PSI |-2500|Battery | 560|
+Time |88927312|Mode |5|Motors |255 | 256 | 256 | 255|P |108|P1 |45| P2 |116|SP |0|SQ |-2|SR |0|SAX |43|SPY |-300|SAZ |7079|PHI |41|THETA |16|PSI |-2500|Battery | 574|
+Time |89027937|Mode |5|Motors |255 | 256 | 256 | 255|P |108|P1 |45| P2 |116|SP |1|SQ |0|SR |0|SAX |15|SPY |-288|SAZ |7109|PHI |41|THETA |17|PSI |-2499|Battery | 581|
+Time |89128299|Mode |5|Motors |255 | 256 | 256 | 255|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |-1|SAX |35|SPY |-306|SAZ |7055|PHI |42|THETA |18|PSI |-2500|Battery | 560|
+Time |89228770|Mode |5|Motors |250 | 271 | 249 | 252|P |108|P1 |45| P2 |116|SP |251|SQ |15|SR |171|SAX |-275|SPY |394|SAZ |6757|PHI |76|THETA |7|PSI |-2497|Battery | 574|
+Time |89329297|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-4|SQ |-3|SR |1|SAX |43|SPY |-240|SAZ |7071|PHI |92|THETA |14|PSI |-2465|Battery | 581|
+Time |89430097|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |29|SPY |-224|SAZ |7043|PHI |92|THETA |15|PSI |-2465|Battery | 560|
+Time |89530302|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |61|SPY |-242|SAZ |7043|PHI |92|THETA |16|PSI |-2465|Battery | 574|
+Time |89630802|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |0|SAX |21|SPY |-204|SAZ |7073|PHI |92|THETA |17|PSI |-2464|Battery | 581|
+Time |89731318|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |39|SPY |-226|SAZ |7065|PHI |93|THETA |16|PSI |-2464|Battery | 560|
+Time |89831777|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |33|SPY |-212|SAZ |7081|PHI |93|THETA |17|PSI |-2464|Battery | 574|
+Time |89932326|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |35|SPY |-204|SAZ |7085|PHI |93|THETA |17|PSI |-2464|Battery | 581|
+Time |90033525|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-3|SR |0|SAX |57|SPY |-226|SAZ |7069|PHI |93|THETA |18|PSI |-2464|Battery | 560|
+Time |90133537|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |51|SPY |-216|SAZ |7071|PHI |92|THETA |18|PSI |-2464|Battery | 574|
+Time |90233788|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |0|SAX |77|SPY |-206|SAZ |7015|PHI |92|THETA |19|PSI |-2464|Battery | 581|
+Time |90334331|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |43|SPY |-214|SAZ |7047|PHI |92|THETA |19|PSI |-2463|Battery | 560|
+Time |90434905|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |37|SPY |-232|SAZ |7085|PHI |92|THETA |19|PSI |-2463|Battery | 581|
+Time |90535337|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |41|SPY |-240|SAZ |7067|PHI |92|THETA |20|PSI |-2463|Battery | 581|
+Time |90635802|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |0|SQ |-1|SR |0|SAX |37|SPY |-210|SAZ |7069|PHI |92|THETA |21|PSI |-2463|Battery | 560|
+Time |90736327|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |37|SPY |-220|SAZ |7039|PHI |92|THETA |21|PSI |-2463|Battery | 574|
+Time |90836823|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |0|SAX |41|SPY |-230|SAZ |7053|PHI |93|THETA |21|PSI |-2463|Battery | 581|
+Time |90938080|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |0|SAX |37|SPY |-216|SAZ |7071|PHI |93|THETA |22|PSI |-2462|Battery | 560|
+Time |91038090|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |0|SQ |0|SR |0|SAX |39|SPY |-210|SAZ |7057|PHI |92|THETA |22|PSI |-2462|Battery | 581|
+Time |91138270|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-2|SR |0|SAX |51|SPY |-220|SAZ |7051|PHI |92|THETA |22|PSI |-2462|Battery | 581|
+Time |91238813|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |45|SPY |-218|SAZ |7111|PHI |92|THETA |23|PSI |-2462|Battery | 560|
+Time |91339729|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |27|SPY |-246|SAZ |7081|PHI |92|THETA |22|PSI |-2462|Battery | 574|
+Time |9143
+<exit>
+9822|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |67|SPY |-212|SAZ |7091|PHI |92|THETA |22|PSI |-2462|Battery | 581|
+Time |91540321|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |35|SPY |-198|SAZ |7075|PHI |91|THETA |22|PSI |-2461|Battery | 560|
+Time |91640839|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |-1|SAX |33|SPY |-216|SAZ |7073|PHI |92|THETA |22|PSI |-2461|Battery | 574|
+Time |91742030|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |-1|SAX |45|SPY |-216|SAZ |7023|PHI |92|THETA |23|PSI |-2462|Battery | 581|
+Time |91842046|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |0|SAX |29|SPY |-208|SAZ |7019|PHI |92|THETA |23|PSI |-2462|Battery | 560|
+Time |91942292|Mode |5|Motors |255 | 257 | 256 | 254|P |108|P1 |45| P2 |116|SP |-1|SQ |-1|SR |-1|SAX |31|SPY |-230|SAZ |7049|PHI |92|THETA |24|PSI |-2462|Battery | 574|
+Hitting CTRL+C. Attempt to quit normally.
+Expect <exit>...

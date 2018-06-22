@@ -43,9 +43,9 @@ void mode_5_full_INIT()
     flight_coeffs[YAW] = 15;
 
     // initialize the global variable for the controller.
-    p_yaw = P_SCALE;
-    p_p1 = P_SCALE;
-    p_p2 = P_SCALE;
+    p_yaw = 108;
+    p_p1 = 45;
+    p_p2 = 116;
 }
 
 void mode_5_full_QUIT()
