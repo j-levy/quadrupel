@@ -320,7 +320,8 @@ int main(int argc, char **argv)
 	{
 
 		// Response time is a bit variable. Latency can be percieved still.
-
+		clock_gettime(CLOCK_REALTIME, &tp);
+		
 		// poll axes with raw-OS method
 		js_getJoystickValue(&fd, &js, jsdat);
 		for (int j = 0; j < NBRAXES; j++)
@@ -381,9 +382,12 @@ int main(int argc, char **argv)
 				isContinuing = 0;
 			else
 				control_packet[KEY] = d;
+
+
+			printf("key | %c | pc_time | %d,%d", tp.tv_sec, tp.tv_nsec);
 		}
 
-		clock_gettime(CLOCK_REALTIME, &tp);
+		
 		if ((tp.tv_nsec - tic >= DELAY_PACKET_NS || tp.tv_sec - tic_s > 0) && !is_sending_packet)
 		{
 			tic = tp.tv_nsec;

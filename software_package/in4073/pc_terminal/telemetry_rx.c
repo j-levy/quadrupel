@@ -102,6 +102,8 @@ void process_telemetry(uint8_t c)
             theta_value = packet_rx[THETA]<<8|packet_rx[THETA+1];
             psi_value = packet_rx[PSI]<<8|packet_rx[PSI+1];
 
+            printf("Mode |%d|\n", packet_rx[MODE_DRONE]);
+            /*
             printf("Time |%6d|", timestamp);
             printf("Mode |%d|", packet_rx[MODE_DRONE]);
             printf("Motors |%3d | %3d | %3d | %3d|", motor1,motor2,motor3,motor4);
@@ -122,7 +124,8 @@ void process_telemetry(uint8_t c)
             // printf("|%6d %6d %6d|",phi,theta,psi);
             // printf("|%6d %6d %6d|",sp,sq,sr);
             printf("Battery |%4d|\n",bat_volt);
-            //printf("|%6d| \n", pressure);        
+            //printf("|%6d| \n", pressure);   
+            */     
         }  
         else if (crc != 0)
         {
